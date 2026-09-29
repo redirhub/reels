@@ -13,8 +13,8 @@ const CDN = process.env.NEXT_PUBLIC_REELS_BASE_URL ?? 'https://dcr3565853rcg.clo
 /* Which rendered MP4 to play (native video scrubs instantly, and it's exactly what CI
    rendered, so it catches anything the in-browser Player gets wrong):
    - production: main's published render (<id>/latest.mp4)
-   - branch previews: CI's render of this exact commit (previews/<id>/<sha>.mp4),
-     published by the branch push; see docs/aws/SETUP.md
+   - branch previews: CI's render of this exact commit (renders/<id>/<sha>.mp4),
+     uploaded by the branch push; main updates latest.mp4 after the merge
    - local dev: none, live Player only */
 const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
 const COMMIT = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
@@ -25,8 +25,8 @@ function renderedFor(id: string) {
         return { mp4: `${CDN}/${id}/latest.mp4`, poster: `${CDN}/${id}/latest.jpg`, download: `${CDN}/${id}/download.mp4` };
     }
     if (COMMIT) {
-        const mp4 = `${CDN}/previews/${id}/${COMMIT}.mp4`;
-        return { mp4, poster: `${CDN}/previews/${id}/${COMMIT}.jpg`, download: mp4 };
+        const mp4 = `${CDN}/renders/${id}/${COMMIT}.mp4`;
+        return { mp4, poster: `${CDN}/renders/${id}/${COMMIT}.jpg`, download: mp4 };
     }
     return null;
 }

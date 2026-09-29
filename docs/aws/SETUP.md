@@ -1,33 +1,29 @@
 # Publishing reels to S3 + CloudFront
 
-On every push to `main`, CI renders the reels and uploads them to S3. They're
-served publicly from CloudFront at:
+CI renders on every branch push and uploads to S3, served from CloudFront:
+
+- **Every push, any branch:** `renders/<id>/<commit>.mp4|.jpg`, that commit's render. A branch's
+  Vercel preview plays it under **Rendered MP4**.
+- **`main` only (after a merge):** also updates the public `latest` links, `download.mp4` and
+  `index.json`, and invalidates them in CloudFront.
 
 ```
 https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4     stable link to the newest render
 https://dcr3565853rcg.cloudfront.net/reels/<id>/download.mp4   same file, downloads instead of playing
 https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.jpg     cover image
-https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/<commit>.mp4   a specific render, kept 90 days
+https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/<commit>.mp4   any commit's render (any branch), kept 90 days
 https://dcr3565853rcg.cloudfront.net/reels/index.json          manifest of all reels
 ```
 
-Every **branch** push also publishes that commit's render for the branch's Vercel
-preview, which plays it under **Rendered MP4**:
-
-```
-https://dcr3565853rcg.cloudfront.net/reels/previews/<id>/<commit>.mp4|.jpg   kept 14 days
-```
-
-Branch previews use the **same role** as `main`; in preview mode `publish-s3.sh` writes
-only `reels/previews/*`. The role itself could write any `reels/*` path, which is
-acceptable while `main` isn't branch-protected (anyone who can push a branch can push to
-`main` too). If `main` gets protection later, give branches a separate role limited to
-`reels/previews/*`. Preview URLs contain the full commit SHA and aren't linked anywhere
-public, but anyone who has one can open it.
+Branches use the **same role** as `main`; on a branch `publish-s3.sh` writes only
+`reels/renders/*`. The role itself could write any `reels/*` path, which is acceptable
+while `main` isn't branch-protected (anyone who can push a branch can push to `main` too).
+Commit render URLs contain the full commit SHA and aren't linked anywhere public, but
+anyone who has one can open it.
 
 GitHub signs in to AWS with short-lived OIDC tokens, so no AWS keys are stored
 in GitHub. The role can only write under `reels/` in one bucket and invalidate one
-distribution, and only runs on `main` can assume it.
+distribution, and only workflow runs of `redirhub/reels` can assume it.
 
 ## One-time setup (AWS admin)
 
@@ -46,7 +42,7 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    RedirHub's GitHub organization uses a custom OIDC subject template. Keep the
    `token.actions.githubusercontent.com:sub` value from that file exactly; its organization
    and repository IDs are deliberate and restrict this role to `redirhub/reels`. It matches
-   `ref:refs/heads/*` (`StringLike`), so every branch can publish its preview.
+   `ref:refs/heads/*` (`StringLike`), so every branch can upload its commit renders.
 
    To check the template or rebuild the subject (for another repo, or after a change), look
    up the values with the GitHub CLI:
@@ -70,7 +66,6 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    `reels/renders/<id>/<commit>.mp4|.jpg` (~5 MB per reel) and overwrites the `latest`
    files. Without rules these accumulate forever. [`reels-lifecycle.json`](reels-lifecycle.json):
    - expires `reels/renders/` objects after **90 days** (the `latest` links are unaffected);
-   - expires branch previews (`reels/previews/`) after **14 days**;
    - if the bucket has **versioning** on, deletes overwritten versions of `reels/` files after
      7 days (otherwise every publish silently keeps the previous `latest.mp4` and
      `download.mp4`), and cleans up failed multipart uploads.

@@ -15,10 +15,10 @@ copy fix is a code change plus a re-render.
 
 | | How |
 |---|---|
-| **Preview (team)** | The gallery at <https://reels-redirhub.vercel.app>. Production plays `main`'s published MP4. Each branch's Vercel preview plays **CI's render of that exact commit** (published about 3–4 minutes after the push), so what you see is what `main` will publish. Until it's ready, the preview falls back to **Live preview** (renders in the browser). |
+| **Preview (team)** | The gallery at <https://reels-redirhub.vercel.app>. Production plays `main`'s published MP4. Each branch's Vercel preview plays **CI's render of that exact commit** (`renders/<id>/<commit>.mp4`, uploaded about 3–4 minutes after the push), so what you see is what `main` will publish. Until it's ready, the preview falls back to **Live preview** (renders in the browser). |
 | **Preview (editing)** | `npm run studio` opens Remotion Studio with a timeline, frame scrubbing and props. |
 | **Render** | `npm run render` (all reels) or `npm run render -- qr-no-reprint`. Writes `out/<id>.mp4` (H.264, AAC) and `out/<id>.jpg` (cover). |
-| **Download** | Every push to `main` renders and publishes to the public CDN: `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4` (stable link), `…/download.mp4` (downloads instead of playing), `…/latest.jpg` (cover), plus an immutable `reels/renders/<id>/<commit>.mp4` per render (kept 90 days) and `reels/index.json`. Every branch push publishes `reels/previews/<id>/<commit>.mp4` (kept 14 days) for its Vercel preview. Docs-only commits skip rendering. Each run also keeps a private `reels-<sha>` artifact (7 days). Setup: [`docs/aws/SETUP.md`](docs/aws/SETUP.md). |
+| **Download** | Every push to `main` renders and publishes to the public CDN: `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4` (stable link), `…/download.mp4` (downloads instead of playing), `…/latest.jpg` (cover), plus an immutable `reels/renders/<id>/<commit>.mp4` per render (kept 90 days) and `reels/index.json`. Branch pushes upload only their `renders/<id>/<commit>.mp4`; the public `latest` links change only when `main` updates after a merge. Docs-only commits skip rendering. Each run also keeps a private `reels-<sha>` artifact (7 days). Setup: [`docs/aws/SETUP.md`](docs/aws/SETUP.md). |
 
 ## Getting started
 

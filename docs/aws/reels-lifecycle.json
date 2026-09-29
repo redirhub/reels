@@ -11,16 +11,6 @@
       }
     },
     {
-      "ID": "reels-expire-branch-previews",
-      "Status": "Enabled",
-      "Filter": {
-        "Prefix": "reels/previews/"
-      },
-      "Expiration": {
-        "Days": 14
-      }
-    },
-    {
       "ID": "reels-expire-overwritten-versions",
       "Status": "Enabled",
       "Filter": {
