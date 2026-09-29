@@ -64,9 +64,9 @@ RedirHub fixes it without a reprint.
 | Time | Beat | On screen | Audio |
 |---|---|---|---|
 | 0–3.3s | Hook | "10,000 flyers printed. Then the site changed." A phone scans the flyer QR and gets a 404 (red flash). | Kick and hats from the first frame; impact at the 404, then silence |
-| 3.3–6.8s | Stakes | Static QR: *reprint all 10,000*. RedirHub QR on your domain: *change one field*. | Kick and hats back in, clap roll and riser |
-| 6.8–17.4s | Product | Monitor alert flags the 404 → open the link → retype the destination → Save → "Monitored · Healthy", QR "Unchanged ✓". | **Drop** at 6.55s: clap, open hats and a crash join; alert, click, typing and success sounds |
-| 17.4–25.4s | Before / after | Same printed QR: a 404 on one phone, the live sale page on the other. | Whoosh; the full drum groove continues |
+| 3.3–6.8s | Stakes | Static QR: *reprint all 10,000*. RedirHub QR on your domain: *change one field*. | Kick and hats back in, clap roll into the drop |
+| 6.8–17.4s | Product | Monitor alert flags the 404 → open the link → retype the destination → Save → "Monitored · Healthy", QR "Unchanged ✓". | **Drop** at 6.55s: clap, open hats and a crash join; an alert ding, then a success chime on save |
+| 17.4–25.4s | Before / after | Same printed QR: a 404 on one phone, the live sale page on the other. | One soft whoosh; the full drum groove continues |
 | 25.4–30s | CTA | Logo, "Dynamic QR codes. On your domain.", audience line, "Start free at redirhub.com", scannable QR. | End-card stinger, then the beat fades out |
 
 **Messaging basis (Notion):** use case *Trackable QR codes*. Signature POV *"A QR code is a

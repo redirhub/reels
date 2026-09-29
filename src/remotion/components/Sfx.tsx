@@ -8,11 +8,22 @@ import manifest from '../../../public/audio/sfx/manifest.json';
 export const SFX_SECONDS = manifest;
 
 export type SfxName = keyof typeof SFX_SECONDS;
+
+/** Restraint is the style: one effect per story beat, none for UI micro-actions.
+    At most this many cues per 30 seconds of video (e.g. 6 in a 30s reel). */
+export const MAX_SFX_PER_30S = 6;
 /** [start (s), effect, volume 0–1] */
 export type SfxCue = readonly [number, SfxName, number];
 
 export function Sfx({ cues }: { cues: readonly SfxCue[] }) {
-    const { fps } = useVideoConfig();
+    const { fps, durationInFrames } = useVideoConfig();
+    const budget = Math.max(1, Math.floor((durationInFrames / fps / 30) * MAX_SFX_PER_30S));
+    if (cues.length > budget) {
+        throw new Error(
+            `${cues.length} sound effects is too many (max ${budget} for this length). Keep one per story beat ` +
+            '(problem, detection, fix, cut to result, end card) and drop UI sounds like clicks and typing. See docs/reel-playbook.md.',
+        );
+    }
     return (
         <>
             {cues.map(([at, name, volume], i) => (

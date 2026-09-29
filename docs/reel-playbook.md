@@ -62,9 +62,12 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
      (kick, clap, hats, shaker; no bass, chords or melody). The reel id picks small pattern variations.
    - Keep effect volumes so that the QA check's peak stays at or below -1 dBFS; long effects that
      ring over the full beat (like the end-card stinger) need a lower volume.
-   - **SFX on top:** they connect the music to the picture. Place them with `<Sfx cues=… />`
-     on on-screen events: impacts on reveals, whooshes on transitions, clicks on clicks,
-     success on saves, a stinger on the end card. Premix rapid sequences like typing into one file.
+   - **SFX on top, restrained:** they connect the music to the picture, so use them only on
+     **story beats**, about one per scene, 6 at most per 30s (`<Sfx>` refuses more). Typical set:
+     the problem (impact), the detection (alert), the fix (success), the cut to the result
+     (whoosh), the end card (stinger). **No sounds for UI micro-actions** (clicks, typing,
+     hovers), and no risers into a drop the beat already builds. Keep them under the beat:
+     volumes around 0.3–0.7.
 7. **Verify.** Run `npm run render -- <id>`, then:
    ```bash
    pip install -r scripts/qa/requirements.txt
@@ -87,6 +90,7 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 |---|---|
 | **Remotion in its own repo** (not in `redirhub/marketing`) | Heavy dependencies (Chromium, FFmpeg) and a different review cycle; keeps the site's builds clean |
 | **Music + SFX, no voiceover** | Owner's call. Most people watch muted, so the story is carried by on-screen copy |
+| **SFX only on story beats (≤ 6 per 30s), none for UI micro-actions** | Owner's call: 13 effects in 30s felt cluttered. Five, one per story beat, reads as a premium ad; enforced by `<Sfx>` |
 | **Drums-only beat per reel + scene SFX, not composed music** | Owner's direction: drums plus scene sound effects is the premium ad sound, and more layers made it cluttered. A fixed style with `music.json` per reel means no session ever composes music, and every reel sounds consistent. SFX carry the video-specific moments |
 | **Audio is synthesized** (`scripts/audio/generate.py`), pinned deps | Original and royalty-free, reproducible byte for byte |
 | **QR design standard**: branded link always shown under the QR (`<BrandedQr>`) | People see where it goes before they scan, which builds trust. CTA QRs encode a RedirHub branded link (`https://redirhub.com/qr`) whose label matches exactly |
