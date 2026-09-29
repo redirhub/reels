@@ -67,9 +67,10 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
    Then **look at `out/qa/<id>/sheet.png`**: overlaps, safe area (pink lines), text wrapping,
    cursor on target. Most real bugs were only visible there. Listen to the audio yourself;
    agents can't, so they measure loudness and correlate SFX timing instead.
-8. **Ship.** Open a PR. CI renders it and attaches the MP4 as an artifact (private), and the
-   Vercel preview shows it under **Live preview**. After merge, `main` publishes to
-   `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4`.
+8. **Ship.** Push a branch and open a PR. CI renders every push and publishes that commit's
+   MP4 to the branch's Vercel preview (**Rendered MP4** tab, about 3–4 minutes after the push).
+   Review that, not the live Player: the in-browser version can differ from the real render.
+   After merge, `main` publishes to `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4`.
 9. **Post.** Add the caption suggestion to the README. Music added in-app is optional,
    since the MP4 already has its own track.
 
@@ -82,7 +83,7 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 | **Audio is synthesized** (`scripts/audio/generate.py`), pinned deps | Original and royalty-free, reproducible byte for byte |
 | **QR design standard**: branded link always shown under the QR (`<BrandedQr>`) | People see where it goes before they scan, which builds trust. CTA QRs encode a RedirHub branded link (`https://redirhub.com/qr`) whose label matches exactly |
 | **Story QRs encode `redirhub.com/qr`** even when labelled with a demo domain | Demo domains (`yourbrand.com`) belong to someone else; never send viewers there |
-| **Only `main` publishes publicly**; PR renders stay private artifacts | An unapproved campaign should never have a public URL |
+| **Every push uploads `renders/<id>/<commit>.mp4`; only `main` (after a merge) updates the public `latest` links** | The in-browser Player sometimes renders differently from the real MP4, so reviews must see CI's render (owner's call). Branches share the main publish role (acceptable while `main` is unprotected); commit renders are unlisted and expire after 90 days |
 | **S3 + CloudFront** (`dcr3565853rcg.cloudfront.net/reels/`), GitHub OIDC with a custom subject | Public, stable links; no stored AWS keys; details in `docs/aws/SETUP.md` |
 | **Gallery plays the MP4 by default in production**; live Player on branch previews | Native video scrubs instantly. The live Player is for unpublished changes |
 | **Per-commit renders expire after 90 days** (`reels/renders/`) | Otherwise storage grows forever. `latest` links are unaffected |

@@ -1,9 +1,10 @@
 name: Render reels
 
+# Every branch push renders. Pull requests show the check from their head commit, so
+# there's no separate pull_request trigger (it would render everything twice).
 on:
-  pull_request:
   push:
-    branches: [main]
+    branches: ['**']
   workflow_dispatch:
 
 concurrency:
@@ -16,7 +17,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
-      id-token: write # GitHub OIDC → AWS role (main only; see docs/aws/SETUP.md)
+      id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,7 +29,7 @@ jobs:
         id: changes
         env:
           EVENT: ${{ github.event_name }}
-          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          BASE: ${{ github.event.before }}
         run: |
           render=true
           if [ "$EVENT" != workflow_dispatch ] && [ -n "$BASE" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
@@ -54,7 +55,7 @@ jobs:
         if: steps.changes.outputs.render == 'true'
         run: npm run render
 
-      # Pull requests stay private: renders are only available as this run's artifact.
+      # Also kept as a private artifact, e.g. while publishing isn't configured.
       - uses: actions/upload-artifact@v4
         if: steps.changes.outputs.render == 'true'
         with:
@@ -62,22 +63,35 @@ jobs:
           path: out/
           retention-days: 7
 
+      # Every branch push uploads renders/<id>/<commit>.mp4 (its Vercel preview plays it);
+      # main additionally updates the public latest links. Strict on main, best-effort on
+      # branches: a missing branch render must never block a branch (the gallery falls
+      # back to the live Player).
       - name: Configure AWS credentials
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        id: aws
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && vars.AWS_ROLE_ARN != ''
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Publish to S3 + CloudFront
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        id: publish
+        if: steps.aws.outcome == 'success'
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         env:
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-        run: scripts/publish-s3.sh
+          REELS_PUBLISH_LATEST: ${{ github.ref == 'refs/heads/main' && '1' || '' }}
+        run: scripts/publish-s3.sh | tee "$RUNNER_TEMP/published.txt"
+
+      - name: Branch render not published
+        if: github.ref != 'refs/heads/main' && (steps.aws.outcome == 'failure' || steps.publish.outcome == 'failure')
+        run: echo "::warning::This branch's render wasn't uploaded (is the role's trust policy updated for ref:refs/heads/*? See docs/aws/SETUP.md). It's still in this run's artifact."
 
       - name: Publishing not configured
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN == ''
+        if: github.event_name == 'push' && vars.AWS_ROLE_ARN == ''
         run: echo "::warning::AWS_ROLE_ARN is not set, so renders were not published. See docs/aws/SETUP.md."
 
       - name: Summary
@@ -91,10 +105,10 @@ jobs:
               exit 0
             fi
             echo "Artifact: **reels-${{ github.sha }}** (this run)."
-            if [ -f out/index.json ]; then
+            if [ -s "$RUNNER_TEMP/published.txt" ]; then
               echo
               echo "Published:"
-              jq -r '.reels[] | "- \(.id): \(.mp4)"' out/index.json
+              sed -E 's/^(render|latest) /- \1: /' "$RUNNER_TEMP/published.txt" | grep '^- ' || true
             fi
             echo
             echo '| File | Size |'
