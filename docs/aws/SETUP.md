@@ -26,7 +26,7 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    - Provider URL: `https://token.actions.githubusercontent.com`
    - Audience: `sts.amazonaws.com`
 
-2. **Role** `github-redirhub-reels-publish`:
+2. **Role** `github-actions-reels-publisher`:
    IAM → Roles → Create role → Custom trust policy → paste
    [`github-oidc-trust-policy.json`](github-oidc-trust-policy.json).
    Then add an inline policy from [`reels-publish-policy.json`](reels-publish-policy.json).
@@ -47,11 +47,10 @@ of these are secrets.
 
 | Variable | Example |
 |---|---|
-| `AWS_ROLE_ARN` | `arn:aws:iam::123456789012:role/github-redirhub-reels-publish` |
+| `AWS_ROLE_ARN` | `arn:aws:iam::123456789012:role/github-actions-reels-publisher` |
 | `AWS_REGION` | the bucket's region, e.g. `us-east-1` |
 | `REELS_S3_BUCKET` | bucket name only, no `s3://` |
-| `REELS_CLOUDFRONT_DISTRIBUTION_ID` | e.g. `E1ABCDEF2GHIJK` |
-| `REELS_PUBLIC_BASE_URL` | optional; defaults to `https://dcr3565853rcg.cloudfront.net/reels` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | e.g. `E1ABCDEF2GHIJK` |
 
 Until `AWS_ROLE_ARN` is set, `main` builds still render and attach artifacts, and
 log a warning that nothing was published.
