@@ -10,10 +10,30 @@ loadBrandFonts();
 /** Public CDN root that CI publishes to on every push to main (docs/aws/SETUP.md). */
 const CDN = process.env.NEXT_PUBLIC_REELS_BASE_URL ?? 'https://dcr3565853rcg.cloudfront.net/reels';
 
-/* Production shows what's published on main, so the rendered MP4 is the default:
-   native video scrubs instantly. Branch previews (and local dev) default to the live
-   Player, because the CDN only has main's render, not this branch's changes. */
-const IS_PRODUCTION = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
+/* Which rendered MP4s to try, in order (native video scrubs instantly, and it's exactly
+   what CI rendered, so it catches anything the in-browser Player gets wrong):
+   - production: main's published render (<id>/latest.mp4)
+   - branch previews: CI's render of this exact commit (renders/<id>/<sha>.mp4), then
+     main's latest.mp4. CI only renders the reels a push affects, so an untouched reel
+     has no render for this commit and main's version is the right one to show.
+   - local dev: none, live Player only */
+const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
+const COMMIT = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
+const BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF;
+
+type Source = { kind: 'commit' | 'latest'; mp4: string; poster: string; download: string };
+
+function sourcesFor(id: string): Source[] {
+    const latest: Source = {
+        kind: 'latest', mp4: `${CDN}/${id}/latest.mp4`, poster: `${CDN}/${id}/latest.jpg`, download: `${CDN}/${id}/download.mp4`,
+    };
+    if (VERCEL_ENV === 'production') return [latest];
+    if (COMMIT) {
+        const mp4 = `${CDN}/renders/${id}/${COMMIT}.mp4`;
+        return [{ kind: 'commit', mp4, poster: `${CDN}/renders/${id}/${COMMIT}.jpg`, download: mp4 }, latest];
+    }
+    return [];
+}
 
 type Mode = 'video' | 'live';
 
@@ -22,8 +42,11 @@ export function Gallery() {
 }
 
 function ReelCard({ reel: r }: { reel: Reel }) {
-    const [mode, setMode] = useState<Mode>(IS_PRODUCTION ? 'video' : 'live');
-    const [missing, setMissing] = useState(false);
+    const sources = sourcesFor(r.id);
+    const [attempt, setAttempt] = useState(0); // index into sources
+    const source = sources[attempt];
+    const [mode, setMode] = useState<Mode>(source ? 'video' : 'live');
+    const missing = !source;
     const base = `${CDN}/${r.id}`;
 
     return (
@@ -40,16 +63,16 @@ function ReelCard({ reel: r }: { reel: Reel }) {
                 <div className="player" style={{ aspectRatio: `${r.width} / ${r.height}` }}>
                     {mode === 'video' ? (
                         <video
-                            key="video"
-                            src={`${base}/latest.mp4`}
-                            poster={`${base}/latest.jpg`}
+                            key={source?.mp4}
+                            src={source?.mp4}
+                            poster={source?.poster}
                             controls
                             playsInline
                             preload="metadata"
                             onError={() => {
-                                // Not published yet (e.g. a reel added on this branch).
-                                setMissing(true);
-                                setMode('live');
+                                // Not there: try the next source, and fall back to the live Player last.
+                                setAttempt(attempt + 1);
+                                if (!sources[attempt + 1]) setMode('live');
                             }}
                         />
                     ) : (
@@ -73,10 +96,16 @@ function ReelCard({ reel: r }: { reel: Reel }) {
                 </div>
                 <p className="hint">
                     {mode === 'video'
-                        ? 'The published render from main, exactly what gets posted.'
+                        ? source?.kind === 'commit'
+                            ? `CI’s render of ${BRANCH ?? 'this branch'} at ${COMMIT?.slice(0, 7)}, exactly what main will publish.`
+                            : VERCEL_ENV === 'production'
+                                ? 'The published render from main, exactly what gets posted.'
+                                : 'This commit has no render of this reel (unchanged on this branch, or CI is still running), so this is main’s published version.'
                         : missing
-                            ? 'Not published yet. This live preview renders in your browser.'
-                            : 'Renders in your browser from this branch’s code. Scrubbing is heavier than the MP4.'}
+                            ? sources.length === 0
+                                ? 'Live preview: renders in your browser from this code.'
+                                : 'No rendered MP4 found (a new reel before its first CI run, or CI is still running). Showing the live preview; refresh to check again.'
+                            : 'Renders in your browser from this code. Scrubbing is heavier than the MP4, and it can differ from the real render.'}
                 </p>
             </div>
             <div className="meta">
@@ -88,8 +117,8 @@ function ReelCard({ reel: r }: { reel: Reel }) {
                     <span>{r.id}</span>
                 </div>
                 <div className="actions">
-                    <a className="btn primary" href={`${base}/download.mp4`}>Download MP4</a>
-                    <a className="btn" href={`${base}/latest.jpg`}>Cover image</a>
+                    <a className="btn primary" href={source?.download ?? `${base}/download.mp4`}>Download MP4</a>
+                    <a className="btn" href={source?.poster ?? `${base}/latest.jpg`}>Cover image</a>
                 </div>
                 <p className="hint">
                     Public link: <code>{`${base}/latest.mp4`}</code>. Updated on every push to{' '}

@@ -56,11 +56,20 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
    - Reuse `components/` and extend them rather than copying.
    - Iterate with `npm run studio`, or stills:
      `npx remotion still src/remotion/index.ts <id> /tmp/f.jpg --frame=<n>`.
-6. **Audio:** music, no voiceover (see the decisions log).
-   - Add a `bgm_<id>()` to `scripts/audio/generate.py`. Put the tempo grid so a downbeat
-     lands on the biggest cut, and put the drop where the product appears.
-   - Place SFX with `<Sfx cues=… />` on on-screen events: impacts on reveals, clicks on
-     clicks, success on saves. Premix rapid sequences like typing into one file.
+6. **Audio:** a generated beat plus sound effects, no voiceover (see the decisions log).
+   - **Beat:** don't compose music. Write `src/remotion/reels/<id>/music.json` (`bpm`,
+     `duration`, optional `drop` and `mute`; see `scripts/audio/beat.py`), run `npm run audio`,
+     and put `<Beat />` in the composition. Set `drop` to the moment the product appears, and
+     `mute` over dramatic beats (silence, e.g. after the 404). The style is fixed: **drums only**
+     (kick, clap, hats, shaker; no bass, chords or melody). The reel id picks small pattern variations.
+   - Keep effect volumes so that the QA check's peak stays at or below -1 dBFS; long effects that
+     ring over the full beat (like the end-card stinger) need a lower volume.
+   - **SFX on top, restrained:** they connect the music to the picture, so use them only on
+     **story beats**, about one per scene, 6 at most per 30s (`<Sfx>` refuses more). Typical set:
+     the problem (impact), the detection (alert), the fix (success), the cut to the result
+     (whoosh), the end card (stinger). **No sounds for UI micro-actions** (clicks, typing,
+     hovers), and no risers into a drop the beat already builds. Keep them under the beat:
+     volumes around 0.3–0.7.
 7. **Verify.** Run `npm run render -- <id>`, then:
    ```bash
    pip install -r scripts/qa/requirements.txt
@@ -69,9 +78,11 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
    Then **look at `out/qa/<id>/sheet.png`**: overlaps, safe area (pink lines), text wrapping,
    cursor on target. Most real bugs were only visible there. Listen to the audio yourself;
    agents can't, so they measure loudness and correlate SFX timing instead.
-8. **Ship.** Open a PR. CI renders it and attaches the MP4 as an artifact (private), and the
-   Vercel preview shows it under **Live preview**. After merge, `main` publishes to
-   `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4`.
+8. **Ship.** Push a branch and open a PR. CI renders every push and publishes that commit's
+   MP4 to the branch's Vercel preview (**Rendered MP4** tab, about 3–4 minutes after the push).
+   Review that, not the live Player: the in-browser version can differ from the real render.
+   CI renders only the reels your push affects; untouched reels show `main`'s published version.
+   After merge, `main` publishes to `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4`.
 9. **Post.** Add the caption suggestion to the README. Music added in-app is optional,
    since the MP4 already has its own track.
 
@@ -81,10 +92,13 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 |---|---|
 | **Remotion in its own repo** (not in `redirhub/marketing`) | Heavy dependencies (Chromium, FFmpeg) and a different review cycle; keeps the site's builds clean |
 | **Music + SFX, no voiceover** | Owner's call. Most people watch muted, so the story is carried by on-screen copy |
+| **SFX only on story beats (≤ 6 per 30s), none for UI micro-actions** | Owner's call: 13 effects in 30s felt cluttered. Five, one per story beat, reads as a premium ad; enforced by `<Sfx>` |
+| **Drums-only beat per reel + scene SFX, not composed music** | Owner's direction: drums plus scene sound effects is the premium ad sound, and more layers made it cluttered. A fixed style with `music.json` per reel means no session ever composes music, and every reel sounds consistent. SFX carry the video-specific moments |
 | **Audio is synthesized** (`scripts/audio/generate.py`), pinned deps | Original and royalty-free, reproducible byte for byte |
 | **QR design standard**: branded link always shown under the QR (`<BrandedQr>`) | People see where it goes before they scan, which builds trust. CTA QRs encode a RedirHub branded link (`https://redirhub.com/qr`) whose label matches exactly |
 | **Story QRs encode `redirhub.com/qr`** even when labelled with a demo domain | Demo domains (`yourbrand.com`) belong to someone else; never send viewers there |
-| **Only `main` publishes publicly**; PR renders stay private artifacts | An unapproved campaign should never have a public URL |
+| **CI renders only affected reels** (`scripts/changed-reels.mjs`) | Render time and uploads stay flat as the library grows; a reel's public file only changes when that reel (or shared code) changes |
+| **Every push uploads `renders/<id>/<commit>.mp4`; only `main` (after a merge) updates the public `latest` links** | The in-browser Player sometimes renders differently from the real MP4, so reviews must see CI's render (owner's call). Branches share the main publish role (acceptable while `main` is unprotected); commit renders are unlisted and expire after 90 days |
 | **S3 + CloudFront** (`dcr3565853rcg.cloudfront.net/reels/`), GitHub OIDC with a custom subject | Public, stable links; no stored AWS keys; details in `docs/aws/SETUP.md` |
 | **Gallery plays the MP4 by default in production**; live Player on branch previews | Native video scrubs instantly. The live Player is for unpublished changes |
 | **Per-commit renders expire after 90 days** (`reels/renders/`) | Otherwise storage grows forever. `latest` links are unaffected |

@@ -7,7 +7,8 @@
 // CHROME_PATH=/path/to/chromium uses an installed browser instead of Remotion's download.
 import { bundle } from '@remotion/bundler';
 import { getCompositions, renderMedia, renderStill } from '@remotion/renderer';
-import { mkdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -29,6 +30,20 @@ if (unknown.length) {
 }
 
 for (const composition of all.filter((c) => !wanted.length || wanted.includes(c.id))) {
+    // The beat is generated for a fixed length; catch a reel retimed without regenerating it.
+    const musicFile = path.join(root, 'src/remotion/reels', composition.id, 'music.json');
+    if (existsSync(musicFile)) {
+        const music = JSON.parse(await readFile(musicFile, 'utf8'));
+        const seconds = composition.durationInFrames / composition.fps;
+        if (Math.abs(music.duration - seconds) > 0.01) {
+            console.error(`${composition.id}: music.json duration is ${music.duration}s but the reel is ${seconds}s. Update it and run \`npm run audio\`.`);
+            process.exit(1);
+        }
+        if (!existsSync(path.join(root, 'public/audio', `${composition.id}-beat.mp3`))) {
+            console.error(`${composition.id}: public/audio/${composition.id}-beat.mp3 is missing. Run \`npm run audio\`.`);
+            process.exit(1);
+        }
+    }
     const file = path.join(outDir, `${composition.id}.mp4`);
     let last = -1;
     await renderMedia({

@@ -22,8 +22,11 @@ Follow `docs/reel-playbook.md`. It has the sources, process, decisions and gotch
 4. **Build** in `src/remotion/reels/<id>/` (props.ts, one file per scene, composition), register it in
    `src/reels.ts`, and reuse `src/remotion/components/`. Every QR uses `<BrandedQr>`. Keep copy inside
    y 200–1600.
-5. **Audio:** add `bgm_<id>()` to `scripts/audio/generate.py` (music, no voiceover), regenerate,
-   and place SFX with `<Sfx cues />`.
+5. **Audio:** don't compose music. Add `src/remotion/reels/<id>/music.json` (bpm, duration,
+   `drop` = when the product appears, `mute` = dramatic silences), run `npm run audio`, and use
+   `<Beat />` (drums only, by design; don't add melodic layers). Put SFX on top with `<Sfx cues />`,
+   **restrained**: one per story beat (problem, detection, fix, cut to result, end card), ≤ 6 per
+   30s, no UI sounds (clicks, typing). Restraint is the premium sound.
 6. **Verify:** `npm run typecheck`, `npm run build`, `npm run render -- <id>`, then
    `python3 scripts/qa/check_reel.py out/<id>.mp4 --qr <sec>=<url>`. **Look at the contact
    sheet** and fix anything off before calling it done. Say plainly that you can't listen to

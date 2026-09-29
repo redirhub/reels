@@ -28,8 +28,9 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 | `src/remotion/lib/anim.ts` | Time helpers (`useTime`, `prog`, easings, `rise`, `fx`). |
 | `app/` | Next.js gallery on Vercel (https://reels-redirhub.vercel.app). Plays the published MP4 by default in production and the live Remotion Player on branch previews. |
 | `scripts/render.mjs` | Batch render to `out/<id>.mp4` + `out/<id>.jpg`. |
+| `scripts/changed-reels.mjs` | CI: which reels a push affects (reel folder / beat / registry entry → that reel; shared code → all). Keep a reel's files inside `src/remotion/reels/<id>/` so this stays accurate. |
 | `scripts/publish-s3.sh` | CI-only: upload `out/` to S3 and invalidate CloudFront. Setup in `docs/aws/SETUP.md`. |
-| `scripts/audio/generate.py` | Synthesizes the music bed and SFX into `public/audio/`. |
+| `scripts/audio/` | `npm run audio`: generates each reel's beat from its `music.json` (`beat.py`) and the shared SFX (`sfx.py`) into `public/audio/`. |
 
 ## Writing reels
 
@@ -65,10 +66,16 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 
 - Music and SFX are **generated** by `scripts/audio/generate.py` (numpy/scipy), so they're
   original and royalty-free. Don't add third-party audio without a license on file.
-- The music bed is loudness-normalized to -16 LUFS. SFX sit on top via `<Sfx cues={…} />`
-  (`components/Sfx.tsx`), with cues as `[seconds, name, volume]` at the on-screen event.
+- **Music = a generated beat per reel**, never hand-composed: `src/remotion/reels/<id>/music.json`
+  → `npm run audio` → `public/audio/<id>-beat.mp3`, played by `<Beat />`. Keep `duration` equal
+  to the reel's length (`npm run render` fails otherwise). The beat is **drums only** (no bass,
+  chords or melody) and normalized to -16 LUFS with a static gain.
+- SFX sit on top via `<Sfx cues={…} />` (`components/Sfx.tsx`), with cues as
+  `[seconds, name, volume]` at the on-screen event. **Restrained:** only story beats, at most
+  `MAX_SFX_PER_30S` (6) per 30s (`<Sfx>` throws above that), no clicks/typing/hover sounds,
+  volumes about 0.3–0.7 so they sit under the beat.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player
-  light: prefer one premixed effect (e.g. `typing`) over many rapid cues. Effect lengths come
+  light. Effect lengths come
   from `public/audio/sfx/manifest.json`, which the generator writes. Never edit it by hand.
 - Changed the generator? `pip install -r scripts/audio/requirements.txt` (pinned, so output is
   reproducible), re-run it, and commit the regenerated files in `public/audio/`.

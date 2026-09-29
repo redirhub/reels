@@ -1,8 +1,9 @@
 /* "10,000 flyers printed. Then the site changed." — 30s vertical reel.
    Scene windows overlap so transitions (circle reveal, slide-up, zoom-fade)
    happen with both scenes on screen; later sequences draw on top. */
-import { AbsoluteFill, Html5Audio, Sequence, staticFile, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Sequence, useVideoConfig } from 'remotion';
 import { font } from '../../brand/tokens';
+import { Beat } from '../../components/Beat';
 import { Sfx, type SfxCue } from '../../components/Sfx';
 import { BeforeAfter } from './BeforeAfter';
 import { Cta } from './Cta';
@@ -20,20 +21,14 @@ const SCENES = {
 
 /** Sound effects at absolute seconds, synced to on-screen events. */
 const SOUND_CUES: readonly SfxCue[] = [
-        [2.33, 'impact', 0.9],   // 404
-        [5.55, 'riser', 0.5],    // into the dashboard
-        [6.2, 'whoosh', 0.5],    // circle reveal
-        [7.95, 'alert', 0.55],   // monitor alert toast
-        [9.65, 'click', 0.8],    // open the link
-        [11.05, 'click', 0.8],   // focus the To field
-        [11.8, 'typing', 0.5],   // typing the new destination (Workflow types 5.25–6.8s local)
-        [14.15, 'click', 0.8],   // Save
-        [14.35, 'success', 0.6], // saved
-        [17.05, 'whoosh', 0.5],  // slide to before/after
-        [20.45, 'success', 0.35],// after-phone lands on the sale
-        [24.35, 'riser', 0.45],  // into the end card
-        [25.35, 'stinger', 0.8], // end card
-];
+    // Restrained on purpose: one sound per story beat, none for UI micro-actions
+    // (clicks, typing). The beat carries the rhythm; these mark the story.
+    [2.33, 'impact', 0.7],   // the problem: 404
+    [7.95, 'alert', 0.4],    // RedirHub catches it
+    [14.35, 'success', 0.45], // the fix: saved
+    [17.05, 'whoosh', 0.3],  // cut to the result
+    [25.35, 'stinger', 0.45], // brand close
+]
 
 export function QrNoReprint(props: QrNoReprintProps) {
     const { fps } = useVideoConfig();
@@ -47,7 +42,8 @@ export function QrNoReprint(props: QrNoReprintProps) {
             <Sequence {...seq(SCENES.beforeAfter)} name="Before / after"><BeforeAfter {...props} /></Sequence>
             <Sequence {...seq(SCENES.cta)} name="CTA"><Cta {...props} /></Sequence>
 
-            <Html5Audio src={staticFile('audio/qr-no-reprint-bgm.mp3')} />
+            {/* Beat from music.json (drop on the dashboard reveal, silence after the 404); SFX on top. */}
+            <Beat />
             <Sfx cues={SOUND_CUES} />
         </AbsoluteFill>
     );
