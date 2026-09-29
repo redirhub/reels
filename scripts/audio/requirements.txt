@@ -1,0 +1,4 @@
+# Pinned so scripts/audio/generate.py reproduces the committed audio exactly.
+numpy==2.4.6
+scipy==1.17.1
+imageio-ffmpeg==0.6.0

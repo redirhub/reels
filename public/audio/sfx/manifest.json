@@ -1,0 +1,11 @@
+{
+  "impact": 1.8,
+  "whoosh": 0.7,
+  "riser": 1.0,
+  "click": 0.06,
+  "key": 0.05,
+  "alert": 0.9,
+  "success": 1.3,
+  "stinger": 3.0,
+  "typing": 1.65
+}

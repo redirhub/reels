@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "description": "RedirHub social video (Reels/Shorts) built with Remotion.",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

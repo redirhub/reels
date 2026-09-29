@@ -64,9 +64,10 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 - The music bed is loudness-normalized to -16 LUFS. SFX sit on top via `<Sfx cues={…} />`
   (`components/Sfx.tsx`), with cues as `[seconds, name, volume]` at the on-screen event.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player
-  light: prefer one premixed effect (e.g. `typing`) over many rapid cues. Adding or changing an
-  effect in the generator means updating `SFX_SECONDS`.
-- Changed the generator? Re-run it and commit the regenerated files in `public/audio/`.
+  light: prefer one premixed effect (e.g. `typing`) over many rapid cues. Effect lengths come
+  from `public/audio/sfx/manifest.json`, which the generator writes. Never edit it by hand.
+- Changed the generator? `pip install -r scripts/audio/requirements.txt` (pinned, so output is
+  reproducible), re-run it, and commit the regenerated files in `public/audio/`.
 
 ## Environment notes
 

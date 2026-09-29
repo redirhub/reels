@@ -29,13 +29,18 @@ npm run studio    # Remotion Studio
 npm run render    # MP4s into out/
 ```
 
-Requires Node 22. Rendering downloads a headless Chrome on first run. If that is blocked,
+Requires Node 22 (`.nvmrc`). To regenerate audio: `pip install -r scripts/audio/requirements.txt && python3 scripts/audio/generate.py`. Rendering downloads a headless Chrome on first run. If that is blocked,
 set `CHROME_PATH` to a local chrome-headless-shell.
 
 ### Vercel
 
-Import the repo in Vercel as a Next.js project with the default settings. Only the gallery
-is deployed. Rendering happens in GitHub Actions, not on Vercel.
+The gallery is deployed at <https://reels-redirhub.vercel.app> (Next.js defaults). Only the
+gallery runs on Vercel; rendering happens in GitHub Actions.
+
+| Env var | Default | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_REELS_BASE_URL` | `https://dcr3565853rcg.cloudfront.net/reels` | CDN root the gallery plays and downloads from. |
+| `NEXT_PUBLIC_VERCEL_ENV` | set by Vercel | `production` shows the published MP4 first; previews show the live Player first. |
 
 ## Stack
 
