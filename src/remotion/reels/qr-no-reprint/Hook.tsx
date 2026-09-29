@@ -48,6 +48,7 @@ export function Hook(props: QrNoReprintProps) {
             <Phone style={{ left: 560 + shake(t, 2.3, 0.45, 14), top: 860, ...fx(1 - fOut, fOut * 200, (1 - phoneIn) * 1100 + fOut * 60, 1 - fOut * 0.2, lerp(8, 4, phoneIn)) }}>
                 <CameraView
                     qrValue={props.qrValue}
+                    qrLabel={shortLink}
                     scan={prog(t, 1.5, 2.1)}
                     bubble={shortLink}
                     bubbleStyle={{ opacity: clamp(prog(t, 1.8, 1.95)), transform: `translateX(-50%) scale(${lerp(0.8, 1, easeBack(prog(t, 1.8, 2.05)))})` }}

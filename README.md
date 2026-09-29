@@ -73,8 +73,11 @@ printed URL, not just a graphic."* Positioning *"Dynamic QR codes. On your domai
   external, plan-qualified). Check the plan qualifier before paid distribution.
 - There are no speed or uptime claims.
 - "10,000 flyers", "3,412 clicks", `yourbrand.com` and the dates are illustrative scenario data.
-- Every QR code encodes `https://www.redirhub.com/dynamic-qr-codes`, so viewers who scan
-  it land on the product page.
+- QR codes follow the RedirHub QR design standard: the branded link is always shown under
+  the code. The end-card QR encodes `https://redirhub.com/qr` (RedirHub's own branded link to
+  `/dynamic-qr-codes`) and shows `redirhub.com/qr` underneath. The story QRs are labelled with
+  the story link `go.yourbrand.com/spring` but also open `redirhub.com/qr`, because the demo
+  domain isn't ours.
 
 **Suggested caption:**
 

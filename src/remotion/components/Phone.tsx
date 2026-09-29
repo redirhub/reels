@@ -2,7 +2,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { color, font } from '../brand/tokens';
 import { IconLock } from './icons';
-import { QrCode } from './QrCode';
+import { BrandedQr } from './QrCode';
 
 export function Phone({ width = 440, height = 900, style, children }: { width?: number; height?: number; style?: CSSProperties; children: ReactNode }) {
     return (
@@ -80,17 +80,17 @@ export function SalePage({ url, title, subtitle, cta }: { url: string; title: st
 
 /** Phone camera pointed at a QR code. `scan` is 0→1 progress of the scan line
     (hidden outside (0,1)); `bubble` shows the detected-link chip when set. */
-export function CameraView({ qrValue, scan, bubble, bubbleStyle, style }: {
-    qrValue: string; scan: number; bubble?: string; bubbleStyle?: CSSProperties; style?: CSSProperties;
+export function CameraView({ qrValue, qrLabel, scan, bubble, bubbleStyle, style }: {
+    qrValue: string; qrLabel: string; scan: number; bubble?: string; bubbleStyle?: CSSProperties; style?: CSSProperties;
 }) {
     const corner = (pos: CSSProperties, radius: string): CSSProperties => ({
         position: 'absolute', width: 62, height: 62, border: '7px solid #FDE047', borderRadius: radius, ...pos,
     });
     return (
         <Screen background="radial-gradient(circle at 50% 45%, #3b3f47, #111317 75%)" style={style}>
-            <div style={{ position: 'absolute', left: '50%', top: '44%', width: 230, height: 230, margin: '-115px 0 0 -115px', background: '#fff', padding: 14, borderRadius: 12, transform: 'rotate(-4deg)' }}>
-                <QrCode value={qrValue} />
-            </div>
+            <BrandedQr value={qrValue} label={qrLabel} size={200} labelSize={17} padding={14} style={{
+                position: 'absolute', left: '50%', top: '44%', margin: '-114px 0 0 -114px', borderRadius: 12, transform: 'rotate(-4deg)',
+            }} />
             <div style={{ position: 'absolute', left: '50%', top: '44%', width: 300, height: 300, margin: '-150px 0 0 -150px' }}>
                 <div style={corner({ left: 0, top: 0, borderRight: 0, borderBottom: 0 }, '18px 0 0 0')} />
                 <div style={corner({ right: 0, top: 0, borderLeft: 0, borderBottom: 0 }, '0 18px 0 0')} />

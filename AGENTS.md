@@ -50,7 +50,12 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
   `Approval = Approved external` and respect their caveats. The story angle should come from
   the **RedirHub POV Library — Core** (`Status = Approved external`). Document the claims
   check in the reel's PR.
-- Every QR code shown must encode a real, working URL (`qrValue` prop). Verify it scans.
+- **QR design standard:** every QR on screen shows its branded link directly underneath,
+  so viewers know where it goes before they scan, and it builds trust. Always use
+  `<BrandedQr value label />` from `components/QrCode.tsx`, never a bare `<QrCode>`.
+- A QR a viewer is invited to scan (end cards, CTAs) must encode a RedirHub branded link, and
+  its label must be exactly that URL without the scheme (e.g. `redirhub.com/qr`). Every QR
+  must encode a real, working URL. Verify it scans from the rendered MP4.
 
 ## Audio
 

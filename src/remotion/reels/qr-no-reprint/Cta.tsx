@@ -2,10 +2,10 @@
 import { AbsoluteFill } from 'remotion';
 import { color } from '../../brand/tokens';
 import { RedirHubLogo } from '../../brand/Logo';
-import { QrCode } from '../../components/QrCode';
+import { BrandedQr } from '../../components/QrCode';
 import { IconArrowRight } from '../../components/icons';
 import { easeBack, easeInOut, easeOut, fx, lerp, prog, rise, useTime } from '../../lib/anim';
-import type { QrNoReprintProps } from './props';
+import { links, type QrNoReprintProps } from './props';
 
 export function Cta(props: QrNoReprintProps) {
     const t = useTime();
@@ -36,9 +36,9 @@ export function Cta(props: QrNoReprintProps) {
                 }}>Start free at redirhub.com<IconArrowRight size={46} color="#fff" /></div>
             </div>
             <div style={{ position: 'absolute', left: 0, right: 0, top: 1170, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 30, ...rise(t, 1.65, 0.5, 30) }}>
-                <div style={{ width: 230, height: 230, background: '#fff', borderRadius: 24, padding: 18, boxShadow: '0 10px 30px rgba(16,24,40,.12)', border: `1px solid ${color.g200}` }}>
-                    <QrCode value={props.qrValue} />
-                </div>
+                <BrandedQr value={props.ctaQrValue} label={links(props).ctaQrLabel} size={220} labelSize={24} style={{
+                    borderRadius: 24, boxShadow: '0 10px 30px rgba(16,24,40,.12)', border: `1px solid ${color.g200}`,
+                }} />
                 <div style={{ textAlign: 'left', fontSize: 32, fontWeight: 700, color: color.g700, lineHeight: 1.3 }}>
                     Scan it.<br /><span style={{ fontWeight: 500, color: color.g500 }}>See how it works.</span>
                 </div>

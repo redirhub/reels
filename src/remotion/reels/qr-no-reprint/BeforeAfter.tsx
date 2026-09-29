@@ -49,7 +49,7 @@ export function BeforeAfter(props: QrNoReprintProps) {
                 <NotFoundPage url={oldDisplay} />
             </Phone>
             <Phone width={450} height={880} style={{ left: 570, top: 680, ...fx(after, 0, (1 - after) * 500, lerp(1, 1.04, push), lerp(6, 2, after)) }}>
-                <CameraView qrValue={props.qrValue} scan={prog(t, 2.3, 3.0)} style={{ opacity: 1 - sale }} />
+                <CameraView qrValue={props.qrValue} qrLabel={shortLink} scan={prog(t, 2.3, 3.0)} style={{ opacity: 1 - sale }} />
                 <div style={{ position: 'absolute', inset: 0, opacity: sale }}>
                     <SalePage url={newDisplay} title="SPRING SALE" subtitle="Up to 40% off everything" cta="Shop the sale" />
                 </div>

@@ -6,7 +6,7 @@ import {
     BrowserWindow, Chip, Field, IconButton, LinkRow, Pill, StepHeading, Toast, View, Avatar,
 } from '../../components/Dashboard';
 import { Cursor, type CursorKey } from '../../components/Cursor';
-import { QrCode } from '../../components/QrCode';
+import { BrandedQr } from '../../components/QrCode';
 import {
     IconBell, IconCheck, IconCopy, IconDots, IconDownCircle, IconGlobe, IconLink, IconPulse, IconQr, IconSearch,
 } from '../../components/icons';
@@ -35,7 +35,7 @@ export function Workflow(props: QrNoReprintProps) {
     const toText = t < 5.2 ? oldUrl : newUrl.slice(0, Math.round(typed * newUrl.length));
     const caretOn = focused && !selected && (Math.floor(t * 2.5) % 2 === 0 || (typed > 0 && typed < 1));
     const press = Math.max(0, 1 - Math.abs(t - 7.6) / 0.12);
-    const ringPulse = t > 8.55 ? 0.75 + 0.25 * Math.sin((t - 8.55) * 6) : 0;
+    const ringPulse = t > 9.0 ? 0.75 + 0.25 * Math.sin((t - 9.0) * 6) : 0;
     const clicks = 3412 + (t > 9.05 ? Math.floor((t - 9.05) * 3) : 0);
     const winIn = easeOut(prog(t, 0.35, 0.85));
 
@@ -138,27 +138,27 @@ export function Workflow(props: QrNoReprintProps) {
                         }}>{saved ? <><IconCheck size={30} color="#fff" />Saved</> : 'Save'}</div>
                     </div>
                     <div style={{ marginTop: 40, borderRadius: 28, background: color.g100, padding: 28, display: 'flex', gap: 30, alignItems: 'center' }}>
-                        <div style={{ flex: 'none', width: 230, height: 230, background: '#fff', borderRadius: 18, padding: 16, position: 'relative' }}>
-                            <QrCode value={props.qrValue} />
-                            <div style={{ position: 'absolute', inset: -10, borderRadius: 26, border: `6px solid ${color.teal}`, ...fx(prog(t, 8.55, 8.95) * ringPulse) }} />
+                        <div style={{ flex: 'none', position: 'relative' }}>
+                            <BrandedQr value={props.qrValue} label={shortLink} size={206} labelSize={17} padding={16} style={{ borderRadius: 18 }} />
+                            <div style={{ position: 'absolute', inset: -10, borderRadius: 26, border: `6px solid ${color.teal}`, ...fx(prog(t, 9.0, 9.4) * ringPulse) }} />
                             <div style={{
                                 position: 'absolute', left: '50%', top: -26, whiteSpace: 'nowrap', background: color.teal, color: '#fff',
                                 fontSize: 24, fontWeight: 800, padding: '10px 20px', borderRadius: 30,
-                                opacity: easeOut(prog(t, 8.65, 8.95)),
-                                transform: `translateX(-50%) scale(${lerp(0.6, 1, easeBack(prog(t, 8.65, 9.0)))})`,
+                                opacity: easeOut(prog(t, 9.1, 9.4)),
+                                transform: `translateX(-50%) scale(${lerp(0.6, 1, easeBack(prog(t, 9.1, 9.45)))})`,
                             }}>Unchanged ✓</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 34, fontWeight: 800 }}>The printed QR</div>
                             <div style={{ fontSize: 27, color: color.g600, marginTop: 12, lineHeight: 1.4 }}>
-                                Encodes {shortLink}.<br />Only the destination behind it<br />changes. The artwork doesn&apos;t.
+                                Printed with its link, so people<br />know where it goes. Only the<br />destination behind it changes.
                             </div>
                         </div>
                     </div>
                     <Toast
                         icon={<IconCheck size={40} color="#fff" />} iconBg="rgba(255,255,255,.18)" background="#0E6B5F"
                         title="Destination updated" body={`${shortLink} → ${newDisplay}`}
-                        style={fx(easeOut(prog(t, 7.95, 8.35)) * (1 - prog(t, 10.05, 10.35)), 0, (1 - easeOut(prog(t, 7.95, 8.35))) * 160)}
+                        style={fx(easeOut(prog(t, 7.95, 8.35)) * (1 - prog(t, 8.8, 9.05)), 0, (1 - easeOut(prog(t, 7.95, 8.35))) * 160)}
                     />
                 </View>
             </BrowserWindow>

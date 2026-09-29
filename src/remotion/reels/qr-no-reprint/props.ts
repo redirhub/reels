@@ -11,8 +11,11 @@ export type QrNoReprintProps = {
     oldPath: string;
     /** Page it should point to now. */
     newPath: string;
-    /** Value actually encoded in every QR code shown. Must be a real, working URL. */
+    /** URL encoded in the story QR codes (flyer, camera, dashboard). Must be a real, working URL. */
     qrValue: string;
+    /** URL encoded in the end-card QR. Must be a RedirHub branded link: the link shown
+        under the QR is this URL without the scheme, so it matches what a scan opens. */
+    ctaQrValue: string;
 };
 
 export const qrNoReprintDefaults: QrNoReprintProps = {
@@ -21,7 +24,9 @@ export const qrNoReprintDefaults: QrNoReprintProps = {
     linkPath: 'spring',
     oldPath: 'spring-sale',
     newPath: 'sale',
-    qrValue: 'https://www.redirhub.com/dynamic-qr-codes',
+    // redirhub.com/qr is RedirHub's own branded link → /dynamic-qr-codes.
+    qrValue: 'https://redirhub.com/qr',
+    ctaQrValue: 'https://redirhub.com/qr',
 };
 
 export function links(p: QrNoReprintProps) {
@@ -31,5 +36,6 @@ export function links(p: QrNoReprintProps) {
         newUrl: `https://${p.domain}/${p.newPath}`,
         oldDisplay: `${p.domain}/${p.oldPath}`,
         newDisplay: `${p.domain}/${p.newPath}`,
+        ctaQrLabel: p.ctaQrValue.replace(/^https?:\/\//, ''),
     };
 }

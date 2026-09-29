@@ -1,7 +1,7 @@
 /* A printed promo flyer with a QR code: the physical asset in QR stories. */
 import type { CSSProperties } from 'react';
-import { color, font } from '../brand/tokens';
-import { QrCode } from './QrCode';
+import { color } from '../brand/tokens';
+import { BrandedQr } from './QrCode';
 
 export const FLYER = { width: 520, height: 730 } as const;
 
@@ -17,11 +17,8 @@ export function Flyer({ title, subtitle, caption, printedUrl, qrValue, style }: 
                 <div style={{ fontSize: 66, fontWeight: 900, letterSpacing: '-.03em', lineHeight: 1 }}>{title}</div>
                 <div style={{ fontSize: 30, fontWeight: 600, marginTop: 12, opacity: 0.95 }}>{subtitle}</div>
             </div>
-            <div style={{ width: 300, height: 300, margin: '44px auto 0', padding: 18, background: '#fff', borderRadius: 22, boxShadow: '0 2px 10px rgba(16,24,40,.08)' }}>
-                <QrCode value={qrValue} />
-            </div>
-            <div style={{ textAlign: 'center', marginTop: 26, fontSize: 26, fontWeight: 700, color: color.charcoal }}>{caption}</div>
-            <div style={{ textAlign: 'center', marginTop: 8, fontSize: 24, color: color.g600, fontFamily: font.mono }}>{printedUrl}</div>
+            <div style={{ textAlign: 'center', marginTop: 30, fontSize: 26, fontWeight: 700, color: color.charcoal }}>{caption}</div>
+            <BrandedQr value={qrValue} label={printedUrl} size={272} labelSize={25} style={{ margin: '16px auto 0', boxShadow: '0 2px 10px rgba(16,24,40,.08)' }} />
         </div>
     );
 }
