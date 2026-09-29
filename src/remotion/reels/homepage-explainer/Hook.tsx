@@ -47,7 +47,7 @@ export function LinkCards({ props, t, flipAt, from, style }: {
     const cards: { kicker: string; icon: ReactNode; url: string; body: ReactNode }[] = [
         {
             kicker: 'Printed flyer', icon: <IconQr size={26} color={color.g400} />, url: shortLink,
-            body: <BrandedQr value={props.qrValue} label={shortLink} size={150} labelSize={13} padding={14} style={{ margin: '0 auto', borderRadius: 14 }} />,
+            body: <BrandedQr value={props.qrValue} label={shortLink} size={150} labelSize={13} style={{ margin: '0 auto', borderRadius: 14 }} />,
         },
         {
             kicker: 'Newsletter', icon: <IconMail size={26} color={color.g400} />, url: oldDisplay,

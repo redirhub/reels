@@ -88,8 +88,8 @@ export function CameraView({ qrValue, qrLabel, scan, bubble, bubbleStyle, style 
     });
     return (
         <Screen background="radial-gradient(circle at 50% 45%, #3b3f47, #111317 75%)" style={style}>
-            <BrandedQr value={qrValue} label={qrLabel} size={200} labelSize={17} padding={14} style={{
-                position: 'absolute', left: '50%', top: '44%', margin: '-114px 0 0 -114px', borderRadius: 12, transform: 'rotate(-4deg)',
+            <BrandedQr value={qrValue} label={qrLabel} size={200} labelSize={17} style={{
+                position: 'absolute', left: '50%', top: '44%', margin: '-124px 0 0 -124px', transform: 'rotate(-4deg)',
             }} />
             <div style={{ position: 'absolute', left: '50%', top: '44%', width: 300, height: 300, margin: '-150px 0 0 -150px' }}>
                 <div style={corner({ left: 0, top: 0, borderRight: 0, borderBottom: 0 }, '18px 0 0 0')} />

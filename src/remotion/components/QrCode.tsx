@@ -35,7 +35,7 @@ export function QrCode({ value, color = '#101828', style }: { value: string; col
 /** RedirHub QR design standard: a QR code is always shown with its branded link
     directly underneath, so people can see where it goes before they scan. Use this
     instead of a bare <QrCode> anywhere a QR appears on screen. */
-export function BrandedQr({ value, label, size, labelSize = 24, padding = 18, style }: {
+export function BrandedQr({ value, label, size, labelSize = 24, padding = Math.round(size * 0.12), style }: {
     /** URL encoded in the QR. */
     value: string;
     /** Branded link shown under the QR, without the scheme (e.g. "go.yourbrand.com/spring"). */
@@ -43,14 +43,21 @@ export function BrandedQr({ value, label, size, labelSize = 24, padding = 18, st
     /** QR edge length in px (excluding the card padding). */
     size: number;
     labelSize?: number;
+    /** Card padding in px. Defaults to 12% of the QR, about the 4-module quiet zone the QR spec asks for,
+        so the code never touches the card edge and the whitespace scales with the QR. */
     padding?: number;
     style?: React.CSSProperties;
 }) {
+    // Shrink the label if needed so it always stays inside the card (bold sans is ~0.6em per character).
+    const fontSize = Math.min(labelSize, Math.floor((size + padding) / (label.length * 0.6)));
     return (
-        <div style={{ background: '#fff', borderRadius: 22, padding, width: size + padding * 2, textAlign: 'center', ...style }}>
+        <div style={{
+            background: '#fff', borderRadius: Math.round(size * 0.09), padding, paddingBottom: Math.round(padding * 0.85),
+            width: size + padding * 2, boxSizing: 'border-box', textAlign: 'center', ...style,
+        }}>
             <div style={{ width: size, height: size }}><QrCode value={value} /></div>
             <div style={{
-                marginTop: Math.round(labelSize * 0.55), fontSize: labelSize, fontWeight: 700, color: '#101828',
+                marginTop: Math.round(padding * 0.7), fontSize, fontWeight: 700, color: '#101828',
                 letterSpacing: '-.01em', whiteSpace: 'nowrap', lineHeight: 1.1,
             }}>{label}</div>
         </div>
