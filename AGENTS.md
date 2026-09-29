@@ -3,12 +3,16 @@
 Guidance for coding agents (and people) working on RedirHub Reels: short social
 videos built with [Remotion](https://remotion.dev), previewed in a Next.js gallery.
 
+**Making or changing a reel?** Follow [`docs/reel-playbook.md`](docs/reel-playbook.md): sources
+(Notion IDs), process, decisions log, gotchas and open items. The `new-reel` skill runs it.
+
 ## Before you finish
 
 ```bash
 npm run typecheck   # tsc --noEmit
 npm run build       # gallery builds (what Vercel runs)
-npm run render -- <id>   # when you changed a reel: render it and look at the frames
+npm run render -- <id>   # when you changed a reel: render it, then
+python3 scripts/qa/check_reel.py out/<id>.mp4 --qr <sec>=<url>   # format, loudness, QR, contact sheet
 ```
 
 CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on every PR.
