@@ -1,0 +1,33 @@
+{
+  "name": "redirhub-reels",
+  "private": true,
+  "version": "0.1.0",
+  "description": "RedirHub social video (Reels/Shorts) built with Remotion.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "studio": "remotion studio src/remotion/index.ts",
+    "render": "node scripts/render.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/fonts": "4.0.529",
+    "@remotion/player": "4.0.529",
+    "next": "^16.3.6",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "4.0.529"
+  },
+  "devDependencies": {
+    "@remotion/bundler": "4.0.529",
+    "@remotion/cli": "4.0.529",
+    "@remotion/renderer": "4.0.529",
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5.9.3"
+  }
+}

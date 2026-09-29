@@ -1,0 +1,77 @@
+name: Render reels
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write # GitHub OIDC → AWS role (main only; see docs/aws/SETUP.md)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+
+      - name: Render MP4s and covers
+        run: npm run render
+
+      # Pull requests stay private: renders are only available as this run's artifact.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reels-${{ github.sha }}
+          path: out/
+          retention-days: 14
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Publish to S3 + CloudFront
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        env:
+          REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
+          REELS_CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.REELS_CLOUDFRONT_DISTRIBUTION_ID }}
+          REELS_PUBLIC_BASE_URL: ${{ vars.REELS_PUBLIC_BASE_URL }}
+        run: scripts/publish-s3.sh
+
+      - name: Publishing not configured
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN == ''
+        run: echo "::warning::AWS_ROLE_ARN is not set, so renders were not published. See docs/aws/SETUP.md."
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Rendered reels"
+            echo
+            echo "Artifact: **reels-${{ github.sha }}** (this run)."
+            if [ -f out/index.json ]; then
+              echo
+              echo "Published:"
+              jq -r '.reels[] | "- \(.id): \(.mp4)"' out/index.json
+            fi
+            echo
+            echo '| File | Size |'
+            echo '|---|---|'
+            for f in out/*; do echo "| $(basename "$f") | $(du -h "$f" | cut -f1) |"; done
+          } >> "$GITHUB_STEP_SUMMARY"

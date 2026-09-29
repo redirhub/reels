@@ -1,0 +1,29 @@
+@font-face { font-family: "Inter"; font-weight: 100 900; font-display: swap; src: url(/fonts/inter-latin-wght-normal.woff2) format("woff2"); }
+
+:root {
+  --blue: #1C6DB6; --teal: #20A795; --amber: #E59426;
+  --fg: #181D27; --muted: #475467; --line: #EAECF0; --bg: #F9FAFB; --card: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --fg: #F2F4F7; --muted: #98A2B3; --line: #1D2939; --bg: #0B1220; --card: #101828; }
+}
+* { box-sizing: border-box; margin: 0; }
+body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 40px 16px 80px; }
+.head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.head img { height: 34px; }
+h1 { font-size: 30px; letter-spacing: -.02em; }
+.lede { color: var(--muted); margin-bottom: 32px; line-height: 1.5; }
+.lede code { font-size: .9em; }
+.reel { display: grid; grid-template-columns: minmax(0, 360px) 1fr; gap: 32px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; margin-bottom: 24px; }
+@media (max-width: 760px) { .reel { grid-template-columns: 1fr; } }
+.player { border-radius: 14px; overflow: hidden; background: #000; }
+.meta h2 { font-size: 22px; letter-spacing: -.01em; line-height: 1.25; }
+.meta p { color: var(--muted); line-height: 1.55; margin-top: 10px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tags span { font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--line); color: var(--fg); background: var(--card); }
+.btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.hint { font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+.hint code { font-size: 12px; }
