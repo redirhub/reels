@@ -31,6 +31,23 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    [`github-oidc-trust-policy.json`](github-oidc-trust-policy.json).
    Then add an inline policy from [`reels-publish-policy.json`](reels-publish-policy.json).
 
+   RedirHub's GitHub organization uses a custom OIDC subject template. Keep the
+   `token.actions.githubusercontent.com:sub` value from that file exactly; its organization
+   and repository IDs are deliberate and restrict this role to `redirhub/reels` on `main`.
+
+   To check the template or rebuild the subject (for another repo, or after a change), look
+   up the values with the GitHub CLI:
+
+   ```bash
+   gh api orgs/redirhub/actions/oidc/customization/sub   # the org's subject template
+   gh api orgs/redirhub --jq .id                         # organization ID (141114424)
+   gh api repos/redirhub/reels --jq .id                  # repository ID (1394109103)
+   ```
+
+   Then assemble the subject as `repo:<org>@<org-id>/<repo>@<repo-id>:ref:refs/heads/main`.
+   IDs don't change when a repository is renamed, and a repository recreated under the
+   same name gets a new ID, so it can't inherit this role.
+
 3. **CloudFront → S3 read access.** The distribution must be able to read `reels/*`
    from the bucket. If it uses Origin Access Control with a bucket policy limited to
    certain prefixes, add `arn:aws:s3:::<BUCKET_NAME>/reels/*` to it. Keep the bucket
