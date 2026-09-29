@@ -12,7 +12,10 @@ Each reel has src/remotion/reels/<id>/music.json:
       "drop": 6.55,        # optional: the full kit (clap, open hats, crash) comes in here, and
                            #   the bar grid is aligned so this is a downbeat. Before it: kick +
                            #   hats only. Without it: full kit after one bar.
-      "mute": [[2.35, 4.55]]  # optional: silence, so an effect (e.g. an impact) stands alone
+      "mute": [[2.35, 4.55]], # optional: silence, so an effect (e.g. an impact) stands alone
+      "lite": [[43.9, 47.9]], # optional: breakdown, kick + closed hats only (no clap, open hats, shaker),
+                           #   so a calm scene breathes and the return of the full kit lands
+      "crash": [47.9, 53.9]   # optional: extra crash cymbals on scene changes (the drop already has one)
     }
 
 The reel id seeds two small choices (open-hat pattern, kick pickup), so reels differ a
@@ -33,7 +36,7 @@ KICK_PICKUPS = [[], [14], [11]]  # extra kick before the next bar, every second 
 def beat(reel_id, cfg):
     seed(f"beat:{reel_id}")
     bpm, dur = float(cfg["bpm"]), float(cfg["duration"])
-    drop, mutes = cfg.get("drop"), cfg.get("mute", [])
+    drop, mutes, lites = cfg.get("drop"), cfg.get("mute", []), cfg.get("lite", [])
     step = 60 / bpm / 4
     bar = 16 * step
     origin = (drop % bar) if drop is not None else 0.0
@@ -42,6 +45,9 @@ def beat(reel_id, cfg):
 
     def muted(t):
         return any(a <= t < b for a, b in mutes)
+
+    def lite(t):
+        return any(a <= t < b for a, b in lites)
 
     drums, send = Bus(dur), Bus(dur)
     K, C, SH, HC, HO, CR = kick(), clap(), shaker(), hat(), hat(True), crash()
@@ -53,7 +59,7 @@ def beat(reel_id, cfg):
             t = start + s * step
             if t < 0 or t >= dur or muted(t):
                 continue
-            full = t >= full_from - 1e-6
+            full = t >= full_from - 1e-6 and not lite(t)
             if s % 4 == 0 or (full and b % 2 == 1 and s in pickup):
                 drums.add(K, t, 0.45 if full else 0.38)  # softer before the drop, so it lifts
             if full:
@@ -74,6 +80,9 @@ def beat(reel_id, cfg):
 
     if not muted(full_from) and full_from < dur - 2:
         drums.add(CR, full_from, 0.22, pan=0.2)
+    for t in cfg.get("crash", []):
+        if 0 <= t < dur and not muted(t):
+            drums.add(CR, t, 0.18, pan=-0.2)
 
     mix = drums.stereo() + reverb(send.stereo(), 1.0, 0.3)
     t = np.arange(mix.shape[1]) / SR

@@ -45,6 +45,8 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
    - **Before / after**: the same asset, the outcome changes.
    - **CTA**: logo, positioning headline, audience line, "Start free at redirhub.com", scannable QR.
    - About 30s, 1080×1920, 30 fps, all copy on screen (it has to work with the sound off).
+     Website embeds use `LANDSCAPE` (1920×1080) instead, and no social safe area; see
+     `homepage-explainer`.
 4. **Claims check.** List every claim and number on screen with its Notion source, or mark
    it as illustrative scenario data. Put it in the README.
 5. **Build** (conventions in `AGENTS.md`):
@@ -132,6 +134,7 @@ Update this table as items close.
 | Reel | Shipped | Use case | POV | Notes |
 |---|---|---|---|---|
 | `qr-no-reprint` | 2026-09-29 | Trackable QR codes | "A QR code is a printed URL, not just a graphic." | Monitoring alert shown: that claim is plan-qualified |
+| `homepage-explainer` | 2026-09-29 | All four (homepage explainer, 60s landscape) | "The public URL should be stable. The destination can change." | Uses all four approved platform numbers; monitoring plan-qualified; no end-card QR (plays on redirhub.com) |
 
 **Unused Signature POVs** (approved external, as of 2026-09-29; re-check Notion):
 - Domain redirects: "A redirect-only domain still needs real infrastructure." / "DNS does not redirect a URL. HTTP does."

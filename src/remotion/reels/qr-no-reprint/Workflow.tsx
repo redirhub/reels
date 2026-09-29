@@ -139,7 +139,7 @@ export function Workflow(props: QrNoReprintProps) {
                     </div>
                     <div style={{ marginTop: 40, borderRadius: 28, background: color.g100, padding: 28, display: 'flex', gap: 30, alignItems: 'center' }}>
                         <div style={{ flex: 'none', position: 'relative' }}>
-                            <BrandedQr value={props.qrValue} label={shortLink} size={206} labelSize={17} padding={16} style={{ borderRadius: 18 }} />
+                            <BrandedQr value={props.qrValue} label={shortLink} size={206} labelSize={17}  />
                             <div style={{ position: 'absolute', inset: -10, borderRadius: 26, border: `6px solid ${color.teal}`, ...fx(prog(t, 9.0, 9.4) * ringPulse) }} />
                             <div style={{
                                 position: 'absolute', left: '50%', top: -26, whiteSpace: 'nowrap', background: color.teal, color: '#fff',

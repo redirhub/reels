@@ -4,6 +4,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { color } from '../brand/tokens';
 import { RedirHubIcon } from '../brand/Logo';
+import { IconGlobe, IconHome, IconLink, IconPulse, IconRedirect } from './icons';
 
 export function BrowserWindow({ address, style, children }: { address: string; style?: CSSProperties; children: ReactNode }) {
     return (
@@ -136,6 +137,38 @@ export function StepHeading({ step, title, tone = 'blue', style }: { step: strin
                 background: tone === 'teal' ? '#E6F6F4' : color.blueBg, color: tone === 'teal' ? '#138373' : color.blue,
             }}>{step}</div>
             <div style={{ fontSize: 70, fontWeight: 800, letterSpacing: '-.035em', lineHeight: 1.04, marginTop: 22, color: color.charcoal }}>{title}</div>
+        </div>
+    );
+}
+
+export type NavKey = 'home' | 'redirects' | 'shortener' | 'monitor' | 'hostnames';
+/* Same items and order as the real app nav (redirhub/lviv src/hooks/useNavigations.js). */
+const NAV: readonly [NavKey, string, (p: { size?: number; color?: string }) => ReactNode][] = [
+    ['home', 'Home', IconHome],
+    ['redirects', 'Redirects', IconRedirect],
+    ['shortener', 'Shortener', IconLink],
+    ['monitor', 'Monitor', IconPulse],
+    ['hostnames', 'Hostnames', IconGlobe],
+];
+export const SIDEBAR_WIDTH = 250;
+
+/** Left navigation of the dashboard, for landscape layouts. Put the page in a
+    `<View style={{ left: SIDEBAR_WIDTH }}>` next to it. */
+export function Sidebar({ active }: { active: NavKey }) {
+    return (
+        <div style={{
+            position: 'absolute', left: 0, top: 0, bottom: 0, width: SIDEBAR_WIDTH, padding: '30px 18px',
+            background: color.g50, borderRight: `1px solid ${color.g200}`,
+        }}>
+            {NAV.map(([key, label, Icon]) => {
+                const on = key === active;
+                return (
+                    <div key={key} style={{
+                        height: 64, borderRadius: 16, display: 'flex', alignItems: 'center', gap: 16, padding: '0 18px', marginBottom: 6,
+                        fontSize: 26, fontWeight: 600, color: on ? color.blue : color.g600, background: on ? color.blueBg : 'transparent',
+                    }}><Icon size={30} color={on ? color.blue : color.g500} />{label}</div>
+                );
+            })}
         </div>
     );
 }

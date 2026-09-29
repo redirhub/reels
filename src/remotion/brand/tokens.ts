@@ -32,3 +32,5 @@ export const font = {
 
 /** Standard vertical social format (Reels, Shorts, TikTok). */
 export const VERTICAL = { width: 1080, height: 1920, fps: 30 } as const;
+/** Landscape 16:9 (website embeds, YouTube). */
+export const LANDSCAPE = { width: 1920, height: 1080, fps: 30 } as const;
