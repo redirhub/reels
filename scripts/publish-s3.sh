@@ -10,7 +10,7 @@
 #                                    old ones (docs/aws/reels-lifecycle.json)
 #   index.json                       manifest of all reels and their URLs
 #
-# With REELS_PREVIEW=1 (branch pushes, preview role) it writes only
+# With REELS_PREVIEW=1 (branch pushes) it writes only
 #   previews/<id>/<commit>.mp4|.jpg  this commit's render, for the branch's Vercel preview;
 #                                    immutable, expired after 14 days by a lifecycle rule
 set -euo pipefail

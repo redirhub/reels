@@ -77,18 +77,17 @@ jobs:
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
         run: scripts/publish-s3.sh
 
-      # Branch pushes: publish this commit's render for the branch's Vercel preview. A
-      # separate role that can only write reels/previews/*, so a branch can never
-      # overwrite what main has published.
+      # Branch pushes: publish this commit's render for the branch's Vercel preview.
+      # Same role as main; publish-s3.sh writes only reels/previews/* in this mode.
       - name: Configure AWS credentials (preview)
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_PREVIEW_ROLE_ARN != ''
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_PREVIEW_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Publish branch preview
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_PREVIEW_ROLE_ARN != ''
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
         env:
           REELS_PREVIEW: '1'
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}

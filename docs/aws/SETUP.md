@@ -18,9 +18,12 @@ preview, which plays it under **Rendered MP4**:
 https://dcr3565853rcg.cloudfront.net/reels/previews/<id>/<commit>.mp4|.jpg   kept 14 days
 ```
 
-Branch previews use a **separate role** that can only write `reels/previews/*`, so a
-branch can never overwrite what `main` published. Preview URLs contain the full commit
-SHA and aren't linked anywhere public, but anyone who has one can open it.
+Branch previews use the **same role** as `main`; in preview mode `publish-s3.sh` writes
+only `reels/previews/*`. The role itself could write any `reels/*` path, which is
+acceptable while `main` isn't branch-protected (anyone who can push a branch can push to
+`main` too). If `main` gets protection later, give branches a separate role limited to
+`reels/previews/*`. Preview URLs contain the full commit SHA and aren't linked anywhere
+public, but anyone who has one can open it.
 
 GitHub signs in to AWS with short-lived OIDC tokens, so no AWS keys are stored
 in GitHub. The role can only write under `reels/` in one bucket and invalidate one
@@ -42,7 +45,8 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
 
    RedirHub's GitHub organization uses a custom OIDC subject template. Keep the
    `token.actions.githubusercontent.com:sub` value from that file exactly; its organization
-   and repository IDs are deliberate and restrict this role to `redirhub/reels` on `main`.
+   and repository IDs are deliberate and restrict this role to `redirhub/reels`. It matches
+   `ref:refs/heads/*` (`StringLike`), so every branch can publish its preview.
 
    To check the template or rebuild the subject (for another repo, or after a change), look
    up the values with the GitHub CLI:
@@ -53,7 +57,7 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    gh api repos/redirhub/reels --jq .id                  # repository ID (1394109103)
    ```
 
-   Then assemble the subject as `repo:<org>@<org-id>/<repo>@<repo-id>:ref:refs/heads/main`.
+   Then assemble the subject as `repo:<org>@<org-id>/<repo>@<repo-id>:ref:refs/heads/*`.
    IDs don't change when a repository is renamed, and a repository recreated under the
    same name gets a new ID, so it can't inherit this role.
 
@@ -82,13 +86,6 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
 
    The publish role can't delete anything (by design), so cleanups like this run as an admin.
 
-5. **Branch-preview role** `github-actions-reels-preview`: same steps as the role in step 2,
-   with [`github-oidc-preview-trust-policy.json`](github-oidc-preview-trust-policy.json)
-   (any branch of `redirhub/reels`, same custom subject IDs, `StringLike` on
-   `ref:refs/heads/*`) and the inline policy [`reels-preview-policy.json`](reels-preview-policy.json)
-   (`PutObject` on `reels/previews/*` only; no CloudFront access, because preview files are
-   immutable).
-
 ## Repository variables (GitHub)
 
 redirhub/reels → Settings → Secrets and variables → Actions → **Variables** tab. None
@@ -100,11 +97,9 @@ of these are secrets.
 | `AWS_REGION` | the bucket's region, e.g. `us-east-1` |
 | `REELS_S3_BUCKET` | bucket name only, no `s3://` |
 | `CLOUDFRONT_DISTRIBUTION_ID` | e.g. `E1ABCDEF2GHIJK` |
-| `AWS_PREVIEW_ROLE_ARN` | `arn:aws:iam::123456789012:role/github-actions-reels-preview` |
 
 Until `AWS_ROLE_ARN` is set, `main` builds still render and attach artifacts, and
-log a warning that nothing was published. Until `AWS_PREVIEW_ROLE_ARN` is set, branch
-pushes render and attach artifacts, and the Vercel preview falls back to the live Player.
+log a warning that nothing was published.
 
 ## Verify
 
