@@ -64,7 +64,7 @@ export function BrandedLinks(props: HomepageExplainerProps) {
                         <BrandedQr value={props.qrValue} label={shortLink} size={180} labelSize={16} padding={14} style={{ borderRadius: 16 }} />
                         <div style={{ position: 'absolute', inset: -10, borderRadius: 24, border: `6px solid ${color.teal}`, ...fx(ring) }} />
                         <div style={{
-                            position: 'absolute', left: '50%', top: -24, whiteSpace: 'nowrap', background: color.teal, color: '#fff',
+                            position: 'absolute', left: '50%', top: -52, whiteSpace: 'nowrap', background: color.teal, color: '#fff',
                             fontSize: 22, fontWeight: 800, padding: '8px 18px', borderRadius: 30, opacity: easeOut(prog(t, 4.45, 4.75)),
                             transform: `translateX(-50%) scale(${lerp(0.6, 1, easeBack(prog(t, 4.45, 4.8)))})`,
                         }}>Unchanged ✓</div>
