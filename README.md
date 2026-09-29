@@ -29,7 +29,7 @@ npm run studio    # Remotion Studio
 npm run render    # MP4s into out/
 ```
 
-Requires Node 22 (`.nvmrc`). To regenerate audio: `pip install -r scripts/audio/requirements.txt && python3 scripts/audio/generate.py`. Rendering downloads a headless Chrome on first run. If that is blocked,
+Requires Node 22 (`.nvmrc`). To regenerate audio: `pip install -r scripts/audio/requirements.txt && npm run audio`. Rendering downloads a headless Chrome on first run. If that is blocked,
 set `CHROME_PATH` to a local chrome-headless-shell.
 
 ### Vercel
@@ -47,8 +47,8 @@ gallery runs on Vercel; rendering happens in GitHub Actions.
 - **Remotion 4**: React compositions rendered frame by frame in headless Chrome, encoded
   with FFmpeg (bundled with Remotion).
 - **Next.js 16 + `@remotion/player`**: the preview gallery.
-- **Python (numpy/scipy)**: `scripts/audio/generate.py` synthesizes the music and sound
-  effects, so all audio is original.
+- **Python (numpy/scipy)**: `scripts/audio/` generates a beat per reel (from its `music.json`) and
+  the shared sound effects, so all audio is original.
 - **`qrcode`**: real, scannable QR codes generated from props.
 - **GitHub Actions + S3/CloudFront**: typecheck, build and render on every PR; publish to the CDN from `main` (OIDC, no stored AWS keys).
 
@@ -63,11 +63,11 @@ RedirHub fixes it without a reprint.
 
 | Time | Beat | On screen | Audio |
 |---|---|---|---|
-| 0–3.3s | Hook | "10,000 flyers printed. Then the site changed." A phone scans the flyer QR and gets a 404 (red flash). | Driving minor groove, then an impact at the 404 and the music cuts out |
-| 3.3–6.8s | Stakes | Static QR: *reprint all 10,000*. RedirHub QR on your domain: *change one field*. | Ticking tension, build and riser |
-| 6.8–17.4s | Product | Monitor alert flags the 404 → open the link → retype the destination → Save → "Monitored · Healthy", QR "Unchanged ✓". | Drop into the major-key groove; alert, click, typing and success sounds |
-| 17.4–25.4s | Before / after | Same printed QR: a 404 on one phone, the live sale page on the other. | Whoosh; the lead melody enters |
-| 25.4–30s | CTA | Logo, "Dynamic QR codes. On your domain.", audience line, "Start free at redirhub.com", scannable QR. | Chord stinger, then the outro fades |
+| 0–3.3s | Hook | "10,000 flyers printed. Then the site changed." A phone scans the flyer QR and gets a 404 (red flash). | Beat (drums only) from the first frame, impact at the 404, then only a soft shaker |
+| 3.3–6.8s | Stakes | Static QR: *reprint all 10,000*. RedirHub QR on your domain: *change one field*. | Drums back in, clap roll and riser |
+| 6.8–17.4s | Product | Monitor alert flags the 404 → open the link → retype the destination → Save → "Monitored · Healthy", QR "Unchanged ✓". | **Drop** at 6.55s: bass and chord stabs join, with a crash; alert, click, typing and success sounds |
+| 17.4–25.4s | Before / after | Same printed QR: a 404 on one phone, the live sale page on the other. | Whoosh; full groove continues |
+| 25.4–30s | CTA | Logo, "Dynamic QR codes. On your domain.", audience line, "Start free at redirhub.com", scannable QR. | Chord stinger, then the beat fades out |
 
 **Messaging basis (Notion):** use case *Trackable QR codes*. Signature POV *"A QR code is a
 printed URL, not just a graphic."* Positioning *"Dynamic QR codes. On your domain."*

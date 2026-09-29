@@ -12,7 +12,8 @@
     "start": "next start",
     "studio": "remotion studio src/remotion/index.ts",
     "render": "node scripts/render.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audio": "python3 scripts/audio/generate.py"
   },
   "dependencies": {
     "@remotion/fonts": "4.0.529",

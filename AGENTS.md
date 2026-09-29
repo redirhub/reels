@@ -29,7 +29,7 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 | `app/` | Next.js gallery on Vercel (https://reels-redirhub.vercel.app). Plays the published MP4 by default in production and the live Remotion Player on branch previews. |
 | `scripts/render.mjs` | Batch render to `out/<id>.mp4` + `out/<id>.jpg`. |
 | `scripts/publish-s3.sh` | CI-only: upload `out/` to S3 and invalidate CloudFront. Setup in `docs/aws/SETUP.md`. |
-| `scripts/audio/generate.py` | Synthesizes the music bed and SFX into `public/audio/`. |
+| `scripts/audio/` | `npm run audio`: generates each reel's beat from its `music.json` (`beat.py`) and the shared SFX (`sfx.py`) into `public/audio/`. |
 
 ## Writing reels
 
@@ -65,8 +65,11 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 
 - Music and SFX are **generated** by `scripts/audio/generate.py` (numpy/scipy), so they're
   original and royalty-free. Don't add third-party audio without a license on file.
-- The music bed is loudness-normalized to -16 LUFS. SFX sit on top via `<Sfx cues={…} />`
-  (`components/Sfx.tsx`), with cues as `[seconds, name, volume]` at the on-screen event.
+- **Music = a generated beat per reel**, never hand-composed: `src/remotion/reels/<id>/music.json`
+  → `npm run audio` → `public/audio/<id>-beat.mp3`, played by `<Beat />`. Keep `duration` equal
+  to the reel's length (`npm run render` fails otherwise). The beat is normalized to -16 LUFS.
+- SFX sit on top via `<Sfx cues={…} />` (`components/Sfx.tsx`), with cues as
+  `[seconds, name, volume]` at the on-screen event.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player
   light: prefer one premixed effect (e.g. `typing`) over many rapid cues. Effect lengths come
   from `public/audio/sfx/manifest.json`, which the generator writes. Never edit it by hand.
