@@ -25,3 +25,9 @@ export const IconDots = ({ size = 32, color = 'currentColor' }: P) => <Svg size=
 export const IconPulse = (p: P) => <Svg width={2.2} {...p}><path d="M3 12h4l3-8 4 16 3-8h4" /></Svg>;
 export const IconDownCircle = (p: P) => <Svg width={2.6} {...p}><circle cx="12" cy="12" r="9" /><path d="M12 8v8M8.5 12.5 12 16l3.5-3.5" /></Svg>;
 export const IconArrowRight = (p: P) => <Svg width={2.6} {...p}><path d="M5 12h14M13 6l6 6-6 6" /></Svg>;
+export const IconHome = (p: P) => <Svg {...p}><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z" /></Svg>;
+export const IconRedirect = (p: P) => <Svg {...p}><path d="M4 7h11a4 4 0 0 1 0 8H8" /><path d="M11 12l-3 3 3 3" /></Svg>;
+export const IconUpload = (p: P) => <Svg width={2.2} {...p}><path d="M12 16V4M7 9l5-5 5 5" /><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" /></Svg>;
+export const IconFile = (p: P) => <Svg {...p}><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /></Svg>;
+export const IconMail = (p: P) => <Svg {...p}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></Svg>;
+export const IconUser = (p: P) => <Svg {...p}><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></Svg>;

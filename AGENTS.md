@@ -39,7 +39,7 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 - **Scenario data goes in `props.ts`**, never hard-coded in scenes, so variants are new props.
 - **Reuse components.** If a new reel needs a phone, flyer, dashboard row or cursor, use
   or extend the shared component instead of copying markup.
-- **Keep text inside the social safe area**: roughly y 200–1600 on a 1080×1920 frame
+- **Keep text inside the social safe area** (vertical reels): roughly y 200–1600 on a 1080×1920 frame
   (platform UI covers the top ~200px and bottom ~300px).
 - **Cursor keyframes are composition pixels.** If you move UI, re-measure the targets
   (render a still and check) and update the keyframes.

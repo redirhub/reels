@@ -5,11 +5,11 @@
 
 Checks, and fails (exit 1) on anything that would break a social upload or the
 RedirHub QR standard:
-  - format: H.264, yuv420p, 1080x1920, 30 fps, an AAC audio track
+  - format: H.264, yuv420p, 1080x1920 (vertical) or 1920x1080 (landscape), 30 fps, an AAC audio track
   - loudness: integrated LUFS near the -14 social target (warns outside -16..-12)
   - QR: at each --qr SECONDS=URL, a QR in the frame must decode to exactly URL
-Writes a contact sheet (out/qa/<id>/sheet.png) to eyeball layout, safe area and
-overlaps. Look at it: most visual bugs so far were only visible there.
+Writes a contact sheet (out/qa/<id>/sheet.png) to eyeball layout, safe area (vertical
+only) and overlaps. Look at it: most visual bugs so far were only visible there.
 """
 import argparse
 import json
@@ -24,7 +24,8 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
-EXPECT = {"codec": "h264", "pix_fmt": "yuv420p", "size": (1080, 1920), "fps": 30}
+EXPECT = {"codec": "h264", "pix_fmt": "yuv420p", "fps": 30}
+SIZES = {(1080, 1920), (1920, 1080)}  # VERTICAL and LANDSCAPE in src/remotion/brand/tokens.ts
 # Social UI covers roughly the top 200px and bottom 300px of a 1080x1920 frame.
 SAFE_TOP, SAFE_BOTTOM = 200, 1600
 
@@ -52,22 +53,24 @@ def loudness(mp4):
     return (float(i[-1]) if i else None, float(p[-1]) if p else None)
 
 
-def frame(mp4, t):
+def frame(mp4, t, size):
+    w, h = size
     raw = subprocess.run([FFMPEG, "-loglevel", "error", "-ss", f"{t:.3f}", "-i", str(mp4), "-frames:v", "1",
                           "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
-    return np.frombuffer(raw, np.uint8).reshape(1920, 1080, 3)
+    return np.frombuffer(raw, np.uint8).reshape(h, w, 3)
 
 
-def sheet(mp4, duration, n, out):
+def sheet(mp4, duration, n, out, size):
     times = [round(duration * (i + 0.5) / n, 2) for i in range(n)]
-    w, h, cols = 270, 480, 6
+    vertical = size[1] > size[0]
+    w, h, cols = (270, 480, 6) if vertical else (480, 270, 4)
     rows = (n + cols - 1) // cols
     img = Image.new("RGB", (w * cols, (h + 24) * rows), "white")
     draw = ImageDraw.Draw(img)
     for k, t in enumerate(times):
-        f = Image.fromarray(frame(mp4, t)).resize((w, h))
+        f = Image.fromarray(frame(mp4, t, size)).resize((w, h))
         d = ImageDraw.Draw(f)
-        for y in (SAFE_TOP, SAFE_BOTTOM):  # safe-area guides
+        for y in (SAFE_TOP, SAFE_BOTTOM) if vertical else ():  # social safe-area guides
             d.line([(0, y * h / 1920), (w, y * h / 1920)], fill=(255, 0, 180), width=1)
         x, y = (k % cols) * w, (k // cols) * (h + 24)
         img.paste(f, (x, y))
@@ -93,6 +96,8 @@ def main():
     for key, want in EXPECT.items():
         if info[key] != want:
             failures.append(f"{key}: {info[key]} (want {want})")
+    if info["size"] not in SIZES:
+        failures.append(f"size: {info['size']} (want one of {sorted(SIZES)})")
     if info["audio"] != "aac":
         failures.append(f"audio: {info['audio']} (want aac)")
 
@@ -107,13 +112,13 @@ def main():
     report["qr"] = []
     for spec in args.qr:
         t, _, want = spec.partition("=")
-        got = detector.detectAndDecode(cv2.cvtColor(frame(args.mp4, float(t)), cv2.COLOR_RGB2BGR))[0]
+        got = detector.detectAndDecode(cv2.cvtColor(frame(args.mp4, float(t), info["size"]), cv2.COLOR_RGB2BGR))[0]
         report["qr"].append({"t": float(t), "want": want, "got": got})
         if got != want:
             failures.append(f"QR at {t}s decoded to {got!r} (want {want!r})")
 
     report["sheet"] = str(out / "sheet.png")
-    report["sheet_times"] = sheet(args.mp4, info["duration"], args.frames, out / "sheet.png")
+    report["sheet_times"] = sheet(args.mp4, info["duration"], args.frames, out / "sheet.png", info["size"])
     (out / "report.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))
     if failures:
