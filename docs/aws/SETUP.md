@@ -7,7 +7,7 @@ served publicly from CloudFront at:
 https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4     stable link to the newest render
 https://dcr3565853rcg.cloudfront.net/reels/<id>/download.mp4   same file, downloads instead of playing
 https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.jpg     cover image
-https://dcr3565853rcg.cloudfront.net/reels/<id>/<commit>.mp4   a specific render, never changes
+https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/<commit>.mp4   a specific render, kept 90 days
 https://dcr3565853rcg.cloudfront.net/reels/index.json          manifest of all reels
 ```
 
@@ -53,9 +53,24 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    certain prefixes, add `arn:aws:s3:::<BUCKET_NAME>/reels/*` to it. Keep the bucket
    itself private; only CloudFront reads it.
 
-4. **(Optional) cleanup:** add an S3 lifecycle rule to expire old
-   `reels/*/<commit>.mp4` renders, e.g. after 180 days. The `latest` files are
-   overwritten on each publish and aren't affected.
+4. **Lifecycle rules (cleanup).** Every publish adds an immutable copy under
+   `reels/renders/<id>/<commit>.mp4|.jpg` (~5 MB per reel) and overwrites the `latest`
+   files. Without rules these accumulate forever. [`reels-lifecycle.json`](reels-lifecycle.json):
+   - expires `reels/renders/` objects after **90 days** (the `latest` links are unaffected);
+   - if the bucket has **versioning** on, deletes overwritten versions of `reels/` files after
+     7 days (otherwise every publish silently keeps the previous `latest.mp4` and
+     `download.mp4`), and cleans up failed multipart uploads.
+
+   Lifecycle configuration replaces the bucket's **whole** rule set, so merge these rules
+   into any existing ones instead of overwriting them:
+
+   ```bash
+   aws s3api get-bucket-lifecycle-configuration --bucket <BUCKET_NAME>   # existing rules, if any
+   aws s3api put-bucket-lifecycle-configuration --bucket <BUCKET_NAME> \
+       --lifecycle-configuration file://docs/aws/reels-lifecycle.json    # only if there were none
+   ```
+
+   The publish role can't delete anything (by design), so cleanups like this run as an admin.
 
 ## Repository variables (GitHub)
 

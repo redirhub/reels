@@ -3,13 +3,15 @@
 Everything here is generated from oscillators and noise, so the audio is ours:
 no samples, no stock library, no licensing questions.
 
-    pip install numpy scipy imageio-ffmpeg
+    pip install -r scripts/audio/requirements.txt
     python3 scripts/audio/generate.py
 
-Writes public/audio/qr-no-reprint-bgm.mp3 and public/audio/sfx/*.wav. The output is
+Writes public/audio/qr-no-reprint-bgm.mp3, public/audio/sfx/*.wav and
+public/audio/sfx/manifest.json (each effect's length, read by the Sfx component). The output is
 deterministic (fixed random seed), so re-running it only changes files when this
 script changes.
 """
+import json
 import pathlib
 import shutil
 import subprocess
@@ -418,13 +420,18 @@ def main():
         check=True,
     )
     tmp.unlink()
+    durations = {}
     for name, fn in {
         "impact": sfx_impact, "whoosh": sfx_whoosh, "riser": sfx_riser, "click": sfx_click,
         "key": sfx_key, "alert": sfx_alert, "success": sfx_success, "stinger": sfx_stinger,
         # Last, so earlier files keep the same random draws when this is added.
         "typing": sfx_typing,
     }.items():
-        write_wav(OUT / "sfx" / f"{name}.wav", fn())
+        st = fn()
+        write_wav(OUT / "sfx" / f"{name}.wav", st)
+        durations[name] = round(st.shape[1] / SR, 3)
+    # Sfx.tsx mounts each effect only for its length; keep that in sync automatically.
+    (OUT / "sfx" / "manifest.json").write_text(json.dumps(durations, indent=2) + "\n")
     print("wrote", sorted(p.relative_to(ROOT).as_posix() for p in OUT.rglob("*.*")))
 
 
