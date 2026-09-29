@@ -1,8 +1,9 @@
 /* "10,000 flyers printed. Then the site changed." — 30s vertical reel.
    Scene windows overlap so transitions (circle reveal, slide-up, zoom-fade)
    happen with both scenes on screen; later sequences draw on top. */
-import { AbsoluteFill, Html5Audio, Sequence, staticFile, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Sequence, useVideoConfig } from 'remotion';
 import { font } from '../../brand/tokens';
+import { Beat } from '../../components/Beat';
 import { Sfx, type SfxCue } from '../../components/Sfx';
 import { BeforeAfter } from './BeforeAfter';
 import { Cta } from './Cta';
@@ -32,7 +33,7 @@ const SOUND_CUES: readonly SfxCue[] = [
         [17.05, 'whoosh', 0.5],  // slide to before/after
         [20.45, 'success', 0.35],// after-phone lands on the sale
         [24.35, 'riser', 0.45],  // into the end card
-        [25.35, 'stinger', 0.8], // end card
+        [25.35, 'stinger', 0.55], // end card (quieter: it rings over the full beat)
 ];
 
 export function QrNoReprint(props: QrNoReprintProps) {
@@ -47,7 +48,8 @@ export function QrNoReprint(props: QrNoReprintProps) {
             <Sequence {...seq(SCENES.beforeAfter)} name="Before / after"><BeforeAfter {...props} /></Sequence>
             <Sequence {...seq(SCENES.cta)} name="CTA"><Cta {...props} /></Sequence>
 
-            <Html5Audio src={staticFile('audio/qr-no-reprint-bgm.mp3')} />
+            {/* Beat from music.json (drop on the dashboard reveal, silence after the 404); SFX on top. */}
+            <Beat />
             <Sfx cues={SOUND_CUES} />
         </AbsoluteFill>
     );
