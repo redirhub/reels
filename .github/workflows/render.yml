@@ -1,9 +1,10 @@
 name: Render reels
 
+# Every branch push renders. Pull requests show the check from their head commit, so
+# there's no separate pull_request trigger (it would render everything twice).
 on:
-  pull_request:
   push:
-    branches: [main]
+    branches: ['**']
   workflow_dispatch:
 
 concurrency:
@@ -16,7 +17,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
-      id-token: write # GitHub OIDC → AWS role (main only; see docs/aws/SETUP.md)
+      id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,7 +29,7 @@ jobs:
         id: changes
         env:
           EVENT: ${{ github.event_name }}
-          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          BASE: ${{ github.event.before }}
         run: |
           render=true
           if [ "$EVENT" != workflow_dispatch ] && [ -n "$BASE" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
@@ -54,7 +55,7 @@ jobs:
         if: steps.changes.outputs.render == 'true'
         run: npm run render
 
-      # Pull requests stay private: renders are only available as this run's artifact.
+      # Also kept as a private artifact, e.g. while publishing isn't configured.
       - uses: actions/upload-artifact@v4
         if: steps.changes.outputs.render == 'true'
         with:
@@ -76,6 +77,23 @@ jobs:
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
         run: scripts/publish-s3.sh
 
+      # Branch pushes: publish this commit's render for the branch's Vercel preview. A
+      # separate role that can only write reels/previews/*, so a branch can never
+      # overwrite what main has published.
+      - name: Configure AWS credentials (preview)
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_PREVIEW_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_PREVIEW_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Publish branch preview
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_PREVIEW_ROLE_ARN != ''
+        env:
+          REELS_PREVIEW: '1'
+          REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
+        run: scripts/publish-s3.sh | tee -a "$RUNNER_TEMP/previews.txt"
+
       - name: Publishing not configured
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN == ''
         run: echo "::warning::AWS_ROLE_ARN is not set, so renders were not published. See docs/aws/SETUP.md."
@@ -91,6 +109,11 @@ jobs:
               exit 0
             fi
             echo "Artifact: **reels-${{ github.sha }}** (this run)."
+            if [ -s "$RUNNER_TEMP/previews.txt" ]; then
+              echo
+              echo "Branch preview (also played by this commit's Vercel preview):"
+              sed 's/^preview /- /' "$RUNNER_TEMP/previews.txt"
+            fi
             if [ -f out/index.json ]; then
               echo
               echo "Published:"

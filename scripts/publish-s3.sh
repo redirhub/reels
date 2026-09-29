@@ -9,7 +9,28 @@
 #                                    one fixed prefix so an S3 lifecycle rule can expire
 #                                    old ones (docs/aws/reels-lifecycle.json)
 #   index.json                       manifest of all reels and their URLs
+#
+# With REELS_PREVIEW=1 (branch pushes, preview role) it writes only
+#   previews/<id>/<commit>.mp4|.jpg  this commit's render, for the branch's Vercel preview;
+#                                    immutable, expired after 14 days by a lifecycle rule
 set -euo pipefail
+
+if [[ "${REELS_PREVIEW:-}" == 1 ]]; then
+    : "${REELS_S3_BUCKET:?set the REELS_S3_BUCKET repository variable}"
+    SHA="${GITHUB_SHA:-$(git rev-parse HEAD)}"
+    for mp4 in out/*.mp4; do
+        id="$(basename "$mp4" .mp4)"
+        # One file serves both the <video> tag and the download button: an attachment
+        # disposition only affects navigation, not playback.
+        aws s3 cp "$mp4" "s3://$REELS_S3_BUCKET/reels/previews/$id/$SHA.mp4" --only-show-errors \
+            --content-type video/mp4 --cache-control "public, max-age=31536000, immutable" \
+            --content-disposition "attachment; filename=\"redirhub-$id-${SHA::7}.mp4\""
+        aws s3 cp "out/$id.jpg" "s3://$REELS_S3_BUCKET/reels/previews/$id/$SHA.jpg" --only-show-errors \
+            --content-type image/jpeg --cache-control "public, max-age=31536000, immutable"
+        echo "preview https://dcr3565853rcg.cloudfront.net/reels/previews/$id/$SHA.mp4"
+    done
+    exit 0
+fi
 
 : "${REELS_S3_BUCKET:?set the REELS_S3_BUCKET repository variable}"
 : "${CLOUDFRONT_DISTRIBUTION_ID:?set the CLOUDFRONT_DISTRIBUTION_ID repository variable}"

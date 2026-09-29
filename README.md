@@ -15,10 +15,10 @@ copy fix is a code change plus a re-render.
 
 | | How |
 |---|---|
-| **Preview (team)** | The gallery at <https://reels-redirhub.vercel.app>. Production plays the published MP4 (instant scrubbing). Branch previews default to **Live preview**, which renders the branch's code in the browser, since the CDN only has `main`'s render. Both are one tab apart. |
+| **Preview (team)** | The gallery at <https://reels-redirhub.vercel.app>. Production plays `main`'s published MP4. Each branch's Vercel preview plays **CI's render of that exact commit** (published about 3–4 minutes after the push), so what you see is what `main` will publish. Until it's ready, the preview falls back to **Live preview** (renders in the browser). |
 | **Preview (editing)** | `npm run studio` opens Remotion Studio with a timeline, frame scrubbing and props. |
 | **Render** | `npm run render` (all reels) or `npm run render -- qr-no-reprint`. Writes `out/<id>.mp4` (H.264, AAC) and `out/<id>.jpg` (cover). |
-| **Download** | Every push to `main` renders and publishes to the public CDN: `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4` (stable link), `…/download.mp4` (downloads instead of playing), `…/latest.jpg` (cover), plus an immutable `reels/renders/<id>/<commit>.mp4` per render (kept 90 days) and `reels/index.json`. Docs-only commits skip rendering. Pull-request renders stay private as the run's `reels-<sha>` artifact (7 days). Setup: [`docs/aws/SETUP.md`](docs/aws/SETUP.md). |
+| **Download** | Every push to `main` renders and publishes to the public CDN: `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4` (stable link), `…/download.mp4` (downloads instead of playing), `…/latest.jpg` (cover), plus an immutable `reels/renders/<id>/<commit>.mp4` per render (kept 90 days) and `reels/index.json`. Every branch push publishes `reels/previews/<id>/<commit>.mp4` (kept 14 days) for its Vercel preview. Docs-only commits skip rendering. Each run also keeps a private `reels-<sha>` artifact (7 days). Setup: [`docs/aws/SETUP.md`](docs/aws/SETUP.md). |
 
 ## Getting started
 
@@ -40,7 +40,7 @@ gallery runs on Vercel; rendering happens in GitHub Actions.
 | Env var | Default | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_REELS_BASE_URL` | `https://dcr3565853rcg.cloudfront.net/reels` | CDN root the gallery plays and downloads from. |
-| `NEXT_PUBLIC_VERCEL_ENV` | set by Vercel | `production` shows the published MP4 first; previews show the live Player first. |
+| `NEXT_PUBLIC_VERCEL_ENV`, `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`, `NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF` | set by Vercel | Production plays `main`'s MP4; previews play the render of their commit SHA. |
 
 ## Stack
 

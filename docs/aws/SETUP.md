@@ -11,7 +11,16 @@ https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/<commit>.mp4   a specifi
 https://dcr3565853rcg.cloudfront.net/reels/index.json          manifest of all reels
 ```
 
-Pull-request renders are not published. They stay private as GitHub Actions artifacts.
+Every **branch** push also publishes that commit's render for the branch's Vercel
+preview, which plays it under **Rendered MP4**:
+
+```
+https://dcr3565853rcg.cloudfront.net/reels/previews/<id>/<commit>.mp4|.jpg   kept 14 days
+```
+
+Branch previews use a **separate role** that can only write `reels/previews/*`, so a
+branch can never overwrite what `main` published. Preview URLs contain the full commit
+SHA and aren't linked anywhere public, but anyone who has one can open it.
 
 GitHub signs in to AWS with short-lived OIDC tokens, so no AWS keys are stored
 in GitHub. The role can only write under `reels/` in one bucket and invalidate one
@@ -57,6 +66,7 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
    `reels/renders/<id>/<commit>.mp4|.jpg` (~5 MB per reel) and overwrites the `latest`
    files. Without rules these accumulate forever. [`reels-lifecycle.json`](reels-lifecycle.json):
    - expires `reels/renders/` objects after **90 days** (the `latest` links are unaffected);
+   - expires branch previews (`reels/previews/`) after **14 days**;
    - if the bucket has **versioning** on, deletes overwritten versions of `reels/` files after
      7 days (otherwise every publish silently keeps the previous `latest.mp4` and
      `download.mp4`), and cleans up failed multipart uploads.
@@ -72,6 +82,13 @@ Replace `<AWS_ACCOUNT_ID>`, `<BUCKET_NAME>` and `<DISTRIBUTION_ID>` in the JSON 
 
    The publish role can't delete anything (by design), so cleanups like this run as an admin.
 
+5. **Branch-preview role** `github-actions-reels-preview`: same steps as the role in step 2,
+   with [`github-oidc-preview-trust-policy.json`](github-oidc-preview-trust-policy.json)
+   (any branch of `redirhub/reels`, same custom subject IDs, `StringLike` on
+   `ref:refs/heads/*`) and the inline policy [`reels-preview-policy.json`](reels-preview-policy.json)
+   (`PutObject` on `reels/previews/*` only; no CloudFront access, because preview files are
+   immutable).
+
 ## Repository variables (GitHub)
 
 redirhub/reels → Settings → Secrets and variables → Actions → **Variables** tab. None
@@ -83,9 +100,11 @@ of these are secrets.
 | `AWS_REGION` | the bucket's region, e.g. `us-east-1` |
 | `REELS_S3_BUCKET` | bucket name only, no `s3://` |
 | `CLOUDFRONT_DISTRIBUTION_ID` | e.g. `E1ABCDEF2GHIJK` |
+| `AWS_PREVIEW_ROLE_ARN` | `arn:aws:iam::123456789012:role/github-actions-reels-preview` |
 
 Until `AWS_ROLE_ARN` is set, `main` builds still render and attach artifacts, and
-log a warning that nothing was published.
+log a warning that nothing was published. Until `AWS_PREVIEW_ROLE_ARN` is set, branch
+pushes render and attach artifacts, and the Vercel preview falls back to the live Player.
 
 ## Verify
 
