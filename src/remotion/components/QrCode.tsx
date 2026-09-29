@@ -1,10 +1,14 @@
 /* A real, scannable QR code rendered as crisp SVG modules. Generated from the
    value at render time, so the encoded URL is a prop, not a baked image. */
-import { useMemo } from 'react';
 import QRCode from 'qrcode';
 
-export function QrCode({ value, color = '#101828', style }: { value: string; color?: string; style?: React.CSSProperties }) {
-    const { size, d } = useMemo(() => {
+/* Cached per value: scenes remount on every seek in the Player, and the same
+   few URLs are encoded over and over. */
+const cache = new Map<string, { size: number; d: string }>();
+
+function modules(value: string) {
+    let hit = cache.get(value);
+    if (!hit) {
         const qr = QRCode.create(value, { errorCorrectionLevel: 'M' });
         const n = qr.modules.size;
         let path = '';
@@ -13,8 +17,14 @@ export function QrCode({ value, color = '#101828', style }: { value: string; col
                 if (qr.modules.get(x, y)) path += `M${x} ${y}h1v1h-1z`;
             }
         }
-        return { size: n, d: path };
-    }, [value]);
+        hit = { size: n, d: path };
+        cache.set(value, hit);
+    }
+    return hit;
+}
+
+export function QrCode({ value, color = '#101828', style }: { value: string; color?: string; style?: React.CSSProperties }) {
+    const { size, d } = modules(value);
     return (
         <svg viewBox={`0 0 ${size} ${size}`} shapeRendering="crispEdges" style={{ display: 'block', width: '100%', height: '100%', ...style }}>
             <path fill={color} d={d} />

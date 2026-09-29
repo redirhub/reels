@@ -15,7 +15,7 @@ copy fix is a code change plus a re-render.
 
 | | How |
 |---|---|
-| **Preview (team)** | The gallery app in `app/` is deployed on Vercel. Every branch gets a preview URL with each reel playing in the browser. |
+| **Preview (team)** | The gallery at <https://reels-redirhub.vercel.app>. Production plays the published MP4 (instant scrubbing). Branch previews default to **Live preview**, which renders the branch's code in the browser, since the CDN only has `main`'s render. Both are one tab apart. |
 | **Preview (editing)** | `npm run studio` opens Remotion Studio with a timeline, frame scrubbing and props. |
 | **Render** | `npm run render` (all reels) or `npm run render -- qr-no-reprint`. Writes `out/<id>.mp4` (H.264, AAC) and `out/<id>.jpg` (cover). |
 | **Download** | Every push to `main` renders and publishes to the public CDN: `https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4` (stable link), `…/download.mp4` (downloads instead of playing), `…/latest.jpg` (cover), plus an immutable `…/<commit>.mp4` per render and `reels/index.json`. Pull-request renders stay private as the run's `reels-<sha>` artifact. Setup: [`docs/aws/SETUP.md`](docs/aws/SETUP.md). |

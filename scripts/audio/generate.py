@@ -338,6 +338,16 @@ def sfx_key():
     return master(np.stack([x, x]), -14)
 
 
+def sfx_typing(duration=1.55, ticks=13):
+    """A burst of keystrokes as one file (one audio element instead of one per key)."""
+    out = np.zeros((2, int((duration + 0.1) * SR)))
+    for i in range(ticks):
+        k = sfx_key() * (0.8 + 0.2 * rng.random())
+        at = int(i * duration / ticks * SR)
+        out[:, at : at + k.shape[1]] += k
+    return out
+
+
 def sfx_alert():
     x = np.zeros(int(0.9 * SR))
     for at, m in ((0, 81), (0.14, 76)):
@@ -411,6 +421,8 @@ def main():
     for name, fn in {
         "impact": sfx_impact, "whoosh": sfx_whoosh, "riser": sfx_riser, "click": sfx_click,
         "key": sfx_key, "alert": sfx_alert, "success": sfx_success, "stinger": sfx_stinger,
+        # Last, so earlier files keep the same random draws when this is added.
+        "typing": sfx_typing,
     }.items():
         write_wav(OUT / "sfx" / f"{name}.wav", fn())
     print("wrote", sorted(p.relative_to(ROOT).as_posix() for p in OUT.rglob("*.*")))
