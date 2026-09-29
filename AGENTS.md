@@ -28,6 +28,7 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 | `src/remotion/lib/anim.ts` | Time helpers (`useTime`, `prog`, easings, `rise`, `fx`). |
 | `app/` | Next.js gallery on Vercel (https://reels-redirhub.vercel.app). Plays the published MP4 by default in production and the live Remotion Player on branch previews. |
 | `scripts/render.mjs` | Batch render to `out/<id>.mp4` + `out/<id>.jpg`. |
+| `scripts/changed-reels.mjs` | CI: which reels a push affects (reel folder / beat / registry entry → that reel; shared code → all). Keep a reel's files inside `src/remotion/reels/<id>/` so this stays accurate. |
 | `scripts/publish-s3.sh` | CI-only: upload `out/` to S3 and invalidate CloudFront. Setup in `docs/aws/SETUP.md`. |
 | `scripts/audio/` | `npm run audio`: generates each reel's beat from its `music.json` (`beat.py`) and the shared SFX (`sfx.py`) into `public/audio/`. |
 

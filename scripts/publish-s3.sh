@@ -9,7 +9,8 @@
 # main only (REELS_PUBLISH_LATEST=1), i.e. after a merge:
 #   <id>/latest.mp4|.jpg             the public, stable link (5 min cache + invalidation)
 #   <id>/download.mp4                same as latest.mp4 but served as an attachment
-#   index.json                       manifest of all reels and their URLs
+#   index.json                       manifest of all reels and their URLs (merged: a run
+#                                    only renders the reels its change affected)
 set -euo pipefail
 
 : "${REELS_S3_BUCKET:?set the REELS_S3_BUCKET repository variable}"
@@ -59,7 +60,18 @@ for mp4 in out/*.mp4; do
 done
 [[ "$LATEST" == 1 ]] || exit 0
 
-printf '%s\n' "${entries[@]}" | jq -s '{generated: now | todate, reels: .}' > out/index.json
+# Only the reels rendered in this run are in out/, so merge into the published manifest:
+# replace their entries, keep the others, and drop reels no longer in the registry
+# (REELS_REGISTERED, space-separated ids; unset = keep all).
+old="$(curl -sf "$BASE_URL/index.json" || true)"
+echo "$old" | jq -e '.reels | type == "array"' >/dev/null 2>&1 || old='{"reels":[]}'
+printf '%s\n' "${entries[@]}" | jq -s --argjson old "$old" --arg registered "${REELS_REGISTERED:-}" '
+    (map(.id)) as $new
+    | ($registered | split(" ") | map(select(. != ""))) as $keep
+    | { generated: (now | todate),
+        reels: ([ $old.reels[] | select(.id as $i | ($new | index($i)) == null)
+                               | select(($keep | length) == 0 or (.id as $i | $keep | index($i)) != null) ]
+                + . | sort_by(.id)) }' > out/index.json
 put out/index.json index.json application/json "$SHORT"
 
 # Commit-addressed renders are immutable. Invalidate only the mutable stable paths.
