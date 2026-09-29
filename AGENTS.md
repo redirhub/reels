@@ -71,9 +71,11 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
   to the reel's length (`npm run render` fails otherwise). The beat is **drums only** (no bass,
   chords or melody) and normalized to -16 LUFS with a static gain.
 - SFX sit on top via `<Sfx cues={…} />` (`components/Sfx.tsx`), with cues as
-  `[seconds, name, volume]` at the on-screen event.
+  `[seconds, name, volume]` at the on-screen event. **Restrained:** only story beats, at most
+  `MAX_SFX_PER_30S` (6) per 30s (`<Sfx>` throws above that), no clicks/typing/hover sounds,
+  volumes about 0.3–0.7 so they sit under the beat.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player
-  light: prefer one premixed effect (e.g. `typing`) over many rapid cues. Effect lengths come
+  light. Effect lengths come
   from `public/audio/sfx/manifest.json`, which the generator writes. Never edit it by hand.
 - Changed the generator? `pip install -r scripts/audio/requirements.txt` (pinned, so output is
   reproducible), re-run it, and commit the regenerated files in `public/audio/`.
