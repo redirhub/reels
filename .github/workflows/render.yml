@@ -79,7 +79,11 @@ jobs:
 
       # Branch pushes: publish this commit's render for the branch's Vercel preview.
       # Same role as main; publish-s3.sh writes only reels/previews/* in this mode.
+      # Best-effort: a missing preview must never block a branch (the gallery falls back
+      # to the live Player). Main publishing below stays strict.
       - name: Configure AWS credentials (preview)
+        id: preview_auth
+        continue-on-error: true
         if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -87,11 +91,17 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Publish branch preview
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        id: preview_publish
+        continue-on-error: true
+        if: steps.preview_auth.outcome == 'success'
         env:
           REELS_PREVIEW: '1'
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
         run: scripts/publish-s3.sh | tee -a "$RUNNER_TEMP/previews.txt"
+
+      - name: Branch preview not published
+        if: steps.preview_auth.outcome == 'failure' || steps.preview_publish.outcome == 'failure'
+        run: echo "::warning::Branch preview wasn't published (is the role's trust policy updated for ref:refs/heads/*? See docs/aws/SETUP.md). The render is still in this run's artifact."
 
       - name: Publishing not configured
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN == ''
