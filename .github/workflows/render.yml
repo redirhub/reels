@@ -23,37 +23,31 @@ jobs:
         with:
           fetch-depth: 0 # needed to diff against the base commit below
 
-      # Docs-only changes don't touch the videos: skip rendering and publishing
-      # (no duplicate uploads), but let the job pass so a required check never blocks.
-      - name: Does this change affect the videos?
+      # Render only the reels this push affects (scripts/changed-reels.mjs has the rules):
+      # a reel's own files → that reel; shared code → all; gallery/CI/docs → none.
+      # Manual runs (workflow_dispatch) and first pushes of a branch render everything.
+      - name: Which reels does this change affect?
         id: changes
         env:
-          EVENT: ${{ github.event_name }}
-          BASE: ${{ github.event.before }}
-        run: |
-          render=true
-          if [ "$EVENT" != workflow_dispatch ] && [ -n "$BASE" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
-            if ! git diff --name-only "$BASE" HEAD | grep -qvE '(\.md$|^docs/)'; then render=false; fi
-          fi
-          echo "render=$render" >> "$GITHUB_OUTPUT"
-          echo "render=$render (base ${BASE:-none})"
+          BASE: ${{ github.event_name == 'push' && github.event.before || '' }}
+        run: node scripts/changed-reels.mjs "$BASE" | tee -a "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v4
-        if: steps.changes.outputs.render == 'true'
+        if: steps.changes.outputs.code == 'true'
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
-        if: steps.changes.outputs.render == 'true'
+        if: steps.changes.outputs.code == 'true'
       - run: npm run typecheck
-        if: steps.changes.outputs.render == 'true'
+        if: steps.changes.outputs.code == 'true'
       - run: npm run build
-        if: steps.changes.outputs.render == 'true'
+        if: steps.changes.outputs.code == 'true'
 
       - name: Render MP4s and covers
         if: steps.changes.outputs.render == 'true'
-        run: npm run render
+        run: npm run render -- ${{ steps.changes.outputs.reels }}
 
       # Also kept as a private artifact, e.g. while publishing isn't configured.
       - uses: actions/upload-artifact@v4
@@ -84,6 +78,7 @@ jobs:
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
           REELS_PUBLISH_LATEST: ${{ github.ref == 'refs/heads/main' && '1' || '' }}
+          REELS_REGISTERED: ${{ steps.changes.outputs.registered }}
         run: scripts/publish-s3.sh | tee "$RUNNER_TEMP/published.txt"
 
       - name: Branch render not published
@@ -101,9 +96,11 @@ jobs:
             echo "### Rendered reels"
             echo
             if [ "${{ steps.changes.outputs.render }}" != true ]; then
-              echo "Docs-only change: nothing rendered or published."
+              echo "No reel affected by this change: nothing rendered or published."
               exit 0
             fi
+            echo "Rendered: ${{ steps.changes.outputs.reels || 'all reels' }}"
+            echo
             echo "Artifact: **reels-${{ github.sha }}** (this run)."
             if [ -s "$RUNNER_TEMP/published.txt" ]; then
               echo
