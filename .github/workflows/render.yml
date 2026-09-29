@@ -19,35 +19,58 @@ jobs:
       id-token: write # GitHub OIDC → AWS role (main only; see docs/aws/SETUP.md)
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # needed to diff against the base commit below
+
+      # Docs-only changes don't touch the videos: skip rendering and publishing
+      # (no duplicate uploads), but let the job pass so a required check never blocks.
+      - name: Does this change affect the videos?
+        id: changes
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          render=true
+          if [ "$EVENT" != workflow_dispatch ] && [ -n "$BASE" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            if ! git diff --name-only "$BASE" HEAD | grep -qvE '(\.md$|^docs/)'; then render=false; fi
+          fi
+          echo "render=$render" >> "$GITHUB_OUTPUT"
+          echo "render=$render (base ${BASE:-none})"
 
       - uses: actions/setup-node@v4
+        if: steps.changes.outputs.render == 'true'
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
+        if: steps.changes.outputs.render == 'true'
       - run: npm run typecheck
+        if: steps.changes.outputs.render == 'true'
       - run: npm run build
+        if: steps.changes.outputs.render == 'true'
 
       - name: Render MP4s and covers
+        if: steps.changes.outputs.render == 'true'
         run: npm run render
 
       # Pull requests stay private: renders are only available as this run's artifact.
       - uses: actions/upload-artifact@v4
+        if: steps.changes.outputs.render == 'true'
         with:
           name: reels-${{ github.sha }}
           path: out/
-          retention-days: 14
+          retention-days: 7
 
       - name: Configure AWS credentials
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Publish to S3 + CloudFront
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
+        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AWS_ROLE_ARN != ''
         env:
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
@@ -63,6 +86,10 @@ jobs:
           {
             echo "### Rendered reels"
             echo
+            if [ "${{ steps.changes.outputs.render }}" != true ]; then
+              echo "Docs-only change: nothing rendered or published."
+              exit 0
+            fi
             echo "Artifact: **reels-${{ github.sha }}** (this run)."
             if [ -f out/index.json ]; then
               echo

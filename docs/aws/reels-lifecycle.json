@@ -1,0 +1,17 @@
+{
+  "Rules": [
+    {
+      "ID": "reels-expire-old-renders",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "reels/renders/" },
+      "Expiration": { "Days": 90 }
+    },
+    {
+      "ID": "reels-expire-overwritten-versions",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "reels/" },
+      "NoncurrentVersionExpiration": { "NoncurrentDays": 7 },
+      "AbortIncompleteMultipartUpload": { "DaysAfterInitiation": 1 }
+    }
+  ]
+}
