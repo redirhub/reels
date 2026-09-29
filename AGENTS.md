@@ -67,7 +67,8 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
   original and royalty-free. Don't add third-party audio without a license on file.
 - **Music = a generated beat per reel**, never hand-composed: `src/remotion/reels/<id>/music.json`
   → `npm run audio` → `public/audio/<id>-beat.mp3`, played by `<Beat />`. Keep `duration` equal
-  to the reel's length (`npm run render` fails otherwise). The beat is normalized to -16 LUFS.
+  to the reel's length (`npm run render` fails otherwise). The beat is **drums only** (no bass,
+  chords or melody) and normalized to -16 LUFS with a static gain.
 - SFX sit on top via `<Sfx cues={…} />` (`components/Sfx.tsx`), with cues as
   `[seconds, name, volume]` at the on-screen event.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player

@@ -58,8 +58,10 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
    - **Beat:** don't compose music. Write `src/remotion/reels/<id>/music.json` (`bpm`,
      `duration`, optional `drop` and `mute`; see `scripts/audio/beat.py`), run `npm run audio`,
      and put `<Beat />` in the composition. Set `drop` to the moment the product appears, and
-     `mute` over dramatic beats (like the silence after the 404). The style is fixed: bright,
-     four-on-the-floor. The reel id picks key, chords and patterns.
+     `mute` over dramatic beats (silence, e.g. after the 404). The style is fixed: **drums only**
+     (kick, clap, hats, shaker; no bass, chords or melody). The reel id picks small pattern variations.
+   - Keep effect volumes so that the QA check's peak stays at or below -1 dBFS; long effects that
+     ring over the full beat (like the end-card stinger) need a lower volume.
    - **SFX on top:** they connect the music to the picture. Place them with `<Sfx cues=… />`
      on on-screen events: impacts on reveals, whooshes on transitions, clicks on clicks,
      success on saves, a stinger on the end card. Premix rapid sequences like typing into one file.
@@ -83,7 +85,7 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 |---|---|
 | **Remotion in its own repo** (not in `redirhub/marketing`) | Heavy dependencies (Chromium, FFmpeg) and a different review cycle; keeps the site's builds clean |
 | **Music + SFX, no voiceover** | Owner's call. Most people watch muted, so the story is carried by on-screen copy |
-| **Per-reel generated beat, not composed music** | Owner wants simple, bright, rhythmic loops. A fixed style with `music.json` per reel means no session ever composes music, and every reel sounds consistent. SFX carry the video-specific moments |
+| **Drums-only beat per reel + scene SFX, not composed music** | Owner's direction: drums plus scene sound effects is the premium ad sound, and more layers made it cluttered. A fixed style with `music.json` per reel means no session ever composes music, and every reel sounds consistent. SFX carry the video-specific moments |
 | **Audio is synthesized** (`scripts/audio/generate.py`), pinned deps | Original and royalty-free, reproducible byte for byte |
 | **QR design standard**: branded link always shown under the QR (`<BrandedQr>`) | People see where it goes before they scan, which builds trust. CTA QRs encode a RedirHub branded link (`https://redirhub.com/qr`) whose label matches exactly |
 | **Story QRs encode `redirhub.com/qr`** even when labelled with a demo domain | Demo domains (`yourbrand.com`) belong to someone else; never send viewers there |

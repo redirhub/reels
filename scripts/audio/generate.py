@@ -16,6 +16,7 @@ re-running only changes files whose inputs changed.
 """
 import json
 import pathlib
+import re
 import subprocess
 import sys
 
@@ -27,6 +28,13 @@ from dsp import SR, ffmpeg, seed, write_wav  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / "public" / "audio"
+TARGET_LUFS = -16.0
+
+
+def integrated_lufs(path):
+    err = subprocess.run([ffmpeg(), "-hide_banner", "-i", str(path), "-af", "ebur128", "-f", "null", "-"],
+                         capture_output=True, text=True).stderr
+    return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", err)[-1])
 
 
 def main():
@@ -35,9 +43,12 @@ def main():
         st, choices = beat(reel_id, json.loads(cfg_path.read_text()))
         tmp = OUT / f"{reel_id}-beat.wav"
         write_wav(tmp, st)
-        # -16 LUFS: the beat sits under the SFX; the full mix lands near the -14 LUFS social target.
+        # One static gain to -16 LUFS (the beat sits under the SFX; the full mix lands near the
+        # -14 LUFS social target). Not single-pass loudnorm: that behaves like automatic gain
+        # control and flattens the arrangement (the drop would stop feeling bigger).
+        gain = TARGET_LUFS - integrated_lufs(tmp)
         subprocess.run(
-            [ffmpeg(), "-y", "-loglevel", "error", "-i", str(tmp), "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
+            [ffmpeg(), "-y", "-loglevel", "error", "-i", str(tmp), "-af", f"volume={gain:.2f}dB",
              "-ar", str(SR), "-c:a", "libmp3lame", "-b:a", "192k", str(OUT / f"{reel_id}-beat.mp3")],
             check=True,
         )

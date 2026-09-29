@@ -33,7 +33,7 @@ const SOUND_CUES: readonly SfxCue[] = [
         [17.05, 'whoosh', 0.5],  // slide to before/after
         [20.45, 'success', 0.35],// after-phone lands on the sale
         [24.35, 'riser', 0.45],  // into the end card
-        [25.35, 'stinger', 0.8], // end card
+        [25.35, 'stinger', 0.55], // end card (quieter: it rings over the full beat)
 ];
 
 export function QrNoReprint(props: QrNoReprintProps) {

@@ -1,7 +1,7 @@
 """Synthesized instruments. All return mono numpy arrays at dsp.SR."""
 import numpy as np
 
-from dsp import SR, env, filt, midi, noise, rand, release, saw, tt
+from dsp import SR, env, filt, midi, noise, rand, saw, tt
 
 
 def kick():
@@ -29,24 +29,11 @@ def clap():
     return filt(noise(len(t)), "band", [900, 2600]) * np.maximum(bursts, tail)
 
 
-def rim():
-    """Short woody click (clave / rim) for syncopated percussion."""
-    t = tt(0.06)
-    tone = np.sin(2 * np.pi * 1700 * t) * np.exp(-t / 0.012)
-    return tone + 0.4 * filt(noise(len(t)), "band", [1800, 4000]) * np.exp(-t / 0.006)
-
 
 def crash():
     t = tt(1.6)
     return filt(noise(len(t)), "high", 3500) * env(t, 0.002, 0.55)
 
-
-def bass(m, d):
-    t = tt(d)
-    f = midi(m)
-    x = 0.6 * saw(f, t) + 0.4 * saw(f * 1.004, t, 0.3)
-    x = filt(x, "low", 520) + 0.7 * np.sin(2 * np.pi * f * t)
-    return release(x * env(t, 0.004, 0.35, hold=0.02), 0.02)
 
 
 def pad(notes, d, cutoff=1800):
@@ -66,18 +53,6 @@ def pad(notes, d, cutoff=1800):
     return filt(l, "low", cutoff) * a * k, filt(r, "low", cutoff) * a * k
 
 
-def pluck(m, d=0.35):
-    t = tt(d)
-    f = midi(m)
-    x = saw(f, t) + 0.5 * np.sign(np.sin(2 * np.pi * f * t))
-    bright = filt(x, "low", 3800) * np.exp(-t / 0.045)
-    body = filt(x, "low", 1100) * np.exp(-t / 0.22)
-    return release((bright * 0.6 + body) * np.clip(t / 0.002, 0, 1), 0.02)
-
-
-def stab(notes, d=0.22):
-    """Short chord hit built from plucks: the bright, happy element of the beat."""
-    return sum(pluck(m, d) for m in notes) / len(notes)
 
 
 def bell(m, d=1.2):

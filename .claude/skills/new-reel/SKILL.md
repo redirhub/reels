@@ -24,7 +24,8 @@ Follow `docs/reel-playbook.md`. It has the sources, process, decisions and gotch
    y 200–1600.
 5. **Audio:** don't compose music. Add `src/remotion/reels/<id>/music.json` (bpm, duration,
    `drop` = when the product appears, `mute` = dramatic silences), run `npm run audio`, and use
-   `<Beat />`. Put SFX on top with `<Sfx cues />` on on-screen events. They tie sound to picture.
+   `<Beat />` (drums only, by design; don't add melodic layers). Put SFX on top with `<Sfx cues />`
+   on on-screen events. They tie sound to picture.
 6. **Verify:** `npm run typecheck`, `npm run build`, `npm run render -- <id>`, then
    `python3 scripts/qa/check_reel.py out/<id>.mp4 --qr <sec>=<url>`. **Look at the contact
    sheet** and fix anything off before calling it done. Say plainly that you can't listen to
