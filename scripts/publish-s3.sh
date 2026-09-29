@@ -10,11 +10,10 @@
 set -euo pipefail
 
 : "${REELS_S3_BUCKET:?set the REELS_S3_BUCKET repository variable}"
-: "${REELS_CLOUDFRONT_DISTRIBUTION_ID:?set the REELS_CLOUDFRONT_DISTRIBUTION_ID repository variable}"
-BASE_URL="${REELS_PUBLIC_BASE_URL:-https://dcr3565853rcg.cloudfront.net/reels}"
+: "${CLOUDFRONT_DISTRIBUTION_ID:?set the CLOUDFRONT_DISTRIBUTION_ID repository variable}"
+BASE_URL="https://dcr3565853rcg.cloudfront.net/reels"
 PREFIX="reels"
 SHA="${GITHUB_SHA:-$(git rev-parse HEAD)}"
-SHA="${SHA::7}"
 NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 IMMUTABLE="public, max-age=31536000, immutable"
 SHORT="public, max-age=300"
@@ -26,6 +25,7 @@ put() { # put <file> <key> <content-type> <cache-control> [content-disposition]
 }
 
 entries=()
+invalidation_paths=("/$PREFIX/index.json")
 for mp4 in out/*.mp4; do
     id="$(basename "$mp4" .mp4)"
     jpg="out/$id.jpg"
@@ -34,6 +34,11 @@ for mp4 in out/*.mp4; do
     put "$mp4" "$id/latest.mp4" video/mp4 "$SHORT"
     put "$jpg" "$id/latest.jpg" image/jpeg "$SHORT"
     put "$mp4" "$id/download.mp4" video/mp4 "$SHORT" "attachment; filename=\"redirhub-$id.mp4\""
+    invalidation_paths+=(
+        "/$PREFIX/$id/latest.mp4"
+        "/$PREFIX/$id/latest.jpg"
+        "/$PREFIX/$id/download.mp4"
+    )
     entries+=("$(jq -n --arg id "$id" --arg base "$BASE_URL/$id" --arg sha "$SHA" --arg now "$NOW" \
         --argjson bytes "$(stat -c %s "$mp4")" \
         '{id: $id, updated: $now, commit: $sha, bytes: $bytes,
@@ -45,6 +50,6 @@ done
 printf '%s\n' "${entries[@]}" | jq -s '{generated: now | todate, reels: .}' > out/index.json
 put out/index.json index.json application/json "$SHORT"
 
-# One wildcard path: invalidation cost is per path, and immutable files are unaffected.
-aws cloudfront create-invalidation --distribution-id "$REELS_CLOUDFRONT_DISTRIBUTION_ID" \
-    --paths "/$PREFIX/*" --query 'Invalidation.Id' --output text
+# Commit-addressed objects are immutable. Invalidate only mutable stable paths.
+aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+    --paths "${invalidation_paths[@]}" --query 'Invalidation.Id' --output text
