@@ -77,6 +77,8 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
   `MAX_SFX_PER_30S` (6) per 30s (`<Sfx>` throws above that), no clicks/typing/hover sounds,
   volumes about 0.3–0.7 so they sit under the beat. A brief that makes a UI sound part of the
   story may raise the cap with `<Sfx budget={{ max, reason }}>` (see `free-coffee`).
+  A licensed one-shot (Pixabay, cut with `prepare_track.py oneshot`) is an `SfxSample` cue and
+  counts like any effect.
 - Each effect is mounted only for its own length (`SFX_SECONDS`), which keeps the browser Player
   light. Effect lengths come
   from `public/audio/sfx/manifest.json`, which the generator writes. Never edit it by hand.

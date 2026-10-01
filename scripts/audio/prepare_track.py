@@ -2,13 +2,19 @@
 
     python3 scripts/audio/prepare_track.py analyze <track.mp3>
     python3 scripts/audio/prepare_track.py fit <track.mp3> <reel-id> --duration 15.6 \
-        --align <track-seconds>=<reel-seconds> [--fade 0.25] [--lufs -16]
+        --align <track-seconds>=<reel-seconds> [--splice <reel-s>=<track-s>] [--fade 0.25] [--lufs -16]
+    python3 scripts/audio/prepare_track.py oneshot <effect.mp3> <out.wav> --start 0.1 --end 0.4 \
+        [--fade-out 0.03] [--highpass 30] [--peak -3]
 
-`analyze` prints the tempo, a loudness curve and the biggest energy rises (section
-changes), so you can pick the moment of the track that should land on a story beat.
-`fit` shifts the track so <track-seconds> plays at <reel-seconds>, cuts it to the reel's
-length (silence-padded if the shift starts before 0), fades in/out briefly and applies
-one static gain to the loudness target. It writes public/audio/<reel-id>-beat.mp3, the
+`analyze` prints the tempo, a loudness curve, the biggest energy rises (section changes)
+and the track's near-silent gaps, so you can pick the moment of the track that should land
+on a story beat. `fit` shifts the track so <track-seconds> plays at <reel-seconds>, cuts it
+to the reel's length (silence-padded if the shift starts before 0), fades in/out briefly and
+applies one static gain to the loudness target. `--splice` jumps ahead in the track at a
+reel time (12 ms crossfade), e.g. to land the track's real ending on the end card: splice
+just before a downbeat to just before a downbeat a whole number of bars later, so the
+music never stops. `oneshot` cuts a licensed sound effect to the part a reel plays (play it
+with an SfxSample cue in <Sfx />). It writes public/audio/<reel-id>-beat.mp3, the
 file <Beat /> plays, so a reel can use a licensed track instead of a generated beat
 (it must then have no music.json, or `npm run audio` would overwrite the file).
 Record the source and licence in docs/audio-licenses.md.
@@ -68,6 +74,20 @@ def analyze(path):
     for i in range(sec, len(rms) - sec):
         rises.append((np.mean(rms[i:i + sec]) - np.mean(rms[i - sec:i]), i * 0.25))
     print("biggest rises (dB, at s):", ", ".join(f"{d:+.1f}@{t:.2f}" for d, t in sorted(rises, reverse=True)[:5]))
+    # Near-silent gaps (under -30 dBFS for 30 ms or more): the track's own breaths, usually just
+    # before a downbeat. A --splice from one gap to another (a whole number of bars apart) is
+    # inaudible.
+    w10 = int(0.01 * SR)
+    e = [20 * np.log10(np.sqrt(np.mean(mono[i:i + w10] ** 2)) + 1e-9) for i in range(0, len(mono) - w10, w10)]
+    gaps, start = [], None
+    for i, v in enumerate(e + [0.0]):
+        if v < -30 and start is None:
+            start = i
+        elif v >= -30 and start is not None:
+            if i - start >= 3:
+                gaps.append(f"{start * 0.01:.2f}-{i * 0.01:.2f}")
+            start = None
+    print("quiet gaps (s):", ", ".join(gaps) or "none")
     # Low end share (sub/bass vs everything): chiptune-ish tracks are thin down there.
     spec = np.abs(np.fft.rfft(mono))
     f = np.fft.rfftfreq(len(mono), 1 / SR)
@@ -76,18 +96,42 @@ def analyze(path):
     print("energy by band: " + ", ".join(f"{k} {100 * (spec[(f >= a) & (f < b)] ** 2).sum() / total:.0f}%" for k, (a, b) in bands.items()))
 
 
-def fit(path, reel, duration, align, fade, target):
+def render(st, n, segs, xf):
+    """segs: [(reel sample, track offset)], sorted by reel sample. From each reel sample on, the
+    reel plays track sample (reel sample + offset) until the next segment; joins are equal-power
+    crossfades `xf` samples long, centred on the join."""
+    out = np.zeros((2, n), np.float32)
+    for k, (s0, off) in enumerate(segs):
+        last = k + 1 == len(segs)
+        s1 = n if last else segs[k + 1][0]
+        a = 0 if k == 0 else max(0, s0 - xf // 2)
+        b = n if last else min(n, s1 + xf // 2)
+        idx = np.arange(a, b)
+        src = idx + off
+        ok = (src >= 0) & (src < st.shape[1])
+        seg = np.zeros((2, b - a), np.float32)
+        seg[:, ok] = st[:, src[ok]]
+        g = np.ones(b - a)
+        if k:
+            g *= np.sin(np.clip((idx - (s0 - xf / 2)) / xf, 0, 1) * np.pi / 2)
+        if not last:
+            g *= np.cos(np.clip((idx - (s1 - xf / 2)) / xf, 0, 1) * np.pi / 2)
+        out[:, a:b] += seg * g
+    return out
+
+
+def fit(path, reel, duration, align, fade, target, splices=()):
     st = decode(path)
     src_t, reel_t = (float(x) for x in align.split("="))
     shift = int(round((reel_t - src_t) * SR))  # >0: track starts later in the reel
     n = int(round(duration * SR))
-    out = np.zeros((2, n), np.float32)
-    a = max(0, shift)
-    b = max(0, -shift)
-    m = min(n - a, st.shape[1] - b)
-    out[:, a:a + m] = st[:, b:b + m]
+    segs = [(0, -shift)]
+    for sp in sorted(splices, key=lambda s: float(s.split("=")[0])):
+        r, s = (float(x) for x in sp.split("="))
+        segs.append((int(round(r * SR)), int(round((s - r) * SR))))
+    out = render(st, n, segs, int(0.012 * SR))
     t = np.arange(n) / SR
-    fi = np.clip((t - a / SR) / 0.03, 0, 1) if b == 0 else np.clip(t / 0.03, 0, 1)
+    fi = np.clip((t - max(0, shift) / SR) / 0.03, 0, 1)
     fo = np.clip((duration - t) / fade, 0, 1)
     out *= fi * fo
     tmp = ROOT / "public" / "audio" / f"{reel}-beat.wav"
@@ -100,18 +144,52 @@ def fit(path, reel, duration, align, fade, target):
     subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(tmp), "-af", f"volume={gain:.2f}dB,alimiter=limit=0.89:level=false",
                     "-ar", str(SR), "-c:a", "libmp3lame", "-b:a", "192k", str(dst)], check=True)
     tmp.unlink()
-    print(f"wrote {dst.relative_to(ROOT)}: shift {shift / SR:+.2f}s, gain {gain:+.1f} dB → {lufs(dst):.1f} LUFS")
+    jumps = "".join(f", jump at {s / SR:.2f}s to track {(s + o) / SR:.2f}s" for s, o in segs[1:])
+    print(f"wrote {dst.relative_to(ROOT)}: shift {shift / SR:+.2f}s{jumps}, gain {gain:+.1f} dB → {lufs(dst):.1f} LUFS")
+
+
+def oneshot(path, dst, start, end, fade_out, highpass, peak):
+    """Cut a licensed one-shot effect (a click, a meme sting) to the part a reel plays: from
+    `start` to `end` seconds of the file, 5 ms fade-in, cosine fade over the last `fade_out`
+    seconds, optional high-pass, peak-normalised. Writes a 48 kHz 16-bit WAV (no MP3 encoder
+    delay, so the effect stays on its frame)."""
+    import wave
+    from scipy.signal import butter, sosfiltfilt
+    st = decode(path)[:, int(round(start * SR)):int(round(end * SR))].astype(np.float64)
+    if highpass:
+        st = sosfiltfilt(butter(2, highpass, "high", fs=SR, output="sos"), st, axis=1)
+    n = st.shape[1]
+    g = np.ones(n)
+    fi = min(n, int(0.005 * SR))
+    g[:fi] = np.linspace(0, 1, fi)
+    fo = min(n, int(fade_out * SR))
+    if fo:
+        g[n - fo:] *= 0.5 * (1 + np.cos(np.linspace(0, np.pi, fo)))
+    st *= g
+    st *= 10 ** (peak / 20) / np.abs(st).max()
+    with wave.open(str(dst), "wb") as w:
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes((np.clip(st.T, -1, 1) * 32767).astype("<i2").tobytes())
+    print(f"wrote {dst}: {n / SR:.3f}s from {start:.3f}s, peak {peak:.1f} dBFS")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
+    o = sub.add_parser("oneshot"); o.add_argument("track"); o.add_argument("dst")
+    o.add_argument("--start", type=float, default=0.0); o.add_argument("--end", type=float, required=True)
+    o.add_argument("--fade-out", type=float, default=0.03); o.add_argument("--highpass", type=float, default=0.0)
+    o.add_argument("--peak", type=float, default=-3.0)
     a = sub.add_parser("analyze"); a.add_argument("track")
     f = sub.add_parser("fit"); f.add_argument("track"); f.add_argument("reel")
     f.add_argument("--duration", type=float, required=True); f.add_argument("--align", required=True)
     f.add_argument("--fade", type=float, default=0.25); f.add_argument("--lufs", type=float, default=-16.0)
+    f.add_argument("--splice", action="append", default=[], metavar="REEL=TRACK",
+                   help="at REEL seconds, jump to TRACK seconds of the track (repeatable)")
     args = ap.parse_args()
     if args.cmd == "analyze":
         analyze(args.track)
+    elif args.cmd == "oneshot":
+        oneshot(args.track, args.dst, args.start, args.end, args.fade_out, args.highpass, args.peak)
     else:
-        fit(args.track, args.reel, args.duration, args.align, args.fade, args.lufs)
+        fit(args.track, args.reel, args.duration, args.align, args.fade, args.lufs, args.splice)
