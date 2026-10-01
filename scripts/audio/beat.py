@@ -15,7 +15,11 @@ Each reel has src/remotion/reels/<id>/music.json:
       "mute": [[2.35, 4.55]], # optional: silence, so an effect (e.g. an impact) stands alone
       "lite": [[43.9, 47.9]], # optional: breakdown, kick + closed hats only (no clap, open hats, shaker),
                            #   so a calm scene breathes and the return of the full kit lands
-      "crash": [47.9, 53.9]   # optional: extra crash cymbals on scene changes (the drop already has one)
+      "crash": [47.9, 53.9],  # optional: extra crash cymbals on scene changes (the drop already has one)
+      "pulse": {"note": 45},  # optional: a restrained synth pulse (one repeated note on 16ths, filtered,
+                           #   ducked by the kick). Rhythm, not melody: it never changes pitch. Follows
+                           #   mute/lite like the drums and opens up its filter after the drop.
+      "tail": 0.15         # optional: fade-out length in seconds (default 1.5); short = the reel ends on a cut
     }
 
 The reel id seeds two small choices (open-hat pattern, kick pickup), so reels differ a
@@ -25,7 +29,7 @@ import math
 
 import numpy as np
 
-from dsp import SR, Bus, choice, master, reverb, seed
+from dsp import SR, Bus, choice, env, filt, master, midi, reverb, saw, seed
 from instruments import clap, crash, hat, kick, shaker
 
 # 16th-note steps within a bar.
@@ -85,6 +89,34 @@ def beat(reel_id, cfg):
             drums.add(CR, t, 0.18, pan=-0.2)
 
     mix = drums.stereo() + reverb(send.stereo(), 1.0, 0.3)
+    if "pulse" in cfg:
+        mix += pulse(cfg["pulse"], dur, origin, step, full_from, muted, lite)
     t = np.arange(mix.shape[1]) / SR
-    mix *= np.clip(t / 0.02, 0, 1) * np.clip((dur - 0.1 - t) / 1.5, 0, 1)  # fade in/out
+    tail = float(cfg.get("tail", 1.5))
+    mix *= np.clip(t / 0.02, 0, 1) * np.clip((dur - 0.1 - t) / tail, 0, 1)  # fade in/out
     return master(mix), {"open_hats": OPEN_HATS.index(hats), "kick_pickup": KICK_PICKUPS.index(pickup)}
+
+
+def pulse(cfg, dur, origin, step, full_from, muted, lite):
+    """Single-note synth pulse on 16ths. Deterministic (no noise), so adding it to a reel
+    never changes that reel's drums. Quiet: it sits under the kit and the effects."""
+    f = midi(cfg.get("note", 45))
+    n = int(0.11 * SR)
+    t = np.arange(n) / SR
+    tone = (saw(f, t) + saw(f * 1.005, t, 0.3) + 0.5 * saw(f * 2, t)) * env(t, 0.003, 0.05)
+    closed, open_ = filt(tone, "low", 700), filt(tone, "low", 1700)
+    out = np.zeros(int(dur * SR))
+    k = math.floor((0 - origin) / step)
+    while True:
+        at = origin + k * step
+        k += 1
+        if at >= dur:
+            break
+        if at < 0 or muted(at):
+            continue
+        full = at >= full_from - 1e-6 and not lite(at)
+        accent = 1.0 if round((at - origin) / step) % 4 == 2 else 0.6  # off-beat accent, away from the kick
+        x = (open_ if full else closed) * accent * (0.09 if full else 0.06)
+        i = int(round(at * SR))
+        out[i : i + len(x)] += x[: len(out) - i]
+    return np.stack([out, out])

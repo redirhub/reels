@@ -21,6 +21,13 @@ export function loadBrandFonts() {
             weight: '100 800',
             format: 'woff2',
         }),
+        // Noto Color Emoji (OFL), subset to the glyphs reels use (☕), so emoji render in
+        // color on any machine instead of falling back to a monochrome system glyph.
+        loadFont({
+            family: 'Reel Emoji',
+            url: staticFile('fonts/noto-color-emoji-coffee.woff2'),
+            format: 'woff2',
+        }),
     ]);
     return loaded;
 }

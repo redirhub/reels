@@ -102,7 +102,69 @@ def stinger():
     return master(st + reverb(st, 2.2, 0.8), -2)
 
 
+def error():
+    """Dry digital error: a short low thud under a clipped two-step square blip. No tail."""
+    t = tt(0.32)
+    f = 70 + 90 * np.exp(-t / 0.03)
+    thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * env(t, 0.001, 0.08)
+    sq = np.sign(np.sin(2 * np.pi * np.where(t < 0.07, 330, 247) * t))
+    blip = filt(sq, "low", 2400) * env(t, 0.001, 0.06, hold=0.1) * (t < 0.2)
+    x = np.tanh((thud * 1.2 + blip * 0.35) * 1.5)
+    return master(np.stack([x, x]), -2)
+
+
+def mouse():
+    """Crisp mouse click for phone speakers: press + release, each a tight mid 'tock'
+    with a bright edge. Louder and fuller than click(), which is a UI micro-sound."""
+    t = tt(0.11)
+    def tock(at, f, g):
+        k = np.maximum(t - at, 0) * (t >= at)
+        body = np.sin(2 * np.pi * f * k) * np.exp(-k / 0.008)
+        edge = filt(noise(len(t)), "band", [3000, 9000]) * np.exp(-k / 0.0018) * (t >= at)
+        return (body + 0.7 * edge) * g
+    x = tock(0, 1900, 1.0) + tock(0.055, 2300, 0.55)
+    return master(np.stack([x, x]), -2)
+
+
+def ticks(n=4, gap=0.13):
+    """Small rising digital ticks as one file: the connection forming."""
+    out = np.zeros(int((n * gap + 0.08) * SR))
+    for i in range(n):
+        t = tt(0.04)
+        f = 2600 * 2 ** (i / 6)
+        x = np.sin(2 * np.pi * f * t) * np.exp(-t / 0.006)
+        x += 0.4 * filt(noise(len(t)), "band", [3000, 9000]) * np.exp(-t / 0.003)
+        at = int(i * gap * SR)
+        out[at : at + len(x)] += x * (0.7 + 0.1 * i)
+    pan = np.linspace(-0.3, 0.3, len(out))
+    return master(np.stack([out * (1 - pan) / 1.3, out * (1 + pan) / 1.3]), -6)
+
+
+def snap():
+    """Magnetic snap: a fast downward zip into a tight low thump and a bright click."""
+    t = tt(0.5)
+    zip_ = np.sin(2 * np.pi * np.cumsum(1800 * np.exp(-t / 0.012) + 120) / SR) * env(t, 0.0005, 0.02)
+    thump = np.sin(2 * np.pi * np.cumsum(55 + 140 * np.exp(-t / 0.02)) / SR) * env(t, 0.001, 0.09)
+    clk = filt(noise(len(t)), "band", [2500, 7000]) * np.exp(-t / 0.0025)
+    ring = np.sin(2 * np.pi * 1320 * t) * env(t, 0.001, 0.07) * 0.12
+    x = np.tanh((zip_ * 0.6 + thump * 1.3 + clk * 0.8 + ring) * 1.6)
+    st = np.stack([x, x])
+    return master(st + reverb(st, 0.5, 0.12, 5000) * 1.5, -1.5)
+
+
+def chime():
+    """Soft success chime: two quiet bell notes, a fourth apart. Smaller than success()."""
+    x = np.zeros(int(1.2 * SR))
+    for at, m in ((0, 79), (0.08, 84)):
+        b = bell(m, 0.9)
+        i = int(at * SR)
+        x[i : i + len(b)] += b * (1.0 if at == 0 else 0.8)
+    st = np.stack([x, x])
+    return master(st + reverb(st, 1.2, 0.35), -6)
+
+
 ALL = {
     "impact": impact, "whoosh": whoosh, "riser": riser, "click": click, "key": key,
     "typing": typing, "alert": alert, "success": success, "stinger": stinger,
+    "error": error, "mouse": mouse, "ticks": ticks, "snap": snap, "chime": chime,
 }

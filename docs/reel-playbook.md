@@ -69,7 +69,9 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
      the problem (impact), the detection (alert), the fix (success), the cut to the result
      (whoosh), the end card (stinger). **No sounds for UI micro-actions** (clicks, typing,
      hovers), and no risers into a drop the beat already builds. Keep them under the beat:
-     volumes around 0.3–0.7.
+     volumes around 0.3–0.7. Exception: a brief that makes a UI sound the story (see
+     `free-coffee`) can raise the cap with `<Sfx budget={{ max, reason }}>`; duck the beat
+     under key effects with `<Beat volume={(s) => …}>`.
 7. **Verify.** Run `npm run render -- <id>`, then:
    ```bash
    pip install -r scripts/qa/requirements.txt
@@ -102,6 +104,8 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 | **S3 + CloudFront** (`dcr3565853rcg.cloudfront.net/reels/`), GitHub OIDC with a custom subject | Public, stable links; no stored AWS keys; details in `docs/aws/SETUP.md` |
 | **Gallery plays the MP4 by default in production**; live Player on branch previews | Native video scrubs instantly. The live Player is for unpublished changes |
 | **Per-commit renders expire after 90 days** (`reels/renders/`) | Otherwise storage grows forever. `latest` links are unaffected |
+| **Short, sound-designed reels may raise the SFX cap** via `<Sfx budget={{ max, reason }}>` (first: `free-coffee`) | Owner's brief for a 12s no-copy short where the click itself is the story motif. The default stays one effect per story beat; an override must state why |
+| **Optional synth pulse** (`music.json` `"pulse"`): one note on 16ths, never a melody | Owner's brief asked for "tight percussion + restrained synth pulse". Off unless a reel asks; adding it doesn't change that reel's drums |
 | **Social safe area y 200–1600** | Platform UI covers the top and bottom of vertical video |
 
 ## 4. Environment gotchas
@@ -135,6 +139,7 @@ Update this table as items close.
 |---|---|---|---|---|
 | `qr-no-reprint` | 2026-09-29 | Trackable QR codes | "A QR code is a printed URL, not just a graphic." | Monitoring alert shown: that claim is plan-qualified |
 | `homepage-explainer` | 2026-09-29 | All four (homepage explainer, 60s landscape) | "The public URL should be stable. The destination can change." | Uses all four approved platform numbers; monitoring plan-qualified; no end-card QR (plays on redirhub.com) |
+| `free-coffee` | 2026-10-01 | Cross-use-case (12s sound-designed short) | "The public URL should be stable. The destination can change." | Owner's brief: no claims, 7 SFX incl. a repeated click motif (explicit `<Sfx budget>`), synth pulse, beat ducking, no end-card QR |
 
 **Unused Signature POVs** (approved external, as of 2026-09-29; re-check Notion):
 - Domain redirects: "A redirect-only domain still needs real infrastructure." / "DNS does not redirect a URL. HTTP does."

@@ -133,3 +133,42 @@ still lead somewhere broken."*
 
 **Homepage embed:** use `https://dcr3565853rcg.cloudfront.net/reels/homepage-explainer/latest.mp4`
 (poster: `…/latest.jpg`) once merged, e.g. `<video autoplay muted loop playsinline>`.
+
+### `free-coffee`: "Free coffee?"
+
+12s · 1080×1920 · 30 fps. A sound-designed Instagram short with no voiceover and almost no copy: a
+bait link 404s, gets a (secret) destination in RedirHub's redirect layer, and the same link lands
+on the joke. The URL is the object that carries every transition.
+
+| Time | Beat | On screen | Audio |
+|---|---|---|---|
+| 0–1.9s | Curiosity | A browser; the page's only readable thing is the link `brand.com/free-coffee`. Cursor glides in and clicks. | Beat (kick + hats + muted synth pulse); **click** |
+| 1.9–3.4s | Failure | A plain site 404: "404 / Page not found". Small jolt. | **Error** hit; the beat drops out around it |
+| 3.4–4.2s | Into the redirect layer | The URL lifts out of the address bar; the camera passes through the page into a dark grid. | **Whoosh**; beat ducked |
+| 4.2–6.6s | Fix | URL = source node (red dot). A destination node appears with its path **redacted**. A wire draws, an orange pulse runs down it, it locks: teal wire, arrow, ring. Small RedirHub wordmark at the top. | **Ticks** as the wire forms; silence, then the **snap** with the full beat (drop) |
+| 6.6–8.1s | Return | The same URL drops back onto the same page. Same cursor, same click. | The same **click** |
+| 8.1–10.2s | Payoff | Address bar `brand.com/nice-try`, page: "Nice try. ☕" | Soft **chime**, beat ducked |
+| 10.2–12s | Close | "Broken link. **Fixed.**" + RedirHub logo. Ends on a cut. | Beat, short tail |
+
+**Messaging basis (Notion, re-queried 2026-10-01):** Signature POV *"The public URL should be
+stable. The destination can change."* (also behind `homepage-explainer`; this reel tells it as
+a 12s joke instead of a tour). Story and copy come from the owner's creative brief.
+
+**Claims check** (Approved Claims & Message Library, 2026-10-01): no product claims or numbers
+on screen. "Broken link. Fixed." describes the story's outcome, not a speed or uptime claim; the
+reel deliberately shows no timings. `brand.com` and both paths are illustrative scenario data;
+no QR and no link sends viewers to that domain.
+
+**Departures from the house style, per the owner's brief:**
+- **7 sound effects in 12s, including two mouse clicks.** The repeated click is the story's
+  motif (fail, then succeed), so the reel raises the `<Sfx>` cap with an explicit
+  `budget={{ max, reason }}`. Other reels keep the 6-per-30s default.
+- **A synth pulse under the drums** (`music.json` `"pulse"`): one repeated note on 16ths,
+  filtered, never changing pitch, so it adds drive without becoming a melody.
+- **Beat ducking** under the whoosh/ticks, the snap and the payoff (`<Beat volume={fn}>`).
+- **Typeface:** the brief said Plus Jakarta Sans; redirhub.com/brand says Inter, so the reel
+  uses Inter like every other reel. Swap in `brand/fonts.ts` if the brand changes.
+- The ☕ is rendered from a bundled Noto Color Emoji subset (`public/fonts/`, OFL), so it is in
+  color on any render machine.
+
+**Caption:** "Free coffee? ☕ The link was broken. Then it wasn't. #marketing #links #redirects"

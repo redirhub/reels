@@ -15,9 +15,14 @@ export const MAX_SFX_PER_30S = 6;
 /** [start (s), effect, volume 0–1] */
 export type SfxCue = readonly [number, SfxName, number];
 
-export function Sfx({ cues }: { cues: readonly SfxCue[] }) {
+/** A reel whose brief explicitly calls for more effects (e.g. a sound-designed short with
+    a repeated click motif) can raise the cap. Say why: the reason is the review trail. */
+export type SfxBudget = { max: number; reason: string };
+
+export function Sfx({ cues, budget: override }: { cues: readonly SfxCue[]; budget?: SfxBudget }) {
     const { fps, durationInFrames } = useVideoConfig();
-    const budget = Math.max(1, Math.floor((durationInFrames / fps / 30) * MAX_SFX_PER_30S));
+    if (override && !override.reason.trim()) throw new Error('<Sfx budget> needs a reason.');
+    const budget = override?.max ?? Math.max(1, Math.floor((durationInFrames / fps / 30) * MAX_SFX_PER_30S));
     if (cues.length > budget) {
         throw new Error(
             `${cues.length} sound effects is too many (max ${budget} for this length). Keep one per story beat ` +
