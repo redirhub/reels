@@ -142,14 +142,14 @@ happens in RedirHub in the next tab, and the same click on the same link now lan
 
 | Time | Beat | On screen | Audio |
 |---|---|---|---|
-| 0–1.6s | Curiosity | Tab "Brand", `brand.com`: the only readable thing is `link.brand.com/free-coffee`. Cursor clicks. | Music; **click** |
+| 0–1.6s | Curiosity | Tab "Brand", `brand.com`: the only readable thing is `link.brand.com/free-coffee`. Cursor clicks. | Music; **mouse click** (press + release) |
 | 1.6–3.3s | Failure | Address bar follows the redirect to `brand.com/promo/free-coffee`: a plain **404 / Page not found**, tab title "Page not found". | **Error** hit; music cuts out for a beat |
-| 3.3–4.6s | Spot it | Click the second tab, "Links · RedirHub": the Links list. The `link.brand.com/free-coffee` row has a red dot and an **Error** pill (↳ the dead page); zoom in. Click its pencil. | **Whoosh** on the tab switch; click |
-| 4.6–8.0s | Fix it | **Edit link** slides in: Destination URL selected and replaced with `https://brand.com/really-free-coffee` (Unsaved changes, live Preview). The short link is locked: "Short links stay the same once created…". | **Typing** |
+| 3.3–4.6s | Spot it | Click the second tab, "Links · RedirHub": the Links list. The `link.brand.com/free-coffee` row has a red dot and an **Error** pill (↳ the dead page); zoom in. Click its pencil. | Soft **swish** panning right (the tab is to the right); click |
+| 4.6–8.0s | Fix it | **Edit link** slides in: in the Destination URL, `promo/` is selected and `really-` typed over it → `https://brand.com/really-free-coffee` (Unsaved changes, live Preview). The short link is locked: "Short links stay the same once created…". | One **keystroke** per character, in sync; music dips |
 | 8.0–9.7s | Saved | **Save changes** → toast **"Changes saved"**; back on Links the row is healthy: green dot, new destination, 2.1K clicks. | **Snap** on the save; music lifts |
-| 9.7–11.2s | Retry | Back to the first tab (still 404), browser Back, the same link, the same click. | Whoosh, click, the same **click** |
-| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | **Chime** |
-| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo. Ends on a cut. | The track’s final hit, then the cut |
+| 9.7–11.2s | Retry | Back to the first tab (still 404), browser Back, the same link, the same click. | Swish panning left, click, the same **click** |
+| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | The music stops dead; a **slide whistle** falls into silence (a letdown, not a reward) |
+| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo, on grain-dithered navy (no banding). Ends on a cut. | Music returns on the next downbeat (14.1s); its final hit, then the cut |
 
 **Drawn after the real app** (`redirhub/lviv`): the unified **Links** page (`LinksList`, `BaseListItem`:
 favicon with status dot, title, ↳ destination, clicks, pencil, ⋯; `RowStatusPill` "Error"), the
@@ -172,11 +172,14 @@ copy. The Error pill and clicks are the app's own UI with illustrative data (`br
 "128 links", click counts); the Error status reflects link health monitoring, which is plan-qualified
 (*Proactive link health monitoring for eligible plans*); no copy promises it. No QR on screen.
 
-**Music:** ElevenLabs Music v2.5, take B of 4 (instrumental minimal tech-house, ~122 BPM), fitted with
-`scripts/audio/prepare_track.py` so its lift lands just before the save and its stop lands on the end
-card. Source and licence: `docs/audio-licenses.md`. Effects are the repo's generated SFX.
+**Sound (ASMR: close, dry, in sync):** music is ElevenLabs Music v2.5 take B (minimal tech-house,
+~122.6 BPM), fitted with `scripts/audio/prepare_track.py` (+0.3s: its full groove enters on "Changes
+saved", its final hit lands on the end card). Keystrokes are cut from a typing recording
+(`scripts/audio/slice_keystrokes.py`) and placed one per character. Clicks, swishes and the slide whistle
+are the repo's own (`sfx.py`). **The music and keystrokes were generated on a free ElevenLabs plan and are
+not cleared for commercial use yet**: see `docs/audio-licenses.md`.
 
-**Departures from the house style, per the owner's brief:** 10 effects (clicks are the story's motif;
+**Departures from the house style, per the owner's brief:** 11 effects plus keystrokes (clicks are the story's motif;
 `<Sfx budget={{ max, reason }}>`), a licensed track instead of the generated drums-only beat, and
 the music level automated under the 404, the snap and the punchline (`<Beat volume={fn}>`).
 

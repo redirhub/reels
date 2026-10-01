@@ -113,17 +113,71 @@ def error():
     return master(np.stack([x, x]), -2)
 
 
+def _modes(exc, modes):
+    """Ring an excitation through band-pass resonators: [(freq, bandwidth, gain)]."""
+    return sum(filt(exc, "band", [f - bw / 2, f + bw / 2]) * g for f, bw, g in modes)
+
+
 def mouse():
-    """Crisp mouse click for phone speakers: press + release, each a tight mid 'tock'
-    with a bright edge. Louder and fuller than click(), which is a UI micro-sound."""
-    t = tt(0.11)
-    def tock(at, f, g):
-        k = np.maximum(t - at, 0) * (t >= at)
-        body = np.sin(2 * np.pi * f * k) * np.exp(-k / 0.008)
-        edge = filt(noise(len(t)), "band", [3000, 9000]) * np.exp(-k / 0.0018) * (t >= at)
-        return (body + 0.7 * edge) * g
-    x = tock(0, 1900, 1.0) + tock(0.055, 2300, 0.55)
-    return master(np.stack([x, x]), -2)
+    """A real-sounding mouse click, close-mic and dry (ASMR): a press and a lighter release,
+    each a tiny noise impulse ringing through plastic-shell resonances, plus a soft body."""
+    n = int(0.16 * SR)
+    t = np.arange(n) / SR
+    out = np.zeros(n)
+    for at, scale, g in ((0.0, 1.0, 1.0), (0.085, 1.12, 0.5)):
+        i = int(at * SR)
+        k = t[: n - i]
+        exc = noise(len(k)) * np.exp(-k / 0.0004)
+        ring = _modes(exc, [(1150 * scale, 120, 1.3), (2300 * scale, 200, 0.9), (3700 * scale, 340, 0.45), (6200 * scale, 700, 0.18)])
+        tick = filt(exc, "high", 4000) * 0.12
+        body = np.sin(2 * np.pi * 170 * k) * np.exp(-k / 0.006) * 0.25
+        out[i:] += (ring * 6 + tick + body) * g
+    out *= np.clip((0.16 - t) / 0.03, 0, 1)
+    return master(np.stack([out, np.roll(out, 14)]), -3)
+
+
+def _swish(left_to_right):
+    """Soft close swish, like a card sliding over felt: band-limited noise whose band rises
+    and whose pan follows the direction of the move. No reverb tail."""
+    d = 0.34
+    t = tt(d)
+    n = noise(len(t))
+    out = np.zeros(len(t))
+    step = 600
+    for i in range(0, len(t), step):
+        f = 700 + 2100 * (i / len(t)) ** 0.8
+        seg = n[max(0, i - 300): i + step]
+        y = filt(seg, "band", [f * 0.55, min(f * 1.7, SR / 2 - 100)])
+        out[i: i + step] = y[-len(out[i: i + step]):]
+    env = np.sin(np.pi * np.clip(t / d, 0, 1)) ** 2 * np.exp(-t / 0.22)
+    out *= env
+    pan = t / d if left_to_right else 1 - t / d
+    pan = 0.25 + 0.5 * pan
+    return master(np.stack([out * np.cos(pan * np.pi / 2), out * np.sin(pan * np.pi / 2)]), -5)
+
+
+def swish_r():
+    return _swish(True)
+
+
+def swish_l():
+    return _swish(False)
+
+
+def slide_whistle():
+    """The punchline: a slide whistle falling, slow then fast, with a little vibrato and breath."""
+    d = 0.78
+    t = tt(d)
+    x = np.clip(t / 0.62, 0, 1)
+    f = 1350 * (290 / 1350) ** (x ** 1.7)
+    vib = 1 + 0.012 * np.clip(t / 0.2, 0, 1) * np.sin(2 * np.pi * 7 * t)
+    ph = 2 * np.pi * np.cumsum(f * vib) / SR
+    tone = np.sin(ph) + 0.12 * np.sin(2 * ph) + 0.05 * np.sin(3 * ph)
+    breath = filt(noise(len(t)), "band", [1800, 4200]) * 0.08
+    chiff = filt(noise(len(t)), "band", [2500, 7000]) * np.exp(-t / 0.012) * 0.4
+    env = np.clip(t / 0.02, 0, 1) * np.clip((d - t) / 0.14, 0, 1)
+    out = (tone + breath + chiff) * env
+    return master(np.stack([out, out]), -3)
 
 
 def ticks(n=4, gap=0.13):
@@ -166,5 +220,6 @@ def chime():
 ALL = {
     "impact": impact, "whoosh": whoosh, "riser": riser, "click": click, "key": key,
     "typing": typing, "alert": alert, "success": success, "stinger": stinger,
-    "error": error, "mouse": mouse, "ticks": ticks, "snap": snap, "chime": chime,
+    "error": error, "mouse": mouse, "swish_r": swish_r, "swish_l": swish_l,
+    "slide_whistle": slide_whistle, "ticks": ticks, "snap": snap, "chime": chime,
 }

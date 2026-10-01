@@ -13,8 +13,8 @@ export const T = {
     pencil: 4.55,
     editIn: [4.62, 5.02],
     fieldClick: 5.5,
-    selectAll: 5.58,
-    typing: [5.78, 7.25],
+    select: 5.6, // the old path segment is selected
+    typing: [5.85, 6.66], // one key per character of the new segment
     save: 8.0,
     saved: 8.2,
     editOut: [8.35, 8.75],
@@ -27,6 +27,7 @@ export const T = {
     ok: 11.18,
     // Brand close.
     end: 13.4,
+    musicBack: 14.1, // next downbeat of the track after the end card starts
     total: 16.0,
 } as const;
 
@@ -131,5 +132,7 @@ export function camera(t: number) {
     return `translate(540px, 960px) scale(${s}) translate(${-fx}px, ${-fy}px)`;
 }
 
-/** Text typed across [a, b]. */
-export const typed = (text: string, t: number, a: number, b: number) => text.slice(0, Math.round(prog(t, a, b) * text.length));
+/** Text typed across [a, b]: the visible prefix (one character per equal slice of time). */
+export const typed = (text: string, t: number, a: number, b: number) => text.slice(0, Math.floor(prog(t, a, b) * text.length + 1e-6));
+/** When each character of `text` appears when typed across [a, b] (for keystroke sounds). */
+export const keyTimes = (text: string, a: number, b: number) => [...text].map((_, i) => a + ((i + 1) * (b - a)) / text.length - 1e-3);

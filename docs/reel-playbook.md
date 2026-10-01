@@ -122,6 +122,9 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 - **Cursor keyframes are pixel positions.** After moving UI, measure the target again
   (render a still) and update the keyframes.
 - **All `remotion`/`@remotion/*` packages must be the same exact version.**
+- **Dark gradients band after encoding.** JPEG frames + H.264 (and Instagram's re-encode) flatten
+  a navy gradient into visible rings. Put `<Grain />` (`components/Grain.tsx`) over it and darken
+  the gradient ~10% to compensate (free-coffee: longest flat band 143px → 5px).
 
 ## 5. Open items
 

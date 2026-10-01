@@ -125,9 +125,17 @@ function Hint({ top, children }: { top: number; children: ReactNode }) {
 }
 
 /** The full-page editor (E1): only the destination can change; the short link is locked. */
-export function EditLinkPage({ link, value, selected, caret, focused, dirty, saving, press }: {
-    link: string; value: string; selected: boolean; caret: boolean; focused: boolean; dirty: number; saving: boolean; press: number;
+export type FieldParts = { pre: string; sel: string; mid: string; post: string };
+
+export function EditLinkPage({ link, field, value, caret, focused, dirty, saving, press }: {
+    link: string; field: FieldParts; value: string; caret: boolean; focused: boolean; dirty: number; saving: boolean; press: number;
 }) {
+    // Zero-width, so the hidden caret never opens a gap in the text.
+    const caretEl = (
+        <span style={{ position: 'relative', display: 'inline-block', width: 0, height: 38, verticalAlign: 'middle' }}>
+            <span style={{ position: 'absolute', left: -1, top: 0, width: 3, height: 38, background: color.blue, visibility: caret ? 'visible' : 'hidden' }} />
+        </span>
+    );
     const CARD = { x: 30, y: 128, w: 940 };
     return (
         <div style={{ position: 'absolute', inset: 0, background: color.g50, fontFamily: font.sans }}>
@@ -151,8 +159,11 @@ export function EditLinkPage({ link, value, selected, caret, focused, dirty, sav
                     border: `2px solid ${focused ? color.blue : color.g300}`, boxShadow: focused ? '0 0 0 6px rgba(28,109,182,.16)' : 'none',
                     display: 'flex', alignItems: 'center', padding: '0 26px', fontSize: 30, color: color.charcoal, whiteSpace: 'nowrap', overflow: 'hidden',
                 }}>
-                    <span style={selected ? { background: '#B2D4F5', borderRadius: 4 } : undefined}>{value}</span>
-                    <span style={{ display: 'inline-block', width: 3, height: 38, background: color.blue, marginLeft: 2, visibility: caret ? 'visible' : 'hidden' }} />
+                    <span style={{ whiteSpace: 'pre' }}>{field.pre}</span>
+                    {field.sel && <span style={{ background: '#B2D4F5', borderRadius: 4, whiteSpace: 'pre' }}>{field.sel}</span>}
+                    <span style={{ whiteSpace: 'pre' }}>{field.mid}</span>
+                    {caretEl}
+                    <span style={{ whiteSpace: 'pre' }}>{field.post}</span>
                 </div>
                 <Hint top={318 - CARD.y}>Everyone who opens the link goes here as soon as you save.</Hint>
                 <Label top={386 - CARD.y}>Short link</Label>

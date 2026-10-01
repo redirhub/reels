@@ -11,6 +11,10 @@ export type FreeCoffeeProps = {
     oldPath: string;
     /** Where it points after the fix. */
     newPath: string;
+    /** The edit, as typed: in the old destination, `editFrom` is selected and `editTo` typed over it
+        (so oldPath with editFrom→editTo must equal newPath). Short, so every keystroke is heard. */
+    editFrom: string;
+    editTo: string;
     /** The page the fixed link lands on. */
     payoff: string;
     payoffEmoji: string;
@@ -27,6 +31,8 @@ export const freeCoffeeDefaults: FreeCoffeeProps = {
     path: 'free-coffee',
     oldPath: 'promo/free-coffee',
     newPath: 'really-free-coffee',
+    editFrom: 'promo/',
+    editTo: 'really-',
     payoff: 'Nice try.',
     payoffEmoji: '☕',
     clicks: '2.1K',
