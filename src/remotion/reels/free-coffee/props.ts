@@ -1,27 +1,45 @@
-/* Everything scenario-specific lives here, so variants (another URL, another joke,
+/* Everything scenario-specific lives here, so variants (another link, another joke,
    another language) are new props rather than copied scenes. */
 export type FreeCoffeeProps = {
-    /** Illustrative domain shown in the browser. */
-    domain: string;
-    /** The broken link's path: the bait. */
+    /** The company's site (where the link is posted, and where pages live). */
+    site: string;
+    /** The branded-link subdomain pointed at RedirHub (RedirHub recommends link.yourbrand.com). */
+    linkHost: string;
+    /** The branded link's path: the bait. */
     path: string;
-    /** Where the fixed link lands. Only revealed in the payoff. */
-    destPath: string;
-    /** The payoff page. */
+    /** Where the link pointed before: a campaign page that was taken down (404). */
+    oldPath: string;
+    /** Where it points after the fix. */
+    newPath: string;
+    /** The page the fixed link lands on. */
     payoff: string;
     payoffEmoji: string;
-    /** End card, two lines; the second is the accent. */
+    /** Clicks shown on the fixed row (everyone who tried the broken link). */
+    clicks: string;
+    /** End card: two lines (the second is the accent), then a smaller line. */
     endLines: readonly [string, string];
+    endSub: string;
 };
 
 export const freeCoffeeDefaults: FreeCoffeeProps = {
-    domain: 'brand.com',
+    site: 'brand.com',
+    linkHost: 'link.brand.com',
     path: 'free-coffee',
-    destPath: 'nice-try',
+    oldPath: 'promo/free-coffee',
+    newPath: 'really-free-coffee',
     payoff: 'Nice try.',
     payoffEmoji: '☕',
+    clicks: '2.1K',
     endLines: ['Broken link.', 'Fixed.'],
+    endSub: 'Same link. New destination.',
 };
 
-export const link = (p: FreeCoffeeProps) => `${p.domain}/${p.path}`;
-export const dest = (p: FreeCoffeeProps) => `${p.domain}/${p.destPath}`;
+export function urls(p: FreeCoffeeProps) {
+    return {
+        link: `${p.linkHost}/${p.path}`,
+        oldDest: `${p.site}/${p.oldPath}`,
+        newDest: `${p.site}/${p.newPath}`,
+        oldUrl: `https://${p.site}/${p.oldPath}`,
+        newUrl: `https://${p.site}/${p.newPath}`,
+    };
+}

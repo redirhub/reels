@@ -136,39 +136,48 @@ still lead somewhere broken."*
 
 ### `free-coffee`: "Free coffee?"
 
-12s · 1080×1920 · 30 fps. A sound-designed Instagram short with no voiceover and almost no copy: a
-bait link 404s, gets a (secret) destination in RedirHub's redirect layer, and the same link lands
-on the joke. The URL is the object that carries every transition.
+16s · 1080×1920 · 30 fps. A sound-designed Instagram short, no voiceover. One continuous browser
+shot, cut like a screen recording (the camera zooms to follow the cursor): a bait link 404s, the fix
+happens in RedirHub in the next tab, and the same click on the same link now lands on the joke.
 
 | Time | Beat | On screen | Audio |
 |---|---|---|---|
-| 0–1.9s | Curiosity | A browser; the page's only readable thing is the link `brand.com/free-coffee`. Cursor glides in and clicks. | Beat (kick + hats + muted synth pulse); **click** |
-| 1.9–3.4s | Failure | A plain site 404: "404 / Page not found". Small jolt. | **Error** hit; the beat drops out around it |
-| 3.4–4.2s | Into the redirect layer | The URL lifts out of the address bar; the camera passes through the page into a dark grid. | **Whoosh**; beat ducked |
-| 4.2–6.6s | Fix | URL = source node (red dot). A destination node appears with its path **redacted**. A wire draws, an orange pulse runs down it, it locks: teal wire, arrow, ring. Small RedirHub wordmark at the top. | **Ticks** as the wire forms; silence, then the **snap** with the full beat (drop) |
-| 6.6–8.1s | Return | The same URL drops back onto the same page. Same cursor, same click. | The same **click** |
-| 8.1–10.2s | Payoff | Address bar `brand.com/nice-try`, page: "Nice try. ☕" | Soft **chime**, beat ducked |
-| 10.2–12s | Close | "Broken link. **Fixed.**" + RedirHub logo. Ends on a cut. | Beat, short tail |
+| 0–1.6s | Curiosity | Tab "Brand", `brand.com`: the only readable thing is `link.brand.com/free-coffee`. Cursor clicks. | Music; **click** |
+| 1.6–3.3s | Failure | Address bar follows the redirect to `brand.com/promo/free-coffee`: a plain **404 / Page not found**, tab title "Page not found". | **Error** hit; music cuts out for a beat |
+| 3.3–4.6s | Spot it | Click the second tab, "Links · RedirHub": the Links list. The `link.brand.com/free-coffee` row has a red dot and an **Error** pill (↳ the dead page); zoom in. Click its pencil. | **Whoosh** on the tab switch; click |
+| 4.6–8.0s | Fix it | **Edit link** slides in: Destination URL selected and replaced with `https://brand.com/really-free-coffee` (Unsaved changes, live Preview). The short link is locked: "Short links stay the same once created…". | **Typing** |
+| 8.0–9.7s | Saved | **Save changes** → toast **"Changes saved"**; back on Links the row is healthy: green dot, new destination, 2.1K clicks. | **Snap** on the save; music lifts |
+| 9.7–11.2s | Retry | Back to the first tab (still 404), browser Back, the same link, the same click. | Whoosh, click, the same **click** |
+| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | **Chime** |
+| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo. Ends on a cut. | The track’s final hit, then the cut |
 
-**Messaging basis (Notion, re-queried 2026-10-01):** Signature POV *"The public URL should be
-stable. The destination can change."* (also behind `homepage-explainer`; this reel tells it as
-a 12s joke instead of a tour). Story and copy come from the owner's creative brief.
+**Drawn after the real app** (`redirhub/lviv`): the unified **Links** page (`LinksList`, `BaseListItem`:
+favicon with status dot, title, ↳ destination, clicks, pencil, ⋯; `RowStatusPill` "Error"), the
+full-page **Edit link** editor (`CreateBranded` + `CreateLayout`: Back · Edit link · subtitle,
+"Unsaved changes", Destination URL with its hint, the locked Short link with "Can’t be changed",
+Preview, Save changes) and the success toast "Changes saved" (`ToastContainer`). Copy is the app's own.
+Simplification: the window is narrow, so the Links header shows the logo next to the title as the
+app does below `md`, while rows keep the desktop pencil; after saving, the app returns to the list
+with the link's drawer open, shown here as the list.
 
-**Claims check** (Approved Claims & Message Library, 2026-10-01): no product claims or numbers
-on screen. "Broken link. Fixed." describes the story's outcome, not a speed or uptime claim; the
-reel deliberately shows no timings. `brand.com` and both paths are illustrative scenario data;
-no QR and no link sends viewers to that domain.
+**Link setup:** RedirHub recommends a branded-link subdomain (redirhub.com/branded-links: "link.yourbrand.com"),
+so the bait link is `link.brand.com/free-coffee` (the brief's `brand.com/free-coffee`, made accurate).
 
-**Departures from the house style, per the owner's brief:**
-- **7 sound effects in 12s, including two mouse clicks.** The repeated click is the story's
-  motif (fail, then succeed), so the reel raises the `<Sfx>` cap with an explicit
-  `budget={{ max, reason }}`. Other reels keep the 6-per-30s default.
-- **A synth pulse under the drums** (`music.json` `"pulse"`): one repeated note on 16ths,
-  filtered, never changing pitch, so it adds drive without becoming a melody.
-- **Beat ducking** under the whoosh/ticks, the snap and the payoff (`<Beat volume={fn}>`).
-- **Typeface:** the brief said Plus Jakarta Sans; redirhub.com/brand says Inter, so the reel
-  uses Inter like every other reel. Swap in `brand/fonts.ts` if the brand changes.
-- The ☕ is rendered from a bundled Noto Color Emoji subset (`public/fonts/`, OFL), so it is in
-  color on any render machine.
+**Messaging basis (Notion, re-queried 2026-10-01):** Signature POV *"The public URL should be stable.
+The destination can change."*; end line "Same link. New destination." restates it. Story and copy
+from the owner's creative brief.
 
-**Caption:** "Free coffee? ☕ The link was broken. Then it wasn't. #marketing #links #redirects"
+**Claims check** (Approved Claims & Message Library, 2026-10-01): no numbers or product claims in
+copy. The Error pill and clicks are the app's own UI with illustrative data (`brand.com`, paths,
+"128 links", click counts); the Error status reflects link health monitoring, which is plan-qualified
+(*Proactive link health monitoring for eligible plans*); no copy promises it. No QR on screen.
+
+**Music:** ElevenLabs Music v2.5, take B of 4 (instrumental minimal tech-house, ~122 BPM), fitted with
+`scripts/audio/prepare_track.py` so its lift lands just before the save and its stop lands on the end
+card. Source and licence: `docs/audio-licenses.md`. Effects are the repo's generated SFX.
+
+**Departures from the house style, per the owner's brief:** 10 effects (clicks are the story's motif;
+`<Sfx budget={{ max, reason }}>`), a licensed track instead of the generated drums-only beat, and
+the music level automated under the 404, the snap and the punchline (`<Beat volume={fn}>`).
+
+**Caption:** "Free coffee? ☕ The link broke. We fixed it without changing it. #marketing #links"

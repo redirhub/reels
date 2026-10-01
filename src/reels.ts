@@ -46,10 +46,10 @@ export const reels: Reel[] = [
     {
         id: 'free-coffee',
         title: 'Free coffee? (broken link, fixed)',
-        description: '12s sound-designed short, no voiceover: a bait link 404s, gets a destination in the redirect layer, and the same link lands on the joke.',
+        description: 'Sound-designed short, no voiceover: a bait link 404s, the fix happens in RedirHub in the next tab (Edit link → new destination → Save changes), and the same click now lands on the joke.',
         component: FreeCoffee,
         defaultProps: freeCoffeeDefaults,
-        durationInSeconds: 12,
+        durationInSeconds: 16,
         ...VERTICAL,
     },
 ];
