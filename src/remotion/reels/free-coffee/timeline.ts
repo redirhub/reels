@@ -1,6 +1,6 @@
 /* One continuous browser shot, timed like a screen recording. Every time is in
    absolute seconds; every position is in composition pixels (inside the camera). */
-import { easeInOut, lerp, prog } from '../../lib/anim';
+import { easeInOut, lerp, prog, shake } from '../../lib/anim';
 
 export const T = {
     // Tab A: the brand's page with the link → click → redirect → 404.
@@ -25,6 +25,7 @@ export const T = {
     click2: 10.9,
     hop2: 11.06,
     ok: 11.18,
+    twist: 11.55, // the "What!?" and the meme snap-zoom: a beat after "Nice try." appears
     // Brand close.
     end: 13.4,
     total: 16.0,
@@ -60,6 +61,8 @@ const brokenRowY = stage(0, rowTop(BROKEN_ROW) + ROW.h / 2).y;
 const fieldY = stage(0, FIELD.top + FIELD.h / 2).y;
 const saveY = stage(0, SAVE_BTN.top + SAVE_BTN.h / 2).y;
 const linkY = stage(0, LINK_Y).y;
+/** Center of the "Nice try." line (stage y). */
+const PAYOFF_Y = stage(0, LINK_Y - 5).y;
 
 /** [t, x, y]: cursor tip. */
 export const CURSOR: readonly (readonly [number, number, number])[] = [
@@ -109,7 +112,10 @@ const CAMERA: readonly (readonly [number, number, number, number])[] = [
     [T.back + 0.1, 1, 540, 960],
     [T.click2 - 0.05, 1.1, 540, linkY + 10],
     [T.ok + 0.1, 1, 540, 960],
-    [T.end, 1.06, 540, 920],
+    [T.twist, 1, 540, 960],
+    // Meme snap-zoom on the punchline, then a slow creep until the cut.
+    [T.twist + 0.06, 1.3, 540, PAYOFF_Y],
+    [T.end, 1.36, 540, PAYOFF_Y],
 ];
 
 export function camera(t: number) {
@@ -128,7 +134,9 @@ export function camera(t: number) {
     // A small punch on the save: the fix lands.
     const punch = t > T.saved && t < T.saved + 0.35 ? Math.sin(prog(t, T.saved, T.saved + 0.35) * Math.PI) * 0.025 : 0;
     s *= 1 + punch;
-    return `translate(540px, 960px) scale(${s}) translate(${-fx}px, ${-fy}px)`;
+    // A short shake on the snap-zoom.
+    const jx = shake(t, T.twist + 0.04, 0.25, 9, 80);
+    return `translate(${540 + jx}px, 960px) scale(${s}) translate(${-fx}px, ${-fy}px)`;
 }
 
 /** Text typed across [a, b]: the visible prefix (one character per equal slice of time). */
