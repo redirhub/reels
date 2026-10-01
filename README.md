@@ -143,13 +143,13 @@ happens in RedirHub in the next tab, and the same click on the same link now lan
 | Time | Beat | On screen | Audio |
 |---|---|---|---|
 | 0–1.6s | Curiosity | Tab "Brand", `brand.com`: the only readable thing is `link.brand.com/free-coffee`. Cursor clicks. | Music; **mouse click** (press + release) |
-| 1.6–3.3s | Failure | Address bar follows the redirect to `brand.com/promo/free-coffee`: a plain **404 / Page not found**, tab title "Page not found". | **Error** hit; music cuts out for a beat |
+| 1.6–3.3s | Failure | Address bar follows the redirect to `brand.com/promo/free-coffee`: a plain **404 / Page not found**, tab title "Page not found". | **Error** hit |
 | 3.3–4.6s | Spot it | Click the second tab, "Links · RedirHub": the Links list. The `link.brand.com/free-coffee` row has a red dot and an **Error** pill (↳ the dead page); zoom in. Click its pencil. | Soft **swish** panning right (the tab is to the right); click |
 | 4.6–8.0s | Fix it | **Edit link** slides in: in the Destination URL, `promo/` is selected and `really-` typed over it → `https://brand.com/really-free-coffee` (Unsaved changes, live Preview). The short link is locked: "Short links stay the same once created…". | One **keystroke** per character, in sync; music dips |
 | 8.0–9.7s | Saved | **Save changes** → toast **"Changes saved"**; back on Links the row is healthy: green dot, new destination, 2.1K clicks. | **Snap** on the save; music lifts |
 | 9.7–11.2s | Retry | Back to the first tab (still 404), browser Back, the same link, the same click. | Swish panning left, click, the same **click** |
-| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | The music stops dead; a **slide whistle** falls into silence (a letdown, not a reward) |
-| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo, on grain-dithered navy (no banding). Ends on a cut. | Music returns on the next downbeat (14.1s); its final hit, then the cut |
+| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | Plot-twist sting over the music (owner picking the sound) |
+| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo, on grain-dithered navy (no banding). Ends on a cut. | Music plays straight through; its final hit, then the cut |
 
 **Drawn after the real app** (`redirhub/lviv`): the unified **Links** page (`LinksList`, `BaseListItem`:
 favicon with status dot, title, ↳ destination, clicks, pencil, ⋯; `RowStatusPill` "Error"), the

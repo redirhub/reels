@@ -156,14 +156,10 @@ const SOUND_CUES: readonly SfxCue[] = [
     [T.ok + 0.02, 'slide_whistle', 0.5],   // "Nice try." in sudden silence
 ];
 
-/** Music level: [from, to, level, ramp-in s, ramp-out s]. Silence after the 404; room for the
-    keystrokes; a small dip for the snap (the track's full groove enters right there); dead stop on the punchline,
-    back on the next downbeat of the end card. */
+/** Music level: [from, to, level, ramp-in s, ramp-out s]. The music never stops (owner: stops
+    and restarts felt awkward); it only dips a little so the keystrokes come through. */
 const MUSIC: readonly (readonly [number, number, number, number, number])[] = [
-    [T.fail, T.fail + 0.65, 0, 0.08, 0.25],
-    [T.fieldClick - 0.1, T.typing[1] + 0.15, 0.6, 0.15, 0.3],   // room for the keystrokes
-    [T.saved - 0.12, T.saved + 0.12, 0.75, 0.05, 0.15],
-    [T.ok, T.musicBack, 0, 0.04, 0.02],
+    [T.fieldClick - 0.1, T.typing[1] + 0.15, 0.8, 0.2, 0.3],
 ];
 function musicVolume(s: number) {
     let v = 1;

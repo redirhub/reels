@@ -27,7 +27,6 @@ export const T = {
     ok: 11.18,
     // Brand close.
     end: 13.4,
-    musicBack: 14.1, // next downbeat of the track after the end card starts
     total: 16.0,
 } as const;
 
