@@ -69,7 +69,10 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
      the problem (impact), the detection (alert), the fix (success), the cut to the result
      (whoosh), the end card (stinger). **No sounds for UI micro-actions** (clicks, typing,
      hovers), and no risers into a drop the beat already builds. Keep them under the beat:
-     volumes around 0.3–0.7.
+     volumes around 0.3–0.7. Exception: a brief that makes a UI sound the story (see
+     `free-coffee`) can raise the cap with `<Sfx budget={{ max, reason }}>`; dip the music
+     a little under key effects with `<Beat volume={(s) => …}>`, never stop it. A licensed track can replace the
+     generated beat; see the decisions log.
 7. **Verify.** Run `npm run render -- <id>`, then:
    ```bash
    pip install -r scripts/qa/requirements.txt
@@ -102,6 +105,11 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 | **S3 + CloudFront** (`dcr3565853rcg.cloudfront.net/reels/`), GitHub OIDC with a custom subject | Public, stable links; no stored AWS keys; details in `docs/aws/SETUP.md` |
 | **Gallery plays the MP4 by default in production**; live Player on branch previews | Native video scrubs instantly. The live Player is for unpublished changes |
 | **Per-commit renders expire after 90 days** (`reels/renders/`) | Otherwise storage grows forever. `latest` links are unaffected |
+| **Short, sound-designed reels may raise the SFX cap** via `<Sfx budget={{ max, reason }}>` (first: `free-coffee`) | Owner's brief for a no-voiceover short where the click itself is the story motif. The default stays one effect per story beat; an override must state why |
+| **A reel may use a licensed music track instead of the generated beat** (first: `free-coffee`, "Soft" from Pixabay) | Owner's call: a synthesized single-note pulse "sounded like Mario music". Fit it with `scripts/audio/prepare_track.py` (aligns a section change to a story beat, trims, -16 LUFS; `--splice` jumps bar-to-bar so the track's real ending lands on the end card) into `public/audio/<id>-beat.mp3`, delete the reel's `music.json`, and record source + licence in `docs/audio-licenses.md` |
+| **Music plays straight through** (`free-coffee`) | Owner: dropping the music for the 404 and the punchline, then restarting it, felt awkward. Only small dips (e.g. under typing) |
+| **Licensed sounds come from Pixabay** (owner, 2026-10-02) | Pixabay Content License allows commercial use without attribution. ElevenLabs output is only licensed for commercial use on a paid plan; the free plan's isn't. Cut one-shots with `prepare_track.py oneshot` and play them as `SfxSample` cues in `<Sfx>` (they count against the budget) |
+| **Show the product doing the fix, step by step** (`free-coffee`) | Owner's feedback on the first cut: an abstract "redirect layer" didn't show how the link was fixed. Recreate the real app flow from `redirhub/lviv` (screens, copy, order) |
 | **Social safe area y 200–1600** | Platform UI covers the top and bottom of vertical video |
 
 ## 4. Environment gotchas
@@ -116,6 +124,9 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 - **Cursor keyframes are pixel positions.** After moving UI, measure the target again
   (render a still) and update the keyframes.
 - **All `remotion`/`@remotion/*` packages must be the same exact version.**
+- **Dark gradients band after encoding.** JPEG frames + H.264 (and Instagram's re-encode) flatten
+  a navy gradient into visible rings. Put `<Grain />` (`components/Grain.tsx`) over it and darken
+  the gradient ~10% to compensate (free-coffee: longest flat band 143px → 5px).
 
 ## 5. Open items
 
@@ -124,6 +135,7 @@ SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collec
 | Remotion Company License: needed if RedirHub has more than 3 employees. Once settled, add `acknowledgeRemotionLicense` to the gallery `<Player>` | Business | Open |
 | Apply `docs/aws/reels-lifecycle.json` to the bucket (merge with existing rules) | AWS admin | Open |
 | Delete the three per-commit renders published under the old `reels/qr-no-reprint/<sha>.*` layout | AWS admin | Open |
+| Remotion's AAC track plays ~43 ms (2048 samples) late in the MP4: its encoder priming isn't signalled, so every effect lands ~1 frame after its picture. Rendering audio as WAV and muxing with ffmpeg's AAC measured exact. Fix in `scripts/render.mjs` | Reels | Open (2026-10-02) |
 | Close `redirhub/marketing#164` (the HTML sketch this repo replaced) | Owner | Open |
 | Enable "Automatically delete head branches" in repo settings | Owner | Open |
 
@@ -135,6 +147,7 @@ Update this table as items close.
 |---|---|---|---|---|
 | `qr-no-reprint` | 2026-09-29 | Trackable QR codes | "A QR code is a printed URL, not just a graphic." | Monitoring alert shown: that claim is plan-qualified |
 | `homepage-explainer` | 2026-09-29 | All four (homepage explainer, 60s landscape) | "The public URL should be stable. The destination can change." | Uses all four approved platform numbers; monitoring plan-qualified; no end-card QR (plays on redirhub.com) |
+| `free-coffee` | 2026-10-01 | Branded links (16s sound-designed short) | "The public URL should be stable. The destination can change." | One browser shot, real app flow (Links → Edit link → Save changes); Pixabay track ("Soft") and one-shots (click, "What!?" meme); 11 SFX incl. a repeated click motif (explicit `<Sfx budget>`); keystrokes still free-plan ElevenLabs (replace before posting); no claims, no end-card QR |
 
 **Unused Signature POVs** (approved external, as of 2026-09-29; re-check Notion):
 - Domain redirects: "A redirect-only domain still needs real infrastructure." / "DNS does not redirect a URL. HTTP does."

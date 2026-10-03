@@ -133,3 +133,57 @@ still lead somewhere broken."*
 
 **Homepage embed:** use `https://dcr3565853rcg.cloudfront.net/reels/homepage-explainer/latest.mp4`
 (poster: `…/latest.jpg`) once merged, e.g. `<video autoplay muted loop playsinline>`.
+
+### `free-coffee`: "Free coffee?"
+
+16s · 1080×1920 · 30 fps. A sound-designed Instagram short, no voiceover. One continuous browser
+shot, cut like a screen recording (the camera zooms to follow the cursor): a bait link 404s, the fix
+happens in RedirHub in the next tab, and the same click on the same link now lands on the joke.
+
+| Time | Beat | On screen | Audio |
+|---|---|---|---|
+| 0–1.6s | Curiosity | Tab "Brand", `brand.com`: the only readable thing is `link.brand.com/free-coffee`. Cursor clicks. | Music ("Soft"); **mouse click** (press + release) |
+| 1.6–3.3s | Failure | Address bar follows the redirect to `brand.com/promo/free-coffee`: a plain **404 / Page not found**, tab title "Page not found". | **Error** hit |
+| 3.3–4.6s | Spot it | Click the second tab, "Links · RedirHub": the Links list. The `link.brand.com/free-coffee` row has a red dot and an **Error** pill (↳ the dead page); zoom in. Click its pencil. | Soft **swish** panning right (the tab is to the right); click |
+| 4.6–8.0s | Fix it | **Edit link** slides in: in the Destination URL, `promo/` is selected and `really-` typed over it → `https://brand.com/really-free-coffee` (Unsaved changes, live Preview). The short link is locked: "Short links stay the same once created…". | One **keystroke** per character, in sync; music dips a little |
+| 8.0–9.7s | Saved | **Save changes** → toast **"Changes saved"**; back on Links the row is healthy: green dot, new destination, 2.1K clicks. | Click on Save, **snap** on "Changes saved" |
+| 9.7–11.2s | Retry | Back to the first tab (still 404), browser Back, the same link, the same click. | Swish panning left, click, the same **click**; the music's bass drops out (its own break) |
+| 11.2–13.4s | Payoff | Address bar follows the redirect to `brand.com/really-free-coffee`: **"Nice try. ☕"** | The bass drops back in as the page appears; snap-zoom with the **"What!?" meme** |
+| 13.4–16s | Close | "Broken link. **Fixed.**" · "Same link. New destination." · RedirHub logo, on grain-dithered navy (no banding). Ends on a cut. | Music plays straight through: on a downbeat it jumps to the track's own last bar, which ends here |
+
+**Drawn after the real app** (`redirhub/lviv`): the unified **Links** page (`LinksList`, `BaseListItem`:
+favicon with status dot, title, ↳ destination, clicks, pencil, ⋯; `RowStatusPill` "Error"), the
+full-page **Edit link** editor (`CreateBranded` + `CreateLayout`: Back · Edit link · subtitle,
+"Unsaved changes", Destination URL with its hint, the locked Short link with "Can’t be changed",
+Preview, Save changes) and the success toast "Changes saved" (`ToastContainer`). Copy is the app's own.
+Simplification: the window is narrow, so the Links header shows the logo next to the title as the
+app does below `md`, while rows keep the desktop pencil; after saving, the app returns to the list
+with the link's drawer open, shown here as the list.
+
+**Link setup:** RedirHub recommends a branded-link subdomain (redirhub.com/branded-links: "link.yourbrand.com"),
+so the bait link is `link.brand.com/free-coffee` (the brief's `brand.com/free-coffee`, made accurate).
+
+**Messaging basis (Notion, re-queried 2026-10-01):** Signature POV *"The public URL should be stable.
+The destination can change."*; end line "Same link. New destination." restates it. Story and copy
+from the owner's creative brief.
+
+**Claims check** (Approved Claims & Message Library, 2026-10-01): no numbers or product claims in
+copy. The Error pill and clicks are the app's own UI with illustrative data (`brand.com`, paths,
+"128 links", click counts); the Error status reflects link health monitoring, which is plan-qualified
+(*Proactive link health monitoring for eligible plans*); no copy promises it. No QR on screen.
+
+**Sound (ASMR: close, dry, in sync):** music is ["Soft" by prettyjohn1](https://pixabay.com/sound-effects/musical-soft-499242/)
+(Pixabay, ~94 BPM, bass-led), fitted with `scripts/audio/prepare_track.py`: it plays from its start (its
+bass break falls on the retry, the bass returns on "Nice try."), then jumps on a downbeat to its last
+bar so it ends with the end card. It is never ducked except a small dip under the typing (owner: stops
+felt awkward). Clicks (Universfield) and the "What!?" meme are Pixabay one-shots cut with
+`prepare_track.py oneshot`; keystrokes are cut from a typing recording
+(`scripts/audio/slice_keystrokes.py`) and placed one per character; the swishes, the 404 hit and the snap
+are the repo's own (`sfx.py`). **The keystrokes were generated on a free ElevenLabs plan and are not
+cleared for commercial use yet**, and the meme voice's origin is unconfirmed: see `docs/audio-licenses.md`.
+
+**Departures from the house style, per the owner's brief:** 11 effects plus keystrokes (clicks are the story's motif;
+`<Sfx budget={{ max, reason }}>`), a licensed track instead of the generated drums-only beat, and a
+small music dip under the typing (`<Beat volume={fn}>`).
+
+**Caption:** "Free coffee? ☕ The link broke. We fixed it without changing it. #marketing #links"

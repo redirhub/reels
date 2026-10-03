@@ -4,7 +4,10 @@
    drums only and normalized to -16 LUFS with headroom, so it plays at full volume. */
 import { Html5Audio, staticFile, useVideoConfig } from 'remotion';
 
-export function Beat({ volume = 1 }: { volume?: number }) {
-    const { id } = useVideoConfig();
-    return <Html5Audio src={staticFile(`audio/${id}-beat.mp3`)} volume={volume} />;
+/** Volume 0–1, or a function of time in seconds for ducking the beat under effects
+    (keep it smooth: ramps of ~0.1s or longer, no jumps). */
+export function Beat({ volume = 1 }: { volume?: number | ((seconds: number) => number) }) {
+    const { id, fps } = useVideoConfig();
+    const v = typeof volume === 'number' ? volume : (frame: number) => volume(frame / fps);
+    return <Html5Audio src={staticFile(`audio/${id}-beat.mp3`)} volume={v} />;
 }

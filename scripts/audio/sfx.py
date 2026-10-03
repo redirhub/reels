@@ -102,7 +102,59 @@ def stinger():
     return master(st + reverb(st, 2.2, 0.8), -2)
 
 
+def error():
+    """Dry digital error: a short low thud under a clipped two-step square blip. No tail."""
+    t = tt(0.32)
+    f = 70 + 90 * np.exp(-t / 0.03)
+    thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * env(t, 0.001, 0.08)
+    sq = np.sign(np.sin(2 * np.pi * np.where(t < 0.07, 330, 247) * t))
+    blip = filt(sq, "low", 2400) * env(t, 0.001, 0.06, hold=0.1) * (t < 0.2)
+    x = np.tanh((thud * 1.2 + blip * 0.35) * 1.5)
+    return master(np.stack([x, x]), -2)
+
+
+def _swish(left_to_right):
+    """Soft close swish, like a card sliding over felt: band-limited noise whose band rises
+    and whose pan follows the direction of the move. No reverb tail."""
+    d = 0.34
+    t = tt(d)
+    n = noise(len(t))
+    out = np.zeros(len(t))
+    step = 600
+    for i in range(0, len(t), step):
+        f = 700 + 2100 * (i / len(t)) ** 0.8
+        seg = n[max(0, i - 300): i + step]
+        y = filt(seg, "band", [f * 0.55, min(f * 1.7, SR / 2 - 100)])
+        out[i: i + step] = y[-len(out[i: i + step]):]
+    env = np.sin(np.pi * np.clip(t / d, 0, 1)) ** 2 * np.exp(-t / 0.22)
+    out *= env
+    pan = t / d if left_to_right else 1 - t / d
+    pan = 0.25 + 0.5 * pan
+    return master(np.stack([out * np.cos(pan * np.pi / 2), out * np.sin(pan * np.pi / 2)]), -5)
+
+
+def swish_r():
+    return _swish(True)
+
+
+def swish_l():
+    return _swish(False)
+
+
+def snap():
+    """Magnetic snap: a fast downward zip into a tight low thump and a bright click."""
+    t = tt(0.5)
+    zip_ = np.sin(2 * np.pi * np.cumsum(1800 * np.exp(-t / 0.012) + 120) / SR) * env(t, 0.0005, 0.02)
+    thump = np.sin(2 * np.pi * np.cumsum(55 + 140 * np.exp(-t / 0.02)) / SR) * env(t, 0.001, 0.09)
+    clk = filt(noise(len(t)), "band", [2500, 7000]) * np.exp(-t / 0.0025)
+    ring = np.sin(2 * np.pi * 1320 * t) * env(t, 0.001, 0.07) * 0.12
+    x = np.tanh((zip_ * 0.6 + thump * 1.3 + clk * 0.8 + ring) * 1.6)
+    st = np.stack([x, x])
+    return master(st + reverb(st, 0.5, 0.12, 5000) * 1.5, -1.5)
+
+
 ALL = {
     "impact": impact, "whoosh": whoosh, "riser": riser, "click": click, "key": key,
     "typing": typing, "alert": alert, "success": success, "stinger": stinger,
+    "error": error, "swish_r": swish_r, "swish_l": swish_l, "snap": snap,
 }

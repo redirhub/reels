@@ -7,5 +7,9 @@
   "typing": 1.65,
   "alert": 0.9,
   "success": 1.3,
-  "stinger": 3.0
+  "stinger": 3.0,
+  "error": 0.32,
+  "swish_r": 0.34,
+  "swish_l": 0.34,
+  "snap": 0.5
 }

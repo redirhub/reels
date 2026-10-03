@@ -28,6 +28,8 @@ export const color = {
 export const font = {
     sans: '"Inter", system-ui, sans-serif',
     mono: '"JetBrains Mono", ui-monospace, monospace',
+    /** Bundled color emoji (subset; add glyphs with pyftsubset when a reel needs more). */
+    emoji: '"Reel Emoji", "Noto Color Emoji", "Apple Color Emoji", sans-serif',
 } as const;
 
 /** Standard vertical social format (Reels, Shorts, TikTok). */

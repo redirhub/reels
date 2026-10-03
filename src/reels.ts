@@ -5,6 +5,8 @@ import type { ComponentType } from 'react';
 import { LANDSCAPE, VERTICAL } from './remotion/brand/tokens';
 import { HomepageExplainer } from './remotion/reels/homepage-explainer/HomepageExplainer';
 import { homepageExplainerDefaults } from './remotion/reels/homepage-explainer/props';
+import { FreeCoffee } from './remotion/reels/free-coffee/FreeCoffee';
+import { freeCoffeeDefaults } from './remotion/reels/free-coffee/props';
 import { QrNoReprint } from './remotion/reels/qr-no-reprint/QrNoReprint';
 import { qrNoReprintDefaults } from './remotion/reels/qr-no-reprint/props';
 
@@ -40,5 +42,14 @@ export const reels: Reel[] = [
         defaultProps: homepageExplainerDefaults,
         durationInSeconds: 60,
         ...LANDSCAPE,
+    },
+    {
+        id: 'free-coffee',
+        title: 'Free coffee? (broken link, fixed)',
+        description: 'Sound-designed short, no voiceover: a bait link 404s, the fix happens in RedirHub in the next tab (Edit link → new destination → Save changes), and the same click now lands on the joke.',
+        component: FreeCoffee,
+        defaultProps: freeCoffeeDefaults,
+        durationInSeconds: 16,
+        ...VERTICAL,
     },
 ];
