@@ -2,9 +2,22 @@
 
 _Status: see §1. Render numbers in `renders/render-log.md`; packaging in `packaging.md`._
 
-## 0. Revision 2 (Leo's notes, 2026-10-08)
+## 0. Revision 3: polish (Leo's notes, 2026-10-08)
 
-Final cut: **5:17**, 1920×1080, 30 fps, H.264 + AAC 48 kHz, −14.9 LUFS, −2.3 dBTP, no black
+Final cut: **5:09** (was 5:17), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Details in
+`renders/render-log.md` ("Revision 3").
+
+- **Whooshes:** two transitions in the whole film (title card, into the dashboard), down from seven.
+- **Music:** audible from the first second to the last at a steady level, still well under the voice
+  (the build fails if it ever comes within 11 LU of her while she speaks).
+- **Leo's Pixabay sounds:** click on every button press, his pop, transition and rewind; typing on
+  every field that fills. His "typing on a laptop" file is the ElevenLabs free-plan generation (not
+  cleared for commercial use), so typing uses our generated sound.
+- **Stalls:** eight seconds of dead air cut from the pauses; every on-screen line still has time to be read.
+
+## 0b. Revision 2 (Leo's notes, 2026-10-08)
+
+Cut: **5:17**, 1920×1080, 30 fps, H.264 + AAC 48 kHz, −14.9 LUFS, −2.3 dBTP, no black
 frames, QR decodes. What changed is listed note by note in `renders/render-log.md` ("Revision 2"
 and the second review that follows it). In short:
 

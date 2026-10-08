@@ -59,7 +59,7 @@ export function TestScene(p: RedirectDomainProps) {
                         </BrowserCard>
                     </div>
                     <TipCard t={t} from={L.at(40) + 0.9} until={L.at(41) - 0.1} label={p.tips.privateWindow} y={380}>No copies, no leftovers.</TipCard>
-                    <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={40} color={yt.inkSoft}>Still the old site? Give DNS a few minutes.</Caption>
+                    <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={40} color={yt.inkSoft}>Old site? Give DNS a few minutes.</Caption>
                 </>
             )}
             {checks && <Checks t={t} p={p} />}
@@ -78,7 +78,7 @@ function Checks({ t, p }: { t: number; p: RedirectDomainProps }) {
     const y0 = 300, gap = 170;
     return (
         <>
-            <Caption t={t} from={L.at(43) + 0.1} until={L.at(44) - 0.1} y={160} size={44} color={yt.ink}>Three quick checks.</Caption>
+            <Caption t={t} from={L.at(43) + 0.1} until={L.at(44) + 0.15} y={160} size={44} color={yt.ink}>Three quick checks.</Caption>
             {items.map((it, i) => {
                 const b = beatOf[i];
                 const show = t >= L.at(b) || all;

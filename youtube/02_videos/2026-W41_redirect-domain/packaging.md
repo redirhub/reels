@@ -1,6 +1,6 @@
 # Packaging — W41 "How to Redirect a Domain to Another Domain (With HTTPS That Actually Works)"
 
-Film: 5:17 (317 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
+Film: 5:09 (309 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
 word timestamps, regenerated with every voice change). Thumbnails: `thumbnails/thumb-a.png`, `thumbnails/thumb-b.png`
 (1280×720) with 168×94 proofs beside them.
 
@@ -41,18 +41,18 @@ Stuck, or moving something bigger than one domain? Reach out and we'll help:
 
 Chapters
 0:00 The move most people make
-0:16 Why it breaks
-0:35 The promise
-0:48 Concept 1: the 301 redirect
-1:01 Concept 2: DNS, the address book
-1:20 Concept 3: HTTPS, the ID card
-2:20 In the RedirHub dashboard
-2:35 Step 1: write the note
-2:55 Step 2: update the address book
-3:46 The test (and the twist)
-4:18 Three checks
-4:35 Two things before you go
-4:58 Remember the start
+0:15 Why it breaks
+0:34 The promise
+0:46 Concept 1: the 301 redirect
+0:58 Concept 2: DNS, the address book
+1:17 Concept 3: HTTPS, the ID card
+2:16 In the RedirHub dashboard
+2:31 Step 1: write the note
+2:51 Step 2: update the address book
+3:41 The test (and the twist)
+4:12 Three checks
+4:29 Two things before you go
+4:51 Remember the start
 
 What you'll learn
 • What a 301 redirect is and why "moved permanently" matters for Google
@@ -104,5 +104,5 @@ auto captions will mis-hear "RedirHub".
 - [ ] Voiceover regenerated on a paid ElevenLabs plan (see production-notes §3) before publishing.
 - [ ] Kris: Signal Red / Night tokens, the Chrome line ("rolling out"), the Links UI external use.
 - [ ] Upload: title A, thumbnail A, description, chapters verified in the player, captions.srt,
-      pinned comment, end screen (subscribe + the next video) at 5:19, on the end card.
+      pinned comment, end screen (subscribe + the next video) at 4:59, on the end card (the last 10 s).
 - [ ] A/B: YouTube's "Test & compare" with thumbnails A and B (title stays A for the test).

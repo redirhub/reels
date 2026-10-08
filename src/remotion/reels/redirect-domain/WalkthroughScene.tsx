@@ -102,7 +102,7 @@ export function WalkthroughScene(p: RedirectDomainProps) {
 
             <Caption t={t} from={L.word(26, 'handles') - 0.1} until={L.at(27) - 0.1} y={892} size={34} color={yt.inkSoft} plate text="The note and the ID card, handled. Your DNS, wherever it lives.">The note and the ID card, handled. Your DNS, wherever it lives.</Caption>
             <TipCard t={t} from={L.at(33) + 0.2} until={L.at(34) - 0.1} label={p.tips.screenshot}>Thirty seconds now, zero regret later.</TipCard>
-            <Caption t={t} from={L.at(36) + 0.3} until={L.end(36)} y={892} size={34} color={yt.inkSoft} plate>The note. The address book. The ID card, automatically.</Caption>
+            <Caption t={t} from={L.at(36) + 0.05} until={L.end(36)} y={892} size={34} color={yt.inkSoft} plate>The note. The address book. The ID card, automatically.</Caption>
 
             <Cursor t={t} keys={[
                 [L.at(28), DASH.x + 1240, DASH.y + 300],

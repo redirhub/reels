@@ -210,7 +210,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 42,
         "vo": "",
-        "visual": "Caption under the card, 4 s: \"Still the old site? Give DNS a few minutes.\""
+        "visual": "Caption under the card, 3.5 s: \"Old site? Give DNS a few minutes.\""
     },
     {
         "n": 43,

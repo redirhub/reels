@@ -207,3 +207,13 @@ before the final render unless marked.
 | Private window empty for ~10 s | Tip arrives sooner |
 | Speech check | Recognition over the final voice track: no "menu", "disclosure", "idea", "house" or "room" anywhere |
 | Not done | QR target is still `redirhub.com/qr` (a QR product page): the only branded link known to work; Leo to supply a redirect/contact branded link. Music is still the generated pad until Leo's files are committed. |
+
+## Revision 3: polish (Leo's notes, 2026-10-08)
+
+| Note | What changed |
+|---|---|
+| "The whoosh sound is everywhere" | Seven whoosh/swish cues → **two** transitions in the whole film (title card, into the dashboard), using Leo's Pixabay "Transition Coat". The swishes on the book, the private window and "weeks later" are gone. |
+| "The music background stops where it ends" | The bed never stopped, but under speech it sat at −36 LUFS, which is inaudible against the voice, so it only surfaced in pauses. It now holds a steady ≈ −31 LUFS start to end (16 LU under the voice). `bed-build.py` gained a sidechain step: under a quiet word the bed dips further, so it can be audible and still never come within 11 LU of her while she speaks (guard unchanged, passes). Fades: 1.5 s in, 3 s out on the last frame. |
+| Leo's sounds (Pixabay) | Click, pop, transition and rewind are his files, cut into `public/audio/redirect-domain/`. Clicks on every button press, typing on every field that fills (47 cues, `<Sfx budget>` with the reason). His "typing on a laptop" is the ElevenLabs free-plan generation (it matches free-coffee's keystrokes sample for sample), not cleared for commercial use, so typing stays generated. |
+| "Bits that are stalled" | Pauses tightened: title card 2.6 → 1.5 s, stillness after the hook 1.6 → 1.0, rewind 1.4 → 0.9, all-green 1.0 → 0.6, end of walkthrough 1.0 → 0.5, concepts ticked 0.9 → 0.5, between beats 0.30 → 0.22, the DNS wait 4.2 → 3.5 s (caption now "Old site? Give DNS a few minutes."), end card hold 4.5 → 3.5 s. **5:17 → 5:09.** Every on-screen line still passes the reading-time rule (stills at all 54 beats); two captions re-timed for it. |
+| Chapters | Re-timed in `packaging.md` (13 chapters, shortest 12 s). End screen at 4:59. |

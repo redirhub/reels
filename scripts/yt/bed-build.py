@@ -17,6 +17,7 @@ Writes public/audio/<id>-bed.mp3 (played at volume 1; all gain is baked in here)
 The rule it enforces (Leo: "never raise the music louder than the voiceover"):
   - while she speaks, the bed's momentary loudness stays at least 10 LU under hers;
   - everywhere, even in pauses, the bed stays at least 8 LU under her integrated level.
+Under a quiet word the bed dips further (step 2b), so it can sit at an audible level under normal speech.
 The build fails if either is broken, so a louder track cannot slip in.
 A track shorter than the film loops with a 2 s crossfade.
 """
@@ -92,11 +93,26 @@ env = np.convolve(np.pad(target, k, mode='edge'), kern, mode='valid')
 env = np.minimum(env, np.where(speech, g_speech, np.inf))  # the ramp never lifts the bed while she speaks
 bed = m * env
 
-# 3. prove it stays under the voice
+# 2b. follow her level: under a quiet word the bed dips further, so it stays 11 LU under her momentary
+#     loudness at every moment she is talking (sidechain-style; the floor never rises above step 2).
 v = load(vo, 1)[:, :need]
 if v.shape[1] < need:
     v = np.pad(v, ((0, 0), (0, need - v.shape[1])))
 vI = integrated(v, 1)
+vM, bM = momentary(v, 1), momentary(bed, 2)
+n = min(len(vM), len(bM))
+excess = np.where(vM[:n] > vI - 10, bM[:n] - (vM[:n] - 11), 0.0)   # LU the bed is too loud, per 100 ms
+excess = np.maximum(excess, 0)
+w = 6                                                               # ±0.6 s: covers the 400 ms meter window
+excess = np.array([excess[max(0, i - w):i + w + 1].max() for i in range(n)])
+cut = np.repeat(10 ** (-excess / 20), SR // 10)
+cut = np.pad(cut, (0, max(0, need - len(cut))), constant_values=1.0)[:need]
+k2 = int(0.15 * SR)
+kern2 = np.hanning(2 * k2 + 1); kern2 /= kern2.sum()
+cut = np.minimum(cut, np.convolve(np.pad(cut, k2, mode='edge'), kern2, mode='valid'))
+bed = bed * cut[None, :]
+
+# 3. prove it stays under the voice
 bM, vM = momentary(bed, 2), momentary(v, 1)
 n = min(len(bM), len(vM))
 bM, vM = bM[:n], vM[:n]
