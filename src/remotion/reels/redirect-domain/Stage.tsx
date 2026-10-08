@@ -45,12 +45,17 @@ export function pillGeometry(oldDomain: string, newDomain: string, gap = 420, si
     };
 }
 
-export function Caption({ t, from, until, children, text, y = 800, size = 46, color = yt.inkSoft }: {
+export function Caption({ t, from, until, children, text, y = 800, size = 46, color = yt.inkSoft, plate = false }: {
     t: number; from: number; until: number; children: ReactNode; text?: string; y?: number; size?: number; color?: string;
+    /** A Night plate behind the line, for a caption that has to sit over light UI (the dashboard). */
+    plate?: boolean;
 }) {
+    const shown = t >= from && t < until;
     return (
         <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x, top: y, display: 'flex', justifyContent: 'center' }}>
-            <OnScreenText t={t} from={from} until={until} text={text} size={size} weight={600} color={color} align="center">{children}</OnScreenText>
+            <div style={plate && shown ? { background: 'rgba(7,14,28,0.88)', padding: '8px 26px', borderRadius: 14 } : undefined}>
+                <OnScreenText t={t} from={from} until={until} text={text} size={size} weight={600} color={color} align="center">{children}</OnScreenText>
+            </div>
         </div>
     );
 }
