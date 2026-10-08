@@ -1,7 +1,7 @@
 /* Shared stage pieces for the video: the Night canvas, the two domain pills that anchor the
    whole film, a caption slot, and the tip card. Layout constants are composition pixels. */
 import type { CSSProperties, ReactNode } from 'react';
-import { AbsoluteFill } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { font, yt } from '../../brand/tokens';
 import { GlassCard } from '../../components/GlassCard';
 import { Grain } from '../../components/Grain';
@@ -15,8 +15,16 @@ export const W = 1920, H = 1080;
 export const SAFE = { x: 120, top: 70, bottom: 950 } as const;
 
 export function Night({ children, style }: { children: ReactNode; style?: CSSProperties }) {
+    // The glow drifts a little (two slow sines, about 20 s each) so a held frame never reads as
+    // frozen while the narration carries it. Far below anything the eye would call motion.
+    const frame = useCurrentFrame();
+    const { fps } = useVideoConfig();
+    const s = frame / fps;
+    const gx = 50 + 2.5 * Math.sin((2 * Math.PI * s) / 23);
+    const gy = 20 + 2 * Math.sin((2 * Math.PI * s) / 17 + 1);
+    const bg = `radial-gradient(1400px 900px at ${gx.toFixed(2)}% ${gy.toFixed(2)}%, #10214A 0%, #0B1426 55%, #070E1C 100%)`;
     return (
-        <AbsoluteFill style={{ background: NIGHT_BG, fontFamily: font.display, color: yt.ink, WebkitFontSmoothing: 'antialiased', ...style }}>
+        <AbsoluteFill style={{ background: bg, fontFamily: font.display, color: yt.ink, WebkitFontSmoothing: 'antialiased', ...style }}>
             <Grain />
             {children}
         </AbsoluteFill>

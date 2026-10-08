@@ -83,3 +83,29 @@ technical.
   the private-window reveal on "there") now use `local(scene).word(n, w)` instead of offsets
   guessed from the 155 wpm estimate.
 - A full silent render was started and stopped once the audio was ready: superseded by R6.
+
+## R6 — first full cut with sound (2026-10-08)
+
+- `npm run render -- redirect-domain`, 16 min on 4 cores. `out/redirect-domain.mp4`: 326.06 s,
+  1920×1080, 30 fps, H.264 yuv420p + AAC 48 kHz stereo, 36.5 MB.
+- **Audio:** integrated **-14.8 LUFS**, LRA 3.0 LU, true peak **-1.8 dBTP** (targets -14 / -1).
+  Voice mastered to -14.2 LUFS / -1.5 dBTP in `vo-build.py` (compressor 3:1 at -22 dB, static
+  gain, limiter); pad at 0.22 (≈ -30 LUFS); 16 cues. No silence longer than 3 s in the mix (the
+  bed carries the title card, the caption-only wait and the end card).
+- **Technical:** `blackdetect` flags 0–0.6 s: that is the Night lead-in before the first pill
+  (luma below the 10 % threshold), not black. `freezedetect` (4 s, -60 dB): 25 static holds of
+  4–14 s, longest 195–210 s (the records table while the narration explains them). The picture
+  is correct in all of them (the narration carries), but the brief asks that nothing read as
+  frozen → R7 adds a slow drift to the Night glow (two sines, ~20 s periods) so no held frame is
+  pixel-static. No other change.
+- **QR:** `check_reel.py --qr 320.5=https://redirhub.com/qr` decodes exactly that URL from the MP4.
+- **Text hold:** enforced in code; the render passed, so every line holds ≥ max(1 s, words/3+1).
+- **Contact sheets (2 × 6×6, 1 frame / 5 s) reviewed:** every tile is a readable, single idea;
+  the section tags, docked pills and the idea rail never collide; the dashboard is whole in
+  every walkthrough tile; the end card's right half is clear. Stills at 108 s, 113 s and 198 s
+  confirmed the ID-card sequence and the DNS dialog (the real IP and the "copy yours, not mine"
+  caption) render as designed.
+- **Sync (by the numbers):** every cue and every word-pinned visual sits within 0.3 s of its
+  word in `timings.json`; the contact sheet's 270 s tile shows the caption-only wait with the
+  old site still loaded, as scripted.
+- Independent review of this cut requested from a separate agent (findings in the final report).
