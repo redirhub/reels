@@ -81,11 +81,30 @@ Leo's "go" came without a voice pick, so the recommendation (Emily) stands.
   was checked to sit in a pause of the take, and the silences the assembly inserts all fall at
   chunk edges or at matched pauses.
 - `assembly.json`: lead-in 0.6 s, 0.3 s at chunk joins, extra silence after beats 3, 10, 11,
-  24, 36, 39, 43, 47, 52; silent beats 42 (4.2 s) and 53 (6 s). Film length **325 s (5:25)**.
+  24, 36, 39, 43, 47, 52; silent beats 42 (4.2 s) and 54 (4.5 s, the end card after the call to action). Film length **317 s (5:17)** after revision 2.
 - **Re-take:** chunk c09 (beats 28–30). The first take read the URL's punctuation ("h t t p s
   colon slash slash my brand dot com", confirmed by the recogniser). The chunk text now writes
   the address as it should be spoken ("Redirect to: HTTPS, mybrand.com."); the script itself is
   unchanged. Rule for next time: write URLs in chunk text the way a person says them.
+
+**Why the first cut sounded like a phone call (revision 2).** Emily's takes contain nothing above
+about 8 kHz and carry a boxy 300–500 Hz build-up; together that is exactly what a call sounds like.
+It is the voice itself: ElevenLabs v2 and v4 give the same ceiling, while the full-band runner-up
+(Bella) does not. Fix, keeping the voice Leo likes: `scripts/yt/voice_enhance.py`, run by
+`vo-build.py` on every build. It regenerates the missing octave from the voice's own 3.8–7.8 kHz
+band (harmonic bandwidth extension, set 12 dB under the 4–6 kHz band, following each syllable),
+takes 3.5 dB out at 420 Hz, adds a little chest and presence, and de-esses the new top. Measured:
+8–11 kHz went from −72 dB to −31 dB relative to peak; the added band tracks the voice (envelope
+correlation 0.90) and stays 23 dB down in pauses. **Not verified by ear in this session** (no
+audio playback here): Leo, listen to 0:00–0:30 and 2:35–3:10 and say if it still sounds thin.
+If it does, the real fix is a full-band voice (Bella, or a paid-plan voice), at the cost of a
+different narrator.
+
+**Revision 2 lines** (Leo's script notes): beats 9, 11, 12–14, 15, 18, 24, 25–26, 29–30, 36 and a
+new 53 (call to action) were generated as separate takes (`chunks/c17`–`c26`) and spliced in place of
+the old beats (`chunks.json` → `skip` / `spoken`); everything else is the original read. One of the
+ten was refused by the Free-tier block and one by rate limiting; both were re-sent once and
+succeeded.
 
 **Licensing — open item for Kris/Leo.** The connected ElevenLabs workspace reports a 10,000
 credit quota and intermittently refuses with the Free-tier message, so this narration should be

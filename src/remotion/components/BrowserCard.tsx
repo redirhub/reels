@@ -14,8 +14,8 @@ export function BrowserCard({ address, lock = 'none', dot = 'none', dark = false
     /** Optional small label at the top (e.g. "Private window"). */
     title?: string;
 }) {
-    const bar = dark ? '#1F2A3A' : color.g100;
-    const chrome = dark ? '#141C2A' : '#fff';
+    const bar = dark ? '#33415A' : color.g100;
+    const chrome = dark ? '#243149' : '#fff';
     const text = dark ? '#E6EDF7' : color.g700;
     const lockColor = lock === 'secure' ? yt.teal : lock === 'insecure' ? yt.signalRed : color.g500;
     return (
@@ -23,11 +23,11 @@ export function BrowserCard({ address, lock = 'none', dot = 'none', dark = false
             position: 'relative', width, height, borderRadius: radius, overflow: 'hidden', background: chrome, fontFamily: font.sans,
             boxShadow: '0 50px 120px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08)', ...style,
         }}>
-            <div style={{ height: 78, display: 'flex', alignItems: 'center', gap: 16, padding: '0 24px', borderBottom: `1px solid ${dark ? '#243043' : color.g200}` }}>
+            <div style={{ height: 78, display: 'flex', alignItems: 'center', gap: 16, padding: '0 24px', borderBottom: `1px solid ${dark ? '#3A4862' : color.g200}` }}>
                 <div style={{ display: 'flex', gap: 9 }}>
-                    {['#F97066', '#FDB022', '#32D583'].map((c) => <i key={c} style={{ width: 14, height: 14, borderRadius: 7, background: dark ? '#3A4658' : c }} />)}
+                    {['#F97066', '#FDB022', '#32D583'].map((c) => <i key={c} style={{ width: 14, height: 14, borderRadius: 7, background: dark ? '#56647C' : c }} />)}
                 </div>
-                {title && <span style={{ fontSize: 20, fontWeight: 600, color: dark ? '#8EA0B8' : color.g500, marginLeft: 6, whiteSpace: 'nowrap' }}>{title}</span>}
+                {title && <span style={{ fontSize: 20, fontWeight: 600, color: dark ? '#C9D4E5' : color.g500, marginLeft: 6, whiteSpace: 'nowrap' }}>{title}</span>}
                 <div style={{ flex: 1, height: 48, borderRadius: 24, background: bar, display: 'flex', alignItems: 'center', gap: 12, padding: '0 20px', fontFamily: font.mono, fontSize: 24, color: text, whiteSpace: 'nowrap', overflow: 'hidden' }}>
                     {lock === 'secure' && (
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={lockColor} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}>
@@ -48,7 +48,7 @@ export function BrowserCard({ address, lock = 'none', dot = 'none', dark = false
                 {dot !== 'none' && <i style={{ flex: 'none', width: 16, height: 16, borderRadius: 8, background: DOT[dot], boxShadow: `0 0 14px ${DOT[dot]}88` }} />}
                 {loading >= 0 && loading < 1 && <div style={{ position: 'absolute', left: 0, top: 76, height: 3, width: `${Math.max(0.06, loading) * 100}%`, background: yt.blue }} />}
             </div>
-            <div style={{ position: 'absolute', left: 0, right: 0, top: 78, bottom: 0, background: dark ? '#0F1724' : '#fff', overflow: 'hidden' }}>{children}</div>
+            <div style={{ position: 'absolute', left: 0, right: 0, top: 78, bottom: 0, background: dark ? '#1B263A' : '#fff', overflow: 'hidden' }}>{children}</div>
         </div>
     );
 }

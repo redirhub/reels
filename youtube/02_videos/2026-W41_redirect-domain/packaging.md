@@ -1,6 +1,6 @@
 # Packaging — W41 "How to Redirect a Domain to Another Domain (With HTTPS That Actually Works)"
 
-Film: 5:25 (325 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
+Film: 5:17 (317 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
 word timestamps, regenerated with every voice change). Thumbnails: `thumbnails/thumb-a.png`, `thumbnails/thumb-b.png`
 (1280×720) with 168×94 proofs beside them.
 
@@ -32,23 +32,26 @@ links open with "Not secure", deep links dump people on the homepage, and the QR
 menu is dead. This is the right way: a 301 redirect, the DNS records that make it work, and the
 certificate that keeps the padlock, with the test most people get wrong.
 
-Try it with RedirHub: https://redirhub.com/qr?utm_source=youtube&utm_medium=video&utm_campaign=w41-redirect-domain
+Manage your URLs with RedirHub: https://redirhub.com/qr?utm_source=youtube&utm_medium=video&utm_campaign=w41-redirect-domain
 (↑ placeholder: replace with the branded link once it exists in Links; keep the UTM tags.)
 
+Stuck, or moving something bigger than one domain? Reach out and we'll help:
+[contact link placeholder: Leo/Kris to confirm the support page or email]
+
 Chapters
-0:00 The half-done move
+0:00 The move most people make
 0:16 Why it breaks
 0:35 The promise
-0:47 Idea 1: the note on the door (301)
-1:14 Idea 2: the address book (DNS)
-1:32 Idea 3: the ID card (HTTPS)
-2:31 The walkthrough
-2:48 Step 1: write the note
-3:09 Step 2: update the address book
-4:00 The test (and the twist)
-4:32 Three checks
-4:49 Two things before you go
-5:12 Remember the start
+0:48 Concept 1: the 301 redirect
+1:01 Concept 2: DNS, the address book
+1:20 Concept 3: HTTPS, the ID card
+2:20 In the RedirHub dashboard
+2:35 Step 1: write the note
+2:55 Step 2: update the address book
+3:46 The test (and the twist)
+4:18 Three checks
+4:35 Two things before you go
+4:58 Remember the start
 
 What you'll learn
 • What a 301 redirect is and why "moved permanently" matters for Google
@@ -92,6 +95,9 @@ auto captions will mis-hear "RedirHub".
 
 ## Publish checklist
 
+- [ ] The video now ends by pointing to the description ("Everything you need to manage your URLs is
+      linked in the description. And if you get stuck, reach out to us."): the description must
+      carry both links before publishing (the manage-URLs link and the contact link).
 - [ ] Branded link created in Links; replace the placeholder URL in the description and the QR
       target if it changes (`props.ts` → `qr`); re-render if the QR changes.
 - [ ] Voiceover regenerated on a paid ElevenLabs plan (see production-notes §3) before publishing.

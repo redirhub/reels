@@ -13,5 +13,7 @@
   "swish_l": 0.34,
   "snap": 0.5,
   "fixed": 1.1,
-  "rewind": 1.1
+  "rewind": 1.1,
+  "denied": 0.75,
+  "pop": 0.3
 }

@@ -28,9 +28,11 @@ export function TestScene(p: RedirectDomainProps) {
     const type2 = prog(t, L.at(41) + 0.3, L.at(41) + 1.5);
     const resolved = easeOut(prog(t, L.word(41, 'there') - 0.2, L.word(41, 'there') + 0.3));
     const checks = t >= L.at(43);
+    // While the private-window tip is up, both cards step left so the tip never covers the address bar.
+    const tipK = easeInOut(prog(t, L.at(40) + 1.4, L.at(40) + 2.0)) * (1 - easeInOut(prog(t, L.at(41) - 0.3, L.at(41) + 0.3)));
     const cardOut = easeInOut(prog(t, L.at(43) - 0.4, L.at(43)));
 
-    const cardX = (W - 1000) / 2;
+    const cardX = (W - 1000) / 2 - 300 * tipK;
     return (
         <Night>
             <Tag t={t} from={L.at(37)} until={L.at(43) - 0.2}>THE TEST</Tag>
@@ -51,12 +53,12 @@ export function TestScene(p: RedirectDomainProps) {
 
                     {/* Private window */}
                     <div style={{ position: 'absolute', left: cardX, top: 260, ...fx(privIn * (1 - cardOut), 0, (1 - privIn) * 60 + cardOut * 40) }}>
-                        <BrowserCard dark title="Private window" address={resolved > 0.5 ? `https://${p.newDomain}` : typed(p.oldDomain, type2)} lock={resolved > 0.5 ? 'secure' : 'none'} dot={resolved > 0.5 ? 'teal' : 'none'} width={1000} height={520} loading={type2 >= 1 && resolved < 1 ? prog(t, L.at(41) + 1.5, L.at(41) + 2.1) : -1}>
+                        <BrowserCard dark title="Private window" style={{ boxShadow: '0 50px 120px rgba(0,0,0,.55), 0 0 0 2px rgba(185,198,216,.5)' }} address={resolved > 0.5 ? `https://${p.newDomain}` : typed(p.oldDomain, type2)} lock={resolved > 0.5 ? 'secure' : 'none'} dot={resolved > 0.5 ? 'teal' : 'none'} width={1000} height={520} loading={type2 >= 1 && resolved < 1 ? prog(t, L.at(41) + 1.5, L.at(41) + 2.1) : -1}>
                             <div style={{ ...fx(resolved) }}><SkeletonPage tone="dark" title="Welcome to mybrand" lines={3} /></div>
                         </BrowserCard>
                     </div>
                     <TipCard t={t} from={L.at(40) + 1.6} until={L.at(41) - 0.1} label={p.tips.privateWindow} y={380}>No copies, no leftovers.</TipCard>
-                    <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={32} color={yt.inkMute}>Still the old site? Give DNS a few minutes.</Caption>
+                    <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={40} color={yt.inkSoft}>Still the old site? Give DNS a few minutes.</Caption>
                 </>
             )}
             {checks && <Checks t={t} p={p} />}

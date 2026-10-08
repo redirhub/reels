@@ -27,14 +27,15 @@ SR = 48000
 
 # ---- 1. recognition (cached) -------------------------------------------------------------------
 asr_path = os.path.join(vo_dir, 'asr-vosk.json')
-if not os.path.exists(asr_path):
+asr = json.load(open(asr_path)) if os.path.exists(asr_path) else {}
+todo = [c for c in chunks if c['id'] not in asr]
+if todo:
     import types
     sys.modules['srt'] = types.ModuleType('srt')
     import vosk
     vosk.SetLogLevel(-1)
     model = vosk.Model(os.environ['VOSK_MODEL'])
-    asr = {}
-    for c in chunks:
+    for c in todo:
         pcm = subprocess.run(['ffmpeg', '-v', 'error', '-i', os.path.join(vo_dir, 'chunks', c['id'] + '.mp3'),
                               '-ac', '1', '-ar', '16000', '-f', 's16le', '-'], capture_output=True).stdout
         rec = vosk.KaldiRecognizer(model, 16000); rec.SetWords(True); words = []
@@ -43,7 +44,6 @@ if not os.path.exists(asr_path):
         words += json.loads(rec.FinalResult()).get('result', [])
         asr[c['id']] = [{'w': w['word'], 's': round(w['start'], 3), 'e': round(w['end'], 3)} for w in words]
     json.dump(asr, open(asr_path, 'w'), indent=0)
-asr = json.load(open(asr_path))
 
 # ---- 2. align script words to recognised words --------------------------------------------------
 # The recogniser spells some tokens letter by letter ("h t t p s"); merge those back into the
@@ -74,8 +74,9 @@ def dur(path):
 def align(chunk):
     """→ list of beats [{n, words:[{w,s,e}]}] with times relative to the chunk file."""
     script_words = []  # (beat n, word)
+    spoken = chunk.get('spoken', {})  # what this take actually says, where the script has moved on
     for n in chunk['beats']:
-        for w in by_n[n]['vo'].split():
+        for w in spoken.get(str(n), by_n[n]['vo']).split():
             script_words.append((n, w))
     subs, owner = [], []
     for i, (_, w) in enumerate(script_words):
@@ -121,6 +122,8 @@ def align(chunk):
 segments = []   # (chunk file, cut_from, cut_to, beat n)
 report = []
 for c in chunks:
+    if not os.path.exists(os.path.join(vo_dir, 'chunks', c['id'] + '.mp3')):
+        sys.exit(f"missing take {c['id']}.mp3 for beats {c['beats']}")
     bts, total, matched, nwords = align(c)
     report.append(f"{c['id']}: {matched}/{nwords} words matched")
     edges = [0.0]
@@ -130,6 +133,8 @@ for c in chunks:
         edges.append(last_e + max(0.08, min(gap * 0.5, 0.25)))  # cut inside the pause, closer to the end of the last word
     edges.append(total)
     for i, b in enumerate(bts):
+        if b['n'] in c.get('skip', []):  # a newer take replaces this beat
+            continue
         segments.append({'chunk': c['id'], 'from': edges[i], 'to': edges[i + 1], 'n': b['n'], 'words': b['words']})
 
 timed = {}
@@ -172,10 +177,13 @@ for k, (seg, at) in enumerate(placed):
 fc.append(''.join(labels) + f"amix=inputs={len(labels)}:normalize=0:dropout_transition=0,apad=whole_dur={TOTAL:.3f}[out]")
 tmp_wav = out_wav or (os.path.splitext(out_mp3)[0] + '.tmp.wav')
 subprocess.check_call(['ffmpeg', '-y', '-v', 'error', *inputs, '-filter_complex', ';'.join(fc), '-map', '[out]',
-                       '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s16le', tmp_wav])
+                       '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s24le', tmp_wav + '.raw.wav'])
+# Studio chain: put back the top end the voice was rendered without, take the box out (voice_enhance.py).
+subprocess.check_call([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice_enhance.py'), tmp_wav + '.raw.wav', tmp_wav])
+os.remove(tmp_wav + '.raw.wav')
 # Master the voice: gentle compression, a static gain to the channel level, a true-peak ceiling.
 # Static gain, not loudnorm's dynamic mode, so the read keeps its own dynamics.
-VO_LUFS, VO_CEIL = -14.2, -1.5
+VO_LUFS, VO_CEIL = -14.2, -2.2
 comp = 'acompressor=threshold=-22dB:ratio=3:attack=6:release=140'
 def lufs_of(path, af=''):
     err = subprocess.run(['ffmpeg', '-hide_banner', '-i', path, '-af', (af + ',' if af else '') + 'ebur128', '-f', 'null', '-'],

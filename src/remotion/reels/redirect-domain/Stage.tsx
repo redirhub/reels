@@ -66,7 +66,8 @@ export function TipCard({ t, from, until, label, children, y = 300 }: { t: numbe
     const out = easeOut(prog(t, until - 0.35, until));
     return (
         <div style={{ position: 'absolute', right: SAFE.x, top: y, width: 560, ...fx(k * (1 - out), (1 - k) * 80 + out * 40, 0) }}>
-            <GlassCard accent={yt.teal} padding={40}>
+            {/* Solid, not glass: tips often sit over the white dashboard, where glass made them unreadable. */}
+            <GlassCard accent={yt.teal} padding={40} style={{ background: 'rgba(13,24,46,0.97)', boxShadow: 'inset 0 0 0 1px rgba(32,167,149,.45), 0 30px 80px rgba(0,0,0,.45)' }}>
                 <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '.14em', color: yt.teal }}>QUICK TIP</div>
                 <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: '-.03em', lineHeight: 1.12, marginTop: 14 }}>{label}</div>
                 <div style={{ fontSize: 26, color: yt.inkSoft, marginTop: 16, lineHeight: 1.4 }}>{children}</div>

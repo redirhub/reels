@@ -20,7 +20,13 @@
       9
     ],
     "text": "But here's what a half-done move does, a few weeks later. Some old links open with a warning: \"Not secure.\" Others dump people on the homepage, not the page they wanted. Some pages are just… gone. Google can't follow the move, so your rankings slip. And the QR code on your menu? The link in that email from last year? Dead.",
-    "words": 61
+    "words": 61,
+    "spoken": {
+      "9": "And the QR code on your menu? The link in that email from last year? Dead."
+    },
+    "skip": [
+      9
+    ]
   },
   {
     "id": "c03",
@@ -29,17 +35,13 @@
       11
     ],
     "text": "So how do you move your domain the right way, and keep it secure? It's simpler than you think. Three ideas, and then we do it.",
-    "words": 26
-  },
-  {
-    "id": "c04",
-    "beats": [
-      12,
-      13,
-      14
-    ],
-    "text": "Idea one: a redirect is a note on the door. Your old domain is a house you've moved out of. People still show up. The note says: we moved, here's the new address. A good note sends them to the right room, not just the front door. The internet has a specific note for this: a 301. It means \"moved permanently.\" Browsers follow it instantly, and Google reads it as: update your records, this is the new home.",
-    "words": 78
+    "words": 26,
+    "spoken": {
+      "11": "Three ideas, and then we do it."
+    },
+    "skip": [
+      11
+    ]
   },
   {
     "id": "c05",
@@ -49,7 +51,13 @@
       17
     ],
     "text": "Idea two: DNS is the internet's address book. Type a domain, and your browser looks it up in that book to find a number: the server to talk to. Those entries are called records. Moving the right way means changing a couple of those records, so the old domain points at something that hands out the note.",
-    "words": 57
+    "words": 57,
+    "spoken": {
+      "15": "Idea two: DNS is the internet's address book."
+    },
+    "skip": [
+      15
+    ]
   },
   {
     "id": "c06",
@@ -60,7 +68,13 @@
       21
     ],
     "text": "Idea three: the padlock is an ID card. Over HTTPS, a site shows an ID card first. It's called a certificate. It proves the site is who it says it is, and it keeps the connection private. No certificate, no padlock. A warning instead of your page. Here's the catch. Your old domain needs its own ID card, even if all it does is point somewhere else. The browser checks the ID before it reads the note.",
-    "words": 77
+    "words": 77,
+    "spoken": {
+      "18": "Idea three: the padlock is an ID card."
+    },
+    "skip": [
+      18
+    ]
   },
   {
     "id": "c07",
@@ -70,7 +84,13 @@
       24
     ],
     "text": "And browsers are getting stricter: Chrome is rolling out a warning before it opens public sites that aren't secure. To be fair to registrars: some forwarding handles the ID card for you. Some doesn't, and the certificate is on you. So, some do, some don't. Here's how to check: type your old address with https in front. Padlock? You're fine. Warning? Keep watching. That's it. Three ideas: the note, the address book, the ID card. Now let's use them.",
-    "words": 79
+    "words": 79,
+    "spoken": {
+      "24": "That's it. Three ideas: the note, the address book, the ID card. Now let's use them."
+    },
+    "skip": [
+      24
+    ]
   },
   {
     "id": "c08",
@@ -80,7 +100,15 @@
       27
     ],
     "text": "Here's how to do it the right way. Full disclosure: we make RedirHub, so that's what I'll use. It handles the note and the ID card for you, but the steps are the same idea anywhere. Old domain: mydomain.com. New site: mybrand.com.",
-    "words": 42
+    "words": 42,
+    "spoken": {
+      "25": "Here's how to do it the right way.",
+      "26": "Full disclosure: we make RedirHub, so that's what I'll use. It handles the note and the ID card for you, and it works with your DNS wherever it lives."
+    },
+    "skip": [
+      25,
+      26
+    ]
   },
   {
     "id": "c09",
@@ -91,7 +119,15 @@
     ],
     "text": "Step one: write the note. Links → Create → Domain Redirect. Redirect from: mydomain.com. Redirect to: HTTPS, mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part. Save. One idea down.",
     "words": 32,
-    "note": "Re-take 2026-10-08: the URL written as spoken; the first take read \"colon slash slash\"."
+    "note": "Re-take 2026-10-08: the URL written as spoken; the first take read \"colon slash slash\".",
+    "spoken": {
+      "29": "Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part.",
+      "30": "Save. One idea down."
+    },
+    "skip": [
+      29,
+      30
+    ]
   },
   {
     "id": "c10",
@@ -111,7 +147,13 @@
       36
     ],
     "text": "Now open your DNS, wherever your domain lives, and add those records. Copy and paste. And copy yours, not mine. Back in RedirHub, it checks every few seconds. The address book updates… and the ID card is issued automatically. Two green checks: DNS. HTTPS. That's the whole setup. Idea three took care of itself.",
-    "words": 54
+    "words": 54,
+    "spoken": {
+      "36": "That's the whole setup. Idea three took care of itself."
+    },
+    "skip": [
+      36
+    ]
   },
   {
     "id": "c12",
@@ -162,5 +204,102 @@
     ],
     "text": "Remember the start? Forwarding on, old link opens, looks done. Now it is.",
     "words": 13
+  },
+  {
+    "id": "c17",
+    "beats": [
+      9
+    ],
+    "text": "And the QR code you printed? The link in that email from last year? Dead.",
+    "words": 15,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c18",
+    "beats": [
+      11
+    ],
+    "text": "First, you need to understand three concepts. Then we do it together.",
+    "words": 12,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c19",
+    "beats": [
+      12,
+      13,
+      14
+    ],
+    "text": "Concept one: the 301 redirect. It's a note that says \"moved permanently,\" plus the new address. Browsers follow it instantly, and Google updates its records.",
+    "words": 25,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c20",
+    "beats": [
+      15
+    ],
+    "text": "Concept two: DNS is the internet's address book.",
+    "words": 8,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c21",
+    "beats": [
+      18
+    ],
+    "text": "Concept three: the padlock is an ID card.",
+    "words": 8,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c22",
+    "beats": [
+      24
+    ],
+    "text": "That's it: three concepts. The note, the address book, the ID card. Now let's use them.",
+    "words": 16,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c23",
+    "beats": [
+      25,
+      26
+    ],
+    "text": "Here's how to do it the right way, from the RedirHub dashboard. It handles the note and the ID card for you, and it works with your DNS, wherever it lives.",
+    "words": 31,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c24",
+    "beats": [
+      29,
+      30
+    ],
+    "text": "Redirect from: mydomain.com. Redirect to: HTTPS, mybrand.com. Type: 301. And keep the path on, so every old page lands on its matching new page. Save. One down.",
+    "words": 27,
+    "note": "Revision 2 (2026-10-08), Leo's script notes.",
+    "spoken": {
+      "29": "Redirect from: mydomain.com. Redirect to: HTTPS, mybrand.com. Type: 301. And keep the path on, so every old page lands on its matching new page."
+    }
+  },
+  {
+    "id": "c25",
+    "beats": [
+      36
+    ],
+    "text": "That's the whole setup. Concept three took care of itself.",
+    "words": 10,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
+  },
+  {
+    "id": "c26",
+    "beats": [
+      53
+    ],
+    "text": "Everything you need to manage your URLs is linked in the description. And if you get stuck, reach out to us. We're happy to help.",
+    "words": 25,
+    "note": "Revision 2 (2026-10-08), Leo's script notes."
   }
 ]

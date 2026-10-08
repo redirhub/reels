@@ -19,13 +19,13 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 ## ACT A — The hook (0:00–0:50)
 
 **1.** When people decide to move to a new domain, most of them do the same thing. ★
-`[A browser tab at a generic registrar ("Your registrar · where you bought the domain"). "mybrand.com" is typed into the search; "Available".]`
+`[Navy. Two URL pills: mydomain.com, then mybrand.com slides in beside it.]`
 
 **2.** They buy the new one, switch on "forwarding" at the registrar, type the old address, and land on the new site.
-`[Buy → "✓ Yours". The tab switches to mydomain.com's settings: Forwarding toggles on, "Forward to https://mybrand.com". A new address: mydomain.com is typed… and it lands on mybrand.com.]`
+`[A redirect line draws from the old pill to the new. A white browser card lands on mybrand.com.]`
 
 **3.** And honestly? Fair enough. It looks done. ★
-`[Everything settles on the landed tab. "Fair enough. It looks done." A beat of stillness.]`
+`[Everything settles. The line glows teal for a moment. A beat of stillness.]`
 
 **4.** But here's what a half-done move does, a few weeks later.
 `[The teal cools. The card slides away; the old pill stays.]`
@@ -34,7 +34,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 `[Browser card: mydomain.com, red dot, the browser's "Not secure" interstitial.]`
 
 **6.** Others dump people on the homepage, not the page they wanted.
-`[Pill: mydomain.com/pricing → line → card shows the mybrand.com homepage. The /pricing falls off the line.]`
+`[Pill: mydomain.com/menu → line → card shows the mybrand.com homepage. The /menu falls off the line.]`
 
 **7.** Some pages are just… gone.
 `[Card: "This page doesn't exist." Red dot.]`
@@ -42,8 +42,8 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **8.** Google can't follow the move, so your rankings slip.
 `[A search-result card for the old page fades; its position arrow ticks down.]`
 
-**9.** And the QR code you printed? The link in that email from last year? Dead.
-`[A printed card with a QR; the scan line goes nowhere. An email card with a dead link.]`
+**9.** And the QR code on your menu? The link in that email from last year? Dead.
+`[A printed menu with a QR; the scan line goes nowhere. An email card with a dead link.]`
 
 **10.** So how do you move your domain the right way, and keep it secure? It's simpler than you think. ★
 `[Problems sweep off. Title card: "How to redirect a domain to another domain." Second line, smaller: "With HTTPS that actually works."]`
@@ -52,21 +52,21 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 
 ---
 
-## ACT B — Three concepts (0:50–2:30)
+## ACT B — Three ideas (0:50–2:30)
 
-**11.** First, you need to understand three concepts. Then we do it together.
-`[Three numbered cards: 01 The 301 · 02 DNS · 03 HTTPS. Plain type, no icons.]`
+**11.** Three ideas, and then we do it.
+`[Three empty slots appear: a note, an address book, an ID card, as outlines only.]`
 
-**12.** Concept one: the 301 redirect.
-`[Card 01 comes forward. The old address pill, alone.]`
+**12.** Idea one: a redirect is a note on the door.
+`[A small house. A note pins to the door.]`
 
-**13.** It's a note that says "moved permanently," plus the new address.
-`[The 301 ticket drops onto the old pill: "301 · Moved permanently · New address: mybrand.com".]`
+**13.** Your old domain is a house you've moved out of. People still show up. The note says: we moved, here's the new address. A good note sends them to the right room, not just the front door.
+`[A visitor walks to the door, reads the note, and the path bends to the new house, into a specific lit room.]`
 
-**14.** Browsers follow it instantly, and Google updates its records.
-`[A line draws from the old pill through the ticket to the new pill. Two chips tick: "Browsers · follow it instantly", "Google · updates its records".]`
+**14.** The internet has a specific note for this: a 301. It means "moved permanently." Browsers follow it instantly, and Google reads it as: update your records, this is the new home.
+`[The note morphs into a card: "301 · Moved Permanently." A browser icon follows it. A Google "G" ticks a checkbox.]`
 
-**15.** Concept two: DNS is the internet's address book.
+**15.** Idea two: DNS is the internet's address book.
 `[A closed address book. It opens.]`
 
 **16.** Type a domain, and your browser looks it up in that book to find a number: the server to talk to. Those entries are called records.
@@ -75,7 +75,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **17.** Moving the right way means changing a couple of those records, so the old domain points at something that hands out the note.
 `[The number on the row is replaced; the row now leads to a small "note dispenser" (the redirect server) that hands out 301 cards.]`
 
-**18.** Concept three: the padlock is an ID card.
+**18.** Idea three: the padlock is an ID card.
 `[The padlock from a browser bar morphs into an ID card.]`
 
 **19.** Over HTTPS, a site shows an ID card first. It's called a certificate. It proves the site is who it says it is, and it keeps the connection private.
@@ -85,7 +85,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 `[The ID card is missing; the bar turns to "Not secure," red dot.]`
 
 **21.** Here's the catch. Your old domain needs its own ID card, even if all it does is point somewhere else. The browser checks the ID before it reads the note.
-`[Sequence, left to right: browser → ID check → only then the note → new site.]`
+`[Sequence, left to right: browser → ID check → only then the note → new house.]`
 
 **22.** And browsers are getting stricter: Chrome is rolling out a warning before it opens public sites that aren't secure. ★ *(verified wording, see storyboard §Accuracy)*
 `[A Chrome-style warning card, muted: "The connection to this site is not secure."]`
@@ -93,8 +93,8 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **23.** To be fair to registrars: some forwarding handles the ID card for you. Some doesn't, and the certificate is on you. So, some do, some don't. Here's how to check: type your old address with https in front. Padlock? You're fine. Warning? Keep watching. ★
 `[Two pills side by side: https://mydomain.com with a teal padlock, https://mydomain.com with a red "Not secure."]`
 
-**24.** That's it: three concepts. The note, the address book, the ID card. Now let's use them.
-`[The three numbered cards from beat 11 return, each ticked. Then they clear for the dashboard.]`
+**24.** That's it. Three ideas: the note, the address book, the ID card. Now let's use them.
+`[The three slots from beat 11 fill in: note, address book, ID card. Then slide left to become a progress rail.]`
 
 > ✂ If we need 15 s: cut the second sentence of 19 to "It's called a certificate, and it proves the site is who it says it is."
 
@@ -102,10 +102,10 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 
 ## ACT C — The walkthrough, in RedirHub (2:30–4:20)
 
-**25.** Here's how to do it the right way, from the RedirHub dashboard. ★
+**25.** Here's how to do it the right way. ★
 `[Navy clears to the dashboard. A browser card with dash.redirhub.com.]`
 
-**26.** It handles the note and the ID card for you, and it works with your DNS, wherever it lives.
+**26.** Full disclosure: we make RedirHub, so that's what I'll use. It handles the note and the ID card for you, but the steps are the same idea anywhere.
 `[Links page: a few existing rows with teal dots.]`
 
 **27.** Old domain: mydomain.com. New site: mybrand.com.
@@ -114,10 +114,10 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **28.** Step one: write the note. Links → Create → Domain Redirect.
 `[Cursor: Create. The chooser: Branded Link, Dynamic QR Code, Domain Redirect, Website Migration. Click Domain Redirect.]`
 
-**29.** Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on, so every old page lands on its matching new page.
-`[Form fills field by field. The 301 chip. The "Keep path" toggle turns teal. Beside it, a tiny callback: /pricing → /pricing.]`
+**29.** Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part.
+`[Form fills field by field. The 301 chip. The "Keep path" toggle turns teal. Beside it, a tiny callback: /menu → /menu.]`
 
-**30.** Save. One down.
+**30.** Save. One idea down.
 `[Toast: "Changes saved". The rail: note ✓.]`
 
 **31.** Step two: the address book. RedirHub shows you exactly which records to change.
@@ -135,7 +135,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **35.** Back in RedirHub, it checks every few seconds. The address book updates… and the ID card is issued automatically. Two green checks: DNS. HTTPS.
 `[Verifying card: "Checking DNS" spinner → ✓. "Issuing HTTPS certificate" → ✓. The rail: address book ✓, ID card ✓.]`
 
-**36.** That's the whole setup. Concept three took care of itself.
+**36.** That's the whole setup. Idea three took care of itself.
 `[The three-slot rail, all filled. A quiet beat.]`
 
 > Note: the Cloudflare automatic option (LIVE, approved 2026-10-05) is left out of the VO for length and goes in the description; see storyboard.
@@ -169,7 +169,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 `[Pill https://mydomain.com → line → card https://mybrand.com, padlock. Badge 1 fills teal.]`
 
 **45.** Two: an old deep link lands on the same page, not the homepage.
-`[Pill mydomain.com/pricing → line → card mybrand.com/pricing. Badge 2 fills.]`
+`[Pill mydomain.com/menu → line → card mybrand.com/menu. Badge 2 fills.]`
 
 **46.** Three: the www version works too.
 `[Pill www.mydomain.com → line → card mybrand.com. Badge 3 fills.]`
@@ -192,10 +192,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 **52.** Now it is.
 `[The small frame expands; the redirect line redraws; every dot on screen turns teal.]`
 
-**53.** Everything you need to manage your URLs is linked in the description. And if you get stuck, reach out to us. We're happy to help.
-`[The end card builds: "Old domain. Fixed." Under it: "Links in the description · Questions? Reach out." Logo, branded QR.]`
-
-**54.** *(no VO)*
+**53.** *(no VO)*
 `[End card: "Old domain." white. "Fixed." teal. RedirHub logo, white variant. Branded QR with its link underneath. Silence except the "fixed" chime.]`
 
 ---
@@ -204,7 +201,7 @@ Leo's §3 notes are applied and marked ★ where a line is mandated or a cut was
 
 - Every beat joins the next with *but* or *therefore*. Checked: 3→4 (but), 10→11 (therefore),
   20→21 (but, "here's the catch"), 36→37 (therefore), 38→39 (but), 47→48 (therefore).
-- Loops opened and closed: "It looks done" (3) → "Now it is" (52). "Three concepts, then we do it"
+- Loops opened and closed: "It looks done" (3) → "Now it is" (52). "Three ideas, then we do it"
   (11) → rail complete (36). "Keep watching" (23) → the three checks (44–47). The twist (38) →
   (41).
 - Terms taught before use: 301 (14, used 29), DNS/records (15–17, used 31–32), HTTPS/certificate

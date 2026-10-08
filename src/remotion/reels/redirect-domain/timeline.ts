@@ -41,14 +41,14 @@ export const SCENES = {
     walkthrough: [25, 36],
     test: [37, 47],
     close: [48, 52],
-    end: [53, 53],
+    end: [53, 54],
 } as const;
 export type SceneKey = keyof typeof SCENES;
 
 export function sceneWindow(key: SceneKey, lap = 0.4): readonly [number, number] {
     const [a, b] = SCENES[key];
     // The end card runs to the last frame so the film never ends on black.
-    return [Math.max(0, at(a) - (key === 'hook' ? 0 : key === 'end' ? 0.8 : lap)), key === 'end' ? TOTAL : Math.min(TOTAL, end(b))];
+    return [Math.max(0, at(a) - (key === 'hook' ? 0 : key === 'end' ? 0.25 : lap)), key === 'end' ? TOTAL : Math.min(TOTAL, end(b))];
 }
 
 /** Local time helpers for a scene: beat start/end relative to the scene's start. */

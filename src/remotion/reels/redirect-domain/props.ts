@@ -14,6 +14,8 @@ export type RedirectDomainProps = {
     tips: { screenshot: string; privateWindow: string; padlock: string; expiry: string };
     endLines: readonly [string, string];
     endSub: string;
+    /** Second line under the end card's headline: the invitation to get in touch. */
+    endCta: string;
     /** End-card QR: a RedirHub branded link; label is exactly the URL without the scheme. */
     qr: { value: string; label: string };
 };
@@ -21,7 +23,7 @@ export type RedirectDomainProps = {
 export const redirectDomainDefaults: RedirectDomainProps = {
     oldDomain: 'mydomain.com',
     newDomain: 'mybrand.com',
-    deepPath: '/menu',
+    deepPath: '/pricing',
     records: [
         { type: 'A', name: '@', value: '3.33.236.10' },
         { type: 'TXT', name: '@', value: 'reh-verify=k7m2qx.rediredge.com' },
@@ -34,6 +36,7 @@ export const redirectDomainDefaults: RedirectDomainProps = {
         expiry: 'Keep renewing the old domain.',
     },
     endLines: ['Old domain.', 'Fixed.'],
-    endSub: 'Old links land. With HTTPS.',
+    endSub: 'Manage your URLs: links in the description.',
+    endCta: 'Stuck? Reach out. We’re happy to help.',
     qr: { value: 'https://redirhub.com/qr', label: 'redirhub.com/qr' },
 };

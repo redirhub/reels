@@ -5,17 +5,17 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 1,
         "vo": "When people decide to move to a new domain, most of them do the same thing.",
-        "visual": "Navy. Two URL pills: mydomain.com, then mybrand.com slides in beside it."
+        "visual": "A browser tab at a generic registrar (\"Your registrar · where you bought the domain\"). \"mybrand.com\" is typed into the search; \"Available\"."
     },
     {
         "n": 2,
         "vo": "They buy the new one, switch on \"forwarding\" at the registrar, type the old address, and land on the new site.",
-        "visual": "A redirect line draws from the old pill to the new. A white browser card lands on mybrand.com."
+        "visual": "Buy → \"✓ Yours\". The tab switches to mydomain.com's settings: Forwarding toggles on, \"Forward to https://mybrand.com\". A new address: mydomain.com is typed… and it lands on mybrand.com."
     },
     {
         "n": 3,
         "vo": "And honestly? Fair enough. It looks done.",
-        "visual": "Everything settles. The line glows teal for a moment. A beat of stillness."
+        "visual": "Everything settles on the landed tab. \"Fair enough. It looks done.\" A beat of stillness."
     },
     {
         "n": 4,
@@ -30,7 +30,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 6,
         "vo": "Others dump people on the homepage, not the page they wanted.",
-        "visual": "Pill: mydomain.com/menu → line → card shows the mybrand.com homepage. The /menu falls off the line."
+        "visual": "Pill: mydomain.com/pricing → line → card shows the mybrand.com homepage. The /pricing falls off the line."
     },
     {
         "n": 7,
@@ -44,8 +44,8 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 9,
-        "vo": "And the QR code on your menu? The link in that email from last year? Dead.",
-        "visual": "A printed menu with a QR; the scan line goes nowhere. An email card with a dead link."
+        "vo": "And the QR code you printed? The link in that email from last year? Dead.",
+        "visual": "A printed card with a QR; the scan line goes nowhere. An email card with a dead link."
     },
     {
         "n": 10,
@@ -54,27 +54,27 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 11,
-        "vo": "Three ideas, and then we do it.",
-        "visual": "Three empty slots appear: a note, an address book, an ID card, as outlines only."
+        "vo": "First, you need to understand three concepts. Then we do it together.",
+        "visual": "Three numbered cards: 01 The 301 · 02 DNS · 03 HTTPS. Plain type, no icons."
     },
     {
         "n": 12,
-        "vo": "Idea one: a redirect is a note on the door.",
-        "visual": "A small house. A note pins to the door."
+        "vo": "Concept one: the 301 redirect.",
+        "visual": "Card 01 comes forward. The old address pill, alone."
     },
     {
         "n": 13,
-        "vo": "Your old domain is a house you've moved out of. People still show up. The note says: we moved, here's the new address. A good note sends them to the right room, not just the front door.",
-        "visual": "A visitor walks to the door, reads the note, and the path bends to the new house, into a specific lit room."
+        "vo": "It's a note that says \"moved permanently,\" plus the new address.",
+        "visual": "The 301 ticket drops onto the old pill: \"301 · Moved permanently · New address: mybrand.com\"."
     },
     {
         "n": 14,
-        "vo": "The internet has a specific note for this: a 301. It means \"moved permanently.\" Browsers follow it instantly, and Google reads it as: update your records, this is the new home.",
-        "visual": "The note morphs into a card: \"301 · Moved Permanently.\" A browser icon follows it. A Google \"G\" ticks a checkbox."
+        "vo": "Browsers follow it instantly, and Google updates its records.",
+        "visual": "A line draws from the old pill through the ticket to the new pill. Two chips tick: \"Browsers · follow it instantly\", \"Google · updates its records\"."
     },
     {
         "n": 15,
-        "vo": "Idea two: DNS is the internet's address book.",
+        "vo": "Concept two: DNS is the internet's address book.",
         "visual": "A closed address book. It opens."
     },
     {
@@ -89,7 +89,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 18,
-        "vo": "Idea three: the padlock is an ID card.",
+        "vo": "Concept three: the padlock is an ID card.",
         "visual": "The padlock from a browser bar morphs into an ID card."
     },
     {
@@ -105,7 +105,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 21,
         "vo": "Here's the catch. Your old domain needs its own ID card, even if all it does is point somewhere else. The browser checks the ID before it reads the note.",
-        "visual": "Sequence, left to right: browser → ID check → only then the note → new house."
+        "visual": "Sequence, left to right: browser → ID check → only then the note → new site."
     },
     {
         "n": 22,
@@ -119,17 +119,17 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 24,
-        "vo": "That's it. Three ideas: the note, the address book, the ID card. Now let's use them.",
-        "visual": "The three slots from beat 11 fill in: note, address book, ID card. Then slide left to become a progress rail."
+        "vo": "That's it: three concepts. The note, the address book, the ID card. Now let's use them.",
+        "visual": "The three numbered cards from beat 11 return, each ticked. Then they clear for the dashboard."
     },
     {
         "n": 25,
-        "vo": "Here's how to do it the right way.",
+        "vo": "Here's how to do it the right way, from the RedirHub dashboard.",
         "visual": "Navy clears to the dashboard. A browser card with dash.redirhub.com."
     },
     {
         "n": 26,
-        "vo": "Full disclosure: we make RedirHub, so that's what I'll use. It handles the note and the ID card for you, but the steps are the same idea anywhere.",
+        "vo": "It handles the note and the ID card for you, and it works with your DNS, wherever it lives.",
         "visual": "Links page: a few existing rows with teal dots."
     },
     {
@@ -144,12 +144,12 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 29,
-        "vo": "Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part.",
-        "visual": "Form fills field by field. The 301 chip. The \"Keep path\" toggle turns teal. Beside it, a tiny callback: /menu → /menu."
+        "vo": "Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on, so every old page lands on its matching new page.",
+        "visual": "Form fills field by field. The 301 chip. The \"Keep path\" toggle turns teal. Beside it, a tiny callback: /pricing → /pricing."
     },
     {
         "n": 30,
-        "vo": "Save. One idea down.",
+        "vo": "Save. One down.",
         "visual": "Toast: \"Changes saved\". The rail: note ✓."
     },
     {
@@ -179,7 +179,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 36,
-        "vo": "That's the whole setup. Idea three took care of itself.",
+        "vo": "That's the whole setup. Concept three took care of itself.",
         "visual": "The three-slot rail, all filled. A quiet beat."
     },
     {
@@ -225,7 +225,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 45,
         "vo": "Two: an old deep link lands on the same page, not the homepage.",
-        "visual": "Pill mydomain.com/menu → line → card mybrand.com/menu. Badge 2 fills."
+        "visual": "Pill mydomain.com/pricing → line → card mybrand.com/pricing. Badge 2 fills."
     },
     {
         "n": 46,
@@ -264,6 +264,11 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 53,
+        "vo": "Everything you need to manage your URLs is linked in the description. And if you get stuck, reach out to us. We're happy to help.",
+        "visual": "The end card builds: \"Old domain. Fixed.\" Under it: \"Links in the description · Questions? Reach out.\" Logo, branded QR."
+    },
+    {
+        "n": 54,
         "vo": "",
         "visual": "End card: \"Old domain.\" white. \"Fixed.\" teal. RedirHub logo, white variant. Branded QR with its link underneath. Silence except the \"fixed\" chime."
     }

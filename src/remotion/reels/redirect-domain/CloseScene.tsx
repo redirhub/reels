@@ -6,9 +6,9 @@ import { BrowserCard, SkeletonPage } from '../../components/BrowserCard';
 import { GlassCard } from '../../components/GlassCard';
 import { IdCard } from '../../components/IdCard';
 import { Padlock } from '../../components/Padlock';
-import { RedirectLine } from '../../components/RedirectLine';
 import { UrlPill } from '../../components/UrlPill';
-import { Caption, DomainPill, Night, PILL_Y, SAFE, Tag, W, pillGeometry } from './Stage';
+import { Caption, Night, SAFE, Tag, W } from './Stage';
+import { TAB } from './HookScene';
 import { local } from './timeline';
 import type { RedirectDomainProps } from './props';
 
@@ -17,18 +17,17 @@ const L = local('close');
 export function CloseScene(p: RedirectDomainProps) {
     const t = useTime();
     const tipsOn = t < L.at(51) - 0.3;
-    const a = easeOut(prog(t, L.at(49), L.at(49) + 0.5));
+    const a = easeOut(prog(t, L.at(48) + 0.3, L.at(48) + 0.8));   // no empty "before you go" frame
     const b = easeOut(prog(t, L.at(50), L.at(50) + 0.5));
     const flip = easeInOut(prog(t, L.at(50) + 2.4, L.at(50) + 3.2));
     const out = easeInOut(prog(t, L.at(51) - 0.6, L.at(51) - 0.1));
 
-    // Callback: the beat-3 frame, small in the corner, then expanding.
-    const g = pillGeometry(p.oldDomain, p.newDomain);
+    // Callback: the beat-3 frame, half size and centred under its caption, then expanding.
     const cbIn = easeOut(prog(t, L.at(51) + 0.2, L.at(51) + 0.8));
     const grow = easeInOut(prog(t, L.at(52) - 0.2, L.at(52) + 0.7));
-    const redraw = easeInOut(prog(t, L.at(52) + 0.5, L.at(52) + 1.3));
-    const scale = lerp(0.42, 1, grow);
-    const ox = lerp(W - SAFE.x - 1920 * 0.42, 0, grow), oy = lerp(540, 0, grow);
+    const redraw = prog(t, L.at(52) + 0.4, L.at(52) + 1.6);
+    const scale = lerp(0.5, 1, grow);
+    const ox = lerp((W - 1920 * 0.5) / 2, 0, grow), oy = lerp(290, 0, grow);
     const fade = prog(t, L.end(52) - 0.25, L.end(52));
 
     return (
@@ -67,16 +66,25 @@ export function CloseScene(p: RedirectDomainProps) {
             {/* Callback frame */}
             {t >= L.at(51) && (
                 <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, transformOrigin: '0 0', ...fx(cbIn), transform: `translate(${ox}px, ${oy}px) scale(${scale})`, borderRadius: lerp(28, 0, grow), overflow: 'hidden', boxShadow: grow < 1 ? '0 40px 100px rgba(0,0,0,.5)' : 'none', background: 'rgba(255,255,255,.02)' }}>
-                    <DomainPill url={p.oldDomain} dot={redraw > 0.9 ? 'teal' : 'grey'} x={g.old.x} />
-                    <DomainPill url={p.newDomain} dot="teal" x={g.new.x} />
-                    <RedirectLine from={[g.old.right + 14, PILL_Y]} to={[g.new.left - 14, PILL_Y]} progress={grow < 1 ? 1 : redraw} color={grow < 1 ? yt.inkSoft : yt.teal} bend={0.12} traffic={redraw >= 1 ? 3 : 0} t={t} />
-                    <div style={{ position: 'absolute', left: (W - 900) / 2, top: 600 }}>
-                        <BrowserCard address={`https://${p.newDomain}`} lock="secure" dot={redraw > 0.9 ? 'teal' : 'none'} width={900} height={330}><SkeletonPage title="Welcome to mybrand" lines={2} /></BrowserCard>
+                    {/* The opening's last frame: the tab that "looked done" */}
+                    <div style={{ position: 'absolute', left: TAB.x, top: TAB.y }}>
+                        <BrowserCard address={`https://${p.newDomain}`} lock="secure" dot={redraw > 0.9 ? 'teal' : 'none'} width={TAB.w} height={TAB.h}><SkeletonPage title={`Welcome to ${p.newDomain.replace('.com', '')}`} lines={3} /></BrowserCard>
+                    </div>
+                    {/* …and what is true now */}
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: TAB.y + TAB.h + 36, display: 'flex', justifyContent: 'center', gap: 24 }}>
+                        {['301 redirect', 'HTTPS on the old domain', 'Every page lands'].map((label, i) => {
+                            const k = easeOut(prog(redraw, i * 0.25, 0.4 + i * 0.25));
+                            return (
+                                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12, height: 64, padding: '0 26px', borderRadius: 32, background: 'rgba(32,167,149,.14)', boxShadow: 'inset 0 0 0 2px rgba(32,167,149,.55)', fontSize: 30, fontWeight: 600, ...fx(k, 0, (1 - k) * 14) }}>
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={yt.teal} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>{label}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}
             <Caption t={t} from={L.word(51, 'Forwarding') - 0.15} until={L.at(52) + 0.4} y={200} size={40} color={yt.inkSoft}>Forwarding on. Old link opens. Looks done.</Caption>
-            <Caption t={t} from={L.word(52, 'Now') - 0.05} until={L.end(52)} y={330} size={64} color={yt.ink} text="Now it is.">Now <span style={{ color: yt.teal }}>it is.</span></Caption>
+            <Caption t={t} from={L.word(52, 'Now') - 0.05} until={L.end(52)} y={160} size={64} color={yt.ink} text="Now it is.">Now <span style={{ color: yt.teal }}>it is.</span></Caption>
         </Night>
     );
 }

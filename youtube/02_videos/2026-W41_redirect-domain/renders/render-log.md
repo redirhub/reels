@@ -143,3 +143,37 @@ technical.
   the browser; 313.4 s the callback at 0.42 scale; 318.9 s end card fully in with no empty gap.
 - **Review items carried:** all 8 should-fix and 11 of 15 nits fixed; the rest decided and
   written down (final-report.md §7).
+
+## Revision 2 — Leo's notes (2026-10-08)
+
+Leo's notes on R9, and what changed:
+
+| Note | Change |
+|---|---|
+| Voice sounds like a call | Measured: the takes stop at 8 kHz (the voice, not the model). Studio chain `voice_enhance.py` in the build (bandwidth extension + EQ + de-ess); voice −14.8 LUFS. |
+| Use my music backgrounds, never louder than the voice | Leo's folder is on his machine, unreachable from the cloud session. Built `bed-build.py`: fits any track, ducks it under every word and fails the build if the music comes within 10 LU of the voice while she speaks or within 8 LU of her level anywhere. Running on the generated pad until his files are committed (`youtube/01_library/audio/music/README.md`). Bed: ≈ −35 LUFS, ≥ 10.6 LU under her while speaking. |
+| Error sound feels off | New soft `denied` effect replaces the square-wave error; all effects are now roles (`sound.ts`) so his files swap in by name. |
+| 0:22 floating "/menu" text | Removed; the wrong-page path now changes inside the address bar with a small "/pricing → homepage" chip. |
+| Flat opening | The opening is now a registrar tab acting out the move: search mybrand.com, Buy, forwarding switched on, old address typed, lands on the new site. |
+| No menu example | Generalised to a pricing page (`/pricing`): problems, search result, printed card, email, checks, dashboard rows and the keep-path hint. |
+| "Three ideas" | "First, you need to understand three concepts." Numbered concept cards (01 The 301, 02 DNS, 03 HTTPS), recapped with ticks. |
+| Concept one too long, house drawing bizarre | 11.9 s, no house: two address pills, the 301 ticket (kept), a line, "Browsers follow it instantly", "Google updates its records". |
+| 1:25 "RECORD" label over the entries | Label removed; the entries are highlighted together with a small arrow. |
+| 1:32 lock appearing on the book | The book fades out before concept three; the padlock fades in after. |
+| Icons in the top-right corner | Removed everywhere (concepts and walkthrough). |
+| 3:33 quick tip invisible on the dashboard | Tip cards are solid Night with a teal edge; the DNS-provider panel too. |
+| "Full disclosure, we make RedirHub" | "Here's how to do it the right way, from the RedirHub dashboard." |
+| End: point to the description, invite contact | New beat 53 VO + end card lines: "Manage your URLs: links in the description." / "Stuck? Reach out. We're happy to help." |
+
+**Slips I found on top of Leo's list** (two stills per beat, 108 frames, reviewed by eye):
+the "A few weeks later" caption over a dimmed card (card now fades fully); the "Keep path" hint
+still said `/menu` (now follows the deep path); the dashboard's QR row was a menu ("Event flyer");
+the ID card revealed as a sliver behind the padlock (now fades in); the "points at something that
+hands out the note" card half off-frame (now framed beside the book); the step cards wrapping
+unevenly (one line each); the private window dark-on-dark (lighter chrome and outline, and the
+tip no longer covers it); the closing callback still showed the old pill-and-arrow opening (now
+the same browser tab as the opening, with three green checks on "Now it is."); the call-to-action
+text touching the QR (logo and QR moved down); the empty "Before you go" frame (first tip arrives
+with the line).
+
+**Hold rule:** 108 stills, no violation.

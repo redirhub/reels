@@ -11,14 +11,15 @@
     "39": 1.4,
     "43": 1.1,
     "47": 1.0,
-    "52": 1.2
+    "52": 0.8,
+    "14": 0.6
   },
   "silentBeats": {
     "42": 4.2,
-    "53": 6.0
+    "54": 4.5
   },
   "_notes": {
     "extraAfter": "silence inserted at the pause after that beat: stillness (3), title card (10), rewind (39), checks (47), cut to black (52)",
-    "silentBeats": "beats with no VO and a fixed length: the caption-only wait (42) and the end card (53)"
+    "silentBeats": "beats with no VO and a fixed length: the caption-only wait (42) and the end card hold after the call to action (54)"
   }
 }
