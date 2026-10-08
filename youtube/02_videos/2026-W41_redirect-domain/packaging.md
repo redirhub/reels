@@ -33,7 +33,8 @@ menu is dead. This is the right way: a 301 redirect, the DNS records that make i
 certificate that keeps the padlock, with the test most people get wrong.
 
 Manage your URLs with RedirHub: https://redirhub.com/qr?utm_source=youtube&utm_medium=video&utm_campaign=w41-redirect-domain
-(↑ placeholder: replace with the branded link once it exists in Links; keep the UTM tags.)
+(↑ placeholder: replace with the branded link once it exists in Links; keep the UTM tags.
+ The end card says "links below": this is the line it points to.)
 
 Stuck, or moving something bigger than one domain? Reach out and we'll help:
 [contact link placeholder: Leo/Kris to confirm the support page or email]

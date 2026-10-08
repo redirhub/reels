@@ -177,3 +177,33 @@ text touching the QR (logo and QR moved down); the empty "Before you go" frame (
 with the line).
 
 **Hold rule:** 108 stills, no violation.
+
+## Revision 2 — independent review of the first revised cut, and fixes (2026-10-08)
+
+A separate reviewer watched the revised cut (1 frame/s plus dense sheets at transitions). Verdict:
+Leo's specific notes were fixed and visible, but some slop remained. Every item below was fixed
+before the final render unless marked.
+
+| Finding | Fix |
+|---|---|
+| "Copy yours, not mine." on screen 27 s before she says it, over the status row | Now inside the DNS-provider panel, from the word "Copy" (beat 34) |
+| A stage direction on screen ("ID shown, padlock closes") | Removed; two chips land on her words: "Proves who the site is", "Keeps the connection private" |
+| A "Missing" certificate drawn as issued by a trusted authority | Replaced by an empty dashed slot: "NO CERTIFICATE · mydomain.com · No ID card to show" |
+| Search results passing through each other | Pricing fades out, the others move up, Pricing fades back in last |
+| Double padlock over the certificate; orphan padlock for 13 s | The padlock shrinks away as the card arrives; card centred; no orphan |
+| "A few weeks later…" over the fading card | Card leaves first; caption "Weeks later…" after |
+| Callback: caption over caption; chips up < 1 s | Captions on separate lines; chips up ~1.9 s before the end card |
+| "Menus" in the dashboard's create chooser | Line now reads "Packaging, posters, business cards" |
+| Keep-path hint showing half-typed URLs | Fixed text: "/pricing → the same page on the new domain" |
+| Five negative cues in 16 s | Three removed: "Not secure" opens the run, "Dead" closes it |
+| Dips to empty Night between screens, first frame empty | Scenes enter as the last leaves; the film opens on the tab at frame 0 |
+| "Some do / some don't" small and static for 18 s | Larger, centred, labelled; the padlock and the warning pulse on "Padlock?" / "Warning?" |
+| End card: no route to "reach out"; right half | "Manage your URLs: links below." / "Stuck? Reach out. We're happy to help."; text stays in the left half |
+| "where you bought the domain" on the search page | "Your registrar · where you buy domains" |
+| Printed QR with a cream square over a corner | Blurred prop under the red "No page" stamp |
+| "A couple of records" but one number changed | Two rows change: the root and www |
+| Check one "with a padlock" had no padlock | Padlock beside the new address on check one |
+| Tip one alone on the left for 8 s | Centred until tip two arrives |
+| Private window empty for ~10 s | Tip arrives sooner |
+| Speech check | Recognition over the final voice track: no "menu", "disclosure", "idea", "house" or "room" anywhere |
+| Not done | QR target is still `redirhub.com/qr` (a QR product page): the only branded link known to work; Leo to supply a redirect/contact branded link. Music is still the generated pad until Leo's files are committed. |
