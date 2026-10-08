@@ -119,3 +119,27 @@ technical.
 - The independent review of R6 arrived while R7 rendered: 8 should-fix, 15 nits. All dispositions
   are in `final-report.md` §7. Fixes went into R8 together with a cursor walk over the three
   records (beat 32) and a re-take of chunk c09 (the first take read "colon slash slash").
+
+## R8 — stopped (2026-10-08)
+
+- Started with the review fixes; the per-beat stills showed the two walkthrough captions moved to
+  y = 870 now sat on the white dashboard (light text on white). Render stopped; captions put on a
+  Night plate at y ≈ 895 (inside the safe area, readable over the UI), two stills confirmed.
+
+## R9 — final (2026-10-08)
+
+- `npm run render -- redirect-domain`, 16 min. `out/redirect-domain.mp4`: 325.06 s (5:25),
+  1920×1080, 30 fps, H.264 yuv420p + AAC 48 kHz stereo, 81 MB.
+- **Audio:** -14.8 LUFS integrated, LRA 2.9 LU, true peak -1.7 dBTP. No silence > 3 s.
+- **Technical:** no black (0–0.6 s is the Night lead-in); `freezedetect` 3 holds (158 s, 200 s,
+  209 s) where the white dashboard covers the drifting canvas; the cursor walks the records and
+  the checks flip inside them. QR at 320 s decodes to `https://redirhub.com/qr`.
+- **Text hold:** 53 per-beat stills + the full render passed `<OnScreenText>`.
+- **Contact sheets reviewed** (2 × 6×6): registrar gloss on beat 2; "Copy yours, not mine." on
+  its plate from beat 32; "The note. The address book. The ID card, automatically." on its
+  plate; the beat 51 callback small and centred; end card right half clear.
+- **Frames checked:** 34.9 s the dead print (QR dimmed, finder covered, "No page"/"Dead" land
+  on the word; cv2 finds no code); 203.5 s cursor on the records; 248–252 s the rewind empties
+  the browser; 313.4 s the callback at 0.42 scale; 318.9 s end card fully in with no empty gap.
+- **Review items carried:** all 8 should-fix and 11 of 15 nits fixed; the rest decided and
+  written down (final-report.md §7).

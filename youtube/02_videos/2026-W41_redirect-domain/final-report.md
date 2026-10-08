@@ -20,7 +20,27 @@ _Status: see §1. Render numbers in `renders/render-log.md`; packaging in `packa
 
 ## 2. Why it is the way it is
 
-RENDER_SECTION
+The brief asked for a tutorial that teaches before it demonstrates, in the voice of a transparent
+friend, with the product shown exactly as it is. So the film spends its first 2:30 on three
+metaphors (note on the door, address book, ID card), each introduced as an object before its
+term, then spends 1:30 inside a recreated dashboard doing the two steps, and ends on the test
+most people get wrong. The script dictates the picture: every scene reads beat and word times
+from the voice, so the voice could be re-taken (chunk c09 was) without touching a scene.
+
+**Final render R9** (`out/redirect-domain.mp4`, CI re-renders it on every push to the branch):
+
+| Check | Result |
+|---|---|
+| Format | 1920×1080, 30 fps, H.264 yuv420p, AAC 48 kHz stereo, 325.06 s (5:25), 81 MB |
+| Loudness | -14.8 LUFS integrated, LRA 2.9 LU, true peak -1.7 dBTP (targets -14 / -1) |
+| Text hold | enforced in code; 53 per-beat stills and the full render passed |
+| QR | end card decodes to `https://redirhub.com/qr` from the MP4, label `redirhub.com/qr`; the "dead" menu QR does not decode |
+| Black / frozen | no black (the 0.6 s lead-in is Night); 3 static holds where white UI or the end card covers the canvas, the cursor and checks move inside them |
+| Silence | none over 3 s in the mix; the pad carries the title card, the caption-only wait and the end card |
+| Contact sheets | 2 × 36 tiles reviewed: single idea per tile, captions on plates inside the safe area, right half of the end card clear |
+| Sync | word-pinned visuals and 16 cues within 0.3 s of their words; checked by frame at 34.9 s (Dead), 198–204 s (records), 313 s (callback), 319 s (end card) |
+
+Audits for every render are in `renders/render-log.md` (R1–R9).
 
 ## 3. Decisions I'm proudest of
 
