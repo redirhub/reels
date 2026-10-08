@@ -25,8 +25,32 @@ export const color = {
     okText: '#067647',
 } as const;
 
+/* YouTube channel tokens (Youtube Content Engine rule.md §6). Signal Red and Night are
+   pending Kris's approval (2026-10-06); list them in every video's final report until then. */
+export const yt = {
+    /** Canvas. */
+    night: '#0B1426',
+    /** Broken / failing. */
+    signalRed: '#E5484D',
+    /** Fixed / passing. */
+    teal: color.teal,
+    /** Warning / pending. At most once per scene. */
+    amber: color.amber,
+    /** Product (links, buttons in the dashboard). */
+    blue: color.blue,
+    /** Text on Night. */
+    ink: '#FFFFFF',
+    inkSoft: '#B9C6D8',
+    inkMute: '#6B7A90',
+    /** Glass surfaces on Night. */
+    glass: 'rgba(255,255,255,0.07)',
+    glassLine: 'rgba(255,255,255,0.14)',
+} as const;
+
 export const font = {
     sans: '"Inter", system-ui, sans-serif',
+    /** Channel display face (Plus Jakarta Sans is the brand's primary typeface; Inter stays for recreated product UI). */
+    display: '"Plus Jakarta Sans", "Inter", system-ui, sans-serif',
     mono: '"JetBrains Mono", ui-monospace, monospace',
     /** Bundled color emoji (subset; add glyphs with pyftsubset when a reel needs more). */
     emoji: '"Reel Emoji", "Noto Color Emoji", "Apple Color Emoji", sans-serif',

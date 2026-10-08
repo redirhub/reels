@@ -16,6 +16,12 @@ export function loadBrandFonts() {
             format: 'woff2',
         }),
         loadFont({
+            family: 'Plus Jakarta Sans',
+            url: staticFile('fonts/plus-jakarta-sans-latin-wght-normal.woff2'),
+            weight: '200 800',
+            format: 'woff2',
+        }),
+        loadFont({
             family: 'JetBrains Mono',
             url: staticFile('fonts/jetbrains-mono-latin-wght-normal.woff2'),
             weight: '100 800',
