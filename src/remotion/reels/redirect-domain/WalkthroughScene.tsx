@@ -114,6 +114,9 @@ export function WalkthroughScene(p: RedirectDomainProps) {
                 [L.at(31) + 3.4, DASH.x + 1130, DASH.y + 262],          // Connect DNS
                 [L.at(31) + 4.4, DASH.x + 1130, DASH.y + 262],
                 [L.at(32) + 0.5, DASH.x + 1180, DASH.y + 560],
+                [L.word(32, 'record') - 0.3, DASH.x + 760, DASH.y + 497],  // the A record, as she names it
+                [L.word(32, 'TXT') - 0.2, DASH.x + 760, DASH.y + 551],     // the TXT record
+                [L.word(32, 'CNAME') - 0.2, DASH.x + 760, DASH.y + 604],   // the CNAME
             ]} clicks={[L.at(28) + 1.6, L.at(28) + 3.4, L.at(29) + 4.8, L.at(29) + 6.4, L.at(30) + 0.3, L.at(31) + 1.2, L.at(31) + 3.6]} show={L.at(28)} hide={L.at(33)} />
         </Night>
     );
