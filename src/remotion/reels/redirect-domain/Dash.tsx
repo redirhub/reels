@@ -114,7 +114,7 @@ export function LinksPage({ rows, press = 0 }: { rows: readonly Row[]; press?: n
 export function CreateChooser({ hover }: { hover: number }) {
     const items: [string, string, string, (p: { size?: number; color?: string }) => ReactNode, string, string][] = [
         ['Branded Link', 'A short, memorable link on a domain you own.', 'acme.co/summer → your campaign page', IconLink, '#E3EEF9', color.blue],
-        ['Dynamic QR Code', 'A trackable QR whose destination can change after it is printed.', 'Menus, packaging, posters, business cards', IconQr, '#FDF1E2', '#C77A12'],
+        ['Dynamic QR Code', 'A trackable QR whose destination can change after it is printed.', 'Packaging, posters, business cards', IconQr, '#FDF1E2', '#C77A12'],
         ['Domain Redirect', 'Redirect a domain, subdomain or path — 301 or 302.', 'old-acme.com → acme.com', IconRedirect, '#E6F6F0', '#12855F'],
         ['Website Migration', 'Move many URLs with one same-path rule, or map them one-to-one.', 'Replatforming, domain change, site restructure', IconUpload, color.g100, color.g700],
     ];
@@ -183,7 +183,7 @@ export function DomainRedirectForm({ from, to, focus, type, keepPath, savePress 
                     <div style={{ width: 52, height: 30, borderRadius: 15, background: keepPath > 0.5 ? color.teal : color.g300, position: 'relative' }}>
                         <i style={{ position: 'absolute', top: 3, left: lerp(3, 25, easeOut(keepPath)), width: 24, height: 24, borderRadius: 12, background: '#fff' }} />
                     </div>
-                    <div><div style={{ fontSize: 17, fontWeight: 600, color: color.g700 }}>Keep path</div><div style={{ fontSize: 14, color: color.g500 }}>{from || 'olddomain.com'}{EXAMPLE_PATH} → {to.replace(/^https?:\/\//, '') || 'newdomain.com'}{EXAMPLE_PATH}</div></div>
+                    <div><div style={{ fontSize: 17, fontWeight: 600, color: color.g700 }}>Keep path</div><div style={{ fontSize: 14, color: color.g500 }}>{EXAMPLE_PATH} → the same page on the new domain</div></div>
                 </div>
             </div>
             <div style={{ position: 'absolute', left: 28, top: 600, height: 50, padding: '0 26px', borderRadius: 12, background: saved ? color.teal : '#2E7BC4', color: '#fff', fontSize: 18, fontWeight: 600, display: 'flex', alignItems: 'center', transform: `scale(${1 - savePress * 0.05})` }}>{saved ? 'Saved' : 'Save'}</div>

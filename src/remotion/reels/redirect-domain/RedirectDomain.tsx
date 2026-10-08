@@ -32,9 +32,7 @@ const CUES: readonly SfxCue[] = [
     S(word(2, 'land') - 0.1, 'success', 0.3),         // lands on the new site
     S(at(4) + 0.2, 'whoosh', 0.25),                   // "a few weeks later"
     S(at(5) + 0.1, 'alert', 0.4),                     // Not secure
-    S(at(6) + 1.1, 'error', 0.4),                     // wrong page
-    S(at(7) + 0.2, 'error', 0.4),                     // gone
-    S(at(8) + 0.9, 'error', 0.35),                    // rankings slip
+    // (one negative sound per run of problems: "Not secure" opens it, "Dead" closes it; the middle three stay quiet)
     S(word(9, 'Dead') - 0.05, 'error', 0.45),         // the printed QR and the old email are dead
     S(at(10) + 0.5, 'swish', 0.4),                    // title
     // Act B: three concepts

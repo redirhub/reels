@@ -23,9 +23,9 @@ export function CloseScene(p: RedirectDomainProps) {
     const out = easeInOut(prog(t, L.at(51) - 0.6, L.at(51) - 0.1));
 
     // Callback: the beat-3 frame, half size and centred under its caption, then expanding.
-    const cbIn = easeOut(prog(t, L.at(51) + 0.2, L.at(51) + 0.8));
+    const cbIn = easeOut(prog(t, L.at(51) - 0.1, L.at(51) + 0.45));
     const grow = easeInOut(prog(t, L.at(52) - 0.2, L.at(52) + 0.7));
-    const redraw = prog(t, L.at(52) + 0.4, L.at(52) + 1.6);
+    const redraw = prog(t, L.at(52) + 0.15, L.at(52) + 1.0);   // chips are up ≥ 1.5 s before the end card
     const scale = lerp(0.5, 1, grow);
     const ox = lerp((W - 1920 * 0.5) / 2, 0, grow), oy = lerp(290, 0, grow);
     const fade = prog(t, L.end(52) - 0.25, L.end(52));
@@ -35,7 +35,8 @@ export function CloseScene(p: RedirectDomainProps) {
             <Tag t={t} from={L.at(48)} until={L.at(51) - 0.4}>BEFORE YOU GO</Tag>
             {tipsOn && (
                 <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x, top: 260, display: 'flex', gap: 48, ...fx(1 - out, 0, out * 30) }}>
-                    <GlassCard padding={40} accent={yt.teal} style={{ flex: 1, ...fx(a, 0, (1 - a) * 24) }}>
+                    {/* Tip one sits centred until tip two arrives, then slides into its half */}
+                    <GlassCard padding={40} accent={yt.teal} style={{ flex: 1, ...fx(a, (1 - b) * 432, (1 - a) * 24) }}>
                         <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '.14em', color: yt.teal }}>ONE</div>
                         <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: '-.03em', marginTop: 14, lineHeight: 1.1 }}>A padlock means private.<br />Not honest.</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 28, marginTop: 30 }}>

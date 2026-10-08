@@ -17,10 +17,10 @@ export function HookScene(p: RedirectDomainProps) {
     const t = useTime();
     // Beats 1–3: the move most people make, acted out in a browser tab at a registrar:
     // search the new domain, buy it, switch on forwarding, type the old address, land on the new site.
-    const cardIn = easeOut(prog(t, L.at(1) + 0.1, L.at(1) + 0.7));
+    const cardIn = 1;   // the film opens on the filled tab, no fade from empty
     const settled = t >= L.at(3);
     // Beat 4: "a few weeks later" — the tab steps back and dims before the problems.
-    const back = easeInOut(prog(t, L.at(4) + 0.1, L.at(4) + 0.9));
+    const back = easeInOut(prog(t, L.at(4), L.at(4) + 0.45));
     const gone = easeInOut(prog(t, L.at(5) - 0.45, L.at(5) - 0.05));
     const problems = t >= L.at(5) && t < L.at(10);
     const anchorK = easeOut(prog(t, L.at(5) - 0.2, L.at(5) + 0.3));
@@ -35,7 +35,7 @@ export function HookScene(p: RedirectDomainProps) {
                 </div>
             )}
             <Caption t={t} from={L.word(3, 'Fair') - 0.1} until={L.end(3)} y={160} size={64} color={yt.ink} text="Fair enough. It looks done.">Fair enough. <span style={{ color: yt.teal }}>It looks done.</span></Caption>
-            <Caption t={t} from={L.at(4) + 0.3} until={L.at(5) - 0.1} y={490} size={64} color={yt.ink} text="A few weeks later…">A few weeks later…</Caption>
+            <Caption t={t} from={L.at(4) + 0.5} until={L.at(5) - 0.1} y={490} size={64} color={yt.ink} text="Weeks later…">Weeks later…</Caption>
             {t < L.at(5) + 0.1 && (
                 <Cursor t={t} keys={[
                     [L.at(1), TAB.x + 900, TAB.y + 520],
@@ -65,7 +65,7 @@ export function HookScene(p: RedirectDomainProps) {
             </Problem>
 
             {/* Beat 10: title */}
-            <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x, top: 380, textAlign: 'center', ...fx(titleK, 0, (1 - titleK) * 24) }}>
+            <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x, top: 380, textAlign: 'center', ...fx(titleK * (1 - easeInOut(prog(t, L.at(11) - 0.6, L.at(11) - 0.3))), 0, (1 - titleK) * 24) }}>
                 <div style={{ fontSize: 84, fontWeight: 800, letterSpacing: '-.04em', lineHeight: 1.04 }}>How to redirect a domain<br />to another domain.</div>
                 <div style={{ fontSize: 40, fontWeight: 600, color: yt.teal, marginTop: 28, letterSpacing: '-.02em' }}>With HTTPS that actually works.</div>
             </div>
@@ -97,7 +97,7 @@ function RegistrarTab({ t, p, settled }: { t: number; p: RedirectDomainProps; se
                 <div style={{ padding: '30px 56px', fontFamily: font.sans, color: color.charcoal }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 22, color: color.g500 }}>
                         <i style={{ width: 30, height: 30, borderRadius: 8, background: color.g300 }} />
-                        <b style={{ color: color.g700 }}>Your registrar</b><span>· where you bought the domain</span>
+                        <b style={{ color: color.g700 }}>Your registrar</b><span>· where you buy domains</span>
                     </div>
                     {!phaseB ? (<>
                         <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: '-.02em', marginTop: 26 }}>Find your new domain</div>
@@ -171,9 +171,13 @@ function SearchResult({ t, p }: { t: number; p: RedirectDomainProps }) {
         <div style={{ position: 'relative', width: 1000, height: 420, borderRadius: 28, background: '#fff', padding: '30px 44px', boxShadow: '0 50px 120px rgba(0,0,0,.45)', fontFamily: font.sans, overflow: 'hidden' }}>
             <div style={{ height: 54, borderRadius: 27, border: `1px solid ${color.g300}`, display: 'flex', alignItems: 'center', padding: '0 22px', fontSize: 24, color: color.g700 }}>{p.oldDomain.replace('.com', '')} pricing</div>
             {rows.map(([title, path], i) => {
-                const y = i === 0 ? lerp(0, 2 * 104, drop) : lerp(i * 104, (i - 1) * 104, drop);
+                // Pricing leaves, the others move up, and Pricing comes back in last place: rows never pass through each other.
+                // Pricing fades out first, then the others move up, then it fades back in at the bottom.
+                const move = easeInOut(prog(drop, 0.3, 0.7));
+                const y = i === 0 ? (drop < 0.5 ? 0 : 2 * 104) : lerp(i * 104, (i - 1) * 104, move);
+                const o = i === 0 ? (drop < 0.3 ? 1 - drop / 0.3 : drop > 0.7 ? (drop - 0.7) / 0.3 : 0) : 1;
                 return (
-                    <div key={title} style={{ position: 'absolute', left: 44, right: 44, top: 112 + y, height: 96 }}>
+                    <div key={title} style={{ position: 'absolute', left: 44, right: 44, top: 112 + y, height: 96, opacity: o }}>
                         <div style={{ fontSize: 19, color: color.g500, fontFamily: font.mono }}>{p.oldDomain}{path}</div>
                         <div style={{ fontSize: 30, color: color.blue, fontWeight: 600, marginTop: 4 }}>{title}</div>
                         {i === 0 && <div style={{ position: 'absolute', right: 0, top: 18, display: 'flex', alignItems: 'center', gap: 8, color: yt.signalRed, fontSize: 24, fontWeight: 700, opacity: drop }}>
@@ -196,8 +200,7 @@ function DeadPrint({ t, dead, p }: { t: number; dead: number; p: RedirectDomainP
             <div style={{ position: 'absolute', left: 0, top: 0, width: 470, height: 420, borderRadius: 24, background: '#FBF7EF', boxShadow: '0 50px 120px rgba(0,0,0,.45)', padding: 32, fontFamily: font.display, color: '#3B3A36' }}>
                 <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '.12em', color: '#8A8478' }}>PRINTED</div>
                 <div style={{ fontSize: 34, fontWeight: 800, letterSpacing: '-.02em', marginTop: 6 }}>Scan to see our prices</div>
-                <div style={{ position: 'absolute', left: 32, bottom: 32, opacity: 0.55 }}><BrandedQr value={p.qr.value} label={`${p.oldDomain}${p.deepPath}`} size={170} labelSize={20} /></div>
-                <div style={{ position: 'absolute', left: 32, bottom: 32 + 170 - 54 + 26, width: 54, height: 54, background: '#FBF7EF' }} />
+                <div style={{ position: 'absolute', left: 32, bottom: 32, opacity: 0.6, filter: 'blur(2.5px)' }}><BrandedQr value={p.qr.value} label={`${p.oldDomain}${p.deepPath}`} size={170} labelSize={20} /></div>
                 <div style={{ position: 'absolute', left: 32 + 20, right: 470 - 32 - 20 - 170 - 40 + 20, top: lerp(190, 400, scan), height: 3, background: yt.signalRed, opacity: scan > 0 && scan < 1 ? 0.9 : 0 }} />
                 <div style={{ position: 'absolute', right: 32, bottom: 60, fontSize: 24, fontWeight: 700, color: yt.signalRed, opacity: fail }}>No page</div>
             </div>

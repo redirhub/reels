@@ -27,7 +27,7 @@ function ConceptCards({ t, from, until, ticks }: { t: number; from: number; unti
     return (
         <div style={{ position: 'absolute', left: 0, right: 0, top: 360, display: 'flex', justifyContent: 'center', gap: 40 }}>
             {CONCEPTS.map((c, i) => {
-                const k = easeOut(prog(t, from + 0.2 + i * 0.35, from + 0.7 + i * 0.35));
+                const k = easeOut(prog(t, from + 0.05 + i * 0.3, from + 0.5 + i * 0.3));
                 const tick = ticks ? easeOut(prog(t, from + 0.8 + i * 0.45, from + 1.2 + i * 0.45)) : 0;
                 return (
                     <div key={c.n} style={{ ...fx(k * (1 - out), 0, (1 - k) * 24) }}>
@@ -50,10 +50,10 @@ function ConceptCards({ t, from, until, ticks }: { t: number; from: number; unti
 
 export function IdeasScene(p: RedirectDomainProps) {
     const t = useTime();
-    const idea = (a: number, b: number) => t >= L.at(a) && t < L.at(b);
+    const idea = (a: number, b: number) => t >= L.at(a) - 0.35 && t < L.at(b);   // each concept enters as the last one leaves
     return (
         <Night>
-            <ConceptCards t={t} from={L.at(11)} until={L.at(12)} ticks={false} />
+            <ConceptCards t={t} from={L.at(11) - 0.35} until={L.at(12)} ticks={false} />
             <Caption t={t} from={L.at(11) + 0.2} until={L.at(12) - 0.2} y={680} size={48} color={yt.inkSoft} text="Three concepts. Then we do it together.">Three concepts. Then we do it together.</Caption>
 
             {/* CONCEPT ONE — the 301 (beats 12–14) */}
@@ -64,7 +64,7 @@ export function IdeasScene(p: RedirectDomainProps) {
             {idea(18, 24) && <IdCardIdea t={t} p={p} />}
 
             {/* Beat 24: recap — the same three cards, ticked */}
-            <ConceptCards t={t} from={L.at(24)} until={L.end(24)} ticks />
+            <ConceptCards t={t} from={L.at(24) - 0.3} until={L.end(24) + 0.3} ticks />
         </Night>
     );
 }
@@ -73,7 +73,7 @@ export function IdeasScene(p: RedirectDomainProps) {
 function ThreeOhOne({ t, p }: { t: number; p: RedirectDomainProps }) {
     const y = 540;
     const oldX = 260, newX = 1340;
-    const pills = easeOut(prog(t, L.at(12) + 0.1, L.at(12) + 0.6));
+    const pills = easeOut(prog(t, L.at(12) - 0.02, L.at(12) + 0.45));
     const ticket = easeOut(prog(t, L.word(12, '301') - 0.2, L.word(12, '301') + 0.35));   // on the word "301"
     const addr = easeOut(prog(t, L.word(13, 'plus') - 0.1, L.word(13, 'plus') + 0.4));
     const line = easeInOut(prog(t, L.word(14, 'Browsers') - 0.1, L.word(14, 'instantly')));
@@ -110,6 +110,7 @@ function ThreeOhOne({ t, p }: { t: number; p: RedirectDomainProps }) {
 
 /* ---------- Concept two: the address book ---------- */
 function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
+    const bookIn = easeOut(prog(t, L.at(15) - 0.02, L.at(15) + 0.4));
     const open = easeInOut(prog(t, L.at(15) + 0.6, L.at(15) + 1.6));
     const lookup = easeOut(prog(t, L.word(16, 'looks'), L.word(16, 'looks') + 0.6));
     const label = easeOut(prog(t, L.word(16, 'Those') - 0.1, L.word(16, 'Those') + 0.4)) * (1 - easeOut(prog(t, L.word(17, 'changing') - 0.3, L.word(17, 'changing'))));
@@ -118,7 +119,7 @@ function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
     const out = easeInOut(prog(t, L.at(18) - 0.45, L.at(18) - 0.05));   // the book is gone before concept three starts
     const x = lerp((W - 1100) / 2, 150, dispenser), y = 250;
     return (
-        <div style={{ position: 'absolute', inset: 0, ...fx(1 - out) }}>
+        <div style={{ position: 'absolute', inset: 0, ...fx(bookIn * (1 - out), 0, (1 - bookIn) * 16) }}>
             <Tag t={t} from={L.at(15)} until={L.at(18) - 0.3}>CONCEPT TWO · THE ADDRESS BOOK</Tag>
             <div style={{ position: 'absolute', left: x, top: y, width: 1100, height: 520, perspective: 1600 }}>
                 {/* Left page (cover opens) */}
@@ -138,12 +139,15 @@ function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
                     </svg>
                     {[0, 1, 2, 3].map((i) => (
                         <div key={i} style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 20, height: 86, borderBottom: '1px solid #E6DFD1', opacity: i === 1 ? 1 : lerp(0.35, 0.8, label) }}>
-                            <div style={{ fontFamily: font.mono, fontSize: i === 1 ? 28 : 22, fontWeight: i === 1 ? 700 : 500, width: 250 }}>{i === 1 ? p.oldDomain : ['acme.org', '', 'example.net', 'shop.co'][i]}</div>
+                            <div style={{ fontFamily: font.mono, fontSize: i === 1 ? 28 : 22, fontWeight: i === 1 || (i === 2 && swap > 0.5) ? 700 : 500, width: 232 }}>{i === 1 ? p.oldDomain : ['acme.org', '', `www.${p.oldDomain}`, 'shop.co'][i]}</div>
                             <div style={{ fontFamily: font.mono, fontSize: 22, color: '#6B675F', position: 'relative', height: 30 }}>
                                 {i === 1 ? (<>
                                     <span style={{ position: 'absolute', left: 0, opacity: (1 - swap) * lookup, background: `rgba(32,167,149,${0.18 * lookup * (1 - swap)})`, borderRadius: 6, padding: '2px 8px' }}>203.0.113.42</span>
                                     <span style={{ position: 'absolute', left: 0, opacity: swap, color: '#138373', fontWeight: 700, background: 'rgba(32,167,149,.18)', borderRadius: 6, padding: '2px 8px' }}>{p.records[0].value}</span>
-                                </>) : ['198.51.100.7', '', '192.0.2.88', '203.0.113.9'][i]}
+                                </>) : i === 2 ? (<>
+                                    <span style={{ position: 'absolute', left: 0, whiteSpace: 'nowrap', opacity: 1 - swap }}>192.0.2.88</span>
+                                    <span style={{ position: 'absolute', left: 0, whiteSpace: 'nowrap', opacity: swap, color: '#138373', fontWeight: 700, fontSize: 17, background: 'rgba(32,167,149,.18)', borderRadius: 6, padding: '2px 8px' }}>{p.records[2].value}</span>
+                                </>) : ['198.51.100.7', '', '', '203.0.113.9'][i]}
                             </div>
                         </div>
                     ))}
@@ -163,7 +167,7 @@ function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
 
 /* ---------- Concept three: the ID card ---------- */
 function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
-    const lockIn = easeOut(prog(t, L.at(18) + 0.15, L.at(18) + 0.65));   // only after the book has gone
+    const lockIn = easeOut(prog(t, L.at(18) - 0.05, L.at(18) + 0.45));   // only after the book has gone
     const morph = easeInOut(prog(t, L.at(18) + 0.9, L.at(18) + 1.9));
     const handshake = easeOut(prog(t, L.word(19, 'shows') - 0.3, L.word(19, 'shows') + 0.5));
     const missing = t >= L.at(20) && t < L.at(21);
@@ -177,22 +181,36 @@ function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
             <Tag t={t} from={L.at(18)} until={L.at(24) - 0.3}>CONCEPT THREE · THE ID CARD</Tag>
             {show && (
                 <>
-                    {/* The padlock from a browser bar grows and morphs into the ID card */}
-                    <div style={{ position: 'absolute', left: W / 2 - 110 - morph * 500, top: 330, ...fx(lockIn, 0, (1 - lockIn) * 20) }}>
-                        <Padlock size={lerp(220, 140, morph)} color={yt.teal} />
+                    {/* The padlock alone first; it shrinks away as the ID card (the certificate) takes its place. */}
+                    <div style={{ position: 'absolute', left: W / 2 - 110, top: 330, ...fx(lockIn * (1 - morph), 0, (1 - lockIn) * 20, lerp(1, 0.6, morph)) }}>
+                        <Padlock size={220} color={yt.teal} />
                     </div>
-                    <div style={{ position: 'absolute', left: W / 2 - cardW / 2 + 140, top: 300, ...fx(morph, (1 - morph) * -40, 0, lerp(0.92, 1, morph)) }}>
+                    <div style={{ position: 'absolute', left: W / 2 - cardW / 2, top: 280, ...fx(morph, 0, (1 - morph) * 20, lerp(0.9, 1, morph)) }}>
                         <IdCard domain={p.newDomain} valid width={cardW} />
                     </div>
-                    <div style={{ position: 'absolute', left: 0, right: 0, top: 720, display: 'flex', justifyContent: 'center', alignItems: 'baseline', gap: 26, ...fx(handshake) }}>
-                        <span style={{ fontFamily: font.mono, fontSize: 44, color: yt.ink }}><span style={{ color: yt.teal, fontWeight: 700 }}>https://</span>{p.newDomain}</span>
-                        <span style={{ fontSize: 34, color: yt.inkSoft }}>ID shown, padlock closes</span>
+                    {/* What the certificate does, as she says it */}
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: 690, display: 'flex', justifyContent: 'center', gap: 28 }}>
+                        {([['proves', 'Proves who the site is'], ['keeps', 'Keeps the connection private']] as const).map(([w, label]) => {
+                            const k = easeOut(prog(t, L.word(19, w) - 0.15, L.word(19, w) + 0.3));
+                            return (
+                                <div key={w} style={{ ...fx(k * handshake, 0, (1 - k) * 14) }}>
+                                    <GlassCard padding={24} style={{ width: 470 }} accent={yt.teal}>
+                                        <div style={{ fontSize: 32, fontWeight: 700, marginLeft: 14 }}>{label}</div>
+                                    </GlassCard>
+                                </div>
+                            );
+                        })}
                     </div>
                 </>
             )}
             {missing && (
                 <>
-                    <div style={{ position: 'absolute', left: SAFE.x + 40, top: 360 }}><IdCard domain={p.oldDomain} valid={false} width={420} /></div>
+                    {/* No certificate: an empty, dashed ID slot, not a card. */}
+                    <div style={{ position: 'absolute', left: SAFE.x + 40, top: 360, width: 420, height: 270, borderRadius: 22, border: `3px dashed ${yt.signalRed}`, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 34px' }}>
+                        <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '.12em', color: yt.signalRed }}>NO CERTIFICATE</div>
+                        <div style={{ fontFamily: font.mono, fontSize: 32, marginTop: 14 }}>{p.oldDomain}</div>
+                        <div style={{ fontSize: 24, color: yt.inkSoft, marginTop: 12 }}>No ID card to show</div>
+                    </div>
                     <div style={{ position: 'absolute', left: 700, top: 300 }}>
                         <BrowserCard address={`https://${p.oldDomain}`} lock="insecure" dot="red" width={1000} height={460}><NotSecurePage kind="nocert" /></BrowserCard>
                     </div>
@@ -202,7 +220,7 @@ function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
             {chrome && (
                 <div style={{ position: 'absolute', left: (W - 1000) / 2, top: 300, ...fx(easeOut(prog(t, L.at(22), L.at(22) + 0.4))) }}>
                     <BrowserCard address={`http://${p.oldDomain}`} lock="insecure" dot="red" width={1000} height={460}><NotSecurePage /></BrowserCard>
-                    <div style={{ position: 'absolute', left: -300, right: -300, top: 500, textAlign: 'center', fontSize: 30, color: yt.inkSoft }}>Chrome · “Always use secure connections”, rolling out as the default for public sites</div>
+                    <div style={{ position: 'absolute', left: -300, right: -300, top: 500, textAlign: 'center', fontSize: 32, color: yt.inkSoft }}>Chrome · “Always use secure connections”, rolling out as the default for public sites</div>
                 </div>
             )}
             {fair && <FairToRegistrars t={t - L.at(23)} p={p} />}
@@ -232,28 +250,31 @@ function IdBeforeNote({ t, p }: { t: number; p: RedirectDomainProps }) {
 }
 
 function FairToRegistrars({ t, p }: { t: number; p: RedirectDomainProps }) {
-    const a = easeOut(prog(t, 0.4, 0.9)), b = easeOut(prog(t, 2.4, 2.9));
-    const check = easeOut(prog(t, 9.0, 9.5));
+    // t is local to beat 23. The two outcomes enter on "some do" / "some don't" and answer on "Padlock?" / "Warning?".
+    const w = (x: string) => L.word(23, x) - L.at(23);
+    const a = easeOut(prog(t, 0.1, 0.6)), b = easeOut(prog(t, w("doesn't") - 0.3, w("doesn't") + 0.2));
+    const check = easeOut(prog(t, w("Here's") - 0.1, w("Here's") + 0.4));
+    const pulse = (at: number) => 1 + 0.08 * Math.sin(Math.PI * Math.min(1, Math.max(0, (t - at) / 0.6)));
+    const lockOn = pulse(w('Padlock') - 0.05), warnOn = pulse(w('Warning') - 0.05);
+    const card = (k: number, s: number, label: string, ok: boolean) => (
+        <div style={{ ...fx(k, 0, (1 - k) * 20, s) }}>
+            <GlassCard padding={40} style={{ width: 760 }} accent={ok ? yt.teal : yt.signalRed}>
+                <div style={{ fontSize: 26, color: yt.inkSoft, fontWeight: 700, letterSpacing: '.12em', marginLeft: 14 }}>{label}</div>
+                <div style={{ marginTop: 22, marginLeft: 14, display: 'flex', alignItems: 'center', gap: 20 }}>
+                    {ok ? <Padlock size={56} color={yt.teal} /> : <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke={yt.signalRed} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18.5v.5" /></svg>}
+                    <span style={{ fontFamily: font.mono, fontSize: 40 }}>https://{p.oldDomain}</span>
+                </div>
+                <div style={{ marginTop: 18, marginLeft: 14, fontSize: 28, color: ok ? yt.teal : yt.signalRed, fontWeight: 700 }}>{ok ? 'Forwarding with its own certificate' : 'No certificate: a warning'}</div>
+            </GlassCard>
+        </div>
+    );
     return (
         <>
-            <div style={{ position: 'absolute', left: 0, right: 0, top: 360, display: 'flex', justifyContent: 'center', gap: 60 }}>
-                <div style={{ ...fx(a, 0, (1 - a) * 20) }}>
-                    <GlassCard padding={34} style={{ width: 720 }}>
-                        <div style={{ fontSize: 22, color: yt.inkSoft, fontWeight: 700, letterSpacing: '.12em' }}>SOME DO</div>
-                        <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 16 }}><Padlock size={44} color={yt.teal} /><span style={{ fontFamily: font.mono, fontSize: 34 }}>https://{p.oldDomain}</span></div>
-                    </GlassCard>
-                </div>
-                <div style={{ ...fx(b, 0, (1 - b) * 20) }}>
-                    <GlassCard padding={34} style={{ width: 720 }}>
-                        <div style={{ fontSize: 22, color: yt.inkSoft, fontWeight: 700, letterSpacing: '.12em' }}>SOME DON’T</div>
-                        <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 16, color: yt.signalRed }}>
-                            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke={yt.signalRed} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18.5v.5" /></svg>
-                            <span style={{ fontFamily: font.mono, fontSize: 34, color: yt.ink }}>https://{p.oldDomain}</span>
-                        </div>
-                    </GlassCard>
-                </div>
+            <div style={{ position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center', gap: 50 }}>
+                {card(a, lockOn, 'SOME DO', true)}
+                {card(b, warnOn, 'SOME DON’T', false)}
             </div>
-            <div style={{ position: 'absolute', left: 0, right: 0, top: 640, textAlign: 'center', fontSize: 44, fontWeight: 700, letterSpacing: '-.03em', ...fx(check, 0, (1 - check) * 16) }}>
+            <div style={{ position: 'absolute', left: 0, right: 0, top: 690, textAlign: 'center', fontSize: 46, fontWeight: 700, letterSpacing: '-.03em', ...fx(check, 0, (1 - check) * 16) }}>
                 Here’s how to check: <span style={{ fontFamily: font.mono, color: yt.teal, fontWeight: 500 }}>https://</span> in front. Padlock, or warning?
             </div>
         </>

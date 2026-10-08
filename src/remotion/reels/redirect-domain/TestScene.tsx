@@ -4,6 +4,7 @@ import { useTime, prog, easeOut, easeInOut, fx, lerp } from '../../lib/anim';
 import { font, yt } from '../../brand/tokens';
 import { BrowserCard, SkeletonPage } from '../../components/BrowserCard';
 import { ChecklistBadge } from '../../components/ChecklistBadge';
+import { Padlock } from '../../components/Padlock';
 import { RedirectLine } from '../../components/RedirectLine';
 import { UrlPill } from '../../components/UrlPill';
 import { Caption, Night, SAFE, Tag, TipCard, W } from './Stage';
@@ -29,7 +30,7 @@ export function TestScene(p: RedirectDomainProps) {
     const resolved = easeOut(prog(t, L.word(41, 'there') - 0.2, L.word(41, 'there') + 0.3));
     const checks = t >= L.at(43);
     // While the private-window tip is up, both cards step left so the tip never covers the address bar.
-    const tipK = easeInOut(prog(t, L.at(40) + 1.4, L.at(40) + 2.0)) * (1 - easeInOut(prog(t, L.at(41) - 0.3, L.at(41) + 0.3)));
+    const tipK = easeInOut(prog(t, L.at(40) + 0.7, L.at(40) + 1.3)) * (1 - easeInOut(prog(t, L.at(41) - 0.3, L.at(41) + 0.3)));
     const cardOut = easeInOut(prog(t, L.at(43) - 0.4, L.at(43)));
 
     const cardX = (W - 1000) / 2 - 300 * tipK;
@@ -57,7 +58,7 @@ export function TestScene(p: RedirectDomainProps) {
                             <div style={{ ...fx(resolved) }}><SkeletonPage tone="dark" title="Welcome to mybrand" lines={3} /></div>
                         </BrowserCard>
                     </div>
-                    <TipCard t={t} from={L.at(40) + 1.6} until={L.at(41) - 0.1} label={p.tips.privateWindow} y={380}>No copies, no leftovers.</TipCard>
+                    <TipCard t={t} from={L.at(40) + 0.9} until={L.at(41) - 0.1} label={p.tips.privateWindow} y={380}>No copies, no leftovers.</TipCard>
                     <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={40} color={yt.inkSoft}>Still the old site? Give DNS a few minutes.</Caption>
                 </>
             )}
@@ -91,7 +92,9 @@ function Checks({ t, p }: { t: number; p: RedirectDomainProps }) {
                     <div key={it.label} style={{ ...fx(k) }}>
                         <div style={{ position: 'absolute', left: SAFE.x, top: y - 30 }}><ChecklistBadge k={done} size={60} /></div>
                         <div style={{ position: 'absolute', left: fromX, top: y - 36 }}><UrlPill url={it.from} dot={done > 0.5 ? 'teal' : 'grey'} size={30} /></div>
-                        <RedirectLine from={[fromX + it.from.length * 19 + 60, y]} to={[toX - 20, y]} progress={line} color={yt.teal} bend={0.0} traffic={done > 0.5 ? 2 : 0} t={t} />
+                        <RedirectLine from={[fromX + it.from.length * 19 + 60, y]} to={[toX - (i === 0 ? 66 : 20), y]} progress={line} color={yt.teal} bend={0.0} traffic={done > 0.5 ? 2 : 0} t={t} />
+                        {/* Check one is "with a padlock": the lock sits just before the new address */}
+                        {i === 0 && <div style={{ position: 'absolute', left: toX - 52, top: y - 22, ...fx(done) }}><Padlock size={34} color={yt.teal} /></div>}
                         <div style={{ position: 'absolute', left: toX, top: y - 36, display: 'flex', alignItems: 'center', gap: 14, ...fx(line > 0.95 ? 1 : 0.35) }}>
                             <UrlPill url={it.to} dot={done > 0.5 ? 'teal' : 'none'} size={30} />
                         </div>
@@ -100,7 +103,7 @@ function Checks({ t, p }: { t: number; p: RedirectDomainProps }) {
                 );
             })}
             {/* Beat 47: the one allowed combined result */}
-            <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x, top: y0 + 3 * gap + 20, ...fx(easeOut(prog(t, L.at(47) + 0.2, L.at(47) + 0.7))) }}>
+            <div style={{ position: 'absolute', left: SAFE.x, right: SAFE.x + 20, top: y0 + 3 * gap + 20, ...fx(easeOut(prog(t, L.at(47) + 0.2, L.at(47) + 0.7))) }}>
                 <div style={{ height: 4, borderRadius: 2, background: yt.teal, transform: `scaleX(${easeInOut(prog(t, L.at(47) + 0.3, L.at(47) + 1.1))})`, transformOrigin: 'left' }} />
                 <div style={{ marginTop: 26, fontSize: 48, fontWeight: 800, letterSpacing: '-.03em', color: yt.teal }}>All three green.</div>
             </div>
