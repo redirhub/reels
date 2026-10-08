@@ -4,7 +4,7 @@ _Status: see §1. Render numbers in `renders/render-log.md`; packaging in `packa
 
 ## 1. What was made
 
-- **The film:** 5:26, 1920×1080, 30 fps, H.264 + AAC 48 kHz. Script v3 (53 beats, 794 words),
+- **The film:** 5:25, 1920×1080, 30 fps, H.264 + AAC 48 kHz. Script v3 (53 beats, 794 words),
   narrated by Emily (ElevenLabs), built in Remotion from shared channel components, timed from
   the voice's word timestamps. Renders by CI on every push to `out/redirect-domain.mp4` and plays
   on the branch's Vercel preview.
@@ -13,7 +13,7 @@ _Status: see §1. Render numbers in `renders/render-log.md`; packaging in `packa
   with the text-hold rule enforced in code, a one-command audit (`scripts/yt/audit-video.sh`),
   captions from the word timestamps, thumbnails from an HTML template, and a sound set generated
   in-repo (pad bed, signature "fixed" chime).
-- **Packaging:** title A/B, description with 12 chapters, UTM-tagged branded-link placeholder,
+- **Packaging:** title A/B, description with 13 chapters, UTM-tagged branded-link placeholder,
   `captions.srt` (118 cues), pinned comment, thumbnails A/B with 168×94 proofs.
 - **Governance:** `youtube/rule-v0.3-proposal.md` (13 rule proposals, changelog, open items),
   `01_library/audio/audio-library.md`, `production-notes.md`, `storyboard.md`, `script-craft-notes.md`.
@@ -86,7 +86,7 @@ down. The full report is in the session; the dispositions:
 
 | # | Finding (severity) | Disposition |
 |---|---|---|
-| 1 | Two walkthrough captions at y = 960 straddled the dashboard's bottom edge and sat below the safe line (should-fix) | Moved to y = 870 |
+| 1 | Two walkthrough captions at y = 960 straddled the dashboard's bottom edge and sat below the safe line (should-fix) | Set on a Night plate at y ≈ 895, inside the safe area and readable over the white UI (a first move to y = 870 put them on the white and was caught in the R8 stills) |
 | 2 | Beat 51 callback never shrank: a style spread overrode its transform (should-fix) | Fixed; the morph scales 0.42 → 1 as storyboarded |
 | 3 | Real IP on screen 27 s before "copy yours, not mine" (should-fix) | The caption now shows from the moment the records table appears (beat 32) until beat 35 |
 | 4 | 14 caption cues under 1 s, orphan one-word cues (should-fix) | Generator merges short cues and breaks at clause boundaries: 98 cues, none under 1 s, none over 42 chars |
@@ -110,6 +110,6 @@ down. The full report is in the session; the dispositions:
 | 22 | "It's simpler than you think" is stock (nit) | Kept: it is the mandated pivot line (brief §3) |
 | 23 | Half a second of empty Night before the end card (nit) | End card now overlaps the close by 0.8 s |
 
-Not re-reviewed after the fixes: the reviewer saw R6; the final cut (R8) carries all of the above
-plus the glow drift and the cursor walk added after R6. The R8 audit in `renders/render-log.md`
-is the check that nothing regressed.
+Not re-reviewed after the fixes: the reviewer saw R6; the final cut (R9) carries all of the above
+plus the glow drift and the cursor walk added after R6. The R9 audit in `renders/render-log.md`
+and the per-beat stills are the check that nothing regressed.

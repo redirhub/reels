@@ -1,6 +1,6 @@
 # Packaging — W41 "How to Redirect a Domain to Another Domain (With HTTPS That Actually Works)"
 
-Film: 5:26 (326 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
+Film: 5:25 (325 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
 word timestamps, regenerated with every voice change). Thumbnails: `thumbnails/thumb-a.png`, `thumbnails/thumb-b.png`
 (1280×720) with 168×94 proofs beside them.
 
@@ -44,11 +44,11 @@ Chapters
 1:32 Idea 3: the ID card (HTTPS)
 2:31 The walkthrough
 2:48 Step 1: write the note
-3:10 Step 2: update the address book
-4:01 The test (and the twist)
-4:33 Three checks
-4:50 Two things before you go
-5:13 Remember the start
+3:09 Step 2: update the address book
+4:00 The test (and the twist)
+4:32 Three checks
+4:49 Two things before you go
+5:12 Remember the start
 
 What you'll learn
 • What a 301 redirect is and why "moved permanently" matters for Google
@@ -97,5 +97,5 @@ auto captions will mis-hear "RedirHub".
 - [ ] Voiceover regenerated on a paid ElevenLabs plan (see production-notes §3) before publishing.
 - [ ] Kris: Signal Red / Night tokens, the Chrome line ("rolling out"), the Links UI external use.
 - [ ] Upload: title A, thumbnail A, description, chapters verified in the player, captions.srt,
-      pinned comment, end screen (subscribe + the next video) at 5:20.
+      pinned comment, end screen (subscribe + the next video) at 5:19, on the end card.
 - [ ] A/B: YouTube's "Test & compare" with thumbnails A and B (title stays A for the test).
