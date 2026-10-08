@@ -11,5 +11,7 @@
   "error": 0.32,
   "swish_r": 0.34,
   "swish_l": 0.34,
-  "snap": 0.5
+  "snap": 0.5,
+  "fixed": 1.1,
+  "rewind": 1.1
 }

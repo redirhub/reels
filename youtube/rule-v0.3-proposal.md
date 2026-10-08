@@ -48,11 +48,16 @@ says what it adds rather than what it replaces.
    product UI shows a real IP, hostname, token format or key, the VO (or a caption) tells the
    viewer to copy the value from their own dashboard, and the storyboard notes the value's source.
 
-5. ⚙️ **DEFAULT (new, §7): the narrator pipeline runs on a paid ElevenLabs plan.** Free-tier output
-   is not licensed for commercial use (see reels playbook) and the API refuses generations.
-   §7 records voice_id, model, stability/similarity/style/speed and the pronunciation of
-   "RedirHub". Proposed values (🧪 TESTING until Leo approves): see
-   `02_videos/2026-W41_redirect-domain/production-notes.md` §3.
+5. ⚙️ **DEFAULT (new, §7): the narrator pipeline.** Voice **Emily** `zHGX9VSXpW8cGSDRCqy0`,
+   `eleven_multilingual_v2`, the voice's default settings (the MCP tool exposes none; Emily reads
+   at ~159 wpm on real sentences, inside the 150–160 target). The script is sent in chunks of
+   1–6 beats (≤ 30 s) so a re-take is one file; a chunk that succeeded is never re-generated.
+   Word timestamps: Scribe when the plan allows, otherwise Vosk (local) aligned to the script
+   (`scripts/yt/vo-build.py`). The build masters the voice to -14 LUFS / -1.5 dBTP with a static
+   gain and a limiter, never loudnorm's dynamic mode. **Licensing:** free-tier output is not
+   licensed for commercial use; W41's narration must be regenerated on a paid plan before
+   publishing (same chunks, same voice; the pipeline re-times the film). Pronunciation of
+   "RedirHub": Emily says "re-DIR-hub"; 🧪 TESTING until Leo confirms.
 
 6. ⚙️ **DEFAULT (new, §4): landscape safe areas.** Nothing key below y = 950 of 1080 (bottom 12 %),
    side gutters 120 px, and the last 20 s keep the right half of the frame free of anything that
@@ -66,8 +71,9 @@ says what it adds rather than what it replaces.
 
 8. 🧪 **TESTING (new): the script is the timeline's source.** `script.md` beats are generated into
    `script.ts`; `timeline.ts` estimates durations at 155 wpm until the VO exists, then reads the
-   VO's word timestamps. Scenes reference beat numbers, never seconds. Keep for one more video,
-   then LOCK if it holds.
+   VO's word timestamps (`voiceover/timings.json`). Scenes reference beat numbers, never seconds,
+   and a visual that must land on a word uses `local(scene).word(n, 'word')`. Held for W41 end to
+   end (five hold-rule catches, zero manual re-timing). Keep for one more video, then LOCK.
 
 9. ⚙️ **DEFAULT (confirm, §6): colors.** Night `#0B1426` canvas, Signal Red `#E5484D` broken,
    Teal `#20A795` fixed, Amber `#E59426` warning (once per scene), Blue `#1C6DB6` product, text
@@ -83,7 +89,22 @@ says what it adds rather than what it replaces.
     "<Problem>. Fixed." treatment**, readable at 168 × 94. Template TH-A from v0.2 could not be read
     in this session; the first thumbnails are drafted after the gate so they can follow it.
 
+12. ⚙️ **DEFAULT (new, §7): sound.** Voice on top; under it a quiet generated pad (`music.json`
+    `"kind": "pad"`, about 16 LU below the voice), never a drum beat on a voice-led film. Effects
+    only on story beats (problem, fix, result), none on UI micro-actions; the signature **fixed**
+    chime plays only when something broken is now right, and the end card. Everything generated
+    in-repo unless a licensed file with its certificate is logged in `01_library/audio/`.
+    Mix target -14 LUFS integrated, -1 dBTP, measured on the rendered file.
+
+13. ⚙️ **DEFAULT (new, §8): captions ship with the film.** `captions.srt` from the word timestamps
+    (`scripts/yt/srt-from-timings.py`): ≤ 42 characters per line, ≤ 2 lines, cues split at
+    sentence ends, ≥ 1 s each. Uploaded as English, not left to auto-captions.
+
 ## Open items for Kris (carried from the brief)
+
+- **Voiceover licence:** the ElevenLabs workspace behaves like the Free tier (10,000-credit quota,
+  intermittent "Free Tier access has been disabled" refusals). Confirm the plan or upgrade, then
+  regenerate the 16 chunks before publishing (production-notes §3).
 
 - Signal Red `#E5484D` and Night `#0B1426`: approve as channel tokens.
 - Showing the Links → Create → Domain Redirect UI externally: Notion marks it Approved

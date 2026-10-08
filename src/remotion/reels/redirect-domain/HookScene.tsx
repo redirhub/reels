@@ -19,7 +19,7 @@ export function HookScene(p: RedirectDomainProps) {
     const oldK = easeOut(prog(t, L.at(1) + 0.2, L.at(1) + 0.7));
     const newK = easeOut(prog(t, L.at(1) + 2.6, L.at(1) + 3.2));
     const lineK = easeInOut(prog(t, L.at(2) + 0.9, L.at(2) + 1.9));
-    const cardK = easeOut(prog(t, L.at(2) + 3.3, L.at(2) + 4.0));
+    const cardK = easeOut(prog(t, L.word(2, 'land') - 0.3, L.word(2, 'land') + 0.4));
     const settled = t >= L.at(3);
     // Beat 4: the card and new pill leave; the old pill stays and moves up-left as the anchor.
     const leave = easeInOut(prog(t, L.at(4) + 0.6, L.at(4) + 1.4));

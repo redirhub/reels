@@ -42,8 +42,8 @@ export function WalkthroughScene(p: RedirectDomainProps) {
     const dialog = t >= L.at(31) + 3.7;
     const copied = Math.floor(prog(t, L.at(34) + 1.0, L.at(34) + 4.0) * 3 + 1e-6);
     const splitK = easeInOut(prog(t, L.at(34) + 0.2, L.at(34) + 0.9)) * (1 - easeInOut(prog(t, L.at(35) - 0.5, L.at(35))));
-    const dns = easeOut(prog(t, L.at(35) + 1.2, L.at(35) + 3.4));
-    const https = easeOut(prog(t, L.at(35) + 4.2, L.at(35) + 5.8));
+    const dns = easeOut(prog(t, L.word(35, 'updates') - 1.6, L.word(35, 'updates') + 0.4));
+    const https = easeOut(prog(t, L.word(35, 'issued') - 1.2, L.word(35, 'issued') + 0.5));
 
     const rows: Row[] = [
         { kind: 'qr', title: 'Spring menu – table tents', dest: 'go.mybrand.com/menu → https://mybrand.com/menu/spring-2026', clicks: '2.8k', trend: '412' },

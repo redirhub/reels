@@ -30,17 +30,28 @@ employees). Unchanged by this decision, but YouTube publishing is public use, so
 ```
 script.md ──(scripts/yt/beats-from-script.py)──▶ src/remotion/reels/<id>/script.ts
                                                        │
-timeline.ts: 155 wpm + breath + visual extras ─────────┤   Phase 3: voiceover/timings.json
+voiceover/chunks/*.mp3 + chunks.json + assembly.json    │
+      ──(scripts/yt/vo-build.py: align words, cut beats, lay out)──▶ voiceover/timings.json
+                                                       │               + public/audio/<id>-vo.mp3
                                                        ▼
-scenes read beat times only (local(scene).at(n)) ──▶ composition ──▶ stills / render / QA
+scenes read beat times only (local(scene).at(n) / .word(n, 'Those')) ──▶ composition ──▶ stills / render / QA
 ```
 
-- `scripts/yt/beat-times.py <id>` prints the estimated timeline or the seconds for `beat+offset`.
-- `scripts/yt/stills.mjs <id> <dir> <seconds…>` renders stills, bundling once.
-- `<OnScreenText>` enforces the hold rule (≥ 1 s, or words ÷ 3 + 1) at render time: two violations
-  were caught this way during the style-frame pass and fixed in the script, not by hand-waving.
+- `scripts/yt/vo-build.py <video> <script.ts> <vo.mp3> [--wav mix.wav]`: word-aligns every take to
+  the script, cuts the takes into beats at the pause between them, inserts the silences
+  `assembly.json` asks for (lead-in, stillness after "It looks done.", title card, rewind, the
+  caption-only wait, the end card) and writes `timings.json` + the VO track. Re-running it after a
+  re-take moves the picture with the voice; nothing in the scenes changes.
+- `timeline.ts` reads `timings.json`. `local(scene).word(n, 'word')` lands a visual on the spoken
+  word instead of a guessed offset (used for three captions so far).
+- `scripts/yt/beat-times.py <id>` prints the timeline or the seconds for `beat+offset`.
+- `scripts/yt/stills.mjs <id> <dir> <seconds…>` renders stills, bundling once; a failing still is
+  reported and the run continues, so one pass lists every hold-rule violation.
+- `<OnScreenText>` enforces the hold rule (≥ 1 s, or words ÷ 3 + 1) at render time: five
+  violations were caught this way (two in the style-frame pass, three when the real VO arrived) and
+  fixed in the script or the assembly, never by hand-waving.
 
-## 3. Voice (shortlist; blocked on the ElevenLabs plan)
+## 3. Voice (Emily, generated; licensing open)
 
 Test line (48 words, same for every candidate):
 > "Here's the thing about moving to a new domain. The hard part isn't the move. It's everything
@@ -49,27 +60,43 @@ Test line (48 words, same for every candidate):
 
 | Candidate | voice_id | Why shortlisted | Test result |
 |---|---|---|---|
-| **Bella — Professional, Bright, Warm** (premade) | `hpp4J3VqNfWAUOO0d1Us` | ElevenLabs tags it informative/educational; "warm, bright… crisp diction, deliberate rhythmic pace… for long-form listening". Premade = always available, stable across weeks. | Generated: 14.89 s → ~193 wpm at default speed. `voiceover/casting/bella-….mp3` |
-| **Emily — Trustworthy, Warm, Conversational** (library, professional) | `zHGX9VSXpW8cGSDRCqy0` | "Trustworthy, warm and conversational… confident, clear and reassuring… product demonstrations". Closest description to the brief's "smart, transparent friend". | Generated: 14.47 s → ~199 wpm. `voiceover/casting/emily-….mp3` |
-| **Megan — Warm & Trusted Training Voice** (library) | `1FmDfZG0Nx2dCk793S1a` | "Calm confidence and natural authority… not stiff or corporate… explainer videos". | **Failed:** ElevenLabs refused the third generation: "Unusual activity has been detected on your account, so Free Tier access has been disabled… Please upgrade to a paid subscription." |
+| **Emily — Trustworthy, Warm, Conversational** (library, professional) — **chosen** | `zHGX9VSXpW8cGSDRCqy0` | "Trustworthy, warm and conversational… confident, clear and reassuring… product demonstrations". Closest description to the brief's "smart, transparent friend". | Casting: 14.47 s → ~199 wpm on the test line. Full read: 794 words in 299 s of speech = **159 wpm** (the longer sentences and natural pauses slow it; no speed change needed). |
+| **Bella — Professional, Bright, Warm** (premade) — runner-up | `hpp4J3VqNfWAUOO0d1Us` | "warm, bright… crisp diction, deliberate rhythmic pace… for long-form listening". Premade = always available. | Casting: 14.89 s → ~193 wpm. `voiceover/casting/bella-….mp3` |
+| **Megan — Warm & Trusted Training Voice** (library) | `1FmDfZG0Nx2dCk793S1a` | "Calm confidence and natural authority… explainer videos". | Not generated: ElevenLabs refused the third casting line ("Unusual activity… Free Tier access has been disabled"). |
 
-**Recommendation:** Leo listens to the two files and picks. My default if you want one now:
-**Emily** for the brief's tone ("friend over coffee"), Bella as the safer long-form educator. Both
-run fast at default settings, so the channel setting should slow them.
+Leo's "go" came without a voice pick, so the recommendation (Emily) stands.
 
-**Proposed rule.md §7 entry (TESTING until Leo approves):**
-- Model `eleven_multilingual_v2` (v3 only if we need inline direction tags).
-- Settings: stability 0.50, similarity 0.75, style 0.15, speaker boost on, **speed 0.85** (brings
-  ~195 wpm to the 150–160 wpm target; verify on the first full read and adjust ±0.05).
-- Punctuation drives pauses: full stops, not commas, between ideas; an ellipsis for the twist.
-- Word-level timestamps from the `with-timestamps` endpoint → `voiceover/timings.json`.
-- Pronunciation of "RedirHub": **not documented anywhere I could find** (Notion, repo). Ask Leo.
-  Candidates: "REE-dur-hub" or "re-DIRECT-hub"-style "re-DIR-hub".
+**How the narration was made** (`voiceover/`):
+- `chunks.json`: the script cut into 16 chunks of 1–6 beats (a chunk ends where the picture
+  needs air), ~26 s each, so one bad take costs one chunk. Text is the script verbatim; no
+  direction tags (`eleven_multilingual_v2` has none; the MCP tool exposes no speed, stability
+  or similarity settings, so the voice's defaults are what you hear).
+- Flow `FeWrCONVo6cuxKEzu17u`, one generation per chunk, re-runs sent one at a time. Four
+  chunks failed outright with the Free-tier block and three sat in "pending (concurrency)";
+  every re-run that produced audio was kept, none re-generated after success.
+- Word timestamps: ElevenLabs Scribe refused the probe transcription (quota: 4,463 credits
+  needed, 2,740 left), so the alignment uses **Vosk** (small English model, local, offline)
+  matched to the script with `difflib`; 97 % of words matched directly, the rest interpolated
+  between their neighbours (`asr-vosk.json` is the raw recognition). Every cut between beats
+  was checked to sit in a pause of the take, and the silences the assembly inserts all fall at
+  chunk edges or at matched pauses.
+- `assembly.json`: lead-in 0.6 s, 0.3 s at chunk joins, extra silence after beats 3, 10, 11,
+  24, 36, 39, 43, 47, 52; silent beats 42 (4.2 s) and 53 (6 s). Film length **325.7 s (5:26)**.
 
-**Blocker:** the connected ElevenLabs account is on the Free tier, and the API now refuses
-generations. The reels playbook already notes that free-tier output is **not licensed for
-commercial use**. Phase 3 needs a paid plan before the real narration is generated. Casting files
-above are for listening only.
+**Licensing — open item for Kris/Leo.** The connected ElevenLabs workspace reports a 10,000
+credit quota and intermittently refuses with the Free-tier message, so this narration should be
+treated as **not cleared for commercial use** until the account is confirmed paid. The pipeline
+is built for the swap: regenerate the same 16 chunk texts with the same voice on a paid plan,
+drop them into `voiceover/chunks/`, delete `asr-vosk.json`, run `vo-build.py` (with
+`VOSK_MODEL` set) and re-render. Timings move with the new takes; nothing else changes.
+
+**Pronunciation of "RedirHub":** not documented anywhere I could find. Emily says it as
+"re-DIR-hub" (the recogniser heard "reader hub" / "redirect hub"); confirm or correct it.
+
+**Proposed rule.md §7 entry (TESTING until Leo approves):** voice `zHGX9VSXpW8cGSDRCqy0`
+(Emily), model `eleven_multilingual_v2`, voice defaults, chunk the script by beats (1–6 per chunk,
+≤ 30 s), align with Scribe when the plan allows, Vosk otherwise, never re-generate a chunk that
+succeeded, and keep the takes under `voiceover/chunks/` so a re-take is one file.
 
 ## 4. Sound (plan; Phase 4)
 

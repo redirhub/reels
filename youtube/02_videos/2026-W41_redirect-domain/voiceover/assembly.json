@@ -1,0 +1,24 @@
+{
+  "_doc": "How the VO chunks are cut into beats and laid on the timeline. Seconds. Read by scripts/yt/vo-build.py.",
+  "leadIn": 0.6,
+  "join": 0.3,
+  "extraAfter": {
+    "3": 1.6,
+    "10": 2.6,
+    "11": 0.7,
+    "24": 0.9,
+    "36": 1.0,
+    "39": 1.4,
+    "43": 1.1,
+    "47": 1.0,
+    "52": 1.2
+  },
+  "silentBeats": {
+    "42": 4.2,
+    "53": 6.0
+  },
+  "_notes": {
+    "extraAfter": "silence inserted at the pause after that beat: stillness (3), title card (10), rewind (39), checks (47), cut to black (52)",
+    "silentBeats": "beats with no VO and a fixed length: the caption-only wait (42) and the end card (53)"
+  }
+}

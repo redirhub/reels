@@ -1,0 +1,513 @@
+1
+00:00:00,690 --> 00:00:04,440
+When people decide to move to a new
+domain, most of them do the same thing.
+
+2
+00:00:04,740 --> 00:00:08,800
+They buy the new one, switch on
+"forwarding" at the registrar, type the
+
+3
+00:00:08,850 --> 00:00:11,010
+old address, and land on the new site.
+
+4
+00:00:11,130 --> 00:00:12,130
+And honestly?
+
+5
+00:00:12,240 --> 00:00:12,940
+Fair enough.
+
+6
+00:00:12,990 --> 00:00:14,230
+It looks done.
+
+7
+00:00:16,005 --> 00:00:18,705
+But here's what a half-done move does, a
+few weeks later.
+
+8
+00:00:18,885 --> 00:00:21,945
+Some old links open with a warning: "Not
+secure."
+
+9
+00:00:22,305 --> 00:00:25,675
+Others dump people on the homepage, not
+the page they wanted.
+
+10
+00:00:25,725 --> 00:00:26,985
+Some pages are just…
+
+11
+00:00:27,075 --> 00:00:27,865
+gone.
+
+12
+00:00:27,915 --> 00:00:30,525
+Google can't follow the move, so your
+rankings slip.
+
+13
+00:00:30,825 --> 00:00:32,445
+And the QR code on your menu?
+
+14
+00:00:32,655 --> 00:00:34,395
+The link in that email from last year?
+
+15
+00:00:34,755 --> 00:00:35,755
+Dead.
+
+16
+00:00:35,957 --> 00:00:38,927
+So how do you move your domain the right
+way, and keep it secure?
+
+17
+00:00:39,287 --> 00:00:41,037
+It's simpler than you think.
+
+18
+00:00:43,627 --> 00:00:45,847
+Three ideas, and then we do it.
+
+19
+00:00:47,211 --> 00:00:49,971
+Idea one: a redirect is a note on the
+door.
+
+20
+00:00:50,421 --> 00:00:52,971
+Your old domain is a house you've moved
+out of.
+
+21
+00:00:53,241 --> 00:00:54,501
+People still show up.
+
+22
+00:00:54,861 --> 00:00:57,741
+The note says: we moved, here's the new
+address.
+
+23
+00:00:57,981 --> 00:01:01,401
+A good note sends them to the right room,
+not just the front door.
+
+24
+00:01:01,731 --> 00:01:05,971
+The internet has a specific note for this:
+a 301.
+
+25
+00:01:06,021 --> 00:01:08,161
+It means "moved permanently."
+
+26
+00:01:08,211 --> 00:01:12,871
+Browsers follow it instantly, and Google
+reads it as: update your records, this is
+
+27
+00:01:12,921 --> 00:01:13,921
+the new home.
+
+28
+00:01:14,257 --> 00:01:17,707
+Idea two: DNS is the internet's address
+book.
+
+29
+00:01:17,977 --> 00:01:22,247
+Type a domain, and your browser looks it
+up in that book to find a number: the
+
+30
+00:01:22,297 --> 00:01:23,437
+server to talk to.
+
+31
+00:01:23,737 --> 00:01:25,507
+Those entries are called records.
+
+32
+00:01:25,777 --> 00:01:30,077
+Moving the right way means changing a
+couple of those records, so the old domain
+
+33
+00:01:30,127 --> 00:01:32,227
+points at something that hands out the
+note.
+
+34
+00:01:32,842 --> 00:01:35,632
+Idea three: the padlock is an ID card.
+
+35
+00:01:36,082 --> 00:01:40,432
+Over HTTPS, a site shows an ID card first.
+
+36
+00:01:40,642 --> 00:01:42,112
+It's called a certificate.
+
+37
+00:01:42,382 --> 00:01:46,342
+It proves the site is who it says it is,
+and it keeps the connection private.
+
+38
+00:01:46,612 --> 00:01:48,622
+No certificate, no padlock.
+
+39
+00:01:48,922 --> 00:01:50,752
+A warning instead of your page.
+
+40
+00:01:51,022 --> 00:01:52,022
+Here's the catch.
+
+41
+00:01:52,192 --> 00:01:56,672
+Your old domain needs its own ID card,
+even if all it does is point somewhere
+
+42
+00:01:56,722 --> 00:01:57,542
+else.
+
+43
+00:01:57,592 --> 00:02:00,442
+The browser checks the ID before it reads
+the note.
+
+44
+00:02:01,093 --> 00:02:05,273
+And browsers are getting stricter: Chrome
+is rolling out a warning before it opens
+
+45
+00:02:05,323 --> 00:02:07,093
+public sites that aren't secure.
+
+46
+00:02:07,483 --> 00:02:11,623
+To be fair to registrars: some forwarding
+handles the ID card for you.
+
+47
+00:02:11,803 --> 00:02:14,353
+Some doesn't, and the certificate is on
+you.
+
+48
+00:02:14,533 --> 00:02:16,453
+So, some do, some don't.
+
+49
+00:02:16,753 --> 00:02:21,223
+Here's how to check: type your old address
+with https in front.
+
+50
+00:02:21,613 --> 00:02:22,253
+Padlock?
+
+51
+00:02:22,303 --> 00:02:23,033
+You're fine.
+
+52
+00:02:23,083 --> 00:02:23,783
+Warning?
+
+53
+00:02:23,833 --> 00:02:24,653
+Keep watching.
+
+54
+00:02:24,703 --> 00:02:25,463
+That's it.
+
+55
+00:02:25,513 --> 00:02:28,993
+Three ideas: the note, the address book,
+the ID card.
+
+56
+00:02:29,233 --> 00:02:30,713
+Now let's use them.
+
+57
+00:02:31,946 --> 00:02:33,446
+Here's how to do it the right way.
+
+58
+00:02:33,656 --> 00:02:37,136
+Full disclosure: we make RedirHub, so
+that's what I'll use.
+
+59
+00:02:37,406 --> 00:02:41,976
+It handles the note and the ID card for
+you, but the steps are the same idea
+
+60
+00:02:42,026 --> 00:02:43,026
+anywhere.
+
+61
+00:02:43,196 --> 00:02:45,566
+Old domain: mydomain.com.
+
+62
+00:02:45,896 --> 00:02:48,236
+New site: mybrand.com.
+
+63
+00:02:48,860 --> 00:02:50,720
+Step one: write the note.
+
+64
+00:02:50,960 --> 00:02:53,480
+Links → Create → Domain Redirect.
+
+65
+00:02:53,690 --> 00:02:56,090
+Redirect from: mydomain.com.
+
+66
+00:02:56,360 --> 00:03:02,300
+Redirect to: https://mybrand.com.
+
+67
+00:03:02,750 --> 00:03:04,470
+Type: 301.
+
+68
+00:03:04,520 --> 00:03:05,720
+And keep the path on.
+
+69
+00:03:05,960 --> 00:03:08,090
+That's the right-room-not-the-front-door
+part.
+
+70
+00:03:08,270 --> 00:03:09,120
+Save.
+
+71
+00:03:09,170 --> 00:03:10,310
+One idea down.
+
+72
+00:03:10,972 --> 00:03:12,872
+Step two: the address book.
+
+73
+00:03:12,922 --> 00:03:16,252
+RedirHub shows you exactly which records
+to change.
+
+74
+00:03:16,492 --> 00:03:22,112
+For a root domain, that's two: an A
+record, the number to point at, and a TXT
+
+75
+00:03:22,162 --> 00:03:24,832
+record, which proves the domain is yours.
+
+76
+00:03:25,102 --> 00:03:29,452
+Plus a CNAME for the www version.
+
+77
+00:03:29,722 --> 00:03:30,662
+Quick tip.
+
+78
+00:03:30,712 --> 00:03:33,982
+Before you touch anything in your DNS,
+screenshot it.
+
+79
+00:03:34,102 --> 00:03:36,532
+Thirty seconds now, zero regret later.
+
+80
+00:03:37,264 --> 00:03:41,554
+Now open your DNS, wherever your domain
+lives, and add those records.
+
+81
+00:03:41,644 --> 00:03:42,934
+Copy and paste.
+
+82
+00:03:43,204 --> 00:03:45,034
+And copy yours, not mine.
+
+83
+00:03:45,334 --> 00:03:48,304
+Back in RedirHub, it checks every few
+seconds.
+
+84
+00:03:48,544 --> 00:03:50,074
+The address book updates…
+
+85
+00:03:50,224 --> 00:03:52,774
+and the ID card is issued automatically.
+
+86
+00:03:53,014 --> 00:03:55,214
+Two green checks: DNS.
+
+87
+00:03:55,264 --> 00:03:56,584
+HTTPS.
+
+88
+00:03:56,644 --> 00:03:57,914
+That's the whole setup.
+
+89
+00:03:57,964 --> 00:04:00,104
+Idea three took care of itself.
+
+90
+00:04:01,317 --> 00:04:02,137
+Let's test it.
+
+91
+00:04:02,187 --> 00:04:05,037
+Open a browser, type mydomain.com…
+
+92
+00:04:05,397 --> 00:04:06,807
+…and it's still the old site.
+
+93
+00:04:06,927 --> 00:04:07,657
+Hold on.
+
+94
+00:04:07,707 --> 00:04:09,267
+Your redirect might be fine.
+
+95
+00:04:09,537 --> 00:04:11,257
+It's your test that's wrong.
+
+96
+00:04:12,943 --> 00:04:16,934
+Browsers keep copies of pages they've
+seen, so you may be looking at yesterday's
+
+97
+00:04:16,984 --> 00:04:17,723
+site.
+
+98
+00:04:17,773 --> 00:04:20,533
+First rule of testing a move: a private
+window.
+
+99
+00:04:20,773 --> 00:04:22,603
+No copies, no leftovers.
+
+100
+00:04:22,873 --> 00:04:24,763
+Same address, private window…
+
+101
+00:04:25,033 --> 00:04:25,943
+and there it is.
+
+102
+00:04:25,993 --> 00:04:27,413
+mybrand.com.
+
+103
+00:04:27,463 --> 00:04:28,583
+Padlock.
+
+104
+00:04:33,121 --> 00:04:34,121
+Three quick checks.
+
+105
+00:04:35,391 --> 00:04:40,431
+One: the old domain, with https in front,
+lands on the new site with a padlock.
+
+106
+00:04:40,581 --> 00:04:44,601
+Two: an old deep link lands on the same
+page, not the homepage.
+
+107
+00:04:44,871 --> 00:04:47,691
+Three: the www version works too.
+
+108
+00:04:47,991 --> 00:04:49,321
+All three green.
+
+109
+00:04:50,616 --> 00:04:52,116
+Two things before you go.
+
+110
+00:04:52,596 --> 00:04:56,856
+A padlock means the connection is private,
+not that the site is honest.
+
+111
+00:04:57,156 --> 00:05:00,006
+It's an ID card, not a character
+reference.
+
+112
+00:05:00,276 --> 00:05:02,346
+And don't let the old domain expire.
+
+113
+00:05:02,736 --> 00:05:07,876
+If it lapses, someone else can register
+it, and every old link and printed QR code
+
+114
+00:05:07,926 --> 00:05:08,926
+points at them.
+
+115
+00:05:09,096 --> 00:05:12,606
+Keep renewing it as long as anyone might
+still have the old address.
+
+116
+00:05:13,302 --> 00:05:14,302
+Remember the start?
+
+117
+00:05:14,412 --> 00:05:17,262
+Forwarding on, old link opens, looks done.
+
+118
+00:05:17,352 --> 00:05:18,762
+Now it is.
+

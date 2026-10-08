@@ -1,21 +1,30 @@
 # Audio library (channel)
 
 Log every sound here: file, source, license (with the certificate file), where it's used.
-Status 2026-10-06: **planned, not yet sourced** (Pixabay downloads need a browser session; the
-ElevenLabs account needs a paid plan for the signature chime). The reels repo's generated effects
-(`public/audio/sfx/`, royalty-free, reproducible) are the fallback and may be used as-is.
+Status 2026-10-08: **everything in W41 is generated in-repo** (`scripts/audio/generate.py`:
+numpy/scipy oscillators and noise, deterministic, original, royalty-free). No Pixabay file was
+used (downloads need a browser session) and no ElevenLabs sound effect (the workspace had no
+credits left after the narration), so there are no third-party certificates to file yet.
 
-| Role | File | Source | License / certificate | Content ID | Used in |
+| Role | File | Source | License / certificate | Content ID | Used in (W41) |
 |---|---|---|---|---|---|
-| whoosh | — | Pixabay (to pick) | Pixabay Content License · certificate.pdf | must be clear | transitions (draw, dock) |
-| click | — | Pixabay | | | UI actions in the walkthrough (sparingly) |
-| pop | — | Pixabay | | | pills / badges appearing |
-| error | — | Pixabay | | | beats 5–9 problems |
-| typing | — | Pixabay | | | form fields (very low) |
-| swipe | — | Pixabay | | | tip cards in/out |
-| riser / hit | — | Pixabay | | | into the title; "All three green" |
-| success | — | Pixabay | | | checks |
-| **fixed chime** (signature) | — | ElevenLabs SFX (paid plan) | ElevenLabs commercial terms | n/a | fix moments and the end card only |
-| fallback set | `public/audio/sfx/*.wav` | generated in-repo (`scripts/audio/generate.py`) | original, royalty-free | n/a | any of the above |
+| **fixed chime** (signature) | `public/audio/sfx/fixed.wav` (1.1 s) | generated (`sfx.py: fixed`) two soft bells a fifth apart | original | n/a | only when something broken is now right: HTTPS issued (beat 35), padlock in the private window (41), all three green (47), "Now it is." (52) |
+| rewind | `public/audio/sfx/rewind.wav` (1.1 s) | generated (`sfx.py: rewind`) | original | n/a | the time-reverse (beat 39), once |
+| whoosh | `public/audio/sfx/whoosh.wav` | generated | original | n/a | the redirect line draws (2), note → 301 (14) |
+| snap | `public/audio/sfx/snap.wav` | generated | original | n/a | the card lands (2), DNS check green (35) |
+| alert | `public/audio/sfx/alert.wav` | generated | original | n/a | "Not secure" (5) |
+| error | `public/audio/sfx/error.wav` | generated | original | n/a | "gone" (7), "Dead." (9) |
+| swish | `public/audio/sfx/swish_r.wav` | generated | original | n/a | title sweep (10) |
+| success | `public/audio/sfx/success.wav` | generated | original | n/a | three ideas filled (24), redirect saved (30) |
+| stinger | `public/audio/sfx/stinger.wav` | generated | original | n/a | end card (53), low |
+| **bed** | `public/audio/redirect-domain-beat.mp3` | generated pad (`scripts/audio/pad.py`, `music.json` kind `pad`, D major, 72 bpm, one chord per two bars) | original | n/a | whole film at volume 0.22 (≈ -30 LUFS under the voice) |
+| voiceover | `public/audio/redirect-domain-vo.mp3` | ElevenLabs, Emily `zHGX9VSXpW8cGSDRCqy0`, `eleven_multilingual_v2` | **open**: regenerate on a paid plan before publishing (production-notes §3) | n/a | whole film |
 
-Mix target: -14 LUFS integrated, -1 dBTP, voiceover on top.
+Not used, by design: clicks, typing, pops, swipes (UI micro-actions stay silent; 16 cues in
+5:26, well under the `<Sfx>` cap of 6 per 30 s).
+
+Mix target: -14 LUFS integrated, -1 dBTP, voiceover on top. Measured on each render in
+`02_videos/<video>/renders/render-log.md`.
+
+If a Pixabay sound is ever added: save the license certificate PDF beside the file, note the
+Content ID status, and list it here before it goes into a cue.

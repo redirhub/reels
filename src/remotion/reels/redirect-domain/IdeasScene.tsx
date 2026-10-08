@@ -100,8 +100,8 @@ function NoteOnTheDoor({ t, p }: { t: number; p: RedirectDomainProps }) {
     const visitor = easeInOut(prog(t, L.at(13) + 1.0, L.at(13) + 2.2));          // walks to the door
     const bend = easeInOut(prog(t, L.at(13) + 4.6, L.at(13) + 6.2));             // path bends to the new house
     const lit = easeOut(prog(t, L.at(13) + 6.0, L.at(13) + 6.6));
-    const morph = easeInOut(prog(t, L.at(14) + 0.4, L.at(14) + 1.1));            // note → 301 card
-    const google = easeOut(prog(t, L.at(14) + 6.4, L.at(14) + 7.0));
+    const morph = easeInOut(prog(t, L.word(14, '301') - 0.7, L.word(14, '301')));      // note → 301 card, on the word
+    const google = easeOut(prog(t, L.word(14, 'Google') - 0.1, L.word(14, 'Google') + 0.5));
     const vx = lerp(140, oldX + 130, visitor);
     return (
         <>
@@ -151,10 +151,10 @@ function NoteOnTheDoor({ t, p }: { t: number; p: RedirectDomainProps }) {
 /* ---------- Idea two ---------- */
 function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
     const open = easeInOut(prog(t, L.at(15) + 0.6, L.at(15) + 1.6));
-    const lookup = easeOut(prog(t, L.at(16) + 1.2, L.at(16) + 1.8));
-    const label = easeOut(prog(t, L.at(16) + 6.0, L.at(16) + 6.5));
-    const swap = easeInOut(prog(t, L.at(17) + 1.6, L.at(17) + 2.4));
-    const dispenser = easeOut(prog(t, L.at(17) + 4.6, L.at(17) + 5.3));
+    const lookup = easeOut(prog(t, L.word(16, 'looks'), L.word(16, 'looks') + 0.6));
+    const label = easeOut(prog(t, L.word(16, 'Those') - 0.1, L.word(16, 'Those') + 0.4));
+    const swap = easeInOut(prog(t, L.word(17, 'changing') - 0.2, L.word(17, 'changing') + 0.6));
+    const dispenser = easeOut(prog(t, L.word(17, 'hands') - 0.2, L.word(17, 'hands') + 0.5));
     const x = (W - 1100) / 2, y = 250;
     return (
         <>
@@ -192,7 +192,7 @@ function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
                     <div style={{ marginTop: 18, display: 'inline-block', fontFamily: font.mono, fontSize: 26, fontWeight: 700, color: '#3B3A36', background: '#FFF4D6', padding: '6px 14px', borderRadius: 10 }}>301</div>
                 </GlassCard>
             </div>
-            <Caption t={t} from={L.at(16) + 5.6} until={L.at(17) - 0.2} y={830} size={40}>The entries are called records.</Caption>
+            <Caption t={t} from={L.word(16, 'Those') - 0.1} until={L.at(17) + 0.8} y={830} size={40}>The entries are called records.</Caption>
         </>
     );
 }
@@ -200,7 +200,7 @@ function AddressBook({ t, p }: { t: number; p: RedirectDomainProps }) {
 /* ---------- Idea three ---------- */
 function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
     const morph = easeInOut(prog(t, L.at(18) + 0.9, L.at(18) + 1.9));
-    const handshake = easeOut(prog(t, L.at(19) + 0.8, L.at(19) + 1.6));
+    const handshake = easeOut(prog(t, L.word(19, 'shows') - 0.3, L.word(19, 'shows') + 0.5));
     const missing = t >= L.at(20) && t < L.at(21);
     const seq = t >= L.at(21) && t < L.at(22);
     const chrome = t >= L.at(22) && t < L.at(23);

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "c01",
+    "beats": [
+      1,
+      2,
+      3
+    ],
+    "text": "When people decide to move to a new domain, most of them do the same thing. They buy the new one, switch on \"forwarding\" at the registrar, type the old address, and land on the new site. And honestly? Fair enough. It looks done.",
+    "words": 44
+  },
+  {
+    "id": "c02",
+    "beats": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "text": "But here's what a half-done move does, a few weeks later. Some old links open with a warning: \"Not secure.\" Others dump people on the homepage, not the page they wanted. Some pages are just… gone. Google can't follow the move, so your rankings slip. And the QR code on your menu? The link in that email from last year? Dead.",
+    "words": 61
+  },
+  {
+    "id": "c03",
+    "beats": [
+      10,
+      11
+    ],
+    "text": "So how do you move your domain the right way, and keep it secure? It's simpler than you think. Three ideas, and then we do it.",
+    "words": 26
+  },
+  {
+    "id": "c04",
+    "beats": [
+      12,
+      13,
+      14
+    ],
+    "text": "Idea one: a redirect is a note on the door. Your old domain is a house you've moved out of. People still show up. The note says: we moved, here's the new address. A good note sends them to the right room, not just the front door. The internet has a specific note for this: a 301. It means \"moved permanently.\" Browsers follow it instantly, and Google reads it as: update your records, this is the new home.",
+    "words": 78
+  },
+  {
+    "id": "c05",
+    "beats": [
+      15,
+      16,
+      17
+    ],
+    "text": "Idea two: DNS is the internet's address book. Type a domain, and your browser looks it up in that book to find a number: the server to talk to. Those entries are called records. Moving the right way means changing a couple of those records, so the old domain points at something that hands out the note.",
+    "words": 57
+  },
+  {
+    "id": "c06",
+    "beats": [
+      18,
+      19,
+      20,
+      21
+    ],
+    "text": "Idea three: the padlock is an ID card. Over HTTPS, a site shows an ID card first. It's called a certificate. It proves the site is who it says it is, and it keeps the connection private. No certificate, no padlock. A warning instead of your page. Here's the catch. Your old domain needs its own ID card, even if all it does is point somewhere else. The browser checks the ID before it reads the note.",
+    "words": 77
+  },
+  {
+    "id": "c07",
+    "beats": [
+      22,
+      23,
+      24
+    ],
+    "text": "And browsers are getting stricter: Chrome is rolling out a warning before it opens public sites that aren't secure. To be fair to registrars: some forwarding handles the ID card for you. Some doesn't, and the certificate is on you. So, some do, some don't. Here's how to check: type your old address with https in front. Padlock? You're fine. Warning? Keep watching. That's it. Three ideas: the note, the address book, the ID card. Now let's use them.",
+    "words": 79
+  },
+  {
+    "id": "c08",
+    "beats": [
+      25,
+      26,
+      27
+    ],
+    "text": "Here's how to do it the right way. Full disclosure: we make RedirHub, so that's what I'll use. It handles the note and the ID card for you, but the steps are the same idea anywhere. Old domain: mydomain.com. New site: mybrand.com.",
+    "words": 42
+  },
+  {
+    "id": "c09",
+    "beats": [
+      28,
+      29,
+      30
+    ],
+    "text": "Step one: write the note. Links → Create → Domain Redirect. Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part. Save. One idea down.",
+    "words": 32
+  },
+  {
+    "id": "c10",
+    "beats": [
+      31,
+      32,
+      33
+    ],
+    "text": "Step two: the address book. RedirHub shows you exactly which records to change. For a root domain, that's two: an A record, the number to point at, and a TXT record, which proves the domain is yours. Plus a CNAME for the www version. Quick tip. Before you touch anything in your DNS, screenshot it. Thirty seconds now, zero regret later.",
+    "words": 61
+  },
+  {
+    "id": "c11",
+    "beats": [
+      34,
+      35,
+      36
+    ],
+    "text": "Now open your DNS, wherever your domain lives, and add those records. Copy and paste. And copy yours, not mine. Back in RedirHub, it checks every few seconds. The address book updates… and the ID card is issued automatically. Two green checks: DNS. HTTPS. That's the whole setup. Idea three took care of itself.",
+    "words": 54
+  },
+  {
+    "id": "c12",
+    "beats": [
+      37,
+      38,
+      39
+    ],
+    "text": "Let's test it. Open a browser, type mydomain.com… …and it's still the old site. Hold on. Your redirect might be fine. It's your test that's wrong.",
+    "words": 26
+  },
+  {
+    "id": "c13",
+    "beats": [
+      40,
+      41
+    ],
+    "text": "Browsers keep copies of pages they've seen, so you may be looking at yesterday's site. First rule of testing a move: a private window. No copies, no leftovers. Same address, private window… and there it is. mybrand.com. Padlock.",
+    "words": 38
+  },
+  {
+    "id": "c14",
+    "beats": [
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "text": "Three quick checks. One: the old domain, with https in front, lands on the new site with a padlock. Two: an old deep link lands on the same page, not the homepage. Three: the www version works too. All three green.",
+    "words": 41
+  },
+  {
+    "id": "c15",
+    "beats": [
+      48,
+      49,
+      50
+    ],
+    "text": "Two things before you go. A padlock means the connection is private, not that the site is honest. It's an ID card, not a character reference. And don't let the old domain expire. If it lapses, someone else can register it, and every old link and printed QR code points at them. Keep renewing it as long as anyone might still have the old address.",
+    "words": 65
+  },
+  {
+    "id": "c16",
+    "beats": [
+      51,
+      52
+    ],
+    "text": "Remember the start? Forwarding on, old link opens, looks done. Now it is.",
+    "words": 13
+  }
+]

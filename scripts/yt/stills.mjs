@@ -18,6 +18,12 @@ if (!composition) { console.error(`unknown id ${id}`); process.exit(1); }
 for (const s of secs) {
     const frame = Math.min(composition.durationInFrames - 1, Math.round(Number(s) * composition.fps));
     const output = path.join(outDir, `${id}-${Number(s).toFixed(1).replace('.', '_')}s.png`);
-    await renderStill({ serveUrl, composition, frame, imageFormat: 'png', browserExecutable, output });
-    console.log(`${output} (frame ${frame})`);
+    try {
+        await renderStill({ serveUrl, composition, frame, imageFormat: 'png', browserExecutable, output });
+        console.log(`${output} (frame ${frame})`);
+    } catch (e) {
+        // Keep going: one run reports every failing time (e.g. every hold-rule violation).
+        console.log(`${Number(s).toFixed(1)}s FAILED: ${String(e.message || e).split('\n')[0]}`);
+        process.exitCode = 1;
+    }
 }

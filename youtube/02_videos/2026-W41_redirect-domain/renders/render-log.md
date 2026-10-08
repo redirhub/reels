@@ -61,3 +61,25 @@ technical.
   between pills and rail. The shifted dashboard was cropped at the left edge during the DNS split →
   it now shifts less and shrinks 10 %.
 - Hold rule: no violations in the re-rendered frames.
+
+## R5 — first pass on the real voice (stills, 2026-10-08)
+
+- Voiceover generated (Emily, 16 chunks, 299 s of speech, 159 wpm), word-aligned with Vosk and
+  cut into beats by `scripts/yt/vo-build.py`; `timeline.ts` now reads `voiceover/timings.json`.
+  Film 325.7 s → 326 s (whole seconds, the end card runs to the last frame).
+- **Text hold (automated, one still per beat, 53 stills):** three captions failed on the real
+  timing and were fixed where the cause was:
+  - beat 11 "Three ideas. Then we do it." 2.82 s < 3.0 s → 0.3 s more air after the line
+    (`assembly.json`).
+  - beat 16 "The entries are called records." 2.0 s < 2.67 s → the caption is now pinned to the
+    spoken word ("Those…") and lingers 0.8 s into beat 17, which is still about records.
+  - beat 43 "Three quick checks." 1.55 s < 2.0 s → 0.5 s more air after the line.
+  - beat 51 "Forwarding on. Old link opens. Looks done." 3.30 s < 3.33 s → pinned to "Forwarding",
+    runs 0.4 s into beat 52; "Now it is." then starts on its word (was a guessed +0.9 s and fell
+    to 1.45 s).
+- **Sync:** twelve visual moments that the storyboard ties to a word (the card lands on "land",
+  note → 301 on "301", Google on "Google", the lookup on "looks", the swap on "changing", the
+  dispenser on "hands", the handshake on "shows", DNS green on "updates", HTTPS green on "issued",
+  the private-window reveal on "there") now use `local(scene).word(n, w)` instead of offsets
+  guessed from the 155 wpm estimate.
+- A full silent render was started and stopped once the audio was ready: superseded by R6.

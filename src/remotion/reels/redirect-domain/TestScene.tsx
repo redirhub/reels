@@ -26,7 +26,7 @@ export function TestScene(p: RedirectDomainProps) {
     // Private window.
     const privIn = easeOut(prog(t, L.at(40) + 0.6, L.at(40) + 1.3));
     const type2 = prog(t, L.at(41) + 0.3, L.at(41) + 1.5);
-    const resolved = easeOut(prog(t, L.at(41) + 2.1, L.at(41) + 2.6));
+    const resolved = easeOut(prog(t, L.word(41, 'there') - 0.2, L.word(41, 'there') + 0.3));
     const checks = t >= L.at(43);
     const cardOut = easeInOut(prog(t, L.at(43) - 0.4, L.at(43)));
 
