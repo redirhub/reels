@@ -83,7 +83,7 @@ export function CloseScene(p: RedirectDomainProps) {
                     </div>
                 </div>
             )}
-            <Caption t={t} from={L.word(51, 'Forwarding') - 0.15} until={L.at(52) + 0.4} y={200} size={40} color={yt.inkSoft}>Forwarding on. Old link opens. Looks done.</Caption>
+            <Caption t={t} from={L.word(51, 'Forwarding') - 0.15} until={L.at(52) + 0.4} y={92} size={36} color={yt.inkMute}>Forwarding on. Old link opens. Looks done.</Caption>
             <Caption t={t} from={L.word(52, 'Now') - 0.05} until={L.end(52)} y={160} size={64} color={yt.ink} text="Now it is.">Now <span style={{ color: yt.teal }}>it is.</span></Caption>
         </Night>
     );

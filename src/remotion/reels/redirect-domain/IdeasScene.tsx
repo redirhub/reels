@@ -74,7 +74,7 @@ function ThreeOhOne({ t, p }: { t: number; p: RedirectDomainProps }) {
     const y = 540;
     const oldX = 260, newX = 1340;
     const pills = easeOut(prog(t, L.at(12) + 0.1, L.at(12) + 0.6));
-    const ticket = easeOut(prog(t, L.word(13, 'note') - 0.2, L.word(13, 'note') + 0.35));
+    const ticket = easeOut(prog(t, L.word(12, '301') - 0.2, L.word(12, '301') + 0.35));   // on the word "301"
     const addr = easeOut(prog(t, L.word(13, 'plus') - 0.1, L.word(13, 'plus') + 0.4));
     const line = easeInOut(prog(t, L.word(14, 'Browsers') - 0.1, L.word(14, 'instantly')));
     const chipA = easeOut(prog(t, L.word(14, 'follow') - 0.1, L.word(14, 'follow') + 0.35));
@@ -213,7 +213,7 @@ function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
 function IdBeforeNote({ t, p }: { t: number; p: RedirectDomainProps }) {
     const steps = ['Browser arrives', 'Checks the ID card', 'Reads the note', 'New site'];
     // Local to beat 21: each step lands on its words ("old domain", "ID card", "checks the ID", "reads the note").
-    const at = [L.word(21, 'old'), L.word(21, 'card,'), L.word(21, 'checks'), L.word(21, 'reads')].map((w) => w - L.at(21) - 0.15);
+    const at = [L.at(21) + 0.35, L.word(21, 'card,'), L.word(21, 'checks'), L.word(21, 'reads')].map((w) => w - L.at(21) - 0.15);   // first card on "Here's the catch": no empty frame
     const k = (i: number) => easeOut(prog(t, at[i], at[i] + 0.45));
     return (
         <div style={{ position: 'absolute', left: 40, right: 40, top: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>

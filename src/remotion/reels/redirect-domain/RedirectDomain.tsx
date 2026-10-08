@@ -36,10 +36,10 @@ const CUES: readonly SfxCue[] = [
     S(at(7) + 0.2, 'error', 0.4),                     // gone
     S(at(8) + 0.9, 'error', 0.35),                    // rankings slip
     S(word(9, 'Dead') - 0.05, 'error', 0.45),         // the printed QR and the old email are dead
-    S(at(10) + 1.2, 'swish', 0.4),                    // title
+    S(at(10) + 0.5, 'swish', 0.4),                    // title
     // Act B: three concepts
     S(at(11) + 0.2, 'pop', 0.3),                      // concept cards
-    S(word(13, 'note') - 0.2, 'whoosh', 0.3),         // the 301 ticket drops in
+    S(word(12, '301') - 0.2, 'whoosh', 0.3),          // the 301 ticket drops in
     S(word(14, 'follow') - 0.1, 'pop', 0.3),          // browsers follow it
     S(word(14, 'Google') - 0.1, 'pop', 0.3),          // Google updates its records
     S(at(15) + 0.5, 'swish', 0.3),                    // the address book opens

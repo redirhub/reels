@@ -65,12 +65,12 @@ m = m[:, :need]
 t = np.arange(need) / SR
 m *= np.clip(t / cfg.get('fadeIn', 1.5), 0, 1) * np.clip((total - t) / cfg.get('fadeOut', 3.0), 0, 1)
 
-# 2. ducking envelope from the spoken words (pre-roll 0.25 s, release 0.45 s; gaps under 0.8 s stay ducked)
+# 2. ducking envelope from the spoken words (pre-roll 0.3 s, release 0.9 s; gaps under 0.8 s stay ducked)
 speech = np.zeros(need, bool)
 spans = []
 for b in tim['beats']:
     for w in b['words']:
-        spans.append((w['s'] - 0.25, w['e'] + 0.45))
+        spans.append((w['s'] - 0.3, w['e'] + 0.9))   # hold the duck through the word's tail
 spans.sort()
 merged = []
 for s, e in spans:

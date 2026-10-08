@@ -24,8 +24,8 @@ export function HookScene(p: RedirectDomainProps) {
     const gone = easeInOut(prog(t, L.at(5) - 0.45, L.at(5) - 0.05));
     const problems = t >= L.at(5) && t < L.at(10);
     const anchorK = easeOut(prog(t, L.at(5) - 0.2, L.at(5) + 0.3));
-    const titleK = easeOut(prog(t, L.at(10) + 1.6, L.at(10) + 2.3));
-    const sweep = easeInOut(prog(t, L.at(10) + 1.2, L.at(10) + 1.9));
+    const titleK = easeOut(prog(t, L.at(10) + 0.7, L.at(10) + 1.3));   // no empty frame while she speaks
+    const sweep = easeInOut(prog(t, L.at(10) + 0.2, L.at(10) + 0.8));
 
     return (
         <Night>
@@ -60,7 +60,7 @@ export function HookScene(p: RedirectDomainProps) {
             <Problem t={t} from={L.at(8)} until={L.at(9)} label="Rankings slip">
                 <SearchResult t={t - L.at(8)} p={p} />
             </Problem>
-            <Problem t={t} from={L.at(9)} until={L.at(10) + 1.2} label="Printed and posted">
+            <Problem t={t} from={L.at(9)} until={L.at(10) + 0.6} label="Printed and posted">
                 <DeadPrint t={t - L.at(9)} dead={L.word(9, 'Dead') - L.at(9)} p={p} />
             </Problem>
 
