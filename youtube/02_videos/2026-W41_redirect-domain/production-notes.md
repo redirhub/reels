@@ -81,7 +81,11 @@ Leo's "go" came without a voice pick, so the recommendation (Emily) stands.
   was checked to sit in a pause of the take, and the silences the assembly inserts all fall at
   chunk edges or at matched pauses.
 - `assembly.json`: lead-in 0.6 s, 0.3 s at chunk joins, extra silence after beats 3, 10, 11,
-  24, 36, 39, 43, 47, 52; silent beats 42 (4.2 s) and 53 (6 s). Film length **325.7 s (5:26)**.
+  24, 36, 39, 43, 47, 52; silent beats 42 (4.2 s) and 53 (6 s). Film length **325 s (5:25)**.
+- **Re-take:** chunk c09 (beats 28–30). The first take read the URL's punctuation ("h t t p s
+  colon slash slash my brand dot com", confirmed by the recogniser). The chunk text now writes
+  the address as it should be spoken ("Redirect to: HTTPS, mybrand.com."); the script itself is
+  unchanged. Rule for next time: write URLs in chunk text the way a person says them.
 
 **Licensing — open item for Kris/Leo.** The connected ElevenLabs workspace reports a 10,000
 credit quota and intermittently refuses with the Free-tier message, so this narration should be
@@ -161,6 +165,11 @@ doesn't support automatic setup yet" instead of naming one. Everything else is t
 Still unverified (no screenshot exists): the **Domain Redirect form** (fields and labels are from
 the Product Facts spec: Redirect from / Redirect to / 301 or 302 / Keep path) and the success
 toast. Kris: a capture of that form would let me match it exactly before Phase 3.
+
+**Fidelity nits left open after the review** (no screenshot to copy from, or not worth a
+re-render alone): the Hostnames sidebar icon (globe in the film, a server icon in the real UI) and
+the Connect DNS dialog's footer ("Most providers publish changes within minutes · Later · I've
+added the record"). Fix when the dialog is next touched.
 
 ## 8. Where things live
 

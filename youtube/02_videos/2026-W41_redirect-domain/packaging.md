@@ -1,7 +1,7 @@
 # Packaging — W41 "How to Redirect a Domain to Another Domain (With HTTPS That Actually Works)"
 
-Film: 5:26 (326 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (118 cues,
-from the word timestamps). Thumbnails: `thumbnails/thumb-a.png`, `thumbnails/thumb-b.png`
+Film: 5:26 (326 s), 1920×1080, 30 fps, H.264 + AAC 48 kHz. Captions: `captions.srt` (from the
+word timestamps, regenerated with every voice change). Thumbnails: `thumbnails/thumb-a.png`, `thumbnails/thumb-b.png`
 (1280×720) with 168×94 proofs beside them.
 
 ## Title
@@ -37,7 +37,8 @@ Try it with RedirHub: https://redirhub.com/qr?utm_source=youtube&utm_medium=vide
 
 Chapters
 0:00 The half-done move
-0:35 Why it breaks
+0:16 Why it breaks
+0:35 The promise
 0:47 Idea 1: the note on the door (301)
 1:14 Idea 2: the address book (DNS)
 1:32 Idea 3: the ID card (HTTPS)
@@ -47,7 +48,7 @@ Chapters
 4:01 The test (and the twist)
 4:33 Three checks
 4:50 Two things before you go
-5:13 Now it is
+5:13 Remember the start
 
 What you'll learn
 • What a 301 redirect is and why "moved permanently" matters for Google

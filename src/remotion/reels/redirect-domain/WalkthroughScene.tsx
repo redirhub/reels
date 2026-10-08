@@ -96,8 +96,8 @@ export function WalkthroughScene(p: RedirectDomainProps) {
             </div>
 
             <TipCard t={t} from={L.at(33) + 0.2} until={L.at(34) - 0.1} label={p.tips.screenshot}>Thirty seconds now, zero regret later.</TipCard>
-            <Caption t={t} from={L.at(34) + 3.2} until={L.at(35) - 0.2} y={960} size={32} color={yt.inkMute}>Copy yours, not mine.</Caption>
-            <Caption t={t} from={L.at(36) + 0.3} until={L.end(36)} y={960} size={34} color={yt.inkSoft}>The note. The address book. The ID card, automatically.</Caption>
+            <Caption t={t} from={L.at(32) + 1.2} until={L.at(35) - 0.2} y={870} size={32} color={yt.inkMute}>Copy yours, not mine.</Caption>
+            <Caption t={t} from={L.at(36) + 0.3} until={L.end(36)} y={870} size={34} color={yt.inkSoft}>The note. The address book. The ID card, automatically.</Caption>
 
             <Cursor t={t} keys={[
                 [L.at(28), DASH.x + 1240, DASH.y + 300],

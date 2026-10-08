@@ -98,7 +98,7 @@ export function LinksPage({ rows, press = 0 }: { rows: readonly Row[]; press?: n
                         <div style={{ fontSize: 19, fontWeight: 600, color: color.charcoal }}>{r.title}</div>
                         <div style={{ fontSize: 15, color: color.g500, marginTop: 4 }}>↳ {r.dest}</div>
                     </div>
-                    <div style={{ fontSize: 16, color: color.g700, whiteSpace: 'nowrap' }}>{r.clicks} Clicks</div>
+                    <div style={{ fontSize: 16, color: color.g700, whiteSpace: 'nowrap' }}>{r.clicks} {r.kind === 'qr' ? 'Scans' : 'Clicks'}</div>
                     {r.trend && <span style={{ display: 'inline-flex', alignItems: 'center', height: 26, padding: '0 10px', borderRadius: 13, background: okSoft.bg, color: okSoft.text, fontSize: 14, fontWeight: 600 }}>↑ {r.trend}</span>}
                     <div style={{ fontSize: 15, color: color.g500, whiteSpace: 'nowrap', width: 100 }}>{r.highlight !== undefined ? 'just now' : '19 days ago'}</div>
                     <div style={{ display: 'flex', gap: 18, color: color.g600 }}><IconCopy size={18} color={color.g600} /><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color.g600} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg><span style={{ fontSize: 18, lineHeight: '18px', letterSpacing: 1 }}>···</span></div>
@@ -227,7 +227,7 @@ export type Verify = { dns: number; https: number };
     Provider shown generically ("Your DNS provider") instead of the detected registrar. */
 export function ConnectDns({ p, copied, verify, tab = 'manual', k = 1 }: { p: RedirectDomainProps; copied: number; verify: Verify; tab?: 'manual' | 'automatic'; k?: number }) {
     const edge = p.records[2].value;
-    const connected = verify.dns >= 1;
+    const connected = verify.dns > 0.9; // the last row has just flipped to Found
     return (
         <div style={{ position: 'absolute', inset: 0, background: `rgba(16,24,40,${0.35 * k})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.sans }}>
             <div style={{ width: 1060, borderRadius: 18, background: '#fff', boxShadow: '0 30px 80px rgba(16,24,40,.3)', overflow: 'hidden', ...fx(k, 0, (1 - k) * 30, lerp(0.97, 1, k)) }}>
@@ -297,7 +297,7 @@ export function ConnectDns({ p, copied, verify, tab = 'manual', k = 1 }: { p: Re
                                 <span style={{ fontSize: 14, color: color.g500 }}>You can close this. We email you when it’s live.</span>
                             </Step>
                             <div style={{ marginLeft: 40, display: 'flex', gap: 12 }}>
-                                <Check k={verify.dns} label="DNS" sub={verify.dns >= 1 ? 'Records found' : 'Checking…'} />
+                                <Check k={verify.dns} label="DNS" sub={verify.dns > 0.9 ? 'Records found' : 'Checking…'} />
                                 <Check k={verify.https} label="HTTPS" sub={verify.https >= 1 ? 'Certificate issued' : verify.dns >= 1 ? 'Issuing certificate…' : 'Waiting for DNS'} />
                             </div>
                         </>

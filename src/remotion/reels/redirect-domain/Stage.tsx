@@ -56,11 +56,11 @@ export function Caption({ t, from, until, children, text, y = 800, size = 46, co
 }
 
 /** Side tip: slides in from the right, holds, slides out. */
-export function TipCard({ t, from, until, label, children }: { t: number; from: number; until: number; label: string; children: ReactNode }) {
+export function TipCard({ t, from, until, label, children, y = 300 }: { t: number; from: number; until: number; label: string; children: ReactNode; y?: number }) {
     const k = easeOut(prog(t, from, from + 0.45));
     const out = easeOut(prog(t, until - 0.35, until));
     return (
-        <div style={{ position: 'absolute', right: SAFE.x, top: 300, width: 560, ...fx(k * (1 - out), (1 - k) * 80 + out * 40, 0) }}>
+        <div style={{ position: 'absolute', right: SAFE.x, top: y, width: 560, ...fx(k * (1 - out), (1 - k) * 80 + out * 40, 0) }}>
             <GlassCard accent={yt.teal} padding={40}>
                 <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '.14em', color: yt.teal }}>QUICK TIP</div>
                 <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: '-.03em', lineHeight: 1.12, marginTop: 14 }}>{label}</div>

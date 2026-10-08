@@ -55,7 +55,7 @@ export function TestScene(p: RedirectDomainProps) {
                             <div style={{ ...fx(resolved) }}><SkeletonPage tone="dark" title="Welcome to mybrand" lines={3} /></div>
                         </BrowserCard>
                     </div>
-                    <TipCard t={t} from={L.at(40) + 1.6} until={L.at(41) - 0.1} label={p.tips.privateWindow}>No copies, no leftovers.</TipCard>
+                    <TipCard t={t} from={L.at(40) + 1.6} until={L.at(41) - 0.1} label={p.tips.privateWindow} y={380}>No copies, no leftovers.</TipCard>
                     <Caption t={t} from={L.at(42)} until={L.end(42)} y={840} size={32} color={yt.inkMute}>Still the old site? Give DNS a few minutes.</Caption>
                 </>
             )}

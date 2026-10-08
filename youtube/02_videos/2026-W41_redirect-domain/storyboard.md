@@ -23,7 +23,7 @@ channel components (§Components). Nothing else is drawn.
 - **Register change** — a tip card slides in from the right over the scene. Means: *an aside.*
 - **Focus rack** — the dashboard shifts left and a panel appears beside it. Means: *two places,
   one job.*
-- **Silence** — the end card holds with only the fixed chime. Means: *done.*
+- **Silence** — the voice stops; the end card holds on the pad alone with one low stinger (the fixed chime has just played on "Now it is."). Means: *done.*
 
 Hold rule: every on-screen line holds ≥ 1 s, longer lines (words ÷ 3) + 1 s. `<OnScreenText>`
 throws at render time if a line is shorter, so retiming can't break it.
@@ -105,7 +105,7 @@ description and can be a 6 s insert if Leo wants it.
 | 50 | And don't let the old domain expire… | Slot two: `mydomain.com` pill (teal) and a calendar card that flips 2027 → 2028, "auto-renew on". | Fill slot; flip. | UrlPill |
 | 51 | Remember the start? Forwarding on, old link opens, looks done. | Tips leave. The beat-3 frame appears small in the bottom-right corner (grey line, grey dot). Caption "Forwarding on. Old link opens. Looks done." | **Callback.** | (recreated beat 3) |
 | 52 | Now it is. | The small frame expands to full screen; the line redraws teal with traffic; every dot turns teal. Caption "Now **it is.**" Fade to Night. | Shared-element morph. *Same picture, now true.* | RedirectLine |
-| 53 | *(no VO)* | End card: "Old domain." white / "Fixed." teal; white logo; branded QR `redirhub.com/qr` with its label. Right half clear for end-screen elements. Silence but the fixed chime. | **Silence.** 6 s. | FixedEndCard, BrandedQr |
+| 53 | *(no VO)* | End card: "Old domain." white / "Fixed." teal; white logo; branded QR `redirhub.com/qr` with its label. Right half clear for end-screen elements. No voice; pad and one low stinger. | **Silence.** 6 s. | FixedEndCard, BrandedQr |
 
 ---
 

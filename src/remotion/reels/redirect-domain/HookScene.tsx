@@ -43,11 +43,12 @@ export function HookScene(p: RedirectDomainProps) {
                     <SkeletonPage title="Welcome to mybrand" lines={2} />
                 </BrowserCard>
             </div>
+            <Caption t={t} from={L.word(2, 'registrar') - 0.2} until={L.at(3) - 0.1} y={330} size={34} color={yt.inkMute}>Registrar: where you bought the domain.</Caption>
             <Caption t={t} from={L.at(3) + 0.9} until={L.end(3)} y={330} size={64} color={yt.ink} text="Fair enough. It looks done.">Fair enough. <span style={{ color: yt.teal }}>It looks done.</span></Caption>
 
             {/* Beats 5–9: one problem per screen */}
             <Problem t={t} from={L.at(5)} until={L.at(6)} label="Not secure">
-                <BrowserCard address={`${p.oldDomain}`} lock="insecure" dot="red" width={1000} height={420}><NotSecurePage /></BrowserCard>
+                <BrowserCard address={`${p.oldDomain}`} lock="insecure" dot="red" width={1000} height={420}><NotSecurePage kind="nocert" /></BrowserCard>
             </Problem>
             <Problem t={t} from={L.at(6)} until={L.at(7)} label="Wrong page">
                 <WrongPage t={t - L.at(6)} p={p} />
@@ -59,7 +60,7 @@ export function HookScene(p: RedirectDomainProps) {
                 <SearchResult t={t - L.at(8)} p={p} />
             </Problem>
             <Problem t={t} from={L.at(9)} until={L.at(10) + 1.2} label="Printed and posted">
-                <DeadPrint t={t - L.at(9)} p={p} />
+                <DeadPrint t={t - L.at(9)} dead={L.word(9, 'Dead') - L.at(9)} p={p} />
             </Problem>
 
             {/* Beat 10: title */}
@@ -114,22 +115,25 @@ function SearchResult({ t, p }: { t: number; p: RedirectDomainProps }) {
             ))}
             <div style={{ position: 'absolute', right: 60, top: 150, display: 'flex', alignItems: 'center', gap: 10, color: yt.signalRed, fontSize: 30, fontWeight: 700, opacity: fade }}>
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={yt.signalRed} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
-                #1 → #7
+                Slipping
             </div>
         </div>
     );
 }
 
-function DeadPrint({ t, p }: { t: number; p: RedirectDomainProps }) {
-    const scan = easeInOut(prog(t, 0.3, 1.1));
-    const fail = prog(t, 1.2, 1.6);
+function DeadPrint({ t, dead, p }: { t: number; dead: number; p: RedirectDomainProps }) {
+    // `dead`: when the voice says "Dead", local to this beat. The scan runs just before it, the labels land on it.
+    const scan = easeInOut(prog(t, dead - 1.7, dead - 0.9));
+    const fail = prog(t, dead - 0.25, dead + 0.1);
     return (
         <div style={{ position: 'relative', width: 1000, height: 420 }}>
             {/* A printed menu card with a branded QR (the QR encodes redirhub.com/qr; demo domains belong to someone else). */}
             <div style={{ position: 'absolute', left: 0, top: 0, width: 470, height: 420, borderRadius: 24, background: '#FBF7EF', boxShadow: '0 50px 120px rgba(0,0,0,.45)', padding: 32, fontFamily: '"Plus Jakarta Sans", sans-serif', color: '#3B3A36' }}>
                 <div style={{ fontSize: 34, fontWeight: 800, letterSpacing: '-.02em' }}>Menu</div>
                 <div style={{ fontSize: 20, marginTop: 8, color: '#6B675F' }}>Scan for today’s specials</div>
-                <div style={{ position: 'absolute', left: 32, bottom: 32 }}><BrandedQr value={p.qr.value} label={`${p.oldDomain}${p.deepPath}`} size={170} labelSize={20} /></div>
+                <div style={{ position: 'absolute', left: 32, bottom: 32, opacity: 0.55 }}><BrandedQr value={p.qr.value} label={`${p.oldDomain}${p.deepPath}`} size={170} labelSize={20} /></div>
+                {/* A prop, not an invitation: the top-left finder pattern is covered so the code cannot decode. */}
+                <div style={{ position: 'absolute', left: 32, bottom: 32 + 170 - 54 + 26, width: 54, height: 54, background: '#FBF7EF' }} />
                 <div style={{ position: 'absolute', left: 32 + 20, right: 470 - 32 - 20 - 170 - 40 + 20, top: lerp(190, 400, scan), height: 3, background: yt.signalRed, opacity: scan > 0 && scan < 1 ? 0.9 : 0 }} />
                 <div style={{ position: 'absolute', right: 32, bottom: 60, fontSize: 24, fontWeight: 700, color: yt.signalRed, opacity: fail }}>No page</div>
             </div>

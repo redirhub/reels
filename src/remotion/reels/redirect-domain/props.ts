@@ -34,6 +34,6 @@ export const redirectDomainDefaults: RedirectDomainProps = {
         expiry: 'Keep renewing the old domain.',
     },
     endLines: ['Old domain.', 'Fixed.'],
-    endSub: 'Every old link lands. With HTTPS.',
+    endSub: 'Old links land. With HTTPS.',
     qr: { value: 'https://redirhub.com/qr', label: 'redirhub.com/qr' },
 };

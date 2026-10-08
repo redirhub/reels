@@ -28,7 +28,7 @@ export function IdCard({ domain, issuer = 'Trusted certificate authority', valid
                 <div style={{ fontSize: width * 0.03, color: '#667085', fontWeight: 600, letterSpacing: '.08em', marginTop: h * 0.09 }}>ISSUED BY</div>
                 <div style={{ fontSize: width * 0.036, color: '#344054', fontWeight: 600, marginTop: 4 }}>{issuer}</div>
             </div>
-            <div style={{ position: 'absolute', left: width * 0.06, bottom: h * 0.08, display: 'inline-flex', alignItems: 'center', gap: 10, height: h * 0.11, padding: `0 ${width * 0.03}px`, borderRadius: 999, background: valid ? '#ECFDF3' : '#FEF3F2', color: valid ? '#067647' : '#B42318', fontSize: width * 0.034, fontWeight: 700 }}>
+            <div style={{ position: 'absolute', left: width * 0.06, bottom: h * 0.08, display: 'inline-flex', alignItems: 'center', gap: 10, height: h * 0.11, padding: `0 ${width * 0.03}px`, borderRadius: 999, background: valid ? 'rgba(32,167,149,0.14)' : 'rgba(229,72,77,0.12)', color: valid ? '#20A795' : '#E5484D', fontSize: width * 0.034, fontWeight: 700 }}>
                 <i style={{ width: 10, height: 10, borderRadius: 5, background: tone }} />{valid ? 'Valid' : 'Missing'}
             </div>
         </div>

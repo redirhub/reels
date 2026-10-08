@@ -80,16 +80,20 @@ export function NotFoundPage({ dark = false }: { dark?: boolean }) {
     );
 }
 
-/** Chrome-style interstitial for a site without HTTPS. Wording after Chrome's "Always Use Secure Connections" page. */
-export function NotSecurePage() {
+/** Chrome-style interstitials. `httpsfirst` (default): the "Always Use Secure Connections" warning for a plain
+    http site. `nocert`: the certificate error for https on a domain with no valid certificate. */
+export function NotSecurePage({ kind = 'httpsfirst' }: { kind?: 'httpsfirst' | 'nocert' }) {
+    const copy = kind === 'nocert'
+        ? { title: 'Your connection is not private', body: 'This site has no valid certificate, so the browser cannot confirm who it is talking to.', a: 'Back to safety', b: 'Advanced' }
+        : { title: 'The connection to this site is not secure', body: 'You are seeing this warning because this site does not support HTTPS.', a: 'Go back', b: 'Continue to site' };
     return (
         <div style={{ position: 'absolute', inset: 0, background: '#fff', padding: '38px 60px', color: color.charcoal }}>
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={yt.signalRed} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18.5v.5" /></svg>
-            <div style={{ fontFamily: font.sans, fontSize: 34, fontWeight: 500, marginTop: 18, letterSpacing: '-.01em' }}>The connection to this site is not secure</div>
-            <div style={{ fontFamily: font.sans, fontSize: 21, color: color.g600, marginTop: 10, lineHeight: 1.45, maxWidth: 820 }}>You are seeing this warning because this site does not support HTTPS.</div>
+            <div style={{ fontFamily: font.sans, fontSize: 34, fontWeight: 500, marginTop: 18, letterSpacing: '-.01em' }}>{copy.title}</div>
+            <div style={{ fontFamily: font.sans, fontSize: 21, color: color.g600, marginTop: 10, lineHeight: 1.45, maxWidth: 820 }}>{copy.body}</div>
             <div style={{ display: 'flex', gap: 14, marginTop: 26 }}>
-                <div style={{ height: 50, padding: '0 24px', borderRadius: 25, background: yt.blue, color: '#fff', fontSize: 20, fontWeight: 600, display: 'flex', alignItems: 'center' }}>Go back</div>
-                <div style={{ height: 50, padding: '0 24px', borderRadius: 25, border: `1px solid ${color.g300}`, color: color.g700, fontSize: 20, fontWeight: 600, display: 'flex', alignItems: 'center' }}>Continue to site</div>
+                <div style={{ height: 50, padding: '0 24px', borderRadius: 25, background: yt.blue, color: '#fff', fontSize: 20, fontWeight: 600, display: 'flex', alignItems: 'center' }}>{copy.a}</div>
+                <div style={{ height: 50, padding: '0 24px', borderRadius: 25, border: `1px solid ${color.g300}`, color: color.g700, fontSize: 20, fontWeight: 600, display: 'flex', alignItems: 'center' }}>{copy.b}</div>
             </div>
         </div>
     );

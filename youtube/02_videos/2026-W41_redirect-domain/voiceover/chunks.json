@@ -89,8 +89,9 @@
       29,
       30
     ],
-    "text": "Step one: write the note. Links → Create → Domain Redirect. Redirect from: mydomain.com. Redirect to: https://mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part. Save. One idea down.",
-    "words": 32
+    "text": "Step one: write the note. Links → Create → Domain Redirect. Redirect from: mydomain.com. Redirect to: HTTPS, mybrand.com. Type: 301. And keep the path on. That's the right-room-not-the-front-door part. Save. One idea down.",
+    "words": 32,
+    "note": "Re-take 2026-10-08: the URL written as spoken; the first take read \"colon slash slash\"."
   },
   {
     "id": "c10",

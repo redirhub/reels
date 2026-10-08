@@ -77,4 +77,39 @@ RENDER_SECTION
 - Process: generate the voice first, in chunks; render stills per beat before the full render;
   read the contact sheet; log every render.
 
-REVIEW_SECTION
+## 7. Independent review (separate agent, on cut R6) and what was done
+
+The reviewer watched ~75 frames, measured the audio, checked captions, chapters and thumbnails,
+and read the scene code where a frame looked wrong. Verdict: **"ship after fixes"**. Every
+should-fix was fixed before the final render; the nits were either fixed or decided and written
+down. The full report is in the session; the dispositions:
+
+| # | Finding (severity) | Disposition |
+|---|---|---|
+| 1 | Two walkthrough captions at y = 960 straddled the dashboard's bottom edge and sat below the safe line (should-fix) | Moved to y = 870 |
+| 2 | Beat 51 callback never shrank: a style spread overrode its transform (should-fix) | Fixed; the morph scales 0.42 → 1 as storyboarded |
+| 3 | Real IP on screen 27 s before "copy yours, not mine" (should-fix) | The caption now shows from the moment the records table appears (beat 32) until beat 35 |
+| 4 | 14 caption cues under 1 s, orphan one-word cues (should-fix) | Generator merges short cues and breaks at clause boundaries: 98 cues, none under 1 s, none over 42 chars |
+| 5 | Chapter "0:35 Why it breaks" pointed at the promise (should-fix) | Chapters: 0:16 Why it breaks · 0:35 The promise · 5:13 Remember the start |
+| 6 | The "dead" menu QR was scannable and landed on a live page; "Dead" label 2 s before the word (should-fix) | Finder pattern covered and the code dimmed (verified: no decode); scan and labels now land on the spoken "Dead" |
+| 7 | Report placeholders (should-fix) | Filled (this document) |
+| 8 | Dashboard frame said "Found" / "A record missing" / "Checking…" at once (should-fix) | Chip and check flip together with the last row |
+| 9 | URL/acronym reads: "https://mybrand.com" took 4.8 s (verify by ear) | Confirmed from the recogniser: the first take read "colon slash slash". Chunk c09 re-taken with the address written as spoken; now "h-t-t-p-s, mybrand dot com". "CNAME" and "DNS/HTTPS" are letter reads, as people say them |
+| 10 | End card "Every old link lands" is an absolute not in the approved claims | Softened to "Old links land. With HTTPS." |
+| 11 | "Registrar" never defined for a viewer who has never heard of DNS | On-screen gloss on the first mention (beat 2): "Registrar: where you bought the domain." |
+| 12 | "Last 20 s right half clear" rule broken by tip card TWO (nit) | Rule re-scoped to the end card, where packaging places the end screen; rule 6 says why |
+| 13 | Storyboard "silence" entry vs the stinger + pad on the end card (nit) | Storyboard updated to what the film does (the fixed chime plays on "Now it is.", the end card holds on the pad with one low stinger) |
+| 14 | Beat 13 punchline caption 4 s before its word (nit) | Pinned to the word "right" |
+| 15 | Chrome footnote wrapped on one word (nit) | Box widened |
+| 16 | Interstitial copy for a missing certificate used the HTTPS-first wording (nit) | `NotSecurePage kind="nocert"` for beats 5 and 20: "Your connection is not private" |
+| 17 | Off-palette paper colours and a green/red status pill on the ID card (nit) | ID card uses teal / Signal Red; the paper set is now written into rule 9 as a sanctioned prop palette |
+| 18 | "#1 → #7" is an invented ranking (nit) | Replaced with "Slipping" and the arrow |
+| 19 | Dashboard fidelity nits (QR rows "Clicks", sidebar icon, dialog footer) | "Scans" for QR rows; icon and footer left (no screenshot for the footer's exact copy; logged in production-notes §7) |
+| 20 | Records table text small on a phone (nit) | Left: the VO tells viewers to copy their own; the focus rack at beat 34 enlarges it |
+| 21 | Tip card covered the private window's address bar (nit) | Card lowered 80 px |
+| 22 | "It's simpler than you think" is stock (nit) | Kept: it is the mandated pivot line (brief §3) |
+| 23 | Half a second of empty Night before the end card (nit) | End card now overlaps the close by 0.8 s |
+
+Not re-reviewed after the fixes: the reviewer saw R6; the final cut (R8) carries all of the above
+plus the glow drift and the cursor walk added after R6. The R8 audit in `renders/render-log.md`
+is the check that nothing regressed.

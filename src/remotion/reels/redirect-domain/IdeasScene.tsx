@@ -143,7 +143,7 @@ function NoteOnTheDoor({ t, p }: { t: number; p: RedirectDomainProps }) {
                     </GlassCard>
                 </div>
             </div>
-            <Caption t={t} from={L.at(13) + 4.2} until={L.at(14) - 0.2} y={760} size={44}>The right room, not just the front door.</Caption>
+            <Caption t={t} from={L.word(13, 'right') - 0.3} until={L.at(14) + 1.4} y={760} size={44}>The right room, not just the front door.</Caption>
         </>
     );
 }
@@ -227,7 +227,7 @@ function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
             )}
             {missing && (
                 <div style={{ position: 'absolute', left: (W - 1000) / 2, top: 300 }}>
-                    <BrowserCard address={p.oldDomain} lock="insecure" dot="red" width={1000} height={460}><NotSecurePage /></BrowserCard>
+                    <BrowserCard address={p.oldDomain} lock="insecure" dot="red" width={1000} height={460}><NotSecurePage kind="nocert" /></BrowserCard>
                     <div style={{ position: 'absolute', right: -40, top: -40, transform: 'rotate(8deg)' }}><IdCard domain={p.oldDomain} valid={false} width={300} /></div>
                 </div>
             )}
@@ -235,7 +235,7 @@ function IdCardIdea({ t, p }: { t: number; p: RedirectDomainProps }) {
             {chrome && (
                 <div style={{ position: 'absolute', left: (W - 1000) / 2, top: 300, ...fx(easeOut(prog(t, L.at(22), L.at(22) + 0.4))) }}>
                     <BrowserCard address={`http://${p.oldDomain}`} lock="insecure" dot="red" width={1000} height={460}><NotSecurePage /></BrowserCard>
-                    <div style={{ position: 'absolute', left: 0, right: 0, top: 500, textAlign: 'center', fontSize: 26, color: yt.inkMute }}>Chrome · “Always use secure connections”, rolling out as the default for public sites</div>
+                    <div style={{ position: 'absolute', left: -300, right: -300, top: 500, textAlign: 'center', fontSize: 26, color: yt.inkMute }}>Chrome · “Always use secure connections”, rolling out as the default for public sites</div>
                 </div>
             )}
             {fair && <FairToRegistrars t={t - L.at(23)} p={p} />}

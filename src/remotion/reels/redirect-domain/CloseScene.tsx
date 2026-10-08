@@ -66,7 +66,7 @@ export function CloseScene(p: RedirectDomainProps) {
 
             {/* Callback frame */}
             {t >= L.at(51) && (
-                <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, transformOrigin: '0 0', transform: `translate(${ox}px, ${oy}px) scale(${scale})`, ...fx(cbIn), borderRadius: lerp(28, 0, grow), overflow: 'hidden', boxShadow: grow < 1 ? '0 40px 100px rgba(0,0,0,.5)' : 'none', background: 'rgba(255,255,255,.02)' }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, transformOrigin: '0 0', ...fx(cbIn), transform: `translate(${ox}px, ${oy}px) scale(${scale})`, borderRadius: lerp(28, 0, grow), overflow: 'hidden', boxShadow: grow < 1 ? '0 40px 100px rgba(0,0,0,.5)' : 'none', background: 'rgba(255,255,255,.02)' }}>
                     <DomainPill url={p.oldDomain} dot={redraw > 0.9 ? 'teal' : 'grey'} x={g.old.x} />
                     <DomainPill url={p.newDomain} dot="teal" x={g.new.x} />
                     <RedirectLine from={[g.old.right + 14, PILL_Y]} to={[g.new.left - 14, PILL_Y]} progress={grow < 1 ? 1 : redraw} color={grow < 1 ? yt.inkSoft : yt.teal} bend={0.12} traffic={redraw >= 1 ? 3 : 0} t={t} />

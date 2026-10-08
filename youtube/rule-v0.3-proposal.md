@@ -60,8 +60,10 @@ says what it adds rather than what it replaces.
    "RedirHub": Emily says "re-DIR-hub"; 🧪 TESTING until Leo confirms.
 
 6. ⚙️ **DEFAULT (new, §4): landscape safe areas.** Nothing key below y = 950 of 1080 (bottom 12 %),
-   side gutters 120 px, and the last 20 s keep the right half of the frame free of anything that
-   must be read (YouTube end-screen elements). The end card component encodes this.
+   side gutters 120 px, and the end card (≥ 6 s, where packaging places the end screen) keeps the
+   right half of the frame free of anything that must be read. The end card component encodes
+   this. (W41's review measured the "last 20 s" wording against the film and the tip cards broke
+   it at 5:03–5:13; the rule is scoped to the end card, which is where the end screen goes.)
 
 7. ⚙️ **DEFAULT (new, §4): transition grammar.** Allowed moves, each with a meaning: cut on the
    beat; shared-element morph (same thing, new understanding); dock (now context); draw (traffic
@@ -77,7 +79,10 @@ says what it adds rather than what it replaces.
 
 9. ⚙️ **DEFAULT (confirm, §6): colors.** Night `#0B1426` canvas, Signal Red `#E5484D` broken,
    Teal `#20A795` fixed, Amber `#E59426` warning (once per scene), Blue `#1C6DB6` product, text
-   white / `#B9C6D8` / `#6B7A90`, glass `rgba(255,255,255,.07)` with a `.14` line. Night and Signal
+   white / `#B9C6D8` / `#6B7A90`, glass `rgba(255,255,255,.07)` with a `.14` line. **Paper** (printed
+   props only: the note, the address book, the menu, the ID card): cream `#FBF7EF` / `#F4EFE6`,
+   note yellow `#FFF4D6`, ink `#3B3A36` / `#6B675F` / `#8A8478`, cover `#1E2A44`; a prop's status
+   colours are the channel's teal and Signal Red, never a UI green. Night and Signal
    Red remain **pending Kris's approval**; they are the tokens `yt.*` in `src/remotion/brand/tokens.ts`.
 
 10. ⚙️ **DEFAULT (confirm, §4): fonts.** Plus Jakarta Sans (display, captions, UI copy in the film's

@@ -109,3 +109,13 @@ technical.
   word in `timings.json`; the contact sheet's 270 s tile shows the caption-only wait with the
   old site still loaded, as scripted.
 - Independent review of this cut requested from a separate agent (findings in the final report).
+
+## R7 — glow drift (2026-10-08)
+
+- Same as R6 plus the Night glow drift. Audit: -14.8 LUFS, -1.8 dBTP, QR decodes; `freezedetect`
+  now reports 3 static holds instead of 25 (158 s, 200–210 s and the end card, where white UI or
+  the static end card covers the canvas). File grew to 80 MB (the moving gradient encodes less
+  efficiently); fine for an upload master. Superseded by R8 before any review.
+- The independent review of R6 arrived while R7 rendered: 8 should-fix, 15 nits. All dispositions
+  are in `final-report.md` §7. Fixes went into R8 together with a cursor walk over the three
+  records (beat 32) and a re-take of chunk c09 (the first take read "colon slash slash").
