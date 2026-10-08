@@ -2,6 +2,28 @@
 
 _Status: see §1. Render numbers in `renders/render-log.md`; packaging in `packaging.md`._
 
+## 0. Revision 2 (Leo's notes, 2026-10-08)
+
+Final cut: **5:17**, 1920×1080, 30 fps, H.264 + AAC 48 kHz, −14.9 LUFS, −2.3 dBTP, no black
+frames, QR decodes. What changed is listed note by note in `renders/render-log.md` ("Revision 2"
+and the second review that follows it). In short:
+
+- **Voice:** the narrator's takes stop at 8 kHz (the voice itself, every model gives the same
+  ceiling), which is the "phone call" sound. `scripts/yt/voice_enhance.py` now restores the
+  top octave and removes the boxy mids on every build. Not verified by ear in this session.
+- **Music:** Leo's sound folder lives on his computer, which this cloud session cannot reach. The
+  bed builder is ready for it: drop the files into `youtube/01_library/audio/music/` (effects into
+  `public/audio/library/sfx/`), set `bed.json` / `sound.ts`, rebuild. It ducks the music under
+  every word and refuses to build if the music gets within 10 LU of the voice while she speaks.
+  Until then the generated pad plays, about 20 LU under her.
+- **Script:** "three concepts", concept one in 12 s with the 301 ticket and no house, no menu
+  example anywhere (generic /pricing), no "full disclosure", a closing call to action to the
+  description and to reach out. Ten new lines, spliced by beat; speech recognition over the
+  final voice track finds none of the removed words.
+- **Picture:** the opening acts out buying a domain and switching on forwarding in a registrar
+  tab; no icon rail; records highlighted with an arrow; padlock never on the book; tips and
+  panels solid and readable; every slip from two independent reviews fixed or logged.
+
 ## 1. What was made
 
 - **The film:** 5:25, 1920×1080, 30 fps, H.264 + AAC 48 kHz. Script v3 (53 beats, 794 words),
@@ -84,7 +106,9 @@ Audits for every render are in `renders/render-log.md` (R1–R9).
 | The Chrome line: "is rolling out a warning" (154 stable 2026-09-22, default not confirmed) | production-notes §5 |
 | Real anycast IP `3.33.236.10` on screen with "copy yours, not mine" | production-notes §6, rule 4 |
 | **Voiceover licence** (paid plan, then regenerate) and the pronunciation of "RedirHub" | production-notes §3, rule 5 |
-| Branded link for the description/QR (`redirhub.com/qr` placeholder with UTM) | `packaging.md` |
+| Branded link for the description/QR (`redirhub.com/qr` placeholder with UTM; it is a QR product page, so a redirect/contact link would fit better) and the contact link for "reach out" | `packaging.md` |
+| **Leo's music and sound files** into the repo (his Windows folder is not reachable from the cloud session) | `youtube/01_library/audio/music/README.md` |
+| Listen to the restored voice (0:00–0:30, 2:35–3:10): if it still sounds thin, switch to a full-band narrator | production-notes §3 |
 
 ## 6. What to reuse next time
 
