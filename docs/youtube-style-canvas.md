@@ -38,3 +38,23 @@ Add a row for each new video. The canvases are private until shared from the pag
 7. Build the video in Remotion from the approved frames (`docs/reel-playbook.md`), reusing the shared
    components (`FixedEndCard`, `BrandedQr`, `OnScreenText`, `Cursor`, the browser and dashboard pages).
    If the built film drifts from the canvas on purpose, update the canvas after the cut is approved.
+
+## The workflow for a new YouTube video
+
+Agreed after W41 (2026-10-10). W41 took three review rounds because most problems (phone-call voice,
+the menu example, "full disclosure", too many whooshes, quiet music) only showed up after a full render.
+Each could have been caught at the script, canvas or voice-sample stage, so review happens there.
+Target: two review rounds at most (step 4 and the step 5 polish).
+
+| Step | Who | Output | Review |
+|---|---|---|---|
+| 0. Prep | Leo | Topic; music and SFX files in the repo; the branded link for the end-card QR | Nothing starts until the assets are in |
+| 1. Script | Claude | Script, claims check against the Notion Approved Claims library, YouTube title | **Review 1:** story, hook, wording |
+| 2. Style canvas | Claude | A new canvas named after the video, started from the latest video's canvas files; one HTML mockup per key frame with the real copy | **Review 2:** comment on the canvas; changing a frame here costs minutes, not a render |
+| 3. Voice sample | Claude | A 30-second sample on a paid ElevenLabs plan (cleared for commercial use) | **Review 3:** voice and pace, about 5 minutes |
+| 4. Build | Claude | Remotion build from the approved canvas, automatic checks, one full preview render | **Review 4:** watch once, send every change in one list |
+| 5. Final | Claude | One polish round, then CI publishes the download link; packaging (title, description, chapters, captions, thumbnail); stills of the cut added to the canvas | Download and upload |
+| 6. Retro | Claude | Lessons added to `docs/reel-playbook.md` | None |
+
+The automatic checks in step 4 fail the render on their own: every line holds long enough to read, the
+music stays under the voice, the effect count stays within budget, the QR scans, and loudness is −14 LUFS.
