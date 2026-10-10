@@ -1,0 +1,188 @@
+<title>RedirHub YouTube Style Frames</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a film strip down the page. Each frame is a 16:9 plate with its timecode and the rule it sets; the system (colour, type, sound) follows the frames it was drawn from. */
+:root{
+  --night:#0B1426; --plate:#111D33; --line:rgba(255,255,255,.12);
+  --ink:#FFFFFF; --soft:#B9C6D8; --mute:#7F8CA3;
+  --teal:#20A795; --red:#E5484D; --amber:#E59426; --blue:#1C6DB6;
+  --display:"Plus Jakarta Sans","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+body{background:var(--night);color:var(--soft);font:15px/1.6 var(--body);padding-inline:clamp(16px,4vw,56px);padding-block:40px 80px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);color:var(--ink);text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--teal)}
+h2{font-size:22px;font-weight:700}
+h3{font-size:16px;font-weight:700}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+header{display:grid;gap:16px}
+header .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font:13px var(--mono);color:var(--mute)}
+header .meta a{color:var(--soft)}
+.acts{display:grid;gap:40px}
+.act{display:grid;gap:18px}
+.act-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}
+.act-head span{font:12px var(--mono);color:var(--mute)}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:22px}
+figure{margin:0;display:grid;gap:10px;min-width:0}
+figure img{width:100%;aspect-ratio:16/9;display:block;border-radius:6px;border:1px solid var(--line);background:var(--plate)}
+figcaption{display:grid;gap:4px}
+.tc{display:flex;gap:10px;font:12px var(--mono);color:var(--mute);font-variant-numeric:tabular-nums}
+.tc b{color:var(--ink);font-weight:500}
+figcaption h3{font-size:15px}
+figcaption p{font-size:13.5px;color:var(--soft)}
+.sys{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px 36px}
+.sys section{display:grid;gap:12px;align-content:start;min-width:0}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.sw{display:grid;gap:6px;font-size:12.5px}
+.sw i{height:44px;border-radius:5px;border:1px solid var(--line)}
+.sw code{font:11.5px var(--mono);color:var(--mute)}
+ul{margin:0;padding-left:18px;display:grid;gap:6px}
+li::marker{color:var(--teal)}
+code{font:13px var(--mono);color:var(--ink)}
+.type{display:grid;gap:12px}
+.type div{display:grid;gap:2px;border-left:2px solid var(--line);padding-left:12px}
+.type small{font:11px var(--mono);color:var(--mute);letter-spacing:.06em}
+.t-d{font:800 26px/1.1 var(--display);color:var(--ink)}
+.t-b{font:500 17px var(--body);color:var(--ink)}
+.t-m{font:500 16px var(--mono);color:var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+.tbl{overflow-x:auto}
+td,th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+td:first-child{color:var(--ink);white-space:nowrap}
+footer{font-size:13px;color:var(--mute);border-top:1px solid var(--line);padding-top:18px}
+a{color:var(--teal)}
+a:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Channel reference · W41 · approved cut</span>
+  <h1>How to redirect a domain.<br><em>The look we keep.</em></h1>
+  <p>Nineteen frames from the published cut of RedirHub's first YouTube video (5:09, revision 3), in story order. Each one sets a rule for the next video: what goes on screen, how it is lit, where text sits, and what it sounds like. Match these before inventing anything new.</p>
+  <div class="meta"><span>1920×1080 · 30 fps</span><span>−14.9 LUFS</span><span>commit 9ca8786</span><span>repo: youtube/01_library/style/</span></div>
+</header>
+
+<div class="acts" id="frames"></div>
+
+<section class="act">
+  <div class="act-head"><h2>The system behind the frames</h2><span>src/remotion/brand/tokens.ts · yt</span></div>
+  <div class="sys">
+    <section>
+      <h3>Colour has a job</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:var(--night)"></i>Night · canvas<code>#0B1426</code></div>
+        <div class="sw"><i style="background:var(--teal)"></i>Teal · fixed, passing<code>#20A795</code></div>
+        <div class="sw"><i style="background:var(--red)"></i>Signal red · broken<code>#E5484D</code></div>
+        <div class="sw"><i style="background:var(--amber)"></i>Amber · warning, once a scene<code>#E59426</code></div>
+        <div class="sw"><i style="background:var(--blue)"></i>Blue · product UI only<code>#1C6DB6</code></div>
+        <div class="sw"><i style="background:var(--soft)"></i>Ink soft · captions<code>#B9C6D8</code></div>
+      </div>
+      <p>Teal means "this works now"; red means "this is broken". Never use either as decoration.</p>
+    </section>
+    <section>
+      <h3>Three faces, three roles</h3>
+      <div class="type">
+        <div><small>DISPLAY · PLUS JAKARTA SANS</small><span class="t-d">Old domain. Fixed.</span></div>
+        <div><small>UI AND CAPTIONS · INTER</small><span class="t-b">Your redirect might be fine.</span></div>
+        <div><small>ADDRESSES · JETBRAINS MONO</small><span class="t-m">mydomain.com → mybrand.com</span></div>
+      </div>
+      <p>Every URL and record value is mono. Product screens use Inter, as the real dashboard does.</p>
+    </section>
+    <section>
+      <h3>Layout</h3>
+      <ul>
+        <li>One stage, centred, on Night. One idea per frame.</li>
+        <li>Eyebrow top-left names where we are: <code>CONCEPT ONE · THE 301 REDIRECT</code>, <code>STEP TWO · UPDATE THE ADDRESS BOOK</code>.</li>
+        <li>Captions sit under the stage in Ink soft; the payoff word turns teal.</li>
+        <li>Tips arrive as a solid card beside the stage, never over the thing they explain.</li>
+        <li>Product UI mirrors the real dashboard. No invented features.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Timing</h3>
+      <ul>
+        <li>Everything lands on the narrator's word (timeline.ts reads word times).</li>
+        <li>A line stays up at least words ÷ 3 + 1 seconds; renders fail otherwise.</li>
+        <li>Pauses are short: about 1.5 s for a title card, 0.5 s to close an act.</li>
+        <li>End card holds about 3.5 s after the last line.</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section class="act">
+  <div class="act-head"><h2>Sound</h2><span>src/remotion/reels/redirect-domain/sound.ts</span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Sound</th><th>When</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Transition</td><td>Only at a change of place: into the title card and into the dashboard. Two in the whole film.</td><td>Pixabay · trading_nation</td></tr>
+      <tr><td>Click</td><td>Every real button press on screen, one per press. No hover sounds.</td><td>Pixabay · Universfield</td></tr>
+      <tr><td>Typing</td><td>Each field that fills.</td><td>Generated</td></tr>
+      <tr><td>Pop</td><td>A card or chip arriving.</td><td>Pixabay · joe_bou_khalil</td></tr>
+      <tr><td>Fixed chime</td><td>Only when something broken is now right. The signature sound.</td><td>Generated</td></tr>
+      <tr><td>Problem</td><td>One soft tone per run of problems, not one per problem.</td><td>Generated</td></tr>
+      <tr><td>Music bed</td><td>Start to end at about −31 LUFS, dipping under quiet words; never within 11 LU of the voice. The build fails if it is.</td><td>Generated pad until Leo's tracks land</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="act">
+  <div class="act-head"><h2>Starting the next video</h2><span>docs/reel-playbook.md</span></div>
+  <ul>
+    <li>Reuse the components: <code>FixedEndCard</code>, <code>BrandedQr</code>, <code>OnScreenText</code>, the browser and dashboard pages, <code>Cursor</code>.</li>
+    <li>Make the new video's style frames first and lay them next to these before building scenes.</li>
+    <li>Every QR shows its branded link underneath and must scan from the render.</li>
+    <li>Claims come from the Notion Approved Claims library only.</li>
+  </ul>
+</section>
+
+<footer>Frames are stills of the published MP4, kept in <code>youtube/01_library/style/keyframes/w41-redirect-domain/</code> with this page. When a later video changes the look on purpose, add its frames as a new series here and say what changed.</footer>
+</div>
+
+<script>
+const ACTS=[
+ ["Act A · The move most people make","0:00–0:40",[
+  ["b01",3.79,1,"Buying the domain","Open on a real, familiar action in a neutral registrar tab. No logo, no brand, a generic address bar."],
+  ["b02",9.79,2,"It looks done","The calm before the problem: a plain browser frame, white on Night."],
+  ["b05",20.78,5,"Not secure","The problem uses the browser's own warning, drawn faithfully, with a two-word label under it."]]],
+ ["Act B · Three concepts","0:40–2:16",[
+  ["b10",40.20,10,"Title card","Title in display weight, the promise in teal underneath. Nothing else on screen."],
+  ["b11",45.14,11,"The map","Name the concepts as numbered cards before teaching them. The numbers are a real sequence."],
+  ["b14",57.52,14,"The 301 ticket","One object per idea: a paper note between two mono addresses, with chips for who follows it."],
+  ["b17",76.03,17,"The address book","Records highlighted in place with a small pointer card. No floating words."],
+  ["b19",89.33,19,"The ID card","The certificate as an ID card. Chips land on the narrator's words."],
+  ["b22",110.94,22,"Chrome's warning","Real browser UI, with a source line under it for the claim."],
+  ["b24",135.05,24,"Concepts ticked","Return to the map and tick each card in teal before the dashboard."]]],
+ ["Act C · In the RedirHub dashboard","2:16–3:41",[
+  ["b29",167.03,29,"Write the note","The real dashboard, a cursor that clicks what she names, the step eyebrow above."],
+  ["b33",196.64,33,"Tip beside the stage","A solid tip card to the side of the DNS panel, never over it."],
+  ["b35",215.48,35,"HTTPS issued","Green rows are the payoff. The fixed chime plays here."]]],
+ ["Act D · The test, the checks, the close","3:41–5:09",[
+  ["b39",231.88,39,"Your test is wrong","A plain caption with the turn in teal under an empty browser."],
+  ["b41",247.45,41,"Private window","The private window in its own dark chrome, so it reads as different at a glance."],
+  ["b47",268.63,47,"All three green","Checks as lines from old address to new, with teal ticks and a teal summary."],
+  ["b50",289.08,50,"Before you go","Two tips side by side, each with one small prop."],
+  ["b52",297.52,52,"The callback","Return to the opening tab, now fixed, with chips naming what changed."],
+  ["b54",308.22,54,"End card","Two-line headline, where to go next, the logo, and a branded QR with its link underneath."]]]
+];
+const tc=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+const root=document.getElementById("frames");
+for(const [name,span,frames] of ACTS){
+  const sec=document.createElement("section");sec.className="act";
+  sec.innerHTML=`<div class="act-head"><h2>${name}</h2><span>${span}</span></div><div class="strip"></div>`;
+  const strip=sec.querySelector(".strip");
+  for(const [f,t,beat,title,rule] of frames){
+    const fig=document.createElement("figure");
+    fig.innerHTML=`<img src="frames/${f}.jpg" alt="${title}, frame at ${tc(t)}" loading="lazy" width="1600" height="900"><figcaption><div class="tc"><b>${tc(t)}</b><span>beat ${beat}</span></div><h3>${title}</h3><p>${rule}</p></figcaption>`;
+    strip.appendChild(fig);
+  }
+  root.appendChild(sec);
+}
+</script>

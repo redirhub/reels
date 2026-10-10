@@ -31,6 +31,11 @@ WHERE Status = 'Approved external' ORDER BY Tier;
 SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collection://774f12f8-1692-4541-ae20-f32cc3066f1f";
 ```
 
+**YouTube look (landscape videos):** match the approved key frames before building scenes. Stills and
+rules live in `youtube/01_library/style/` (`style-frames.html`, frames in `keyframes/<video>/`), and
+the same page is published at https://claude.ai/artifact/Jizmn6Ra2MigNr68154Hmc (private; share from its
+page). When a video changes the look on purpose, add its frames as a new series there.
+
 ## 2. Process
 
 1. **Brief.** Pick one use case (Domain redirects, Website migrations, Branded links,
