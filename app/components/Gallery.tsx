@@ -37,8 +37,48 @@ function sourcesFor(id: string): Source[] {
 
 type Mode = 'video' | 'live';
 
+/* The gallery is split by shape: vertical reels and landscape videos are watched in different
+   places and need different player sizes, so each gets its own section. The shape comes from the
+   reel's own width and height, so a new reel lands in the right section without extra config. */
+const SECTIONS = [
+    {
+        id: 'short',
+        title: 'Short-form',
+        format: '9:16 vertical',
+        where: 'Instagram Reels, YouTube Shorts, TikTok',
+        test: (r: Reel) => r.height > r.width,
+    },
+    {
+        id: 'long',
+        title: 'Long-form',
+        format: '16:9 landscape',
+        where: 'YouTube, the website',
+        test: (r: Reel) => r.height <= r.width,
+    },
+] as const;
+
 export function Gallery() {
-    return <>{reels.map((r) => <ReelCard key={r.id} reel={r} />)}</>;
+    const groups = SECTIONS.map((s) => ({ ...s, items: reels.filter(s.test) })).filter((g) => g.items.length > 0);
+    return (
+        <>
+            <nav className="sections" aria-label="Sections">
+                {groups.map((g) => (
+                    <a key={g.id} href={`#${g.id}`}>
+                        {g.title} <span>{g.format} · {g.items.length}</span>
+                    </a>
+                ))}
+            </nav>
+            {groups.map((g) => (
+                <section key={g.id} id={g.id} className={`section ${g.id}`}>
+                    <header className="section-head">
+                        <h2>{g.title}</h2>
+                        <p>{g.format} · {g.where} · {g.items.length} {g.items.length === 1 ? 'video' : 'videos'}</p>
+                    </header>
+                    {g.items.map((r) => <ReelCard key={r.id} reel={r} />)}
+                </section>
+            ))}
+        </>
+    );
 }
 
 function ReelCard({ reel: r }: { reel: Reel }) {
