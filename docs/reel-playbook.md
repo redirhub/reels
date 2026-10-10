@@ -31,9 +31,9 @@ WHERE Status = 'Approved external' ORDER BY Tier;
 SELECT "Message / claim", Approval, "Prohibited overclaim / caveat" FROM "collection://774f12f8-1692-4541-ae20-f32cc3066f1f";
 ```
 
-**YouTube look (landscape videos):** every YouTube video gets its own style canvas (live HTML
-mockups of its key frames), named after the video; the next video goes on a new canvas. Rules and the
-list of canvases: [`docs/youtube-style-canvas.md`](youtube-style-canvas.md).
+**YouTube look (landscape videos):** all YouTube videos share one style canvas (live HTML mockups of
+key frames); each video gets its own page on it, named after the video. Rules and the
+list of pages: [`docs/youtube-style-canvas.md`](youtube-style-canvas.md).
 
 ## 2. Process
 
