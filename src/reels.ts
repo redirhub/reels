@@ -57,7 +57,7 @@ export const reels: Reel[] = [
     {
         id: 'redirect-domain',
         title: 'How to redirect a domain to another domain (YouTube, W41)',
-        description: 'RedirHub\'s first YouTube video: a 16:9 motion-graphics tutorial. The note on the door (301), the address book (DNS), the ID card (HTTPS), then the walkthrough in RedirHub, the private-window twist and three checks. Timeline estimated from the script until the voiceover exists (Phase 3).',
+        description: 'RedirHub\'s first YouTube video (5:09): a 16:9 motion-graphics tutorial with voiceover. Three concepts (the 301 note, the DNS address book, the HTTPS ID card), then the walkthrough in the RedirHub dashboard, the private-window test and three checks.',
         component: RedirectDomain,
         defaultProps: redirectDomainDefaults,
         durationInSeconds: REDIRECT_DOMAIN_SECONDS,
