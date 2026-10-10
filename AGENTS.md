@@ -5,6 +5,8 @@ videos built with [Remotion](https://remotion.dev), previewed in a Next.js galle
 
 **Making or changing a reel?** Follow [`docs/reel-playbook.md`](docs/reel-playbook.md): sources
 (Notion IDs), process, decisions log, gotchas and open items. The `new-reel` skill runs it.
+**Making a YouTube video?** It gets its own style canvas named after the video, never a shared one:
+[`docs/youtube-style-canvas.md`](docs/youtube-style-canvas.md).
 
 ## Before you finish
 
