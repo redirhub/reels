@@ -153,8 +153,65 @@ def snap():
     return master(st + reverb(st, 0.5, 0.12, 5000) * 1.5, -1.5)
 
 
+def fixed():
+    """The channel's signature "fixed" chime: two soft bells a fifth apart, a touch of shimmer.
+    Plays only when something that was broken is now right (a green check, a padlock)."""
+    d = 1.1
+    x = np.zeros(int(d * SR))
+    for at, m, g in ((0, 81, 1.0), (0.14, 88, 0.8), (0.14, 93, 0.18)):
+        b = bell(m, 0.9) * g
+        i = int(at * SR)
+        x[i : i + len(b)] += b
+    st = np.stack([x * 0.95, x * 1.05])
+    return master(st + reverb(st, 1.2, 0.35, 5000), -6)
+
+
+def rewind():
+    """Time runs backwards: a short descending sweep with quick ticks under it."""
+    d = 1.1
+    t = tt(d)
+    f = 1400 * np.exp(-t / 0.55) + 180
+    sweep = np.sin(2 * np.pi * np.cumsum(f) / SR) * env(t, 0.01, 0.45) * 0.5
+    ticks = np.zeros(len(t))
+    for k in range(8):
+        i = int((0.08 + k * 0.11) * SR)
+        n = int(0.012 * SR)
+        ticks[i : i + n] += np.sin(2 * np.pi * 2200 * t[:n]) * np.linspace(1, 0, n) * (0.7 - 0.06 * k)
+    x = filt(sweep + ticks, "high", 150)
+    st = np.stack([x, x])
+    return master(st + reverb(st, 0.6, 0.25), -6)
+
+
+def denied():
+    """Soft "that didn't work": two rounded tones stepping down a fourth, no buzz, no thud.
+    Replaces the harsh square-wave error on voice-led videos (Leo: "the error sound feels off")."""
+    d = 0.75
+    t = tt(d)
+    x = np.zeros(len(t))
+    for at, f in ((0.0, 587.33), (0.13, 440.0)):
+        i = int(at * SR)
+        tt_ = t[: len(t) - i]
+        tone = (np.sin(2 * np.pi * f * tt_) + 0.18 * np.sin(2 * np.pi * 2 * f * tt_)) * env(tt_, 0.006, 0.11)
+        x[i:] += tone
+    x = filt(x, "low", 3200)
+    st = np.stack([x, x])
+    return master(st + reverb(st, 0.6, 0.18, 4000), -5)
+
+
+def pop():
+    """A small, round UI pop for things arriving on screen (cards, chips). Quiet and short."""
+    t = tt(0.3)
+    f = 420 + 380 * np.exp(-t / 0.018)
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * env(t, 0.002, 0.05)
+    tick = filt(noise(len(t)), "band", [1500, 5000]) * np.exp(-t / 0.003) * 0.25
+    x = body + tick
+    st = np.stack([x, x])
+    return master(st + reverb(st, 0.4, 0.1, 5000), -6)
+
+
 ALL = {
     "impact": impact, "whoosh": whoosh, "riser": riser, "click": click, "key": key,
     "typing": typing, "alert": alert, "success": success, "stinger": stinger,
     "error": error, "swish_r": swish_r, "swish_l": swish_l, "snap": snap,
+    "fixed": fixed, "rewind": rewind, "denied": denied, "pop": pop,
 }

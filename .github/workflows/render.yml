@@ -14,7 +14,7 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60 # redirect-domain (YouTube, ~6 min of 1080p) roughly doubles the render time
     permissions:
       contents: read
       id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)

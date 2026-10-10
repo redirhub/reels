@@ -1,0 +1,29 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-10T01:15:48Z"},
+  "title": "How to Redirect a Domain to Another Domain (With HTTPS That Actually Works)",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1920, "h": 1080, "title": "Title card"},
+    "Problem.dc.html": {"x": 2000, "y": 0, "w": 1920, "h": 1080, "title": "The problem, in real browser UI"},
+    "ConceptMap.dc.html": {"x": 4000, "y": 0, "w": 1920, "h": 1080, "title": "Concept map"},
+    "Concept301.dc.html": {"x": 0, "y": 1500, "w": 1920, "h": 1080, "title": "One object per idea"},
+    "Dashboard.dc.html": {"x": 2000, "y": 1500, "w": 1920, "h": 1080, "title": "Dashboard step + quick tip"},
+    "Turn.dc.html": {"x": 4000, "y": 1500, "w": 1920, "h": 1080, "title": "The turn (caption)"},
+    "Checks.dc.html": {"x": 0, "y": 3000, "w": 1920, "h": 1080, "title": "Checks, all green"},
+    "Tips.dc.html": {"x": 2000, "y": 3000, "w": 1920, "h": 1080, "title": "Before you go"},
+    "EndCard.dc.html": {"x": 4000, "y": 3000, "w": 1920, "h": 1080, "title": "End card"},
+    "System.dc.html": {"x": 0, "y": 4500, "w": 1920, "h": 1080, "title": "Colour, type, layout"},
+    "Sound.dc.html": {"x": 2000, "y": 4500, "w": 1920, "h": 1080, "title": "Sound and timing"}
+  },
+  "order": ["Main.dc.html", "Problem.dc.html", "ConceptMap.dc.html", "Concept301.dc.html", "Dashboard.dc.html", "Turn.dc.html", "Checks.dc.html", "Tips.dc.html", "EndCard.dc.html", "System.dc.html", "Sound.dc.html"],
+  "notes": {
+    "rowA": {"x": 0, "y": -300, "text": "Act A · Open on the problem", "kind": "title1", "maxW": 5920},
+    "rowB": {"x": 0, "y": 1200, "text": "Act B–C · Teach one idea at a time, then do it in the dashboard", "kind": "title1", "maxW": 5920},
+    "rowC": {"x": 0, "y": 2700, "text": "Act D · Prove it, then close", "kind": "title1", "maxW": 5920},
+    "rowD": {"x": 0, "y": 4200, "text": "The system behind every frame", "kind": "title1", "maxW": 5920},
+    "about": {"x": 4000, "y": 4500, "w": 760, "maxH": 900, "size": "l", "fill": "teal", "text": "W41 · YouTube · approved cut, 5:09 (commit 9ca8786).\n\nEvery frame is a live HTML mockup at 1920×1080, redrawn from the film. This canvas belongs to this video only. The next video gets its own canvas, named after its title, starting from a copy of these frames (rules: docs/youtube-style-canvas.md in redirhub/reels).\n\nCode tokens: src/remotion/brand/tokens.ts. Film stills: youtube/01_library/style/keyframes/w41-redirect-domain/."}
+  },
+  "designSystems": []
+}

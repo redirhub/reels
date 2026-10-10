@@ -7,7 +7,8 @@ Everything is synthesized from oscillators and noise, so the audio is ours:
 no samples, no stock library, no licensing questions.
 
 Writes:
-  public/audio/<id>-beat.mp3      for each src/remotion/reels/<id>/music.json (see beat.py)
+  public/audio/<id>-beat.mp3      for each src/remotion/reels/<id>/music.json (beat.py, or pad.py
+                                  when music.json says "kind": "pad")
   public/audio/sfx/<name>.wav     shared effects (see sfx.py)
   public/audio/sfx/manifest.json  each effect's length, read by the Sfx component
 
@@ -24,6 +25,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 import sfx  # noqa: E402
 from beat import beat  # noqa: E402
+from pad import bed  # noqa: E402
 from dsp import SR, ffmpeg, seed, write_wav  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -40,7 +42,11 @@ def integrated_lufs(path):
 def main():
     for cfg_path in sorted((ROOT / "src" / "remotion" / "reels").glob("*/music.json")):
         reel_id = cfg_path.parent.name
-        st, choices = beat(reel_id, json.loads(cfg_path.read_text()))
+        cfg = json.loads(cfg_path.read_text())
+        if cfg.get("kind") == "pad":   # voice-led video: a quiet bed instead of drums (pad.py)
+            st, choices = bed(reel_id, cfg), "pad"
+        else:
+            st, choices = beat(reel_id, cfg)
         tmp = OUT / f"{reel_id}-beat.wav"
         write_wav(tmp, st)
         # One static gain to -16 LUFS (the beat sits under the SFX; the full mix lands near the

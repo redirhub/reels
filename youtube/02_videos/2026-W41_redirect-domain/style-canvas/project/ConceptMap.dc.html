@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept map</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: radial-gradient(ellipse 1100px 700px at 50% 20%, #1A2A55 0%, #0B1426 70%); font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 64px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; width: 1340px">
+<sc-for list="{{cards}}" as="card" hint-placeholder-count="3">
+<div style="position: relative; height: 230px; box-sizing: border-box; padding: 40px 40px 36px 52px; border-radius: 22px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); display: flex; flex-direction: column; justify-content: space-between">
+<span style="position: absolute; left: 0; top: 40px; bottom: 40px; width: 5px; border-radius: 3px; background: #20A795"></span>
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 30px; color: #20A795">{{card.num}}</span>
+<sc-if value="{{ticked}}" hint-placeholder-val="{{ true }}">
+<span style="width: 46px; height: 46px; border-radius: 50%; background: #20A795; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B1426" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.02em; line-height: 1">{{card.name}}</span>
+<span style="font-size: 32px; color: #B9C6D8">{{card.metaphor}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 38px; color: #B9C6D8">Three concepts. Then we do it together.</p>
+<div style="position: absolute; left: 100px; bottom: 72px; display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.12em; color: #6B7A90">
+<span>NAME THE MAP BEFORE TEACHING IT</span>
+<span>REVISIT IT TICKED BEFORE THE DASHBOARD</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ticked":{"editor":"boolean","default":false},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      ticked: this.props.ticked ?? false,
+      cards: [
+        { num: '01', name: 'The 301', metaphor: 'the note' },
+        { num: '02', name: 'DNS', metaphor: 'the address book' },
+        { num: '03', name: 'HTTPS', metaphor: 'the ID card' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

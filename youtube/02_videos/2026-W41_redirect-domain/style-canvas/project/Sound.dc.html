@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sound and timing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; background: #0B1426; font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; color: #FFFFFF; padding: 90px 110px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 110px; align-content: start">
+<div style="display: flex; flex-direction: column; gap: 26px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">SOUND · ONE PER STORY BEAT</span>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{sounds}}" as="s" hint-placeholder-count="7">
+<div style="display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.12)">
+<span style="font-size: 28px; font-weight: 700">{{s.name}}</span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Inter', sans-serif; font-size: 23px; color: #B9C6D8">{{s.when}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">{{s.src}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 26px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">TIMING</span>
+<sc-for list="{{timing}}" as="t" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.12)">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 40px; color: #20A795">{{t.value}}</span>
+<span style="font-family: 'Inter', sans-serif; font-size: 23px; color: #B9C6D8">{{t.what}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      sounds: [
+        { name: 'Transition', when: 'Only at a change of place: into the title, into the dashboard. Two per film.', src: 'Pixabay · trading_nation "Transition Coat"' },
+        { name: 'Click', when: 'Each real button press on screen. No hover or typing-per-key sounds.', src: 'Pixabay · Universfield "Computer Mouse Click"' },
+        { name: 'Typing', when: 'Each field that fills, once.', src: 'Generated' },
+        { name: 'Pop', when: 'A card or chip arriving.', src: 'Pixabay · joe_bou_khalil "Micro Transient Balloon Burst"' },
+        { name: 'Fixed chime', when: 'Only when something broken is now right. The signature.', src: 'Generated' },
+        { name: 'Problem', when: 'One soft tone per run of problems, not one per problem.', src: 'Generated' },
+        { name: 'Music bed', when: 'Start to end, steady, dipping under quiet words. Never near the voice.', src: 'Generated pad until Leo’s tracks land' }
+      ],
+      timing: [
+        { value: '−31 LUFS', what: 'music under a −15 LUFS voice; the build fails within 11 LU' },
+        { value: 'words ÷ 3 + 1 s', what: 'minimum time any line stays on screen' },
+        { value: '≈ 1.5 s', what: 'title card hold' },
+        { value: '0.5 s', what: 'pause to close an act' },
+        { value: '≈ 3.5 s', what: 'end card hold after the last line' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

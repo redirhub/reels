@@ -5,6 +5,8 @@ videos built with [Remotion](https://remotion.dev), previewed in a Next.js galle
 
 **Making or changing a reel?** Follow [`docs/reel-playbook.md`](docs/reel-playbook.md): sources
 (Notion IDs), process, decisions log, gotchas and open items. The `new-reel` skill runs it.
+**Making a YouTube video?** It gets its own style canvas named after the video, never a shared one:
+[`docs/youtube-style-canvas.md`](docs/youtube-style-canvas.md).
 
 ## Before you finish
 
@@ -69,7 +71,9 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 - **Music = a generated beat per reel**, never hand-composed: `src/remotion/reels/<id>/music.json`
   → `npm run audio` → `public/audio/<id>-beat.mp3`, played by `<Beat />`. Keep `duration` equal
   to the reel's length (`npm run render` fails otherwise). The beat is **drums only** (no bass,
-  chords or melody) and normalized to -16 LUFS with a static gain. A reel may instead ship a
+  chords or melody) and normalized to -16 LUFS with a static gain. A voice-led video (YouTube)
+  says `"kind": "pad"` in its `music.json` and gets a quiet generated pad instead (`pad.py`), played
+  under the voiceover at a low volume. A reel may instead ship a
   licensed track at the same path (no `music.json`), fitted with `scripts/audio/prepare_track.py`
   and recorded in `docs/audio-licenses.md` (see `free-coffee`).
 - SFX sit on top via `<Sfx cues={…} />` (`components/Sfx.tsx`), with cues as

@@ -9,6 +9,8 @@ import { FreeCoffee } from './remotion/reels/free-coffee/FreeCoffee';
 import { freeCoffeeDefaults } from './remotion/reels/free-coffee/props';
 import { QrNoReprint } from './remotion/reels/qr-no-reprint/QrNoReprint';
 import { qrNoReprintDefaults } from './remotion/reels/qr-no-reprint/props';
+import { RedirectDomain, REDIRECT_DOMAIN_SECONDS } from './remotion/reels/redirect-domain/RedirectDomain';
+import { redirectDomainDefaults } from './remotion/reels/redirect-domain/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -51,5 +53,14 @@ export const reels: Reel[] = [
         defaultProps: freeCoffeeDefaults,
         durationInSeconds: 16,
         ...VERTICAL,
+    },
+    {
+        id: 'redirect-domain',
+        title: 'How to redirect a domain to another domain (YouTube, W41)',
+        description: 'RedirHub\'s first YouTube video: a 16:9 motion-graphics tutorial. The note on the door (301), the address book (DNS), the ID card (HTTPS), then the walkthrough in RedirHub, the private-window twist and three checks. Timeline estimated from the script until the voiceover exists (Phase 3).',
+        component: RedirectDomain,
+        defaultProps: redirectDomainDefaults,
+        durationInSeconds: REDIRECT_DOMAIN_SECONDS,
+        ...LANDSCAPE,
     },
 ];

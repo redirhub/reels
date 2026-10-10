@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Colour, type, layout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; background: #0B1426; font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; color: #FFFFFF; padding: 90px 110px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 110px; row-gap: 60px; align-content: start">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">COLOUR HAS A JOB</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{swatches}}" as="s" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="height: 96px; border-radius: 14px; background: {{s.hex}}; border: 1px solid rgba(255,255,255,0.14)"></span>
+<span style="font-size: 24px; font-weight: 700">{{s.name}}</span>
+<span style="font-family: 'Inter', sans-serif; font-size: 19px; color: #B9C6D8">{{s.job}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 17px; color: #6B7A90">{{s.hex}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 28px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">THREE FACES, THREE ROLES</span>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.1em; color: #6B7A90">DISPLAY · PLUS JAKARTA SANS 800</span>
+<span style="font-size: 76px; font-weight: 800; letter-spacing: -0.03em; line-height: 1">Old domain. <span style="color: #20A795">Fixed.</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.1em; color: #6B7A90">CAPTIONS AND PRODUCT UI · INTER</span>
+<span style="font-family: 'Inter', sans-serif; font-size: 40px; color: #B9C6D8">Your redirect might be fine.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.1em; color: #6B7A90">ADDRESSES AND RECORDS · JETBRAINS MONO</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 40px">mydomain.com → mybrand.com</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.1em; color: #6B7A90">EYEBROW · JAKARTA 700, TRACKED, TEAL</span>
+<span style="font-weight: 700; font-size: 26px; letter-spacing: 0.16em; color: #20A795">STEP TWO · UPDATE THE ADDRESS BOOK</span>
+</div>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 22px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 40px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">LAYOUT</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; font-family: 'Inter', sans-serif; font-size: 24px; line-height: 1.45; color: #B9C6D8">
+<span><b style="color: #FFFFFF">One stage, centred on Night.</b> One idea per frame. A soft blue glow at the top; nothing else in the background.</span>
+<span><b style="color: #FFFFFF">Eyebrow top-left at 120 px.</b> It names the act or step, so a viewer who skips in knows where they are.</span>
+<span><b style="color: #FFFFFF">Captions under the stage.</b> Ink soft; the payoff phrase turns teal. Never over the thing it explains.</span>
+<span><b style="color: #FFFFFF">Cards: glass, 22 px radius,</b> a short teal bar on the left. Tips are solid, beside the stage.</span>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      swatches: [
+        { name: 'Night', job: 'The canvas', hex: '#0B1426' },
+        { name: 'Teal', job: 'Fixed, passing, the payoff', hex: '#20A795' },
+        { name: 'Signal red', job: 'Broken', hex: '#E5484D' },
+        { name: 'Amber', job: 'Warning, once a scene', hex: '#E59426' },
+        { name: 'Blue', job: 'Product UI only', hex: '#1C6DB6' },
+        { name: 'Ink soft', job: 'Captions, labels', hex: '#B9C6D8' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

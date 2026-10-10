@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Checks, all green</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: radial-gradient(ellipse 1100px 700px at 50% 20%, #1A2A55 0%, #0B1426 70%); font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; color: #FFFFFF; padding: 240px 120px 0; display: flex; flex-direction: column; gap: 56px">
+<sc-for list="{{checks}}" as="c" hint-placeholder-count="3">
+<div style="display: flex; gap: 52px; align-items: flex-start">
+<span style="flex: none; width: 56px; height: 56px; border-radius: 50%; background: #20A795; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: center; gap: 18px">
+<span style="display: flex; align-items: center; gap: 14px; padding: 12px 24px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); font-family: 'JetBrains Mono', monospace; font-size: 32px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 50%; background: #20A795"></span>{{c.from}}</span>
+<span style="flex: 1; height: 4px; border-radius: 2px; background: #20A795"></span>
+<svg width="22" height="26" viewBox="0 0 24 24" fill="none" stroke="#20A795" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left: -14px"><path d="M8 4l8 8-8 8"></path></svg>
+<span style="display: flex; align-items: center; gap: 14px; padding: 12px 24px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); font-family: 'JetBrains Mono', monospace; font-size: 32px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 50%; background: #20A795"></span>{{c.to}}</span>
+</div>
+<span style="font-family: 'Inter', sans-serif; font-size: 26px; color: #6B7A90">{{c.note}}</span>
+</div>
+</div>
+</sc-for>
+<div style="display: flex; flex-direction: column; gap: 34px; margin-top: 20px">
+<span style="height: 3px; background: #20A795; width: 1660px"></span>
+<span style="font-size: 52px; font-weight: 800; letter-spacing: -0.02em; color: #20A795">All three green.</span>
+</div>
+<div style="position: absolute; left: 100px; bottom: 34px; display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.12em; color: #6B7A90">
+<span>PROOF AS OLD → NEW LINES</span>
+<span>POP PER CHECK · FIXED CHIME ON ALL GREEN</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      checks: [
+        { from: 'https://mydomain.com', to: 'https://mybrand.com', note: 'Old domain, with https' },
+        { from: 'mydomain.com/pricing', to: 'mybrand.com/pricing', note: 'Deep link lands on the same page' },
+        { from: 'www.mydomain.com', to: 'mybrand.com', note: 'www works too' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

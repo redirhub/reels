@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Title card</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: radial-gradient(ellipse 1100px 700px at 50% 20%, #1A2A55 0%, #0B1426 70%); font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; text-align: center">
+<h1 style="margin: 0; font-size: 104px; line-height: 1.04; font-weight: 800; letter-spacing: -0.03em; white-space: pre-line">How to redirect a domain
+to another domain.</h1>
+<p style="margin: 0; font-size: 44px; font-weight: 500; color: {{accent}}">With HTTPS that actually works.</p>
+<div style="position: absolute; left: 100px; bottom: 72px; display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.12em; color: #6B7A90">
+<span>TITLE CARD</span>
+<span>HOLD ≈ 1.5 S</span>
+<span>TRANSITION SOUND IN · 1 OF 2</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#20A795","options":["#20A795","#E59426","#FFFFFF"]},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#20A795' };
+  }
+}
+</script>
+</body>
+</html>
