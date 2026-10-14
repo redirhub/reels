@@ -111,7 +111,7 @@
       "y": 0,
       "w": 1920,
       "h": 1080,
-      "title": "Where extra domains lead",
+      "title": "What visitors hit",
       "page": "w43"
     },
     "w43-Title.dc.html": {
@@ -131,7 +131,7 @@
       "page": "w43"
     },
     "w43-Copies.dc.html": {
-      "x": 2000,
+      "x": 4000,
       "y": 1900,
       "w": 1920,
       "h": 1080,
@@ -139,7 +139,7 @@
       "page": "w43"
     },
     "w43-OneAddress.dc.html": {
-      "x": 4000,
+      "x": 8000,
       "y": 1900,
       "w": 1920,
       "h": 1080,
@@ -257,6 +257,22 @@
       "h": 1080,
       "title": "Sound and timing",
       "page": "w43"
+    },
+    "w43-Perfect.dc.html": {
+      "x": 2000,
+      "y": 1900,
+      "w": 1920,
+      "h": 1080,
+      "title": "Way one: it looks perfect",
+      "page": "w43"
+    },
+    "w43-AddressBar.dc.html": {
+      "x": 6000,
+      "y": 1900,
+      "w": 1920,
+      "h": 1080,
+      "title": "The twist: what the visitor sees",
+      "page": "w43"
     }
   },
   "createdOnFiles": {
@@ -327,62 +343,62 @@
       "x": 0,
       "y": 1120,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 1–5 · cold open, no eyebrow.\nIN: cut on her first word. Each pill appears on its name: .com, .net, .co, then the typo (the swapped letters underlined), then the flyer one.\nOUT: dock. The pills slide left as the dead ends open (now they're context).\nSOUND: pad only. FEEL: \"that's me\".",
+      "text": "Beats 1–5 · cold open, no eyebrow.\nIN: cut on her first word. Each pill appears on its name: .com, .net, .co, then the typo (the swapped letters underlined), then the flyer one.\nOUT: dock. The pills slide left as the dead ends open (now they're context).\nSOUND: pad only. FEEL: \"that's me\".\nROOM: Dark mesh (site hero) + grid",
       "page": "w43"
     },
     "w43-DeadEnds-note": {
       "x": 2000,
       "y": 1120,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 6–7.\nIN: cut. Parked page, then \"can't be reached\", then \"Not secure\" racks into focus (focus rack: three places, one job).\nOUT: cut to the title.\nSOUND: one soft problem tone on \"Not secure\". FEEL: a small, specific loss, never blame.",
+      "text": "Beats 6–7.\nIN: cut. Parked page, then \"can't be reached\", then \"Not secure\" racks into focus (focus rack: three places, one job).\nOUT: cut to the title.\nSOUND: one soft problem tone on \"Not secure\". FEEL: a small, specific loss, never blame.\nROOM: Dark mesh, red glow under the stage",
       "page": "w43"
     },
     "w43-Title-note": {
       "x": 4000,
       "y": 1120,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 8–9, merged into one line (script-deltas #2).\nIN: transition sound, 1 of 2. The five grey dots draw into one teal dot, then the title lands.\nHOLD ≈ 1.5 s. OUT: cut.\nFEEL: a promise, not a pitch.",
+      "text": "Beats 8–9, merged into one line (script-deltas #2).\nIN: transition sound, 1 of 2. The five grey dots draw into one teal dot, then the title lands.\nHOLD ≈ 1.5 s. OUT: cut.\nFEEL: a promise, not a pitch.\nROOM: Brand sweep + perspective floor",
       "page": "w43"
     },
     "w43rowB": {
       "x": 0,
       "y": 1640,
-      "text": "B · How it works, and the shortcut that fakes it",
+      "text": "B · How it works, the shortcut that fakes it, and the twist",
       "kind": "title1",
-      "maxW": 5920,
+      "maxW": 9920,
       "page": "w43"
     },
     "w43-Pointer-note": {
       "x": 0,
       "y": 3020,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 10–11.\nIN: shared-element morph. The mybrand.com pill from the hook becomes this pill; the line draws to the address book, then to the site (draw = traffic moves).\nOUT: the one pill becomes five, every line drawing into the same host.\nFEEL: oh, a domain is just a pointer.",
+      "text": "Beats 10–11.\nIN: room change, dark → light (act B opens). The mybrand.com pill from the hook morphs into this glass pill; the dotted line draws to the address book, then to the site.\nOUT: the one pill becomes five as the five sites rise into the next frame.\nFEEL: oh, a domain is just a pointer.\nROOM: Light + dot pattern",
       "page": "w43"
     },
     "w43-Copies-note": {
-      "x": 2000,
-      "y": 3020,
-      "w": 1180,
-      "maxH": 420,
-      "size": "m",
-      "text": "THE TWIST · beats 12–17.\nIN: draw. Five lines run into one host; five identical windows stack, each with its own address, the typo in front.\nBEAT: hold the deck alone on \"it looks perfect\". Then the search card slides in and the address it picked lights amber (the frame's only amber). One soft problem tone, then 1 s of silence.\nOUT: TIME-REVERSE, the film's only one. The deck unstacks, the lines run back to their domains…\nFEEL: the floor shifts.",
-      "page": "w43"
-    },
-    "w43-OneAddress-note": {
       "x": 4000,
       "y": 3020,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 18–20.\nIN: …and the same lines re-route: four domains swing into https://mybrand.com. A 301 tag pops onto each line on \"with a 301\".\nOUT: the main pill docks as the step map comes up.\nSOUND: one pop per tag. FEEL: relief. That's what clean looks like.",
+      "text": "THE TWIST · beats 15–16.\nIN: the room plunges from light to dark red. The cards stay put, drain to grey and get stamped COPY one by one; mybrand.net stays lit under the magnifier (the frame's only amber): Google's pick, labelled Example.\nSOUND: one soft problem tone as the room drops.\nOUT: push into the address bar of the typo card.\nFEEL: the floor shifts.\nROOM: Twist night (dark red)",
+      "page": "w43"
+    },
+    "w43-OneAddress-note": {
+      "x": 8000,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 460,
+      "size": "m",
+      "text": "Beats 18–20.\nIN: …and re-route: four domains fan into one node, then a thick teal line to https://mybrand.com. A 301 tag pops onto each line on \"with a 301\".\nOUT: the main card docks as the steps come up.\nSOUND: one pop per tag. FEEL: relief.\nROOM: Dark mesh, teal glow on the main address",
       "page": "w43"
     },
     "w43rowC": {
@@ -397,54 +413,54 @@
       "x": 0,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beat 21, reused ticked at the recap (49).\nA list replaces narration: VO says only \"Three steps, and one test.\"\nAt 49 each card takes a teal check as she names it.\nOUT: transition sound, 2 of 2. Card 01 morphs into step one.",
+      "text": "Beat 21, reused ticked at the recap (49).\nA list replaces narration: VO says only \"Three steps, and one test.\"\nAt 49 each card takes a teal check as she names it.\nOUT: transition sound, 2 of 2. Card 01 morphs into step one (room change into the light product room).\nROOM: Brand radial + floor",
       "page": "w43"
     },
     "w43-MainAddress-note": {
       "x": 2000,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 22–24.\nIN: shared-element morph. The main pill from way two grows; the other four dim. The two chips land on \"exactly\".\nThe tip slides in beside (register change: an aside).\nOUT: cut into the dashboard. FEEL: a decision, made calmly.",
+      "text": "Beats 22–24.\nIN: shared-element morph. The main pill from way two grows; the other four dim. The two chips land on \"exactly\".\nThe tip slides in beside (register change: an aside).\nOUT: cut into the dashboard. FEEL: a decision, made calmly.\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-DomainRedirect-note": {
       "x": 4000,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 25–29.\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the chooser is the real one).\nFields fill on her words; 301 on \"Type\"; Keep path flips teal on \"path\". \"www comes along\" docks beside on 29.\nOUT: Save → success sound → the list.\nFLAG: form labels and the default type not confirmed (open-questions).",
+      "text": "Beats 25–29.\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the chooser is the real one).\nFields fill on her words; 301 on \"Type\"; Keep path flips teal on \"path\". \"www comes along\" docks beside on 29.\nOUT: Save → success sound → the list.\nFLAG: form labels and the default type not confirmed (open-questions).\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-LinksList-note": {
       "x": 6000,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 30–32.\nIN: cut on Save. Rows arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the real Create button, the frame's only amber.\nOUT: cut to Hostnames.",
+      "text": "Beats 30–32.\nIN: cut on Save. Rows arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the real Create button, the frame's only amber.\nOUT: cut to Hostnames.\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-ConnectDNS-note": {
       "x": 8000,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS, the real dialog on its Automatic tab. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.",
+      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS, the real dialog on its Automatic tab. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-HttpsIssued-note": {
       "x": 10000,
       "y": 4920,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beat 39.\nIN: the three steps tick down the list. On \"automatically\" the padlock closes and grows out of the dialog (shared element).\nSOUND: success. FEEL: step three pays off.",
+      "text": "Beat 39.\nIN: the three steps tick down the list. On \"automatically\" the padlock closes and grows out of the dialog (shared element).\nSOUND: success. FEEL: step three pays off.\nROOM: Brand sweep (payoff)",
       "page": "w43"
     },
     "w43rowD": {
@@ -459,60 +475,60 @@
       "x": 0,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 40–43.\nIN: one domain splits into four (2 × 2), then the grid fills row by row to sixteen (draw).\nOn \"easiest to forget\" the https://www. column takes the amber outline.\nOUT: shared-element morph. The amber cell https://www.mybrand.net flies into the checker's input.",
+      "text": "Beats 40–43.\nIN: one domain splits into four (2 × 2), then the grid fills row by row to sixteen (draw).\nOn \"easiest to forget\" the https://www. column takes the amber outline.\nOUT: shared-element morph. The amber cell https://www.mybrand.net flies into the checker's input.\nROOM: Lab: Night + grid",
       "page": "w43"
     },
     "w43-Checker-note": {
       "x": 2000,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 43–45.\nIN: the morph lands in the input. Check Redirect. The chain draws: hop 1 → 301 → hop 2 → 200.\nThe three checks land on \"One hop. A 301. Lands on…\"\nFIXED CHIME on \"That's a pass\" (1 of 2). Beat 45 is VO only.\nFLAG: the checker's result layout is drawn, not captured (open-questions).",
+      "text": "Beats 43–45.\nIN: the morph lands in the input. Check Redirect. The chain draws: hop 1 → 301 → hop 2 → 200.\nThe three checks land on \"One hop. A 301. Lands on…\"\nFIXED CHIME on \"That's a pass\" (1 of 2). Beat 45 is VO only.\nFLAG: the checker's result layout is drawn, not captured (open-questions).\nROOM: Lab: Night + grid, teal glow",
       "page": "w43"
     },
     "w43-AllGreen-note": {
       "x": 4000,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "The one combined-result frame (new).\nIN: back to the grid. Rows turn teal one by one, four pops.\nOUT: silence (done). Then the honest note.",
+      "text": "The one combined-result frame (new).\nIN: back to the grid. Rows turn teal one by one, four pops.\nOUT: silence (done). Then the honest note.\nROOM: Brand radial",
       "page": "w43"
     },
     "w43-Honest-note": {
       "x": 6000,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beat 47.\nRegister change: the film steps back and talks straight. No effect.\nThe white line holds, then the soft line lands.\nOUT: cut. FEEL: trust.",
+      "text": "Beat 47.\nRegister change: the film steps back and talks straight. No effect.\nThe teal card (what it does) lands first and holds; then the grey card (what it doesn't).\nOUT: cut. FEEL: trust.\nROOM: Charcoal",
       "page": "w43"
     },
     "w43-Renew-note": {
       "x": 8000,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beat 48.\nIN: cut. The flyer domain and its renewal card (the date is an example).\nOUT: the step map returns ticked for the recap (49), then the end card.",
+      "text": "Beat 48.\nIN: cut. The flyer domain and its paper renewal calendar (the date is an example).\nOUT: the step map returns ticked for the recap (49), then the end card.\nROOM: Light + paper prop",
       "page": "w43"
     },
     "w43-EndCard-note": {
       "x": 10000,
       "y": 6820,
       "w": 1180,
-      "maxH": 420,
+      "maxH": 460,
       "size": "m",
-      "text": "Beats 50–52.\nIN: the five hook pills turn teal and collapse into \"Five domains. One website.\" FIXED CHIME (2 of 2).\nThe right half stays clear for YouTube's end screen (next week's video).\nThe QR slot waits for the branded link.",
+      "text": "Beats 50–52.\nIN: the five hook pills turn teal and collapse into \"Five domains. One website.\" FIXED CHIME (2 of 2).\nThe right half stays clear for YouTube's end screen (next week's video).\nThe QR slot waits for the branded link.\nROOM: Dark mesh (site hero)",
       "page": "w43"
     },
     "w43rowS": {
       "x": 0,
       "y": 7340,
-      "text": "The system behind every frame (changed from W41 where noted)",
+      "text": "The system behind every frame: rooms, colour, type, sound",
       "kind": "title1",
       "maxW": 5920,
       "page": "w43"
@@ -525,7 +541,25 @@
       "size": "l",
       "fill": "teal",
       "page": "w43",
-      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey-frame pass for Review 2: comment on any frame. Each frame is the peak moment of its beat; the sticky under it gives the move in and out, the sound and the feeling.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes the frames propose: script-deltas.md; open questions: open-questions.md, both beside the frames."
+      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey frames for Review 2, round 2 (after Leo's notes, Oct 14): each act now has its own room built from the RedirHub website's gradients (dark mesh, brand sweep, light, twist night, brand radial, lab, charcoal), with the site's glass cards. The twist is three frames: It looks perfect → five copies → the address bar.\n\nComment on any frame. The sticky under it gives the move in and out, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes: script-deltas.md; open questions: open-questions.md."
+    },
+    "w43-Perfect-note": {
+      "x": 2000,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 460,
+      "size": "m",
+      "text": "NEW · beats 12–14. Way one, the calm before the twist.\nIN: five lines draw into one host; five identical sites pop up, each with its own address, and each takes a teal tick.\nBEAT: hold alone on \"And it looks perfect.\" Leave the beat.\nOUT: the room drops to dark red with the cards in place (same layout as the next frame, so it reads as a reversal).\nROOM: Light + dot pattern",
+      "page": "w43"
+    },
+    "w43-AddressBar-note": {
+      "x": 6000,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 460,
+      "size": "m",
+      "text": "NEW · beat 17. The twist, made personal.\nIN: push-in from the typo card. The address bar fills the frame; the other names stack behind it.\n\"rna\" is the swapped letters, red with a wavy underline.\nThen 1 s of silence.\nOUT: TIME-REVERSE, the film's only one. Bar → cards → five lines run back to their domains…\nROOM: Twist night (dark red)",
+      "page": "w43"
     }
   },
   "order": [
@@ -545,7 +579,9 @@
     "w43-DeadEnds.dc.html",
     "w43-Title.dc.html",
     "w43-Pointer.dc.html",
+    "w43-Perfect.dc.html",
     "w43-Copies.dc.html",
+    "w43-AddressBar.dc.html",
     "w43-OneAddress.dc.html",
     "w43-Steps.dc.html",
     "w43-MainAddress.dc.html",

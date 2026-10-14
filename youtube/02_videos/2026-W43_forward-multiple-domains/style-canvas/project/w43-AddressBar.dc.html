@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>W43 · What the visitor sees</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+[style*="JetBrains"]{font-variant-ligatures:none}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: radial-gradient(ellipse 1000px 560px at 50% 45%, rgba(229,72,77,0.16) 0%, rgba(229,72,77,0) 100%), linear-gradient(#181D27 0%, #0B1426 100%); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #FFFFFF">
+<div style="position: absolute; left: 120px; top: 110px; display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 700; letter-spacing: 0.14em; color: #B9C6D8"><span style="width: 36px; height: 3px; border-radius: 2px; background: #E5484D"></span>WHAT YOUR VISITOR SEES</div>
+<div data-ui="browser" style="position: absolute; left: 300px; top: 215px; width: 1320px; height: 80px; border-radius: 40px; background: #FFFFFF; opacity: 0.18; display: flex; align-items: center; padding: 0 44px; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 40px; color: #181D27">mybrand.co</div>
+<div data-ui="browser" style="position: absolute; left: 210px; top: 310px; width: 1500px; height: 96px; border-radius: 48px; background: #FFFFFF; opacity: 0.34; display: flex; align-items: center; padding: 0 52px; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 50px; color: #181D27">mybrand.net</div>
+<div data-ui="browser" style="position: absolute; left: 120px; top: 425px; width: 1680px; height: 220px; border-radius: 110px; background: #FFFFFF; box-shadow: 0 50px 120px rgba(0,0,0,0.55); display: flex; align-items: center; gap: 40px; padding: 0 80px; box-sizing: border-box; color: #181D27">
+<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475467" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 120px; font-weight: 500; letter-spacing: -0.02em">myb<span style="text-decoration: underline wavy #E5484D; text-decoration-thickness: 5px; text-underline-offset: 22px; color: #E5484D">rna</span>d.com</span>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 730px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em">Same site. <span style="color: #E5484D">A different name</span> every time.</span>
+<span style="font-size: 30px; font-weight: 500; color: #B9C6D8">Whatever they typed stays in the bar. Even the typo.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

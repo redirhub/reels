@@ -6,7 +6,9 @@
 Checks every w43-/wNN- prefixed frame (set PREFIX below): text inside the 120 px gutters and above y 950,
 fonts (Jakarta / JetBrains Mono for every domain / Inter only inside [data-ui]), colours on the token list,
 amber on at most one object, ink outside the safe area. Mark product UI with data-ui, the end card with
-data-endcard, solid boards with data-solid-bg, the logo with data-logo.
+data-endcard, solid boards with data-solid-bg, the logo with data-logo, and decorative background
+layers (grids, floors, glows) with data-bg: the ink check compares each frame with a render of its background
+only, so those layers may reach the edge.
 
 Each frame is written with literal markup (no {{holes}}), so it renders in plain Chromium once the
 canvas runtime line is dropped and the brand fonts are loaded from public/fonts. The audit runs in
@@ -82,7 +84,8 @@ window.addEventListener('load', () => setTimeout(() => {
 
 HEX = """0B1426 1A2A55 20A795 E5484D E59426 1C6DB6 FFFFFF B9C6D8 6B7A90
 E8F0F8 D1E9FF 181D27 101828 344054 475467 667085 98A2B3 D0D5DD EAECF0 F2F4F7 F9FAFB D92D20 FEF3F2 FECDCA B42318 ECFDF3 ABEFC6 067647
-FBF7EF F4EFE6 FFF4D6 3B3A36 6B675F 8A8478 1E2A44 F97066 FDB022 32D583 000000""".split()
+FBF7EF F4EFE6 FFF4D6 3B3A36 6B675F 8A8478 1E2A44 F97066 FDB022 32D583 000000
+F2F7FC EEF8F6 7FB6E6 5FD1BE FFD9A3 1D81AB 1962A4 CC7D1F B26A12 1D7BAD""".split()
 ALLOWED = {tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) for h in HEX}
 
 def rgb_of(v):
@@ -91,8 +94,10 @@ def rgb_of(v):
     p = [float(x) for x in m.group(1).replace('/', ',').split(',') if x.strip()]
     return tuple(int(round(x)) for x in p[:3]), (p[3] if len(p) > 3 else 1.0)
 
-def page(src):
+def page(src, bg_only=False):
     s = open(src).read()
+    if bg_only:
+        s = s.replace('<head>', '<head><style>x-dc > div > *:not([data-bg]){visibility:hidden !important}</style>', 1)
     s = s.replace('<script src="./support.js"></script>', '')
     s = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^>]*>', '', s)
     s = s.replace('<head>', '<head><style>' + FACES + '</style>', 1)
@@ -105,10 +110,6 @@ def chrome(args):
 
 files = sorted(f for f in os.listdir(PROJ) if f.endswith('.dc.html') and f.startswith(PREFIX))
 if NAMES: files = [f for f in files if any(n in f for n in NAMES)]
-bgp = os.path.join(WORK, 'bg.html')
-open(bgp, 'w').write('<html><body style="margin:0"><div style="width:1920px;height:1080px;background:radial-gradient(ellipse 1100px 700px at 50% 20%, #1A2A55 0%, #0B1426 70%)"></div></body></html>')
-chrome([f'--screenshot={WORK}/bg.png', f'file://{bgp}'])
-BG = Image.open(f'{WORK}/bg.png').convert('RGB')
 report = {}
 for f in files:
     name = f[:-8]
@@ -126,6 +127,9 @@ for f in files:
     plain = 'data-solid-bg' in open(os.path.join(PROJ, f)).read()
     issues = []
     if not plain:
+        bp = os.path.join(WORK, f + '.bg.html'); open(bp, 'w').write(page(os.path.join(PROJ, f), bg_only=True))
+        chrome([f'--screenshot={WORK}/{name}.bg.png', f'file://{bp}'])
+        BG = Image.open(f'{WORK}/{name}.bg.png').convert('RGB')
         diff = ImageChops.difference(img, BG).convert('L').point(lambda p: 255 if p > 28 else 0)
         low = diff.crop((0, 951, 1920, 1080)).getbbox()
         if low: issues.append(f'ink below y=950 at {(low[0], low[1] + 951, low[2], low[3] + 951)}')

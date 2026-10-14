@@ -1,4 +1,4 @@
-# W43 script deltas: what the key frames change in script v1 (2026-10-14)
+# W43 script deltas: what the key frames change in script v1 (2026-10-14, round 2)
 
 Leo updates `script.md` from this list before the voice is recorded. Beat numbers are script v1's.
 "On screen" is what the frame shows; "VO" is the proposed line.
@@ -8,9 +8,9 @@ Leo updates `script.md` from this list before the voice is recorded. Beat number
 | 1 | 1–5 | Keep the VO. On screen, the five names appear as pills on their words; the typo shows its swapped letters. | The list is the hook: five pills say "you own several" faster than any sentence. |
 | 2 | 8 + 9 | **Merge** into one line. VO: "Here's how to forward every domain you own to one website, with HTTPS on every one. Three steps, and one test at the end." | Beat 8 states the payoff the twist later earns, and two lines delay the title. One promise, then the title card. |
 | 3 | 12 | Trim. VO: "Pointing five domains at one website sounds easy. There are two ways to do it." | "So pointing… And there are…" reads as two starts. |
-| 4 | 14 | Keep "And it looks perfect." Make it its own short sentence and leave a beat after it. | The deck holds alone on this line; the twist needs the calm before it. |
-| 5 | 15–16 | Tighten. VO: "But to Google, that's one website at five addresses. Five copies. And when Google finds copies, it picks one address to show. Maybe not the one you'd pick." On screen: "Five copies. Google picks which one to show." | The caption carries the fact; the VO carries the risk. |
-| 6 | 17 | Rephrase to match the frame (the typo sits in front). VO: "And the address bar shows whatever they typed. Even the typo." | Concrete beats "your brand looks different every time", and it's what the viewer sees. |
+| 4 | 14 | Keep "And it looks perfect." Make it its own short sentence and leave a beat after it. | It gets its own frame (`w43-Perfect`): five sites, five teal ticks, "It looks perfect." The twist needs the calm before it. |
+| 5 | 15–16 | Tighten. VO: "But to Google, that's one website at five addresses. Five copies. And when Google finds copies, it picks one address to show. Maybe not the one you'd pick." On screen (`w43-Copies`): "To Google, that's five copies." over the same five cards, now stamped COPY, with Google's pick under a magnifier. | The headline carries the fact; the VO carries the risk. Same layout as `w43-Perfect`, so it reads as a reversal. |
+| 6 | 17 | Rephrase to match the frame (the typo sits in front). VO: "And the address bar shows whatever they typed. Even the typo." | Concrete beats "your brand looks different every time", and it's what the viewer sees. Own frame (`w43-AddressBar`): the typo fills the address bar; on screen "Same site. A different name every time." |
 | 7 | after 17 | Add **one second of silence** before "Way two". | The turn lands in the silence, then the rewind. |
 | 8 | 18–20 | Keep, shorter. VO: "Way two: one main address. Every other domain sends people there with a 301, the permanent kind. It tells browsers and Google: this moved, go here." Cut beat 20 or keep it as the lines settle. | The frame states "One main address. A 301 from every other domain." Beat 20 repeats it. |
 | 9 | 21 | **A list replaces narration.** VO: "Three steps, and one test." On screen: the three step cards and the test line. | The list is clearer than hearing three steps read out. The same frame returns, ticked, for the recap (49). |

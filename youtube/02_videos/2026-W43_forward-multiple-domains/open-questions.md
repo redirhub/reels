@@ -1,4 +1,4 @@
-# W43 open questions (key frames, 2026-10-14)
+# W43 open questions (key frames, 2026-10-14, round 2)
 
 ## Sources this pass could not read
 
@@ -47,15 +47,21 @@ Cloudflare is named only because the real dialog names it; nothing is said about
 1. **Four extra domains, sixteen ways in** (the brief said 3 × 4 = 12). The film shows five domains and the
    end card says "Five domains", so the extras are four. Keep 16, or drop getmybrand.com and use "Four domains"
    on the end card?
-2. **The twist's search result** shows `mybrand.net` as the address Google picked (labelled Example). The typo
-   would be more dramatic but less believable. OK?
+2. **The twist's pick:** the magnifier in `w43-Copies` marks `mybrand.net` as the address Google shows (labelled Example).
+   The typo gets its own moment in `w43-AddressBar` instead. OK?
 3. **Sound:** the brief says effects only on story beats. W41 (revision 3) added a click per button press at
    Leo's request. Keep the click rule for W43, or drop it as the Sound board proposes?
-4. **New frames:** `w43-Steps` (list replaces narration at #21, reused for the recap) and `w43-AllGreen`
-   (the grid's payoff). Keep both?
+4. **New frames:** `w43-Perfect` and `w43-AddressBar` (the twist in three frames), `w43-Steps` (list replaces
+   narration at #21, reused for the recap) and `w43-AllGreen` (the grid's payoff). Keep all four?
 5. **Beat 46 (analytics) cut.** Agree, or move it to the description?
 6. **Captions in Plus Jakarta Sans** (W41 used Inter). The brief asks for it; it's a channel change. Confirm for
    all future videos.
+7. **Rooms (round 2):** seven backgrounds from the website's gradients instead of one Night background
+   (`w43-System` board, keyframes.md). Make the room system the channel default, so the next video starts from it?
+   It changes the guideline's "Night with the soft blue glow" rule in `docs/youtube-style-canvas.md`.
+8. **Light rooms and the Signal Red / Night tokens:** the dashboard act now sits on the light room with charcoal
+   text, so Night appears less often. Kris's pending approval of Night `#0B1426` matters less; Signal Red is
+   still used for the twist.
 
 ## Waiting on Kris
 
