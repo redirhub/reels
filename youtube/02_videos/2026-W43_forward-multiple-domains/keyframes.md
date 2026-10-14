@@ -39,6 +39,8 @@ What changed:
 - **More kinds of visual:** a 3D browser carousel (DeadEnds), a perspective floor (Title, Steps), a paper flyer,
   address book and renewal calendar, a fan diagram converging on one node (OneAddress), a giant number
   ("16", "16/16"), stamps, a magnifier, a two-card "does / doesn't" comparison.
+- **Dashboard from the prototype (Oct 14):** the product frames use the Unified Links prototype's app shell, Links
+  list and full-page create form (open-questions UI-10 to UI-12).
 - **Glass and type from the site:** glass pills and cards; headlines in Plus Jakarta Sans 800 with a full stop;
   the eyebrow is a short dash plus caps at y 110, and the dashboard act adds a three-step progress bar top right.
   Tips are solid charcoal cards beside the stage.
@@ -166,19 +168,22 @@ The same five names run the whole film: `mybrand.com` is home; `mybrand.net`, `m
 
 ### C3 · `w43-DomainRedirect` · beats 25–29 · light
 - **One idea:** one Domain Redirect, filled in.
-- **In:** Links → Create → Domain Redirect, three quick cuts on her three words. Fields fill on her words;
-  "301 Permanent" on "Type"; Keep path flips on "path". The glass card "www comes along" docks beside on #29.
+- **In:** Links → Create → Domain Redirect, three quick cuts on her three words (the prototype's create chooser).
+  The full-page "New domain redirect" form: Redirect from `mybrand.net` → Redirect to `https://mybrand.com`;
+  "301 · Permanent" on "Type"; "Keep the path" on "path"; What happens fills with three example hops. On #29 the
+  form's own hint "A root domain also covers www." takes a teal ring.
 - **Out:** Save → success sound → cut to the list. **Progress bar:** 2 of 3.
-- **Flag:** this form has no screenshot; labels follow W41's recreation (open-questions UI-1, UI-2).
+- **Source:** the Unified Links prototype's `03-create-redirect` page (open-questions UI-1, UI-10, UI-11).
 
 ### C4 · `w43-LinksList` · beats 30–32 · light
 - **One idea:** every other domain gets its own redirect, all to the same place.
-- **In:** four rows arrive one by one, each `↳ https://mybrand.com` (a pop each). The CSV tip slides in on "dozens".
+- **In:** the prototype's Links list in the new shell (sidebar, breadcrumb "My Brand / Links", orange split Create).
+  Four cards arrive one by one, each `↳ https://mybrand.com` (a pop each). The CSV tip slides in on "dozens".
 - **Amber:** the real Create button. **On screen:** "Import them all from one CSV." (6 words, ≥ 3.0 s).
 
 ### C5 · `w43-ConnectDNS` · beats 33–38 · light
 - **One idea:** point each domain at RedirHub in its DNS.
-- **In:** Hostnames → Connect DNS, the real dialog on its Automatic tab. Rows highlight as she names A, TXT and
+- **In:** Hostnames → Connect DNS, the real dialog on its Automatic tab, over the new shell (dimmed, Hostnames active). Rows highlight as she names A, TXT and
   the www CNAME. The MX tip slides in on #38. **Progress bar:** 3 of 3.
 - **Amber:** the "Not connected" status. The dialog shows the real edge IP: the VO says "copy yours, not mine".
 

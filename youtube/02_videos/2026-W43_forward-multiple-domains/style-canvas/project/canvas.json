@@ -433,7 +433,7 @@
       "w": 1180,
       "maxH": 460,
       "size": "m",
-      "text": "Beats 25–29.\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the chooser is the real one).\nFields fill on her words; 301 on \"Type\"; Keep path flips teal on \"path\". \"www comes along\" docks beside on 29.\nOUT: Save → success sound → the list.\nFLAG: form labels and the default type not confirmed (open-questions).\nROOM: Light (product room)",
+      "text": "Beats 25–29. UI: Unified Links prototype, \"New domain redirect\" (03-create-redirect).\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the prototype's create chooser).\nFields fill on her words: mybrand.net → https://mybrand.com; \"301 · Permanent\" on \"Type\"; \"Keep the path\" on \"path\"; What happens fills with three hops. On 29 the form's own hint \"A root domain also covers www.\" takes a teal ring.\nOUT: Create redirect → success sound → the list.\nFLAG: release timing and the \"Passes SEO value\" hint (open-questions UI-10, UI-11).\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-LinksList-note": {
@@ -442,7 +442,7 @@
       "w": 1180,
       "maxH": 460,
       "size": "m",
-      "text": "Beats 30–32.\nIN: cut on Save. Rows arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the real Create button, the frame's only amber.\nOUT: cut to Hostnames.\nROOM: Light (product room)",
+      "text": "Beats 30–32. UI: Unified Links prototype, new app shell + Links list.\nIN: cut on Create redirect. Cards arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the orange split Create button, the frame's only amber.\nOUT: cut to Hostnames.\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-ConnectDNS-note": {
@@ -451,7 +451,7 @@
       "w": 1180,
       "maxH": 460,
       "size": "m",
-      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS, the real dialog on its Automatic tab. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.\nROOM: Light (product room)",
+      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS. The real dialog (Automatic tab) over the new app shell, dimmed, Hostnames active. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.\nROOM: Light (product room)",
       "page": "w43"
     },
     "w43-HttpsIssued-note": {
@@ -541,7 +541,7 @@
       "size": "l",
       "fill": "teal",
       "page": "w43",
-      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey frames for Review 2, round 2 (after Leo's notes, Oct 14): each act now has its own room built from the RedirHub website's gradients (dark mesh, brand sweep, light, twist night, brand radial, lab, charcoal), with the site's glass cards. The twist is three frames: It looks perfect → five copies → the address bar.\n\nComment on any frame. The sticky under it gives the move in and out, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes: script-deltas.md; open questions: open-questions.md."
+      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey frames for Review 2, round 2 (after Leo's notes, Oct 14): each act now has its own room built from the RedirHub website's gradients (dark mesh, brand sweep, light, twist night, brand radial, lab, charcoal), with the site's glass cards. The twist is three frames: It looks perfect → five copies → the address bar. The dashboard frames use the latest Unified Links prototype (app shell, Links list, New domain redirect).\n\nComment on any frame. The sticky under it gives the move in and out, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes: script-deltas.md; open questions: open-questions.md."
     },
     "w43-Perfect-note": {
       "x": 2000,

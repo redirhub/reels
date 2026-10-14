@@ -12,15 +12,18 @@
 
 | ID | Frame | Detail | What was drawn | Who |
 |---|---|---|---|---|
-| UI-1 | DomainRedirect | The Domain Redirect form has no screenshot in Notion or the repo. | W41's recreation: "Redirect from", "Redirect to", "Redirect type" (301 Permanent / 302 Temporary), "Keep path", Save. | Kris |
-| UI-2 | DomainRedirect | The default redirect type, and whether Keep path is on by default and labelled "Keep path". (Product Facts: "Path forwarding"; the path defaults to a catch-all.) | 301 selected, Keep path on. | Kris |
-| UI-3 | DomainRedirect | How the form shows www coverage. | Not in the UI; a film chip beside it: "www comes along · A root domain covers its www." | Kris |
+| UI-1 | DomainRedirect | **Resolved (Oct 14):** drawn from the Unified Links prototype's "New domain redirect" page (`03-create-redirect`): Redirect from → Redirect to, "A root domain also covers www.", Redirect type (301 · Permanent / 302 · Temporary, More types), Paths (Keep the path / Everything to one URL), What happens, Create redirect. | As in the prototype. | — |
+| UI-2 | DomainRedirect | **Resolved:** the prototype defaults to 301 and "Keep the path". | 301, Keep the path. | — |
+| UI-3 | DomainRedirect | **Resolved:** the form itself says "A root domain also covers www." under the sources; the film rings it in teal instead of adding a chip. | Teal ring on the hint. | — |
 | UI-4 | Checker | The Redirect Checker's result layout. The page exists ("Check Any URL Redirect", button "Check Redirect", "completely free, no account required", traces each hop's status code). | A two-hop chain: 1 https://www.mybrand.net 301, 2 https://mybrand.com 200. | Leo / Kris (one screenshot) |
 | UI-5 | ConnectDNS | The **Nameservers (Add-on)** tab is left off the dialog because the brief excludes the add-on. The real dialog shows three tabs. | Automatic (Recommended) and Manual only. | Leo: OK to crop? |
 | UI-6 | (cut) | A per-domain analytics view, for beat 46. | Not drawn; beat 46 proposed cut. | Leo |
 | UI-7 | HttpsIssued | The final state of the verifying list (all three done) and the root-domain wording "The records were added." (the reference says "The CNAME record was added." for a subdomain). | Three teal ticks; status "Connected". | Kris |
 | UI-8 | ConnectDNS | The "Replace" chip is neutral here (orange in the real dialog), so the frame keeps one amber. | Grey chip. | Leo: OK? |
-| UI-9 | LinksList | New rows show "0 Clicks · just now". Avatars use a generic "M". | As drawn. | — |
+| UI-9 | LinksList | New rows show "0 Clicks · just now"; favicons read "MB". Sidebar counts (Links 4, Hostnames 5) match the demo workspace. | As drawn. | — |
+| UI-10 | DomainRedirect, LinksList, ConnectDNS | **Release timing.** These three frames now use the Unified Links prototype (Dashboard (lviv) Prototype, Oct 14): the new app shell (grey sidebar, inset panel, breadcrumb, orange split Create), the card list and the full-page create form. If that design is not live by the time W43 is recorded (publishes Oct 19), the film shows UI viewers can't find yet. | Prototype design, as asked on Oct 14. | Kris: will it be live by recording? |
+| UI-11 | DomainRedirect | The prototype's 301 hint reads "Moved for good. Passes SEO value." It is product copy, but it is also an SEO claim with no Approved Claims row, and the film's honest note says forwarding doesn't lift rankings on its own. | Shown as in the prototype. | Leo / Kris: keep, or reword in the product? |
+| UI-12 | Dashboard shell | Left out of the prototype shell on purpose: the plan card ("CORE · Domains 18 / 25", Upgrade plan: plans and slot counting are excluded claims) and the signed-in person's name and email. The Connect DNS dialog is still the real one from the W41 screenshots; the prototype has no Hostnames screens, so the new shell sits dimmed behind it. | As drawn. | — |
 
 ## Claims check (Notion Product Facts — Core, read 2026-10-14)
 
