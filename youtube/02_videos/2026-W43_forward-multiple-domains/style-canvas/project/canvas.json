@@ -1,0 +1,580 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Checks.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Checks, all green",
+      "w": 1920,
+      "x": 0,
+      "y": 3000
+    },
+    "Concept301.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "One object per idea",
+      "w": 1920,
+      "x": 0,
+      "y": 1500
+    },
+    "ConceptMap.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Concept map",
+      "w": 1920,
+      "x": 4000,
+      "y": 0
+    },
+    "Dashboard.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Dashboard step + quick tip",
+      "w": 1920,
+      "x": 2000,
+      "y": 1500
+    },
+    "EndCard.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "End card",
+      "w": 1920,
+      "x": 4000,
+      "y": 3000
+    },
+    "Main.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Title card",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "Plan.dc.html": {
+      "h": 1820,
+      "page": "plan",
+      "title": "12-week content calendar",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "Problem.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "The problem, in real browser UI",
+      "w": 1920,
+      "x": 2000,
+      "y": 0
+    },
+    "Sound.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Sound and timing",
+      "w": 1920,
+      "x": 2000,
+      "y": 4500
+    },
+    "System.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Colour, type, layout",
+      "w": 1920,
+      "x": 0,
+      "y": 4500
+    },
+    "Tips.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Before you go",
+      "w": 1920,
+      "x": 2000,
+      "y": 3000
+    },
+    "Turn.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "The turn (caption)",
+      "w": 1920,
+      "x": 4000,
+      "y": 1500
+    },
+    "w43-Domains.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1920,
+      "h": 1080,
+      "title": "The domains a brand owns",
+      "page": "w43"
+    },
+    "w43-DeadEnds.dc.html": {
+      "x": 2000,
+      "y": 0,
+      "w": 1920,
+      "h": 1080,
+      "title": "Where extra domains lead",
+      "page": "w43"
+    },
+    "w43-Title.dc.html": {
+      "x": 4000,
+      "y": 0,
+      "w": 1920,
+      "h": 1080,
+      "title": "Title card",
+      "page": "w43"
+    },
+    "w43-Pointer.dc.html": {
+      "x": 0,
+      "y": 1900,
+      "w": 1920,
+      "h": 1080,
+      "title": "A domain is a pointer",
+      "page": "w43"
+    },
+    "w43-Copies.dc.html": {
+      "x": 2000,
+      "y": 1900,
+      "w": 1920,
+      "h": 1080,
+      "title": "The twist: five copies",
+      "page": "w43"
+    },
+    "w43-OneAddress.dc.html": {
+      "x": 4000,
+      "y": 1900,
+      "w": 1920,
+      "h": 1080,
+      "title": "Way two: one main address",
+      "page": "w43"
+    },
+    "w43-Steps.dc.html": {
+      "x": 0,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Three steps, one test",
+      "page": "w43"
+    },
+    "w43-MainAddress.dc.html": {
+      "x": 2000,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Step one: the main address",
+      "page": "w43"
+    },
+    "w43-DomainRedirect.dc.html": {
+      "x": 4000,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Step two: Domain Redirect",
+      "page": "w43"
+    },
+    "w43-LinksList.dc.html": {
+      "x": 6000,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Step two: every other domain",
+      "page": "w43"
+    },
+    "w43-ConnectDNS.dc.html": {
+      "x": 8000,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Step three: Connect DNS",
+      "page": "w43"
+    },
+    "w43-HttpsIssued.dc.html": {
+      "x": 10000,
+      "y": 3800,
+      "w": 1920,
+      "h": 1080,
+      "title": "Step three: HTTPS issued",
+      "page": "w43"
+    },
+    "w43-FourAddresses.dc.html": {
+      "x": 0,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "Every domain is four addresses",
+      "page": "w43"
+    },
+    "w43-Checker.dc.html": {
+      "x": 2000,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "Redirect Checker: a pass",
+      "page": "w43"
+    },
+    "w43-AllGreen.dc.html": {
+      "x": 4000,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "All sixteen land",
+      "page": "w43"
+    },
+    "w43-Honest.dc.html": {
+      "x": 6000,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "One honest note",
+      "page": "w43"
+    },
+    "w43-Renew.dc.html": {
+      "x": 8000,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "One rule: keep renewing",
+      "page": "w43"
+    },
+    "w43-EndCard.dc.html": {
+      "x": 10000,
+      "y": 5700,
+      "w": 1920,
+      "h": 1080,
+      "title": "End card",
+      "page": "w43"
+    },
+    "w43-System.dc.html": {
+      "x": 0,
+      "y": 7600,
+      "w": 1920,
+      "h": 1080,
+      "title": "Colour, type, layout",
+      "page": "w43"
+    },
+    "w43-Sound.dc.html": {
+      "x": 2000,
+      "y": 7600,
+      "w": 1920,
+      "h": 1080,
+      "title": "Sound and timing",
+      "page": "w43"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-10T01:15:48Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas",
+    "page": "w43"
+  },
+  "notes": {
+    "about": {
+      "fill": "teal",
+      "maxH": 900,
+      "page": "w41",
+      "size": 40,
+      "text": "W41 · How to Redirect a Domain to Another Domain (With HTTPS That Actually Works) · approved cut, 5:09 (commit 9ca8786).\n\nEvery frame is a live HTML mockup at 1920×1080, redrawn from the film. One canvas for the whole channel: each video gets its own page here, named after the video, starting from a copy of the latest video's frames (rules: docs/youtube-style-canvas.md in redirhub/reels).\n\nCode tokens: src/remotion/brand/tokens.ts. Film stills: youtube/01_library/style/keyframes/w41-redirect-domain/.",
+      "w": 760,
+      "x": 4000,
+      "y": 4500
+    },
+    "rowA": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act A · Open on the problem",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "rowB": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act B–C · Teach one idea at a time, then do it in the dashboard",
+      "w": 240,
+      "x": 0,
+      "y": 1200
+    },
+    "rowC": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act D · Prove it, then close",
+      "w": 240,
+      "x": 0,
+      "y": 2700
+    },
+    "rowD": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "The system behind every frame",
+      "w": 240,
+      "x": 0,
+      "y": 4200
+    },
+    "w43rowA": {
+      "x": 0,
+      "y": -260,
+      "text": "A · Many names, one problem",
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w43"
+    },
+    "w43-Domains-note": {
+      "x": 0,
+      "y": 1120,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 1–5 · cold open, no eyebrow.\nIN: cut on her first word. Each pill appears on its name: .com, .net, .co, then the typo (the swapped letters underlined), then the flyer one.\nOUT: dock. The pills slide left as the dead ends open (now they're context).\nSOUND: pad only. FEEL: \"that's me\".",
+      "page": "w43"
+    },
+    "w43-DeadEnds-note": {
+      "x": 2000,
+      "y": 1120,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 6–7.\nIN: cut. Parked page, then \"can't be reached\", then \"Not secure\" racks into focus (focus rack: three places, one job).\nOUT: cut to the title.\nSOUND: one soft problem tone on \"Not secure\". FEEL: a small, specific loss, never blame.",
+      "page": "w43"
+    },
+    "w43-Title-note": {
+      "x": 4000,
+      "y": 1120,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 8–9, merged into one line (script-deltas #2).\nIN: transition sound, 1 of 2. The five grey dots draw into one teal dot, then the title lands.\nHOLD ≈ 1.5 s. OUT: cut.\nFEEL: a promise, not a pitch.",
+      "page": "w43"
+    },
+    "w43rowB": {
+      "x": 0,
+      "y": 1640,
+      "text": "B · How it works, and the shortcut that fakes it",
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w43"
+    },
+    "w43-Pointer-note": {
+      "x": 0,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 10–11.\nIN: shared-element morph. The mybrand.com pill from the hook becomes this pill; the line draws to the address book, then to the site (draw = traffic moves).\nOUT: the one pill becomes five, every line drawing into the same host.\nFEEL: oh, a domain is just a pointer.",
+      "page": "w43"
+    },
+    "w43-Copies-note": {
+      "x": 2000,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "THE TWIST · beats 12–17.\nIN: draw. Five lines run into one host; five identical windows stack, each with its own address, the typo in front.\nBEAT: hold the deck alone on \"it looks perfect\". Then the search card slides in and the address it picked lights amber (the frame's only amber). One soft problem tone, then 1 s of silence.\nOUT: TIME-REVERSE, the film's only one. The deck unstacks, the lines run back to their domains…\nFEEL: the floor shifts.",
+      "page": "w43"
+    },
+    "w43-OneAddress-note": {
+      "x": 4000,
+      "y": 3020,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 18–20.\nIN: …and the same lines re-route: four domains swing into https://mybrand.com. A 301 tag pops onto each line on \"with a 301\".\nOUT: the main pill docks as the step map comes up.\nSOUND: one pop per tag. FEEL: relief. That's what clean looks like.",
+      "page": "w43"
+    },
+    "w43rowC": {
+      "x": 0,
+      "y": 3540,
+      "text": "C · Three steps, in RedirHub",
+      "kind": "title1",
+      "maxW": 11920,
+      "page": "w43"
+    },
+    "w43-Steps-note": {
+      "x": 0,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beat 21, reused ticked at the recap (49).\nA list replaces narration: VO says only \"Three steps, and one test.\"\nAt 49 each card takes a teal check as she names it.\nOUT: transition sound, 2 of 2. Card 01 morphs into step one.",
+      "page": "w43"
+    },
+    "w43-MainAddress-note": {
+      "x": 2000,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 22–24.\nIN: shared-element morph. The main pill from way two grows; the other four dim. The two chips land on \"exactly\".\nThe tip slides in beside (register change: an aside).\nOUT: cut into the dashboard. FEEL: a decision, made calmly.",
+      "page": "w43"
+    },
+    "w43-DomainRedirect-note": {
+      "x": 4000,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 25–29.\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the chooser is the real one).\nFields fill on her words; 301 on \"Type\"; Keep path flips teal on \"path\". \"www comes along\" docks beside on 29.\nOUT: Save → success sound → the list.\nFLAG: form labels and the default type not confirmed (open-questions).",
+      "page": "w43"
+    },
+    "w43-LinksList-note": {
+      "x": 6000,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 30–32.\nIN: cut on Save. Rows arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the real Create button, the frame's only amber.\nOUT: cut to Hostnames.",
+      "page": "w43"
+    },
+    "w43-ConnectDNS-note": {
+      "x": 8000,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS, the real dialog on its Automatic tab. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.",
+      "page": "w43"
+    },
+    "w43-HttpsIssued-note": {
+      "x": 10000,
+      "y": 4920,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beat 39.\nIN: the three steps tick down the list. On \"automatically\" the padlock closes and grows out of the dialog (shared element).\nSOUND: success. FEEL: step three pays off.",
+      "page": "w43"
+    },
+    "w43rowD": {
+      "x": 0,
+      "y": 5440,
+      "text": "D · Prove it, then close",
+      "kind": "title1",
+      "maxW": 11920,
+      "page": "w43"
+    },
+    "w43-FourAddresses-note": {
+      "x": 0,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 40–43.\nIN: one domain splits into four (2 × 2), then the grid fills row by row to sixteen (draw).\nOn \"easiest to forget\" the https://www. column takes the amber outline.\nOUT: shared-element morph. The amber cell https://www.mybrand.net flies into the checker's input.",
+      "page": "w43"
+    },
+    "w43-Checker-note": {
+      "x": 2000,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 43–45.\nIN: the morph lands in the input. Check Redirect. The chain draws: hop 1 → 301 → hop 2 → 200.\nThe three checks land on \"One hop. A 301. Lands on…\"\nFIXED CHIME on \"That's a pass\" (1 of 2). Beat 45 is VO only.\nFLAG: the checker's result layout is drawn, not captured (open-questions).",
+      "page": "w43"
+    },
+    "w43-AllGreen-note": {
+      "x": 4000,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "The one combined-result frame (new).\nIN: back to the grid. Rows turn teal one by one, four pops.\nOUT: silence (done). Then the honest note.",
+      "page": "w43"
+    },
+    "w43-Honest-note": {
+      "x": 6000,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beat 47.\nRegister change: the film steps back and talks straight. No effect.\nThe white line holds, then the soft line lands.\nOUT: cut. FEEL: trust.",
+      "page": "w43"
+    },
+    "w43-Renew-note": {
+      "x": 8000,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beat 48.\nIN: cut. The flyer domain and its renewal card (the date is an example).\nOUT: the step map returns ticked for the recap (49), then the end card.",
+      "page": "w43"
+    },
+    "w43-EndCard-note": {
+      "x": 10000,
+      "y": 6820,
+      "w": 1180,
+      "maxH": 420,
+      "size": "m",
+      "text": "Beats 50–52.\nIN: the five hook pills turn teal and collapse into \"Five domains. One website.\" FIXED CHIME (2 of 2).\nThe right half stays clear for YouTube's end screen (next week's video).\nThe QR slot waits for the branded link.",
+      "page": "w43"
+    },
+    "w43rowS": {
+      "x": 0,
+      "y": 7340,
+      "text": "The system behind every frame (changed from W41 where noted)",
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w43"
+    },
+    "w43about": {
+      "x": 4000,
+      "y": 7600,
+      "w": 900,
+      "maxH": 1000,
+      "size": "l",
+      "fill": "teal",
+      "page": "w43",
+      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey-frame pass for Review 2: comment on any frame. Each frame is the peak moment of its beat; the sticky under it gives the move in and out, the sound and the feeling.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes the frames propose: script-deltas.md; open questions: open-questions.md, both beside the frames."
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Problem.dc.html",
+    "ConceptMap.dc.html",
+    "Concept301.dc.html",
+    "Dashboard.dc.html",
+    "Turn.dc.html",
+    "Checks.dc.html",
+    "Tips.dc.html",
+    "EndCard.dc.html",
+    "System.dc.html",
+    "Sound.dc.html",
+    "Plan.dc.html",
+    "w43-Domains.dc.html",
+    "w43-DeadEnds.dc.html",
+    "w43-Title.dc.html",
+    "w43-Pointer.dc.html",
+    "w43-Copies.dc.html",
+    "w43-OneAddress.dc.html",
+    "w43-Steps.dc.html",
+    "w43-MainAddress.dc.html",
+    "w43-DomainRedirect.dc.html",
+    "w43-LinksList.dc.html",
+    "w43-ConnectDNS.dc.html",
+    "w43-HttpsIssued.dc.html",
+    "w43-FourAddresses.dc.html",
+    "w43-Checker.dc.html",
+    "w43-AllGreen.dc.html",
+    "w43-Honest.dc.html",
+    "w43-Renew.dc.html",
+    "w43-EndCard.dc.html",
+    "w43-System.dc.html",
+    "w43-Sound.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "plan",
+      "name": "Content calendar · W43–W01"
+    },
+    {
+      "id": "w41",
+      "name": "W41 · How to Redirect a Domain to Another Domain"
+    },
+    {
+      "id": "w43",
+      "name": "W43 · How to Forward Multiple Domains to One Website"
+    }
+  ],
+  "title": "RedirHub YouTube Style Frames"
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>W43 · Colour, type, layout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+[style*="JetBrains"]{font-variant-ligatures:none}
+</style>
+</helmet>
+<div data-solid-bg style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: #0B1426; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #FFFFFF; padding: 90px 120px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 110px; row-gap: 50px; align-content: start">
+<div style="display: flex; flex-direction: column; gap: 26px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">COLOUR HAS A JOB</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #0B1426; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14)"></span><span style="font-size: 23px; font-weight: 700">Night</span><span style="font-size: 18px; color: #B9C6D8">The canvas, with a soft blue glow on top</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#0B1426</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #20A795"></span><span style="font-size: 23px; font-weight: 700">Teal</span><span style="font-size: 18px; color: #B9C6D8">Fixed, working, the payoff</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#20A795</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #E5484D"></span><span style="font-size: 23px; font-weight: 700">Signal red</span><span style="font-size: 18px; color: #B9C6D8">Broken</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#E5484D</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #E59426"></span><span style="font-size: 23px; font-weight: 700">Amber</span><span style="font-size: 18px; color: #B9C6D8">Attention, one object per frame</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#E59426</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #1C6DB6"></span><span style="font-size: 23px; font-weight: 700">Blue</span><span style="font-size: 18px; color: #B9C6D8">Inside product UI only</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#1C6DB6</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 84px; border-radius: 14px; background: #FBF7EF"></span><span style="font-size: 23px; font-weight: 700">Paper</span><span style="font-size: 18px; color: #B9C6D8">Printed props: the address book, the renewal card</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #6B7A90">#FBF7EF</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">THREE FACES, THREE ROLES</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 0.08em; color: #6B7A90">DISPLAY, EYEBROWS, CAPTIONS · PLUS JAKARTA SANS</span><span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05">Five domains. <span style="color: #20A795">One website.</span></span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 0.08em; color: #6B7A90">EVERY DOMAIN, URL, RECORD · JETBRAINS MONO</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 36px">mybrnad.com → https://mybrand.com</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 0.08em; color: #6B7A90">ONLY INSIDE RECREATED PRODUCT UI · INTER</span><span data-ui="sample" style="font-family: 'Inter', sans-serif; font-size: 30px; color: #B9C6D8">Redirect from · Redirect to · Keep path</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 22px; border-radius: 14px; background: rgba(255,255,255,0.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14)"><span style="font-weight: 700; font-size: 20px; color: #20A795">Changed from W41</span><span style="font-size: 21px; line-height: 1.45; color: #B9C6D8">Captions move from Inter to Plus Jakarta Sans. Mono ligatures are off, so "://" never splits. Tips are solid paper-dark #1E2A44. Direction notes live in canvas stickies, never inside the frame.</span></div>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 20px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 36px">
+<span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: #20A795">LAYOUT</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; font-size: 22px; line-height: 1.45; color: #B9C6D8">
+<span><span style="font-weight: 700; color: #FFFFFF">1920 × 1080, 120 px gutters.</span> Nothing to read below y 950. One idea per frame.</span>
+<span><span style="font-weight: 700; color: #FFFFFF">Eyebrow top-left.</span> It names the act or step, so anyone who skips in knows where they are.</span>
+<span><span style="font-weight: 700; color: #FFFFFF">Captions under the stage.</span> One line, held at least words ÷ 3 + 1 s.</span>
+<span><span style="font-weight: 700; color: #FFFFFF">The same five pills all film.</span> <span style="font-family: 'JetBrains Mono', monospace">mybrand.com</span> is home; the four others travel from grey to teal.</span>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

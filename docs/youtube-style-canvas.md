@@ -16,6 +16,7 @@ the canvas, and never put a second video's frames on an existing video's page.
 | Page id | Page name (= video) | Frames (file prefix) | Source in the repo |
 |---|---|---|---|
 | `w41` | W41 · How to Redirect a Domain to Another Domain | no prefix (the first video) | `youtube/02_videos/2026-W41_redirect-domain/style-canvas/project/` |
+| `w43` | W43 · How to Forward Multiple Domains to One Website | `w43-` | `youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/` (key frames for Review 2; notes in `keyframes.md`, `script-deltas.md`, `open-questions.md`) |
 
 Add a row for each new video.
 
@@ -42,10 +43,11 @@ Add a row for each new video.
    tips solid and beside the stage. Product UI mirrors the real dashboard; no invented features.
 6. **Real content only**: the video's actual lines, domains and records. Every QR mockup encodes the real
    branded link and shows it underneath, exactly as on screen.
-7. **Publish only the new files and the index** to the canvas `url`, then save them in
+7. **Check every frame before publishing:** `PREFIX=wNN- python3 scripts/yt/keyframes-check.py <video>/style-canvas/project <video>/style-canvas/stills` renders each frame to PNG and flags text outside the safe area, wrong fonts, off-token colours and more than one amber object; then look at every still yourself.
+8. **Publish only the new files and the index** to the canvas `url`, then save them in
    `youtube/02_videos/<video>/style-canvas/project/` and add the row above in the same commit. Film stills
    of the approved cut go in `youtube/01_library/style/keyframes/<video>/`.
-8. Build the video in Remotion from the approved frames (`docs/reel-playbook.md`), reusing the shared
+9. Build the video in Remotion from the approved frames (`docs/reel-playbook.md`), reusing the shared
    components (`FixedEndCard`, `BrandedQr`, `OnScreenText`, `Cursor`, the browser and dashboard pages).
    If the built film drifts from the canvas on purpose, update the canvas after the cut is approved.
 
