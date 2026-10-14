@@ -67,4 +67,13 @@ currently **305 s**.
   - a partial rewind;
   - SMIL traffic dots that ran on the wall clock (now a pure function of time).
 - End card: the QR decodes to `https://redirhub.com/support`, and nothing on the frame goes below y 950.
-- `npm run typecheck`, `npm run build`, full render and `scripts/qa/check_reel.py` before each push (results are in the PR).
+- `npm run typecheck` and `npm run build` pass. The full render (`out/forward-domains.mp4`) passes `check_reel.py`:
+  - format: 1920×1080, 30 fps, h264/aac, 305.05 s;
+  - the QR at 300 s scans to `https://redirhub.com/support`;
+  - true peak −2.8 dBTP.
+- Loudness: integrated −18.3 LUFS, outside the −16…−12 window only because 11 takes are still silent.
+  The sections with real takes measure −15.1 (0–16 s), −14.7 (78–108 s) and −14.9 LUFS (175–204 s).
+  Re-check once all takes are in.
+- Voice restoration: every restored take keeps its original below 7 kHz (correlation ≥ 0.9999) and falls off
+  naturally above it (6–7.4 kHz → 8–10 kHz about −4 dB → 10–14 kHz about −10 dB). The seams between AudioSR's 10 s
+  pieces show no level steps.
