@@ -11,6 +11,8 @@ import { QrNoReprint } from './remotion/reels/qr-no-reprint/QrNoReprint';
 import { qrNoReprintDefaults } from './remotion/reels/qr-no-reprint/props';
 import { RedirectDomain, REDIRECT_DOMAIN_SECONDS } from './remotion/reels/redirect-domain/RedirectDomain';
 import { redirectDomainDefaults } from './remotion/reels/redirect-domain/props';
+import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forward-domains/ForwardDomains';
+import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -61,6 +63,15 @@ export const reels: Reel[] = [
         component: RedirectDomain,
         defaultProps: redirectDomainDefaults,
         durationInSeconds: REDIRECT_DOMAIN_SECONDS,
+        ...LANDSCAPE,
+    },
+    {
+        id: 'forward-domains',
+        title: 'How to forward multiple domains to one website (YouTube, W43)',
+        description: 'A 16:9 motion-graphics tutorial with voiceover: why pointing every domain at your hosting makes copies, one main address with a 301 from every other domain, the three steps in RedirHub (Domain Redirect, Connect DNS, HTTPS), and the sixteen-address test.',
+        component: ForwardDomains,
+        defaultProps: forwardDomainsDefaults,
+        durationInSeconds: FORWARD_DOMAINS_SECONDS,
         ...LANDSCAPE,
     },
 ];
