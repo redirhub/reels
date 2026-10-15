@@ -11,12 +11,14 @@
 // Rules (first match wins, per file):
 //   docs (*.md, docs/, .claude/)                  → nothing
 //   gallery, CI and tooling that doesn't change   → nothing to render, but code=true
-//     video output (app/, .github/, scripts/publish-s3.sh, scripts/qa/,
-//     scripts/audio/ sources, next.config.ts, public/brand/, .gitignore)
+//     video output (app/, .github/, scripts/publish-s3.sh, scripts/changed-reels.mjs, scripts/qa/,
+//     scripts/audio/ and scripts/yt/ sources, next.config.ts, public/brand/, .gitignore)
 //   src/remotion/reels/<id>/**                    → that reel
-//   public/audio/<id>-beat.mp3                    → that reel
+//   public/audio/<id>-*.mp3, public/audio/<id>/** → that reel (its beat, voice, bed and own effects)
+//   youtube/**                                    → the reels that import that file (a video's
+//     timings.json); production sources (takes, stills, canvas, library originals) → nothing
 //   src/reels.ts                                  → the reels whose entries changed
-//   anything else (components, brand, lib, SFX, fonts, deps, render script…) → all reels
+//   anything else (components, brand, lib, shared SFX, fonts, deps, render script…) → all reels
 // No usable base (first push of a branch, force push) → all reels.
 import { execFileSync } from 'node:child_process';
 
@@ -45,7 +47,30 @@ try {
 }
 
 const DOCS = /(\.md$|^docs\/|^\.claude\/)/;
-const NO_VIDEO = /^(app\/|\.github\/|scripts\/publish-s3\.sh$|scripts\/qa\/|scripts\/audio\/|next\.config\.ts$|public\/brand\/|\.gitignore$)/;
+const NO_VIDEO = /^(app\/|\.github\/|scripts\/publish-s3\.sh$|scripts\/changed-reels\.mjs$|scripts\/qa\/|scripts\/audio\/|scripts\/yt\/|next\.config\.ts$|public\/brand\/|\.gitignore$)/;
+
+/** The registered reel a public/audio/ file belongs to: public/audio/<id>-<anything>.mp3 or
+    public/audio/<id>/…, longest id first (ids contain hyphens). Shared audio (sfx/, library/) → null. */
+function audioReel(f) {
+    const rest = f.match(/^public\/audio\/(.+)$/)?.[1];
+    if (!rest) return null;
+    const ids = [...registered].sort((a, b) => b.length - a.length);
+    return ids.find((id) => rest.startsWith(`${id}/`) || (!rest.includes('/') && rest.startsWith(`${id}-`) && rest.endsWith('.mp3'))) ?? null;
+}
+
+/** Reels whose sources import a youtube/ file (a video's timings.json). Anything else under youtube/
+    is a production source (takes, stills, canvas, library originals): nothing reads it at render time. */
+let reelImports = null;
+function youtubeReels(f) {
+    if (!reelImports) {
+        reelImports = [];
+        for (const src of git('ls-tree', '-r', '--name-only', 'HEAD', 'src/remotion/reels/').split('\n').filter((x) => /\.(tsx?|json)$/.test(x))) {
+            const id = src.split('/')[3];
+            for (const m of git('show', `HEAD:${src}`).matchAll(/from\s+'((?:\.\.\/)+youtube\/[^']+)'/g)) reelImports.push([id, m[1].replace(/^(\.\.\/)+/, '')]);
+        }
+    }
+    return new Set(reelImports.filter(([, path]) => path === f).map(([id]) => id));
+}
 
 /** Reel ids whose registry entries changed. An `id:` line inside a changed block names
     that block's reel; a changed line elsewhere belongs to the entry above it. Changes
@@ -82,16 +107,20 @@ for (const f of files) {
     if (DOCS.test(f)) continue;
     code = true;
     if (NO_VIDEO.test(f)) continue;
-    const scene = f.match(/^src\/remotion\/reels\/([^/]+)\//)?.[1];
-    const beat = f.match(/^public\/audio\/([^/]+)-beat\.mp3$/)?.[1];
-    if (scene || beat) {
-        reels.add(scene || beat);
+    const scene = f.match(/^src\/remotion\/reels\/([^/]+)\//)?.[1] ?? audioReel(f);
+    if (scene) {
+        reels.add(scene);
+        continue;
+    }
+    if (f.startsWith('youtube/')) {
+        youtubeReels(f).forEach((id) => reels.add(id));
         continue;
     }
     if (f === 'src/reels.ts') {
         registryReels().forEach((id) => reels.add(id));
         continue;
     }
+    console.error(`all reels because of: ${f}`);
     out(true, 'all'); // shared code: every reel may look different
     process.exit(0);
 }
