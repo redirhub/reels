@@ -32,8 +32,8 @@ had 19, almost all on the floating domain pills. The causes, and the fixes:
 | 30 fps: every move advanced in coarse steps | The video renders at **60 fps** (YouTube plays 1080p60). Everything is timed in seconds, so nothing else changed |
 | Cuts still dipped halfway: the room's ease came to rest before the content's began | Room and content run on **one** eased phase (`SceneFade`): the room is laid in its first 60 %, the content over its last 75 %, so the motion never stops |
 | Colours flipped in one frame at 50 % (typo letters, chooser cards, save button, column headers, the flying address, the end card's rings, the HTTPS bar) | Every state colour blends (`mix` in `kit.tsx`, CSS `color-mix`) |
-| The form's "What happens" rows popped in at full height and shoved the panel below down a row | Each row opens to its height, so the panel glides |
-| Entrances started at full speed (opacity on an ease-out jumps a third of the way on frame one) | Opacity runs on a smoothstep; position keeps its ease-out |
+| The form's "What happens" rows popped in at full height and shoved the panel below down a row | All three rows are laid out from the start; the box opens by a clip, and its bottom edge and the note below move on transforms. (A first try grew each row's height: layout snaps to whole pixels, so the slow ends of the ease stepped and the checker caught one-frame holds at 112, 119 and 127 s) |
+| Entrances started at full speed (opacity on an ease-out jumps a third of the way on frame one): every slide-in and pop, the Connect DNS dialog and its scrim, the browser cards, the address bar, the padlock, the "16", the grid pills, the amber ring, the renew card | Opacity runs on a smoothstep; position keeps its ease-out |
 | Back-to-back moves: the chooser faded, stopped, then the window grew; the rewind and the address-bar push started at full speed | The moves overlap, and both start from rest (ease in and out) |
 | Discrete values: "n / 16" and the padlock's domain swapped in one frame | Both roll: the old value rolls out as the new one rolls in. "/16" glides on a transform when 8 becomes 12 (the digits sit in a fixed two-digit slot) |
 
