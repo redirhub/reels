@@ -92,7 +92,7 @@ jobs:
       # back to the live Player).
       - name: Configure AWS credentials
         id: aws
-        if: steps.changes.outputs.render == 'true' && github.event_name == 'push' && vars.AWS_ROLE_ARN != ''
+        if: steps.changes.outputs.render == 'true' && vars.AWS_ROLE_ARN != ''
         continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -115,7 +115,7 @@ jobs:
         run: echo "::warning::This branch's render wasn't uploaded (is the role's trust policy updated for ref:refs/heads/*? See docs/aws/SETUP.md). It's still in this run's artifact."
 
       - name: Publishing not configured
-        if: github.event_name == 'push' && vars.AWS_ROLE_ARN == ''
+        if: vars.AWS_ROLE_ARN == ''
         run: echo "::warning::AWS_ROLE_ARN is not set, so renders were not published. See docs/aws/SETUP.md."
 
       - name: Summary
