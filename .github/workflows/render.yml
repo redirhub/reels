@@ -12,9 +12,11 @@ on:
         required: false
         default: ''
 
+# A newer push replaces a running push render (the next run diffs from the last finished one, so
+# nothing is lost). Manual runs get their own group, so a push never cancels a render someone started.
 concurrency:
-  group: render-${{ github.ref }}
-  cancel-in-progress: true
+  group: render-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' && 'manual' || 'push' }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
 
 jobs:
   render:
