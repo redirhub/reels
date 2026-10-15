@@ -4,7 +4,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
-import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK, fx, mix } from './kit';
+import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK, fx, mix, smooth } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local, type Local } from './timeline';
 
@@ -151,7 +151,7 @@ export function AddressBarScene({ extras, typoSpan }: ForwardDomainsProps) {
             <Eyebrow k={easeOut(prog(t, 0.15, 0.5))} color={C.soft} dash={C.red}>WHAT YOUR VISITOR SEES</Eyebrow>
             <div data-ui="browser" style={{ position: 'absolute', left: 300, top: 215, width: 1320, height: 80, borderRadius: 40, background: '#FFFFFF', display: 'flex', alignItems: 'center', padding: '0 44px', boxSizing: 'border-box', fontFamily: MONO, fontSize: 40, color: C.char, ...ghost1, opacity: 0.18 * Number(ghost1.opacity) }}>{extras[1]}</div>
             <div data-ui="browser" style={{ position: 'absolute', left: 210, top: 310, width: 1500, height: 96, borderRadius: 48, background: '#FFFFFF', display: 'flex', alignItems: 'center', padding: '0 52px', boxSizing: 'border-box', fontFamily: MONO, fontSize: 50, color: C.char, ...ghost2, opacity: 0.34 * Number(ghost2.opacity) }}>{extras[0]}</div>
-            <div data-ui="browser" style={{ position: 'absolute', left: 120, top: 425, width: 1680, height: 220, borderRadius: 110, background: '#FFFFFF', boxShadow: '0 50px 120px rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', gap: 40, padding: '0 80px', boxSizing: 'border-box', color: C.char, ...fx(clamp(push * 1.4), 0, (1 - push) * 120, 0.55 + 0.45 * push) }}>
+            <div data-ui="browser" style={{ position: 'absolute', left: 120, top: 425, width: 1680, height: 220, borderRadius: 110, background: '#FFFFFF', boxShadow: '0 50px 120px rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', gap: 40, padding: '0 80px', boxSizing: 'border-box', color: C.char, ...fx(smooth(push * 1.4), 0, (1 - push) * 120, 0.55 + 0.45 * push) }}>
                 <Lock size={64} />
                 <span style={{ fontFamily: MONO, fontSize: 120, fontWeight: 500, letterSpacing: '-0.02em' }}>
                     {extras[2].slice(0, typoSpan[0])}

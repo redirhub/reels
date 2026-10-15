@@ -135,6 +135,7 @@ export function ConnectDnsScene({ extras, records, tips }: ForwardDomainsProps) 
     const t = useTime();
     const open = LN.word(33, 'connect') + 0.15;
     const dlg = easeOut(prog(t, open, open + 0.4));
+    const dlgO = smooth(prog(t, open, open + 0.3)); // the dialog and its scrim fade from rest (an ease-out jumped on frame one)
     const rA = LN.word(34, 'a', 1) - 0.15, rT = LN.word(34, 'txt') - 0.15, rC = LN.word(34, 'cname') - 0.15, done = LN.at(35);
     const row = (a: number, b: number) => (t < a ? 0 : t < b ? easeOut(prog(t, a, a + 0.25)) : lerp(0.3, 1, 1 - easeOut(prog(t, b, b + 0.3)))) * (1 - easeOut(prog(t, done, done + 0.3)));
     const copyA = LN.word(35, 'copy') - 0.1;
@@ -157,9 +158,9 @@ export function ConnectDnsScene({ extras, records, tips }: ForwardDomainsProps) 
                         </div>
                     </Shell>
                 </div>
-                <AbsoluteFill style={{ background: `rgba(16,24,40,${0.4 * dlg})` }} />
+                <AbsoluteFill style={{ background: `rgba(16,24,40,${0.4 * dlgO})` }} />
             </div>
-            <div data-ui="modal" style={{ position: 'absolute', left: 330, top: 178, transformOrigin: 'top left', ...fx(dlg, 0, (1 - dlg) * 24, 0.9 * (0.97 + 0.03 * dlg)) }}>
+            <div data-ui="modal" style={{ position: 'absolute', left: 330, top: 178, transformOrigin: 'top left', ...fx(dlgO, 0, (1 - dlg) * 24, 0.9 * (0.97 + 0.03 * dlg)) }}>
                 <ConnectDialog domain={extras[0]} oldIp={oldIp} edge={edge} records={records}
                     s={{ rows: [row(rA, rT), row(rT, rC), row(rC, done)], values: hold(t, copyA, LN.at(36)), auto: hold(t, LN.word(36, 'automatic') - 0.1, LN.at(37)), mx: hold(t, LN.word(37, 'leave') - 0.1, 99) }} />
             </div>
@@ -214,7 +215,7 @@ export function HttpsIssuedScene({ extras }: ForwardDomainsProps) {
                                         <circle cx="32" cy="32" r="26" fill="none" stroke={C.g200} strokeWidth="6" />
                                         <circle cx="32" cy="32" r="26" fill="none" stroke="#1C6DB6" strokeWidth="6" strokeLinecap="round" strokeDasharray="40 200" transform={`rotate(${t * 360} 32 32)`} />
                                     </svg>
-                                    <span style={{ position: 'absolute', inset: 0, ...fx(clamp(k * 3), 0, 0, 0.7 + 0.3 * easeOut(k)) }}><Tick size={40} draw={k} /></span>
+                                    <span style={{ position: 'absolute', inset: 0, ...fx(smooth(k * 3), 0, 0, 0.7 + 0.3 * easeOut(k)) }}><Tick size={40} draw={k} /></span>
                                 </span>
                                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}><span style={{ fontSize: 21, fontWeight: 600 }}>{a}</span><span style={{ fontSize: 17, color: C.g600 }}>{b}</span></div>
                             </div>
@@ -223,7 +224,7 @@ export function HttpsIssuedScene({ extras }: ForwardDomainsProps) {
                 </div>
             </div>
             <div style={{ position: 'absolute', left: 1210, top: 270, width: 590, paddingTop: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 34 }}>
-                <svg width="240" height="240" viewBox="0 0 100 100" aria-hidden="true" style={{ filter: 'drop-shadow(0 30px 40px rgba(16,24,40,0.25))', ...fx(clamp(lock * 2), 0, (1 - lock) * 40, 0.4 + 0.6 * lock) }}>
+                <svg width="240" height="240" viewBox="0 0 100 100" aria-hidden="true" style={{ filter: 'drop-shadow(0 30px 40px rgba(16,24,40,0.25))', ...fx(smooth(lock * 2), 0, (1 - lock) * 40, 0.4 + 0.6 * lock) }}>
                     <path d={`M30 48 V${lerp(44, 36, easeOut(prog(t, ticks[2] + 0.8, ticks[2] + 1.1)))}a20 20 0 0 1 40 0v12`} fill="none" stroke="#FFFFFF" strokeWidth="8" strokeLinecap="round" />
                     <rect x="18" y="46" width="64" height="46" rx="12" fill="#FFFFFF" /><circle cx="50" cy="66" r="6" fill={C.navy} /><rect x="47.5" y="66" width="5" height="12" rx="2.5" fill={C.navy} />
                 </svg>

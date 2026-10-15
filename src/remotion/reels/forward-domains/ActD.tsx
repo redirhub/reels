@@ -53,7 +53,7 @@ export function FourAddressesScene({ extras }: ForwardDomainsProps) {
                 <span style={{ fontSize: 36, fontWeight: 600, color: C.soft, ...slideIn(t, LF.word(39, 'part') - 0.1, 0.45, 0, 12) }}>The part most people skip.</span>
             </div>
             <div style={{ position: 'absolute', left: 120, top: 160, display: 'flex', alignItems: 'flex-end', gap: 36 }}>
-                <span style={{ fontSize: 240, fontWeight: 800, lineHeight: 0.82, letterSpacing: '-0.06em', ...fx(clamp(big * 3), 0, 0, lerp(1.35, 1, easeOut(big))) }}>16</span>
+                <span style={{ fontSize: 240, fontWeight: 800, lineHeight: 0.82, letterSpacing: '-0.06em', ...fx(smooth(big * 3), 0, 0, lerp(1.35, 1, easeOut(big))) }}>16</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 6 }}>
                     <span style={{ fontSize: 72, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1, ...slideIn(t, sixteen + 0.2, 0.4, -16, 0) }}>ways in.</span>
                     <span style={{ fontSize: 30, fontWeight: 600, color: C.soft, ...slideIn(t, sixteen + 0.4, 0.4, -16, 0) }}>Four extra domains, four versions each.</span>
@@ -73,12 +73,12 @@ export function FourAddressesScene({ extras }: ForwardDomainsProps) {
                 const from = r === 0 ? (1920 / 2 - COL_W / 2) - p.x : 0;
                 const k = easeOut(prog(t, a, a + 0.4));
                 return (
-                    <div key={d + v} style={{ position: 'absolute', left: p.x, top: p.y, width: COL_W, ...fx(clamp(k * 2), from * (1 - k), r === 0 ? 0 : (1 - k) * 14) }}>
+                    <div key={d + v} style={{ position: 'absolute', left: p.x, top: p.y, width: COL_W, ...fx(smooth(k * 2), from * (1 - k), r === 0 ? 0 : (1 - k) * 14) }}>
                         <DarkPill>{v}{d}</DarkPill>
                     </div>
                 );
             }))}
-            <div style={{ position: 'absolute', left: cell(0, 3).x - 14, top: GRID.y - 14, width: COL_W + 28, height: GRID.head + GRID.rowGap + 4 * GRID.pill + 3 * GRID.rowGap + 28, boxSizing: 'border-box', borderRadius: 26, boxShadow: `inset 0 0 0 3px ${C.amber}`, opacity: easeOut(prog(t, amber, amber + 0.3)) }} />
+            <div style={{ position: 'absolute', left: cell(0, 3).x - 14, top: GRID.y - 14, width: COL_W + 28, height: GRID.head + GRID.rowGap + 4 * GRID.pill + 3 * GRID.rowGap + 28, boxSizing: 'border-box', borderRadius: 26, boxShadow: `inset 0 0 0 3px ${C.amber}`, opacity: smooth(prog(t, amber, amber + 0.3)) }} />
             <span style={{ position: 'absolute', left: cell(0, 3).x, top: GRID.y - 66, display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 20, background: '#FFFFFF', fontSize: 19, fontWeight: 800, color: C.char, ...slideIn(t, LF.word(42, 'easiest') - 0.15, 0.4, 0, 10) }}>Start here · the easiest to forget</span>
         </SceneFade>
     );
@@ -115,7 +115,7 @@ export function CheckerScene({ main, extras }: ForwardDomainsProps) {
                         <div style={{ flex: 1, height: 60, borderRadius: 12, boxShadow: `inset 0 0 0 1.5px ${fly >= 1 && t < press ? '#1C6DB6' : C.g300}`, display: 'flex', alignItems: 'center', padding: '0 20px', fontFamily: MONO, fontSize: 22 }}><span style={{ opacity: clamp((fly - 0.8) / 0.2) }}>{url}</span></div>
                         <span style={{ height: 60, padding: '0 26px', borderRadius: 12, background: '#1C6DB6', color: '#FFFFFF', fontSize: 20, fontWeight: 600, display: 'inline-flex', alignItems: 'center', willChange: 'transform', transform: `scale(${1 - 0.05 * Math.sin(Math.PI * prog(t, press, press + 0.25))})` }}>Check Redirect</span>
                     </div>
-                    <div style={{ marginTop: 14, borderRadius: 16, boxShadow: `inset 0 0 0 1.5px ${C.g200}`, overflow: 'hidden', opacity: easeOut(prog(t, press + 0.2, press + 0.5)) }}>
+                    <div style={{ marginTop: 14, borderRadius: 16, boxShadow: `inset 0 0 0 1.5px ${C.g200}`, overflow: 'hidden', opacity: smooth(prog(t, press + 0.2, press + 0.5)) }}>
                         <Hop n={1} url={url} code="301" k={easeOut(prog(t, press + 0.3, press + 0.65))} badge={popIn(t, c301, 0.35)} />
                         <Hop n={2} url={`https://${main}`} code="200" ok k={easeOut(prog(t, lands - 0.1, lands + 0.25))} badge={popIn(t, lands + 0.15, 0.35)} />
                     </div>
@@ -239,13 +239,13 @@ export function RenewScene({ extras }: ForwardDomainsProps) {
             <Eyebrow k={easeOut(prog(t, 0.2, 0.6))} color={C.char} dash={C.teal}>ONE RULE</Eyebrow>
             <div style={{ position: 'absolute', left: 120, top: 300, width: 940, display: 'flex', flexDirection: 'column', gap: 30, color: C.char }}>
                 <span style={{ fontSize: 84, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.04, ...slideIn(t, LR.word(47, 'keep') - 0.15, 0.5, 0, 20) }}>Keep renewing every domain you forward.</span>
-                <span style={{ fontSize: 38, fontWeight: 600, color: C.g600, ...slideIn(t, LR.word(47, 'expires') - 0.3, 0.45, 0, 14) }}>If one expires, <span style={{ color: C.red, opacity: easeOut(prog(t, LR.word(47, 'someone') - 0.1, LR.word(47, 'someone') + 0.2)) }}>someone else can buy it.</span></span>
+                <span style={{ fontSize: 38, fontWeight: 600, color: C.g600, ...slideIn(t, LR.word(47, 'expires') - 0.3, 0.45, 0, 14) }}>If one expires, <span style={{ color: C.red, opacity: smooth(prog(t, LR.word(47, 'someone') - 0.1, LR.word(47, 'someone') + 0.2)) }}>someone else can buy it.</span></span>
             </div>
             <div style={{ position: 'absolute', left: 1220, top: 250, width: 520, height: 600 }}>
                 <span style={{ position: 'absolute', left: 30, top: 0, display: 'inline-flex', alignItems: 'center', gap: 14, height: 76, padding: '0 30px', borderRadius: 38, background: 'linear-gradient(140deg, rgba(255,255,255,0.79) 0%, rgba(255,255,255,0.64) 100%)', boxShadow: 'inset 0 0 0 1.5px #FFFFFF, 0 30px 70px rgba(16,24,40,0.18)', fontFamily: MONO, fontSize: 34, fontWeight: 600, whiteSpace: 'nowrap', color: C.char, ...popIn(t, 0.25, 0.45) }}>
                     <span style={{ width: 14, height: 14, borderRadius: '50%', background: C.teal }} />{extras[3]}
                 </span>
-                <div style={{ position: 'absolute', left: 60, top: 120, width: 420, borderRadius: 22, overflow: 'hidden', background: C.paper, boxShadow: '0 40px 90px rgba(16,24,40,0.18)', color: C.ink3, ...fx(clamp(k * 2), 0, (1 - k) * -50, 1.03 - 0.03 * k) }}>
+                <div style={{ position: 'absolute', left: 60, top: 120, width: 420, borderRadius: 22, overflow: 'hidden', background: C.paper, boxShadow: '0 40px 90px rgba(16,24,40,0.18)', color: C.ink3, ...fx(smooth(k * 2), 0, (1 - k) * -50, 1.03 - 0.03 * k) }}>
                     <div style={{ height: 84, background: C.navy, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 30px', color: '#FFFFFF' }}><span style={{ fontSize: 30, fontWeight: 800, letterSpacing: '0.08em' }}>OCT</span><span style={{ fontFamily: MONO, fontSize: 28, fontWeight: 600 }}>2027</span></div>
                     <div style={{ padding: '28px 30px 32px', display: 'flex', flexDirection: 'column', gap: 18 }}>
                         <span style={{ fontWeight: 700, fontSize: 17, letterSpacing: '0.16em', color: C.ink8 }}>RENEWED UNTIL</span>

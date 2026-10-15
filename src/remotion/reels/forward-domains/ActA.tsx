@@ -1,6 +1,6 @@
 /* Act A · Many names, one problem: w43-Domains (beats 1–5), w43-DeadEnds (6–7), w43-Title (8). */
 import { useTime, easeOut, easeInOut, prog, clamp } from '../../lib/anim';
-import { C, DOTS, Dots3, GlassPill, Lock, MONO, RoomBg, SceneFade, Typo, UI, popIn, slideIn, outK, fx } from './kit';
+import { C, DOTS, Dots3, GlassPill, Lock, MONO, RoomBg, SceneFade, Typo, UI, popIn, slideIn, outK, fx, smooth } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
@@ -41,7 +41,7 @@ export function DomainsScene({ extras, main, typoSpan }: ForwardDomainsProps) {
 /** The flyer drops onto the table: from above, settling at -4°. */
 function flyerIn(t: number, a: number) {
     const k = easeOut(prog(t, a, a + 0.55));
-    return { ...fx(clamp(k * 2), 0, (1 - k) * -60, 1.04 - 0.04 * k, -4 - (1 - k) * 6) };
+    return { ...fx(smooth(k * 2), 0, (1 - k) * -60, 1.04 - 0.04 * k, -4 - (1 - k) * 6) };
 }
 
 /* ---------------------------------------------------------------- Dead ends */
@@ -84,7 +84,7 @@ export function DeadEndsScene({ extras }: ForwardDomainsProps) {
                 <div style={{ position: 'absolute', left: 150, top: 300, ...side(aL, 1) }}><SideCard domain={extras[1]} title="This domain is parked." side="l" /></div>
                 <div style={{ position: 'absolute', left: 1250, top: 300, ...side(aR, -1) }}><SideCard domain={extras[2]} title="This site can't be reached" side="r" /></div>
             </div>
-            <div data-ui="browser" style={{ position: 'absolute', left: 560, top: 230, width: 800, height: 500, borderRadius: 26, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 60px 140px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.10)', fontFamily: UI, color: C.g700, ...fx(clamp(cK * 1.5), 0, (1 - cK) * 40, 0.94 + 0.06 * cK) }}>
+            <div data-ui="browser" style={{ position: 'absolute', left: 560, top: 230, width: 800, height: 500, borderRadius: 26, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 60px 140px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.10)', fontFamily: UI, color: C.g700, ...fx(smooth(cK * 1.5), 0, (1 - cK) * 40, 0.94 + 0.06 * cK) }}>
                 <div style={{ height: 76, display: 'flex', alignItems: 'center', gap: 16, padding: '0 24px', borderBottom: `1px solid ${C.g200}` }}>
                     <Dots3 size={14} gap={9} />
                     <div style={{ flex: 1, height: 46, borderRadius: 23, background: C.g100, display: 'flex', alignItems: 'center', gap: 14, padding: '0 20px' }}>

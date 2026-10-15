@@ -162,6 +162,7 @@ export type FormState = {
     warn: number;                           // 0–1 the "doesn't point to RedirHub yet" note
     save: number;                           // 0–1 Create redirect press
 };
+const HOP_H = 61, HOPS_FULL = 3 * HOP_H + 2; // one "What happens" row (border included); the box with its borders
 export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: string; from: string; deepPath: string }) {
     const field = (v: string, caret: boolean, ph: string): ReactNode => (
         <div style={{ height: 44, padding: '0 14px', border: `1px solid ${caret ? '#8EB6DB' : '#D5D7DA'}`, boxShadow: caret ? '0 0 0 3px #E8F0F8' : undefined, borderRadius: 8, display: 'flex', alignItems: 'center', fontSize: 15, color: v ? '#181D27' : '#98A2B3', boxSizing: 'border-box', whiteSpace: 'pre' }}>
@@ -169,6 +170,7 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
         </div>
     );
     const hops: readonly [string, string][] = [[from, main], [from + deepPath, main + deepPath], [`${from}/blog/launch?ref=x`, `${main}/blog/launch?ref=x`]];
+    const hidden = hops.reduce((h, _, i) => h + (1 - smooth(clamp(s.hops - i))) * HOP_H, 0); // px of the box not yet open
     return (
         <div style={{ width: 1235, height: 566, background: '#F9FAFB', display: 'flex', flexDirection: 'column', fontFamily: UI, color: '#181D27' }}>
             <div style={{ height: 64, flexShrink: 0, display: 'flex', alignItems: 'center', gap: 14, padding: '0 26px', background: '#FFFFFF', borderBottom: '1px solid #EAECF0', boxSizing: 'border-box' }}>
@@ -196,21 +198,25 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                 </div>
                 <div style={{ width: 340, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 12, alignSelf: 'flex-start' }}>
                     <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', color: '#717680' }}>WHAT HAPPENS</span>
-                    <div style={{ background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, overflow: 'hidden', opacity: clamp(s.hops * 2) }}>
-                        {hops.map(([a, b], i) => {
-                            const k = clamp(s.hops - i);
-                            if (k <= 0) return null;
-                            const ring = i === 1 ? s.hopRing : 0;
-                            // The row opens to its height, so the panel below glides down instead of jumping a row.
-                            return (
-                                <div key={i} style={{ maxHeight: 66 * smooth(k), overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 4, padding: `${12 * smooth(k)}px 14px`, borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 13, opacity: smooth(k), background: ring > 0 ? `rgba(32,167,149,${0.08 * ring})` : undefined, boxShadow: ring > 0 ? `inset 3px 0 0 rgba(32,167,149,${ring})` : undefined }}>
-                                    <span style={{ color: '#414651' }}>{a}</span>
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}><span style={{ fontSize: 11, fontWeight: 700, color: '#1C6DB6', background: '#E8F0F8', borderRadius: 4, padding: '1px 5px' }}>301</span>{b}</span>
-                                </div>
-                            );
-                        })}
+                    {/* All three rows are laid out from the start at a fixed height; the box is revealed by a clip and its
+                        rounded bottom edge and the note below move on transforms. Growing the box by layout snapped to
+                        whole pixels, so the slow start and end of each row's ease stepped (measured as one-frame holds). */}
+                    <div style={{ position: 'relative', height: HOPS_FULL, opacity: clamp(s.hops * 2) }}>
+                        <div style={{ height: HOPS_FULL, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, overflow: 'hidden', clipPath: `inset(0 0 ${hidden}px 0 round 12px)`, willChange: 'clip-path' }}>
+                            {hops.map(([a, b], i) => {
+                                const k = smooth(clamp(s.hops - i));
+                                const ring = i === 1 ? s.hopRing : 0;
+                                return (
+                                    <div key={i} style={{ height: HOP_H, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4, padding: '0 14px', borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 13, opacity: k, background: ring > 0 ? `rgba(32,167,149,${0.08 * ring})` : undefined, boxShadow: ring > 0 ? `inset 3px 0 0 rgba(32,167,149,${ring})` : undefined }}>
+                                        <span style={{ color: '#414651' }}>{a}</span>
+                                        <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}><span style={{ fontSize: 11, fontWeight: 700, color: '#1C6DB6', background: '#E8F0F8', borderRadius: 4, padding: '1px 5px' }}>301</span>{b}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 14, boxSizing: 'border-box', border: '1px solid #EAECF0', borderTop: 'none', borderRadius: '0 0 12px 12px', willChange: 'transform', transform: `translate3d(0, ${HOPS_FULL - hidden - 14}px, 0) rotate(0.02deg)` }} />
                     </div>
-                    <div style={{ display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 12, background: '#FFFAEB', border: '1px solid #FEDF89', fontSize: 13, lineHeight: '19px', color: '#7A2E0E', opacity: s.warn, willChange: 'transform', transform: `translate3d(0, ${(1 - s.warn) * 8}px, 0) rotate(0.02deg)` }}>
+                    <div style={{ display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 12, background: '#FFFAEB', border: '1px solid #FEDF89', fontSize: 13, lineHeight: '19px', color: '#7A2E0E', opacity: s.warn, willChange: 'transform', transform: `translate3d(0, ${(1 - s.warn) * 8 - hidden}px, 0) rotate(0.02deg)` }}>
                         <span style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                             <span><b>{from}</b> doesn&apos;t point to RedirHub yet. The redirect is saved now and goes live when DNS is updated.</span>
                             <span style={{ fontWeight: 600, color: '#B54708' }}>See DNS records in Hostnames</span>
