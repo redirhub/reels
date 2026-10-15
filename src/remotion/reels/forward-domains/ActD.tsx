@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { RedirHubLogo } from '../../brand/Logo';
 import { BrandedQr } from '../../components/QrCode';
 import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
-import { C, DISPLAY, Dots3, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, Tick, TipCard, UI, popIn, slideIn, fx } from './kit';
+import { C, DISPLAY, Dots3, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, Tick, TipCard, UI, popIn, slideIn, fx, mix, smooth } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
@@ -64,7 +64,7 @@ export function FourAddressesScene({ extras }: ForwardDomainsProps) {
                 <GlassPill size={30} dot={C.mute}>{extras[0]}</GlassPill>
             </div>
             {VERSIONS.map((v, c) => (
-                <span key={v} style={{ position: 'absolute', left: cell(0, c).x, top: GRID.y, fontFamily: MONO, fontSize: 24, fontWeight: 600, color: lerpColor(c === 3 && t > amber ? 1 : hd(c)), padding: '0 0 6px 8px', ...slideIn(t, split + c * 0.08, 0.35, 0, 10) }}>{v}</span>
+                <span key={v} style={{ position: 'absolute', left: cell(0, c).x, top: GRID.y, fontFamily: MONO, fontSize: 24, fontWeight: 600, color: mix(C.soft, '#FFFFFF', Math.max(c === 3 ? easeOut(prog(t, amber, amber + 0.3)) : 0, hd(c))), padding: '0 0 6px 8px', ...slideIn(t, split + c * 0.08, 0.35, 0, 10) }}>{v}</span>
             ))}
             {extras.map((d, r) => VERSIONS.map((v, c) => {
                 const a = rowA(r) + c * 0.07;
@@ -83,8 +83,6 @@ export function FourAddressesScene({ extras }: ForwardDomainsProps) {
         </SceneFade>
     );
 }
-/** Column header colour: soft → white as she names that part. */
-const lerpColor = (k: number) => (k > 0.5 ? '#FFFFFF' : C.soft);
 
 /* ---------------------------------------------------------------- Checker */
 const LK = local('checker');
@@ -127,7 +125,7 @@ export function CheckerScene({ main, extras }: ForwardDomainsProps) {
             {/* The cell lands in the input and hands over to its text with a short crossfade (no swap frame). */}
             {fly > 0 && fly < 1 && (
                 <div style={{ position: 'absolute', left: src.x, top: src.y, width: COL_W, ...fx(1 - clamp((fly - 0.85) / 0.15), (dst.x - src.x) * fly, (dst.y - src.y) * fly) }}>
-                    <DarkPill style={{ background: `rgba(255,255,255,${lerp(0.07, 1, fly)})`, color: fly > 0.5 ? C.char : C.ink, boxShadow: `inset 0 0 0 3px ${C.amber}` }}>{url}</DarkPill>
+                    <DarkPill style={{ background: `rgba(255,255,255,${lerp(0.07, 1, fly)})`, color: mix(C.ink, C.char, fly), boxShadow: `inset 0 0 0 3px ${C.amber}` }}>{url}</DarkPill>
                 </div>
             )}
             <div style={{ position: 'absolute', left: 1250, top: 250, width: 550, display: 'flex', flexDirection: 'column', gap: 34 }}>
@@ -159,6 +157,10 @@ export function AllGreenScene({ main, extras }: ForwardDomainsProps) {
     const t = useTime();
     const rows = allGreenRows().map((a) => a - LG.start);
     const n = rows.reduce((acc, a) => acc + (t >= a ? 4 : 0), 0);
+    // Each step of the count crossfades with a short roll instead of swapping digits in one frame.
+    const last = [...rows].reverse().find((a) => t >= a);
+    const q = last === undefined ? 1 : smooth(prog(t, last, last + 0.16));
+    const DIGIT = 0.565; // a tabular digit of the display face at 92 px, in em (letter-spacing included): 52 px, measured on a still
     const tip = slideIn(t, LG.word(45, 'not') - 0.1, 0.5, 40, 0);
     return (
         <SceneFade t={t} room="radial">
@@ -167,7 +169,14 @@ export function AllGreenScene({ main, extras }: ForwardDomainsProps) {
             <Eyebrow k={1} color={C.ink} dash={C.ink}>NOW TEST IT</Eyebrow>
             <div style={{ position: 'absolute', left: 120, top: 160, display: 'flex', alignItems: 'flex-end', gap: 36 }}>
                 {/* Leo set this to 92 px, weight 500 on the canvas (in Open Sans); the film keeps the brand face. */}
-                <span style={{ fontFamily: DISPLAY, fontSize: 92, fontWeight: 500, lineHeight: 0.82, letterSpacing: '-0.04em', width: 540, height: 197, display: 'flex', alignItems: 'flex-end', fontVariantNumeric: 'tabular-nums' }}>{n} / 16</span>
+                <span style={{ fontFamily: DISPLAY, fontSize: 92, fontWeight: 500, lineHeight: 0.82, letterSpacing: '-0.04em', width: 540, height: 197, display: 'flex', alignItems: 'flex-end', fontVariantNumeric: 'tabular-nums', position: 'relative' }}>
+                    {/* The number rolls in a fixed two-digit slot; "/16" glides to its new place on a transform when 8 becomes 12. */}
+                    <span style={{ position: 'relative', display: 'inline-block', width: `${2 * DIGIT}em`, flex: 'none' }}>
+                        <span style={{ display: 'inline-block', ...fx(q, 0, (1 - q) * 18) }}>{n}</span>
+                        {q < 1 && <span style={{ position: 'absolute', left: 0, bottom: 0, ...fx(1 - q, 0, -q * 18) }}>{n - 4}</span>}
+                    </span>
+                    <span style={{ display: 'inline-block', ...fx(1, (lerp(String(Math.max(0, n - 4)).length, String(n).length, q) - 2) * DIGIT * 92) }}>&nbsp;/ 16</span>
+                </span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14, paddingBottom: 6, ...slideIn(t, rows[3] + 0.3, 0.45, -16, 0) }}>
                     <span style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1 }}>land on</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12, width: 'max-content', height: 64, padding: '0 24px', borderRadius: 32, background: '#FFFFFF', color: C.char, fontFamily: MONO, fontSize: 32, fontWeight: 600 }}><Lock size={26} color={C.char} sw={2.6} />https://{main}</span>
@@ -269,7 +278,7 @@ export function EndCardScene({ main, extras, end, qr }: ForwardDomainsProps) {
                 const dx = (360 - p.x) * fold, dy = (400 - p.y) * fold;
                 return (
                     <span key={d} style={{ position: 'absolute', left: p.x, top: p.y, transformOrigin: 'top left', ...fx(clamp(popIn(t, 0.05 + i * 0.08, 0.4).opacity as number) * (1 - clamp((fold - 0.6) * 2.5)), dx, dy, 1 - 0.55 * fold) }}>
-                        <GlassPill size={34} dot={teal > 0.5 ? C.teal : C.soft} style={{ boxShadow: `inset 0 0 0 ${1 + 1.5 * teal}px ${teal > 0.5 ? C.teal : 'rgba(255,255,255,0.22)'}, 0 20px 50px rgba(0,0,0,0.35)` }}>{d}</GlassPill>
+                        <GlassPill size={34} dot={mix(C.soft, C.teal, teal)} style={{ boxShadow: `inset 0 0 0 ${1 + 1.5 * teal}px ${mix('rgba(255,255,255,0.22)', C.teal, teal)}, 0 20px 50px rgba(0,0,0,0.35)` }}>{d}</GlassPill>
                     </span>
                 );
             })}

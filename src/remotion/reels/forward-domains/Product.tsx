@@ -6,7 +6,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { IconLink, IconQr, IconRedirect, IconUpload } from '../../components/icons';
 import { clamp } from '../../lib/anim';
-import { MONO, UI } from './kit';
+import { MONO, UI, mix, smooth } from './kit';
 
 const SV = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
 const Ico = ({ d, size = 18, children }: { d?: string; size?: number; children?: ReactNode }) => (
@@ -136,7 +136,7 @@ export function CreateChooser({ pick = 0 }: { pick?: number }) {
                 {items.map(([title, body, example, Icon, tile, ic], i) => {
                     const on = i === 2 ? pick : 0;
                     return (
-                        <div key={title} style={{ borderRadius: 12, border: `1.5px solid ${on > 0.5 ? '#1C6DB6' : '#EAECF0'}`, background: on > 0.5 ? '#F5F9FD' : '#FFFFFF', boxShadow: `0 0 0 ${4 * on}px rgba(28,109,182,0.16)`, padding: '18px 20px 14px', willChange: 'transform', transform: `scale(${1 + on * 0.015})` }}>
+                        <div key={title} style={{ borderRadius: 12, border: `1.5px solid ${mix('#EAECF0', '#1C6DB6', on)}`, background: mix('#FFFFFF', '#F5F9FD', on), boxShadow: `0 0 0 ${4 * on}px rgba(28,109,182,0.16)`, padding: '18px 20px 14px', willChange: 'transform', transform: `scale(${1 + on * 0.015})` }}>
                             <div style={{ width: 42, height: 42, borderRadius: 10, background: tile, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={22} color={ic} /></div>
                             <div style={{ fontSize: 18, fontWeight: 600, marginTop: 14 }}>{title}</div>
                             <div style={{ fontSize: 14.5, color: '#475467', marginTop: 4, lineHeight: 1.4, minHeight: 40 }}>{body}</div>
@@ -177,7 +177,7 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                 <span style={{ fontSize: 18, fontWeight: 600, color: '#344054' }}>New domain redirect</span>
                 <span style={{ flexGrow: 1 }} />
                 <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 14px', border: '1px solid #D5D7DA', borderRadius: 8, fontSize: 14, fontWeight: 600, color: '#344054' }}>Cancel</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 8, background: s.save > 0.5 ? '#1C6DB6' : '#337CBD', fontSize: 14, fontWeight: 600, color: '#FFFFFF', willChange: 'transform', transform: `scale(${1 - 0.06 * Math.sin(Math.PI * s.save)})`, boxShadow: `0 0 0 ${4 * Math.sin(Math.PI * s.save)}px rgba(28,109,182,0.25)` }}>Create redirect</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 8, background: mix('#337CBD', '#1C6DB6', s.save), fontSize: 14, fontWeight: 600, color: '#FFFFFF', willChange: 'transform', transform: `scale(${1 - 0.06 * Math.sin(Math.PI * s.save)})`, boxShadow: `0 0 0 ${4 * Math.sin(Math.PI * s.save)}px rgba(28,109,182,0.25)` }}>Create redirect</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 26, padding: '24px 26px' }}>
                 <div style={{ width: 560, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 20, padding: '22px 26px', background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, boxSizing: 'border-box', alignSelf: 'flex-start' }}>
@@ -188,7 +188,7 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: -8, fontSize: 13, color: '#717680' }}>
                         <span style={{ fontWeight: 600, color: '#1C6DB6' }}>+ Add another source</span>
-                        <span style={{ padding: '3px 8px', borderRadius: 6, boxShadow: `0 0 0 ${2 * s.wwwRing}px #20A795, 0 0 0 ${2 + 5 * s.wwwRing}px rgba(32,167,149,${0.18 * s.wwwRing})`, color: s.wwwRing > 0.5 ? '#181D27' : '#717680', fontWeight: 500 }}>A root domain also covers www.</span>
+                        <span style={{ padding: '3px 8px', borderRadius: 6, boxShadow: `0 0 0 ${2 * s.wwwRing}px #20A795, 0 0 0 ${2 + 5 * s.wwwRing}px rgba(32,167,149,${0.18 * s.wwwRing})`, color: mix('#717680', '#181D27', s.wwwRing), fontWeight: 500 }}>A root domain also covers www.</span>
                     </div>
                     <Radios label="Redirect type" k={s.type301} items={[['301 · Permanent', 'Moved for good. Passes SEO value.'], ['302 · Temporary', 'For now. Browsers won’t cache it.']]}
                         foot={<span style={{ fontSize: 13, fontWeight: 600, color: '#1C6DB6' }}>More types <span style={{ fontWeight: 400, color: '#717680' }}>307 · 308 · Custom HTML</span></span>} />
@@ -201,8 +201,9 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                             const k = clamp(s.hops - i);
                             if (k <= 0) return null;
                             const ring = i === 1 ? s.hopRing : 0;
+                            // The row opens to its height, so the panel below glides down instead of jumping a row.
                             return (
-                                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '12px 14px', borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 13, opacity: k, background: ring > 0 ? `rgba(32,167,149,${0.08 * ring})` : undefined, boxShadow: ring > 0 ? `inset 3px 0 0 rgba(32,167,149,${ring})` : undefined }}>
+                                <div key={i} style={{ maxHeight: 66 * smooth(k), overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 4, padding: `${12 * smooth(k)}px 14px`, borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 13, opacity: smooth(k), background: ring > 0 ? `rgba(32,167,149,${0.08 * ring})` : undefined, boxShadow: ring > 0 ? `inset 3px 0 0 rgba(32,167,149,${ring})` : undefined }}>
                                     <span style={{ color: '#414651' }}>{a}</span>
                                     <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}><span style={{ fontSize: 11, fontWeight: 700, color: '#1C6DB6', background: '#E8F0F8', borderRadius: 4, padding: '1px 5px' }}>301</span>{b}</span>
                                 </div>

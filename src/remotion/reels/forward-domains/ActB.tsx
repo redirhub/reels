@@ -4,7 +4,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
-import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK, fx } from './kit';
+import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK, fx, mix } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local, type Local } from './timeline';
 
@@ -136,9 +136,10 @@ export function AddressBarScene({ extras, typoSpan }: ForwardDomainsProps) {
     const r0 = REWIND_FROM();
     // Time-reverse: after r0 the whole scene runs back to its first frame in 0.75 s (about 6×), then dips to night.
     const rev = clamp(prog(raw, r0, r0 + 0.75));
-    const t = raw < r0 ? raw : lerp(r0, 0, rev);
+    const t = raw < r0 ? raw : lerp(r0, 0, easeInOut(rev)); // spins up and down: no full-speed start
+
     const a = LA.at(16) + 0.05;
-    const push = easeOut(prog(t, a - 0.3, a + 0.6));
+    const push = easeInOut(prog(t, a - 0.25, a + 0.75)); // the push-in starts from rest under the dissolve
     const ghost1 = slideIn(t, a + 0.35, 0.5, 0, 30), ghost2 = slideIn(t, a + 0.2, 0.5, 0, 30);
     const red = clamp(prog(t, LA.word(16, 'typo') - 0.3, LA.word(16, 'typo') + 0.1));
     const cap1 = slideIn(t, LA.word(16, 'shows') - 0.1, 0.45, 0, 18);
@@ -154,7 +155,7 @@ export function AddressBarScene({ extras, typoSpan }: ForwardDomainsProps) {
                 <Lock size={64} />
                 <span style={{ fontFamily: MONO, fontSize: 120, fontWeight: 500, letterSpacing: '-0.02em' }}>
                     {extras[2].slice(0, typoSpan[0])}
-                    <span style={{ textDecoration: `underline wavy rgba(229,72,77,${red})`, textDecorationThickness: 5, textUnderlineOffset: 22, color: red > 0.5 ? C.red : C.char }}>{extras[2].slice(typoSpan[0], typoSpan[1])}</span>
+                    <span style={{ textDecoration: `underline wavy rgba(229,72,77,${red})`, textDecorationThickness: 5, textUnderlineOffset: 22, color: mix(C.char, C.red, red) }}>{extras[2].slice(typoSpan[0], typoSpan[1])}</span>
                     {extras[2].slice(typoSpan[1])}
                 </span>
             </div>

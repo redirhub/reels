@@ -5,13 +5,13 @@
 import type { CSSProperties } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
-import { C, Eyebrow, Lock, MONO, Progress, RoomBg, SceneFade, Tick, TipCard, UI, outK, popIn, slideIn, fx } from './kit';
+import { C, Eyebrow, Lock, MONO, Progress, RoomBg, SceneFade, Tick, TipCard, UI, outK, popIn, slideIn, fx, smooth } from './kit';
 import { ConnectDialog, CreateButton, CreateChooser, HostnamesBody, LinksBody, RedirectForm, Shell } from './Product';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
 /** Blend two #rrggbb colours (the window's background as it turns from the list into the form). */
-const mix = (a: string, b: string, k: number) => '#' + [1, 3, 5].map((i) => Math.round(lerp(parseInt(a.slice(i, i + 2), 16), parseInt(b.slice(i, i + 2), 16), clamp(k))).toString(16).padStart(2, '0')).join('');
+const mixHex = (a: string, b: string, k: number) => '#' + [1, 3, 5].map((i) => Math.round(lerp(parseInt(a.slice(i, i + 2), 16), parseInt(b.slice(i, i + 2), 16), clamp(k))).toString(16).padStart(2, '0')).join('');
 /** Characters of `text` typed over [a, b]. */
 const typed = (text: string, t: number, a: number, b: number) => text.slice(0, Math.round(text.length * prog(t, a, b)));
 /** 0→1→0 over [a, a+d]: a highlight that comes and goes. */
@@ -78,8 +78,9 @@ export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps)
     const win = { w: lerp(LIST.w * LIST.s, FORM.w * FORM.s, toForm), h: lerp(LIST.h * LIST.s, FORM.h * FORM.s, toForm) };
     const rowsK = [back + 0.35, ...T.rows].map((a) => easeOut(prog(t, a, a + 0.4)));
     const nRows = rowsK.filter((k) => k > 0).length;
-    const chooser = t >= T.create + 0.05 && t < T.form + 0.2;
-    const chooserK = easeOut(prog(t, T.create + 0.05, T.create + 0.35)) * (1 - easeOut(prog(t, T.form - 0.05, T.form + 0.2)));
+    const chooser = t >= T.create + 0.05 && t < T.form + 0.3;
+    // The chooser fades out while the window starts growing (overlapping eases, so no pause between them).
+    const chooserK = smooth(prog(t, T.create + 0.05, T.create + 0.35)) * (1 - easeInOut(prog(t, T.form - 0.15, T.form + 0.3)));
     const form = {
         from: typed(extras[0], t, T.from, T.from + 0.55), to: typed(`https://${main}`, t, T.to, T.toEnd),
         caret: (t >= LD.word(25, 'from') - 0.2 && t < T.from + 0.7 ? 'from' : t >= T.to - 0.3 && t < T.toEnd + 0.4 ? 'to' : null) as 'from' | 'to' | null,
@@ -103,7 +104,7 @@ export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps)
             {/* The window grows from the list to the full-page form. Width/height would re-layout and snap to whole
                 pixels every frame, so the frame is a scaled panel and the content a clip, both sub-pixel smooth. */}
             <div data-ui="dashboard" style={{ position: 'absolute', left: 120, top: 170, width: WIN.w, height: WIN.h, ...slideIn(t, winIn, 0.55, 0, 40) }}>
-                <div style={{ position: 'absolute', left: 0, top: 0, width: WIN.w, height: WIN.h, borderRadius: 24, background: mix('#F2F4F7', '#F9FAFB', toForm), boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', transform: `scale(${win.w / WIN.w}, ${win.h / WIN.h})`, transformOrigin: 'top left', willChange: 'transform' }} />
+                <div style={{ position: 'absolute', left: 0, top: 0, width: WIN.w, height: WIN.h, borderRadius: 24, background: mixHex('#F2F4F7', '#F9FAFB', toForm), boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', transform: `scale(${win.w / WIN.w}, ${win.h / WIN.h})`, transformOrigin: 'top left', willChange: 'transform' }} />
                 <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${WIN.w - win.w}px ${WIN.h - win.h}px 0 round 24px)` }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${LIST.s})`, transformOrigin: 'top left', opacity: 1 - toForm }}>
                     <Shell w={LIST.w} h={LIST.h} active="links" counts={{ links: nRows, hostnames: nRows }} crumb="Links" pulse={bump(t, T.links - 0.1, 0.8)}
@@ -190,7 +191,7 @@ export function HttpsIssuedScene({ extras }: ForwardDomainsProps) {
             <AbsoluteFill style={{ opacity: flood }}><RoomBg room="sweep" t={t} /></AbsoluteFill>
             <Eyebrow k={1 - flood} color={C.char} dash={C.teal}>STEP THREE · CONNECT EACH DOMAIN</Eyebrow>
             <Eyebrow k={flood} color={C.ink} dash={C.ink}>STEP THREE · CONNECT EACH DOMAIN</Eyebrow>
-            <Progress fill={3} on={flood > 0.5 ? '#FFFFFF' : C.teal} />
+            <Progress fill={3} on={mixHex(C.teal, '#FFFFFF', flood)} />
             <div data-ui="modal" style={{ position: 'absolute', left: 120, top: 290, width: 1010, boxSizing: 'border-box', borderRadius: 24, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 50px 120px rgba(16,24,40,0.30)', fontFamily: UI, color: C.char, ...popIn(t, 0.1, 0.5) }}>
                 <div style={{ padding: '30px 34px 26px', display: 'flex', alignItems: 'center', gap: 18 }}>
                     <span style={{ width: 56, height: 56, flex: 'none', borderRadius: 12, background: '#E8F0F8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1C6DB6" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" /></svg></span>
@@ -229,17 +230,18 @@ export function HttpsIssuedScene({ extras }: ForwardDomainsProps) {
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14, height: 76, padding: '0 30px', borderRadius: 38, background: 'rgba(255,255,255,0.16)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.45), 0 20px 50px rgba(16,24,40,0.16)', fontFamily: MONO, fontSize: 34, fontWeight: 500, whiteSpace: 'nowrap', color: C.ink, ...slideIn(t, ticks[2] + 0.6, 0.45, 0, 16) }}>
                     <Lock size={26} color="#FFFFFF" sw={2.6} />
                     <span style={{ position: 'relative', overflow: 'hidden', height: 44, display: 'inline-block' }}>
-                        <span style={{ display: 'block', lineHeight: '44px', ...swap(t, every + idx * 0.45, idx > 0) }}>https://{extras[idx]}</span>
+                        {/* Each new domain rolls up while the previous one rolls out, so the text never swaps in one frame. */}
+                        <span style={{ display: 'block', lineHeight: '44px', visibility: 'hidden' }}>https://{extras[3]}</span>
+                        {[idx - 1, idx].map((j) => {
+                            if (j < 0) return null;
+                            const q = idx > 0 ? smooth(prog(t, every + idx * 0.45, every + idx * 0.45 + 0.2)) : 1;
+                            const cur = j === idx;
+                            return <span key={j} style={{ position: 'absolute', left: 0, top: 0, lineHeight: '44px', whiteSpace: 'nowrap', ...fx(cur ? q : 1 - q, 0, cur ? (1 - q) * 30 : -q * 30) }}>https://{extras[j]}</span>;
+                        })}
                     </span>
                 </span>
                 <span style={{ fontSize: 48, fontWeight: 800, textAlign: 'center', letterSpacing: '-0.025em', lineHeight: 1.1, color: C.ink, ...slideIn(t, LH.word(38, 'padlock') - 0.15, 0.5, 0, 18) }}>The padlock,<br />on every domain.</span>
             </div>
         </SceneFade>
     );
-}
-/** A quick roll-up when the padlock's address changes. */
-function swap(t: number, a: number, on: boolean): CSSProperties {
-    if (!on) return {};
-    const k = easeOut(prog(t, a, a + 0.18));
-    return { willChange: 'transform', transform: `translate3d(0, ${(1 - k) * 30}px, 0) rotate(0.02deg)`, opacity: k };
 }

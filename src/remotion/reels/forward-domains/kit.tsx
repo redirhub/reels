@@ -12,6 +12,10 @@ export const W = 1920, H = 1080;
     the slow tail of every ease moved in 1-px steps on alternate frames (measured: 0.47, 0.00, 0.54, 0.01).
     Its own layer plus a 0.02° turn (invisible) makes it a true sub-pixel transform: the tail decays
     continuously, and text at rest measured as sharp as before. */
+/** Smoothstep: starts and ends at rest (no first-frame jolt). */
+export const smooth = (x: number) => { const k = clamp(x); return k * k * (3 - 2 * k); };
+/** Blend two colours (any CSS colour) by k, so a state change fades instead of flipping in one frame. */
+export const mix = (a: string, b: string, k: number) => `color-mix(in srgb, ${b} ${(clamp(k) * 100).toFixed(1)}%, ${a})`;
 export const SMOOTH = (x: number, y: number, s = 1, r = 0) => `translate3d(${x}px, ${y}px, 0) scale(${s}) rotate(${r + 0.02}deg)`;
 export function fx(o = 1, x = 0, y = 0, s = 1, r = 0): CSSProperties {
     return { ...baseFx(o, x, y, s, r), transform: SMOOTH(x, y, s, r), willChange: 'transform, opacity', backfaceVisibility: 'hidden' };
@@ -96,12 +100,13 @@ export function Progress({ fill, k = 1, on = C.teal, off = C.g300 }: { fill: num
 /** Pop-in: scale from 0.86 with a little overshoot, fade over the first part. */
 export function popIn(t: number, a: number, d = 0.42): CSSProperties {
     const k = prog(t, a, a + d);
-    return fx(clamp(k * 2.2), 0, 0, 0.86 + 0.14 * easeBack(k));
+    return fx(smooth(k * 2.2), 0, 0, 0.86 + 0.14 * easeBack(k));
 }
 /** Slide in from a side (dx) or below (dy). */
 export function slideIn(t: number, a: number, d = 0.45, dx = 0, dy = 30): CSSProperties {
-    const k = easeOut(prog(t, a, a + d));
-    return fx(k, (1 - k) * dx, (1 - k) * dy);
+    const q = prog(t, a, a + d), k = easeOut(q);
+    // Position eases out; opacity eases in and out, so a large panel never jumps from invisible on frame one.
+    return fx(smooth(q * 1.6), (1 - k) * dx, (1 - k) * dy);
 }
 /** Fade out over [b, b+d] (multiply into opacity). */
 export const outK = (t: number, b: number, d = 0.3) => 1 - easeOut(prog(t, b, b + d));
@@ -189,8 +194,11 @@ export function SceneFade({ t, room, inD = 0.3, outAt, outD = 0.3, color = C.ink
     const out = outAt === undefined ? 1 : outK(t, outAt, outD);
     // One continuous dissolve: both curves ease in and out and overlap, so the cut never moves in two steps
     // (an ease-out content fade started at full speed right after the cover: measured as a one-frame jump).
-    const cover = room ? easeInOut(prog(t, 0, inD * 0.6)) : 1;
-    const o = (room ? easeInOut(prog(t, inD * 0.2, inD)) : easeInOut(prog(t, 0, inD))) * out;
+    // A single eased phase drives both: the room is laid down in its first 60%, the content over its last 75%,
+    // so the motion never pauses between them (two eases in a row slowed to zero mid-cut: measured as a stall).
+    const ph = easeInOut(prog(t, 0, inD));
+    const cover = room ? clamp(ph / 0.6) : 1;
+    const o = (room ? clamp((ph - 0.25) / 0.75) : ph) * out;
     return (
         <AbsoluteFill style={{ color, fontFamily: DISPLAY }}>
             {room && <RoomBg room={room} t={t} opacity={cover * out} />}

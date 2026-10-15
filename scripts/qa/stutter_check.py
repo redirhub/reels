@@ -20,6 +20,7 @@ import numpy as np
 ap = argparse.ArgumentParser()
 ap.add_argument('mp4'); ap.add_argument('--from', dest='t0', type=float, default=0); ap.add_argument('--to', dest='t1', type=float, default=0)
 ap.add_argument('--top', type=int, default=60)
+ap.add_argument('--min-peak', type=float, default=1.5, help='drop findings whose motion peaks under this many grey levels a frame')
 a = ap.parse_args()
 fps = eval(subprocess.check_output(['ffprobe', '-v', 'error', '-select_streams', 'v', '-show_entries', 'stream=r_frame_rate', '-of', 'csv=p=0', a.mp4]).decode().strip())
 W, H, GX, GY = 320, 180, 8, 6
@@ -51,10 +52,13 @@ groups = []
 for t, kind, gx, gy, c, n in found:
     g = groups[-1] if groups else None
     if g and t - g['end'] <= 0.3 and g['kind'] == kind:
-        g['end'] = t; g['tiles'].add((gx, gy)); g['n'] += 1
+        g['end'] = t; g['tiles'].add((gx, gy)); g['n'] += 1; g['peak'] = max(g['peak'], n if kind == 'hold' else c)
     else:
-        groups.append({'start': t, 'end': t, 'kind': kind, 'tiles': {(gx, gy)}, 'n': 1})
+        groups.append({'start': t, 'end': t, 'kind': kind, 'tiles': {(gx, gy)}, 'n': 1, 'peak': n if kind == 'hold' else c})
+# A tile whose motion is a grey level or so per frame is a slow fade on a flat colour: 8-bit rounding makes it
+# step 1, 0, 1, 0, which reads as a hold here but is invisible. --min-peak drops those (default 1.5 grey levels).
+groups = [g for g in groups if g['peak'] >= a.min_peak]
 for g in groups[:a.top] if a.top else groups:
     xs = [x for x, _ in g['tiles']]; ys = [y for _, y in g['tiles']]
-    print(f"{g['start']:7.2f}–{g['end']:.2f}s  {g['kind']:4s} ×{g['n']:<3d} area x{min(xs) * 1920 // GX}–{(max(xs) + 1) * 1920 // GX} y{min(ys) * 1080 // GY}–{(max(ys) + 1) * 1080 // GY}")
+    print(f"{g['start']:7.2f}–{g['end']:.2f}s  {g['kind']:4s} ×{g['n']:<3d} area x{min(xs) * 1920 // GX}–{(max(xs) + 1) * 1920 // GX} y{min(ys) * 1080 // GY}–{(max(ys) + 1) * 1080 // GY}  peak {g['peak']:.1f}")
 print(f'{len(groups)} finding(s) at {fps:g} fps')
