@@ -1,6 +1,6 @@
 # W43 production notes: from key frames to film
 
-**Status:** 2026-10-15, round 2 (Leo's review of the first cut, below). Composition `forward-domains`
+**Status:** 2026-10-15, round 3 (smooth motion; round 2 was Leo's review of the first cut, below). Composition `forward-domains`
 (`src/remotion/reels/forward-domains/`), built from the approved canvas page `w43` (Leo's edits synced) and `script.md` v3.
 Length follows the voice (`timings.json`), currently **290 s** (was 305 s).
 
@@ -30,8 +30,19 @@ had 19, almost all on the floating domain pills. The causes, and the fixes:
 | Scene cuts moved in two steps: the new room, then the content snapping on at full speed | One continuous dissolve: cover and content both ease in and out and overlap |
 | The window morph crossfaded through a blank frame and switched its colour in one frame; the flying address swapped for the input text in one frame | True crossfades: list and form overlap, the colour blends, the address hands over to the text over 0.15 s |
 | 30 fps: every move advanced in coarse steps | The video renders at **60 fps** (YouTube plays 1080p60). Everything is timed in seconds, so nothing else changed |
+| Cuts still dipped halfway: the room's ease came to rest before the content's began | Room and content run on **one** eased phase (`SceneFade`): the room is laid in its first 60 %, the content over its last 75 %, so the motion never stops |
+| Colours flipped in one frame at 50 % (typo letters, chooser cards, save button, column headers, the flying address, the end card's rings, the HTTPS bar) | Every state colour blends (`mix` in `kit.tsx`, CSS `color-mix`) |
+| The form's "What happens" rows popped in at full height and shoved the panel below down a row | Each row opens to its height, so the panel glides |
+| Entrances started at full speed (opacity on an ease-out jumps a third of the way on frame one) | Opacity runs on a smoothstep; position keeps its ease-out |
+| Back-to-back moves: the chooser faded, stopped, then the window grew; the rewind and the address-bar push started at full speed | The moves overlap, and both start from rest (ease in and out) |
+| Discrete values: "n / 16" and the padlock's domain swapped in one frame | Both roll: the old value rolls out as the new one rolls in. "/16" glides on a transform when 8 becomes 12 (the digits sit in a fixed two-digit slot) |
 
-Result on the first 15 s: 19 events at 30 fps → 2 at 60 fps, both the pixel snapping fixed above.
+Result on the first 15 s: 19 events at 30 fps → 2 at 60 fps, both the pixel snapping fixed above. On the six windows
+with the most findings in the first 60 fps cut (cuts, the rewind, the window morph, the counter), 32 findings → 15, and
+the 15 left are all one grey level a frame or less: a slow fade over a flat colour, which 8-bit video can only step
+1, 0, 1, 0. That's invisible, but it reads as a "hold" to the checker, so `stutter_check.py` now prints each finding's
+peak and drops those under 1.5 grey levels a frame (`--min-peak 0` shows them all). The one real jump left (the
+counter's "/16" shifting when 8 became 12) is fixed above.
 
 ## Voice
 
