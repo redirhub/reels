@@ -73,5 +73,6 @@ export const reels: Reel[] = [
         defaultProps: forwardDomainsDefaults,
         durationInSeconds: FORWARD_DOMAINS_SECONDS,
         ...LANDSCAPE,
+        fps: 60, // YouTube plays 1080p60: motion graphics move in half the step, so slides and pops stay smooth
     },
 ];

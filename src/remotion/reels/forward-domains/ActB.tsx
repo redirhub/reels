@@ -3,8 +3,8 @@
    w43-AddressBar (16, ends on the film's only time-reverse), w43-OneAddress (17–18), w43-Steps (19, and the recap at 48). */
 import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill } from 'remotion';
-import { clamp, easeInOut, easeOut, fx, lerp, prog, useTime } from '../../lib/anim';
-import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK } from './kit';
+import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
+import { C, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, SiteCard, Tick, Typo, UI, popIn, slideIn, outK, fx } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local, type Local } from './timeline';
 
@@ -123,7 +123,7 @@ function Stamp({ t, a }: { t: number; a: number }) {
     const k = prog(t, a, a + 0.22);
     const s = k < 1 ? lerp(1.7, 1, easeOut(k)) : 1;
     return (
-        <span style={{ position: 'absolute', left: 120, top: 120, padding: '6px 22px', border: `5px solid ${C.red}`, borderRadius: 12, fontSize: 52, fontWeight: 800, letterSpacing: '0.12em', color: C.red, background: 'rgba(11,20,38,0.55)', opacity: clamp(k * 3), transform: `rotate(-12deg) scale(${s})`, transformOrigin: 'center' }}>COPY</span>
+        <span style={{ position: 'absolute', left: 120, top: 120, padding: '6px 22px', border: `5px solid ${C.red}`, borderRadius: 12, fontSize: 52, fontWeight: 800, letterSpacing: '0.12em', color: C.red, background: 'rgba(11,20,38,0.55)', opacity: clamp(k * 3), willChange: 'transform', transform: `rotate(-12deg) scale(${s})`, transformOrigin: 'center' }}>COPY</span>
     );
 }
 
@@ -163,7 +163,7 @@ export function AddressBarScene({ extras, typoSpan }: ForwardDomainsProps) {
                 <span style={{ fontSize: 30, fontWeight: 500, color: C.soft, ...cap2 }}>Whatever they typed stays in the bar. Even the typo.</span>
             </div>
             {/* The rewind reads as tape running back: a light scanline sweep and a slight blur. */}
-            <AbsoluteFill style={{ pointerEvents: 'none', opacity: rev > 0 && rev < 1 ? 0.5 : 0, background: `repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 2px, rgba(0,0,0,0) 2px 7px)`, transform: `translateY(${-raw * 400 % 7}px)` }} />
+            <AbsoluteFill style={{ pointerEvents: 'none', opacity: rev > 0 && rev < 1 ? 0.5 : 0, background: `repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 2px, rgba(0,0,0,0) 2px 7px)`, willChange: 'transform', transform: `translateY(${-raw * 400 % 7}px)` }} />
             <AbsoluteFill style={{ background: '#0B1426', opacity: easeInOut(prog(raw, r0 + 0.55, r0 + 0.8)) }} />
         </SceneFade>
     );

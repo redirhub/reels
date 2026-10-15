@@ -3,8 +3,8 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { RedirHubLogo } from '../../brand/Logo';
 import { BrandedQr } from '../../components/QrCode';
-import { clamp, easeInOut, easeOut, fx, lerp, prog, useTime } from '../../lib/anim';
-import { C, DISPLAY, Dots3, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, Tick, TipCard, UI, popIn, slideIn } from './kit';
+import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
+import { C, DISPLAY, Dots3, Eyebrow, GlassPill, Lock, MONO, RoomBg, SceneFade, Tick, TipCard, UI, popIn, slideIn, fx } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
@@ -114,8 +114,8 @@ export function CheckerScene({ main, extras }: ForwardDomainsProps) {
                 <div style={{ padding: '44px 56px', display: 'flex', flexDirection: 'column', gap: 22 }}>
                     <span style={{ fontSize: 40, fontWeight: 700, letterSpacing: '-0.02em' }}>Check Any URL Redirect</span>
                     <div style={{ display: 'flex', gap: 12 }}>
-                        <div style={{ flex: 1, height: 60, borderRadius: 12, boxShadow: `inset 0 0 0 1.5px ${fly >= 1 && t < press ? '#1C6DB6' : C.g300}`, display: 'flex', alignItems: 'center', padding: '0 20px', fontFamily: MONO, fontSize: 22 }}>{fly >= 1 ? url : ''}</div>
-                        <span style={{ height: 60, padding: '0 26px', borderRadius: 12, background: '#1C6DB6', color: '#FFFFFF', fontSize: 20, fontWeight: 600, display: 'inline-flex', alignItems: 'center', transform: `scale(${1 - 0.05 * Math.sin(Math.PI * prog(t, press, press + 0.25))})` }}>Check Redirect</span>
+                        <div style={{ flex: 1, height: 60, borderRadius: 12, boxShadow: `inset 0 0 0 1.5px ${fly >= 1 && t < press ? '#1C6DB6' : C.g300}`, display: 'flex', alignItems: 'center', padding: '0 20px', fontFamily: MONO, fontSize: 22 }}><span style={{ opacity: clamp((fly - 0.8) / 0.2) }}>{url}</span></div>
+                        <span style={{ height: 60, padding: '0 26px', borderRadius: 12, background: '#1C6DB6', color: '#FFFFFF', fontSize: 20, fontWeight: 600, display: 'inline-flex', alignItems: 'center', willChange: 'transform', transform: `scale(${1 - 0.05 * Math.sin(Math.PI * prog(t, press, press + 0.25))})` }}>Check Redirect</span>
                     </div>
                     <div style={{ marginTop: 14, borderRadius: 16, boxShadow: `inset 0 0 0 1.5px ${C.g200}`, overflow: 'hidden', opacity: easeOut(prog(t, press + 0.2, press + 0.5)) }}>
                         <Hop n={1} url={url} code="301" k={easeOut(prog(t, press + 0.3, press + 0.65))} badge={popIn(t, c301, 0.35)} />
@@ -124,8 +124,9 @@ export function CheckerScene({ main, extras }: ForwardDomainsProps) {
                 </div>
             </div>
             {/* the flying cell */}
+            {/* The cell lands in the input and hands over to its text with a short crossfade (no swap frame). */}
             {fly > 0 && fly < 1 && (
-                <div style={{ position: 'absolute', left: lerp(src.x, dst.x, fly), top: lerp(src.y, dst.y, fly), width: COL_W }}>
+                <div style={{ position: 'absolute', left: src.x, top: src.y, width: COL_W, ...fx(1 - clamp((fly - 0.85) / 0.15), (dst.x - src.x) * fly, (dst.y - src.y) * fly) }}>
                     <DarkPill style={{ background: `rgba(255,255,255,${lerp(0.07, 1, fly)})`, color: fly > 0.5 ? C.char : C.ink, boxShadow: `inset 0 0 0 3px ${C.amber}` }}>{url}</DarkPill>
                 </div>
             )}
@@ -142,7 +143,7 @@ export function CheckerScene({ main, extras }: ForwardDomainsProps) {
 }
 function Hop({ n, url, code, ok = false, k, badge }: { n: number; url: string; code: string; ok?: boolean; k: number; badge: CSSProperties }) {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18, padding: '22px 24px', borderTop: n > 1 ? `1px solid ${C.g200}` : undefined, opacity: k, transform: `translateY(${(1 - k) * 10}px)` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, padding: '22px 24px', borderTop: n > 1 ? `1px solid ${C.g200}` : undefined, opacity: k, willChange: 'transform', transform: `translate3d(0, ${(1 - k) * 10}px, 0) rotate(0.02deg)` }}>
             <span style={{ width: 34, height: 34, flex: 'none', borderRadius: '50%', background: C.g100, fontSize: 16, fontWeight: 600, color: C.g700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{n}</span>
             <span style={{ flex: 1, fontFamily: MONO, fontSize: 22 }}>{url}</span>
             <span style={{ padding: '6px 14px', borderRadius: 8, background: ok ? '#ECFDF3' : '#E8F0F8', color: ok ? '#067647' : '#1C6DB6', fontFamily: MONO, fontSize: 19, fontWeight: 600, ...badge }}>{code}</span>
@@ -265,9 +266,9 @@ export function EndCardScene({ main, extras, end, qr }: ForwardDomainsProps) {
             <RoomBg room="mesh" t={t} />
             {names.map((d, i) => {
                 const p = HOOK[i];
-                const tx = lerp(p.x, 360, fold), ty = lerp(p.y, 400, fold);
+                const dx = (360 - p.x) * fold, dy = (400 - p.y) * fold;
                 return (
-                    <span key={d} style={{ position: 'absolute', left: tx, top: ty, ...fx(clamp(popIn(t, 0.05 + i * 0.08, 0.4).opacity as number) * (1 - clamp((fold - 0.6) * 2.5)), 0, 0, 1 - 0.55 * fold) }}>
+                    <span key={d} style={{ position: 'absolute', left: p.x, top: p.y, transformOrigin: 'top left', ...fx(clamp(popIn(t, 0.05 + i * 0.08, 0.4).opacity as number) * (1 - clamp((fold - 0.6) * 2.5)), dx, dy, 1 - 0.55 * fold) }}>
                         <GlassPill size={34} dot={teal > 0.5 ? C.teal : C.soft} style={{ boxShadow: `inset 0 0 0 ${1 + 1.5 * teal}px ${teal > 0.5 ? C.teal : 'rgba(255,255,255,0.22)'}, 0 20px 50px rgba(0,0,0,0.35)` }}>{d}</GlassPill>
                     </span>
                 );

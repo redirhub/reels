@@ -78,7 +78,7 @@ export function Shell({ w, h, active, counts, crumb, pulse = 0, right, children 
 export function CreateButton({ press = 0, ring = 0 }: { press?: number; ring?: number }) {
     const sw = { fill: 'none', stroke: '#FFFFFF', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
     return (
-        <span style={{ display: 'inline-flex', height: 40, borderRadius: 12, overflow: 'hidden', background: '#E59426', color: '#FFFFFF', fontSize: 14, fontWeight: 600, transform: `scale(${1 - 0.06 * press})`, boxShadow: `0 0 0 ${4 * ring}px rgba(229,148,38,${0.3 * ring})` }}>
+        <span style={{ display: 'inline-flex', height: 40, borderRadius: 12, overflow: 'hidden', background: '#E59426', color: '#FFFFFF', fontSize: 14, fontWeight: 600, willChange: 'transform', transform: `scale(${1 - 0.06 * press})`, boxShadow: `0 0 0 ${4 * ring}px rgba(229,148,38,${0.3 * ring})` }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '0 10px 0 14px' }}><svg width="20" height="20" viewBox="0 0 24 24" {...sw} aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>Create</span>
             <span style={{ width: 38, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderLeft: '1px solid rgba(255,255,255,0.4)' }}><svg width="20" height="20" viewBox="0 0 24 24" {...sw} aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></span>
         </span>
@@ -96,7 +96,7 @@ export function LinksBody({ rows, main }: { rows: readonly { domain: string; k: 
                 {n > 0 && <Chip label="Domain redirects" n={n} />}
             </div>
             {rows.map((r) => r.k > 0 && (
-                <div key={r.domain} style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 12, padding: '12px 16px', background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, opacity: clamp(r.k * 2), transform: `translateY(${(1 - r.k) * 14}px)`, boxShadow: `0 0 0 ${3 * clamp((1 - r.k) * 3)}px rgba(32,167,149,0.35)` }}>
+                <div key={r.domain} style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 12, padding: '12px 16px', background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, opacity: clamp(r.k * 2), willChange: 'transform', transform: `translate3d(0, ${(1 - r.k) * 14}px, 0) rotate(0.02deg)`, boxShadow: `0 0 0 ${3 * clamp((1 - r.k) * 3)}px rgba(32,167,149,0.35)` }}>
                     <span style={{ position: 'relative', width: 40, height: 40, flexShrink: 0, borderRadius: 999, boxShadow: 'inset 0 0 0 1px #EAECF0', fontSize: 12, fontWeight: 600, color: '#414651', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>MB<span style={{ position: 'absolute', right: 1, bottom: 1, width: 10, height: 10, borderRadius: 999, background: '#12B76A' }} /></span>
                     <div style={{ flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <span style={{ fontSize: 18, fontWeight: 500, color: '#344054' }}>{r.domain}</span>
@@ -136,7 +136,7 @@ export function CreateChooser({ pick = 0 }: { pick?: number }) {
                 {items.map(([title, body, example, Icon, tile, ic], i) => {
                     const on = i === 2 ? pick : 0;
                     return (
-                        <div key={title} style={{ borderRadius: 12, border: `1.5px solid ${on > 0.5 ? '#1C6DB6' : '#EAECF0'}`, background: on > 0.5 ? '#F5F9FD' : '#FFFFFF', boxShadow: `0 0 0 ${4 * on}px rgba(28,109,182,0.16)`, padding: '18px 20px 14px', transform: `scale(${1 + on * 0.015})` }}>
+                        <div key={title} style={{ borderRadius: 12, border: `1.5px solid ${on > 0.5 ? '#1C6DB6' : '#EAECF0'}`, background: on > 0.5 ? '#F5F9FD' : '#FFFFFF', boxShadow: `0 0 0 ${4 * on}px rgba(28,109,182,0.16)`, padding: '18px 20px 14px', willChange: 'transform', transform: `scale(${1 + on * 0.015})` }}>
                             <div style={{ width: 42, height: 42, borderRadius: 10, background: tile, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={22} color={ic} /></div>
                             <div style={{ fontSize: 18, fontWeight: 600, marginTop: 14 }}>{title}</div>
                             <div style={{ fontSize: 14.5, color: '#475467', marginTop: 4, lineHeight: 1.4, minHeight: 40 }}>{body}</div>
@@ -177,7 +177,7 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                 <span style={{ fontSize: 18, fontWeight: 600, color: '#344054' }}>New domain redirect</span>
                 <span style={{ flexGrow: 1 }} />
                 <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 14px', border: '1px solid #D5D7DA', borderRadius: 8, fontSize: 14, fontWeight: 600, color: '#344054' }}>Cancel</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 8, background: s.save > 0.5 ? '#1C6DB6' : '#337CBD', fontSize: 14, fontWeight: 600, color: '#FFFFFF', transform: `scale(${1 - 0.06 * Math.sin(Math.PI * s.save)})`, boxShadow: `0 0 0 ${4 * Math.sin(Math.PI * s.save)}px rgba(28,109,182,0.25)` }}>Create redirect</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 8, background: s.save > 0.5 ? '#1C6DB6' : '#337CBD', fontSize: 14, fontWeight: 600, color: '#FFFFFF', willChange: 'transform', transform: `scale(${1 - 0.06 * Math.sin(Math.PI * s.save)})`, boxShadow: `0 0 0 ${4 * Math.sin(Math.PI * s.save)}px rgba(28,109,182,0.25)` }}>Create redirect</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 26, padding: '24px 26px' }}>
                 <div style={{ width: 560, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 20, padding: '22px 26px', background: '#FFFFFF', border: '1px solid #EAECF0', borderRadius: 12, boxSizing: 'border-box', alignSelf: 'flex-start' }}>
@@ -209,7 +209,7 @@ export function RedirectForm({ s, main, from, deepPath }: { s: FormState; main: 
                             );
                         })}
                     </div>
-                    <div style={{ display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 12, background: '#FFFAEB', border: '1px solid #FEDF89', fontSize: 13, lineHeight: '19px', color: '#7A2E0E', opacity: s.warn, transform: `translateY(${(1 - s.warn) * 8}px)` }}>
+                    <div style={{ display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 12, background: '#FFFAEB', border: '1px solid #FEDF89', fontSize: 13, lineHeight: '19px', color: '#7A2E0E', opacity: s.warn, willChange: 'transform', transform: `translate3d(0, ${(1 - s.warn) * 8}px, 0) rotate(0.02deg)` }}>
                         <span style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                             <span><b>{from}</b> doesn&apos;t point to RedirHub yet. The redirect is saved now and goes live when DNS is updated.</span>
                             <span style={{ fontWeight: 600, color: '#B54708' }}>See DNS records in Hostnames</span>
@@ -249,7 +249,7 @@ export function HostnamesBody({ domains, warn = [] }: { domains: readonly string
                 {domains.map((d, i) => (
                     <div key={d} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 15 }}>
                         <span style={{ fontFamily: MONO, flexGrow: 1 }}>{d}</span>
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: '#717680' }}><span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E59426', opacity: warn[i] ?? 0, transform: `scale(${0.6 + 0.4 * (warn[i] ?? 0)})` }} />Not connected</span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: '#717680' }}><span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E59426', opacity: warn[i] ?? 0, willChange: 'transform', transform: `scale(${0.6 + 0.4 * (warn[i] ?? 0)})` }} />Not connected</span>
                     </div>
                 ))}
             </div>

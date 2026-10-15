@@ -16,6 +16,23 @@ Length follows the voice (`timings.json`), currently **290 s** (was 305 s).
 | 2:19: the sound after "Create redirect" | The generated success sound is replaced by Leo's "You find a treasure". The other generated effects (HTTPS issued, the signature chime, typing) are replaced too, with Mixkit sounds chosen to match Leo's set: warm (brightness centre 1.3–1.8 kHz), tonal, short. |
 | Music | Kept: the calm pad Leo likes, moved from D major to C major so the tonal effects (treasure: C, F, G; chime: C, E; HTTPS: C, G) sit in key. |
 
+## Round 3: smooth motion (Leo, Oct 15: "some animations stutter or lag")
+
+Measured, not guessed: `scripts/qa/stutter_check.py` decodes the render, splits it into tiles, and flags frames where
+motion freezes for a frame (hold) or skips ahead (jump). On the round-2 cut it found 94 events; the first 15 s alone
+had 19, almost all on the floating domain pills. The causes, and the fixes:
+
+| Cause | Fix |
+|---|---|
+| Things moved by layout properties (margin, left/top, width/height): Chrome snaps layout to whole pixels, so slow motion stepped | Every motion is a transform now: the pills' float, the end card's pills folding into the headline, the checker's flying address, the eyebrow dash and progress bars (scaleX), the typo underline (fades instead of thickening). The dashboard window's list-to-form growth is a scaled panel plus a clip instead of a resizing box |
+| Moving text was re-rasterized each frame and snapped to the pixel grid, so the slow tail of every ease moved in 1-px steps on alternate frames (measured 0.47, 0.00, 0.54, 0.01) | Every animated element gets its own compositor layer and a true sub-pixel transform (`SMOOTH` in `kit.tsx`: `translate3d` plus an invisible 0.02° turn). The tail now decays continuously; text at rest measured as sharp as before |
+| The rooms' background drift moved about 0.05 px a frame, so it jumped a pixel every half second | Same sub-pixel transform on the texture |
+| Scene cuts moved in two steps: the new room, then the content snapping on at full speed | One continuous dissolve: cover and content both ease in and out and overlap |
+| The window morph crossfaded through a blank frame and switched its colour in one frame; the flying address swapped for the input text in one frame | True crossfades: list and form overlap, the colour blends, the address hands over to the text over 0.15 s |
+| 30 fps: every move advanced in coarse steps | The video renders at **60 fps** (YouTube plays 1080p60). Everything is timed in seconds, so nothing else changed |
+
+Result on the first 15 s: 19 events at 30 fps → 2 at 60 fps, both the pixel snapping fixed above.
+
 ## Voice
 
 - **Narrator:** ElevenLabs "Emily" (`zHGX9VSXpW8cGSDRCqy0`), `eleven_multilingual_v2`, the same voice as W41.

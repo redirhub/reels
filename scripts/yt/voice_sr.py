@@ -87,7 +87,7 @@ def merge(orig, sr_pieces, starts):
 
 def main():
     args = sys.argv[1:]
-    # --pieces DIR: re-merge from AudioSR outputs already on disk (<id>-NN.sr.wav), without running the model again.
+    # --pieces DIR: work in an earlier run's piece folder: finish any pieces without AudioSR output, then merge.
     pieces_dir = None
     if '--pieces' in args:
         i = args.index('--pieces'); pieces_dir = args[i + 1]; del args[i:i + 2]
@@ -95,7 +95,7 @@ def main():
     vo = os.path.join(video, 'voiceover'); out_dir = os.path.join(vo, 'chunks-sr'); os.makedirs(out_dir, exist_ok=True)
     stand_ins = set(json.load(open(os.path.join(vo, 'placeholders.json')))) if os.path.exists(os.path.join(vo, 'placeholders.json')) else set()
     py = os.environ.get('AUDIOSR_PYTHON')
-    if not py and not pieces_dir: sys.exit('set AUDIOSR_PYTHON to the python of the AudioSR venv')
+    if not py and not pieces_dir: sys.exit('set AUDIOSR_PYTHON to the python of the AudioSR venv')  # (--pieces checks later)
     todo = []
     for c in json.load(open(os.path.join(vo, 'chunks.json'))):
         cid = c['id']; mp3 = os.path.join(vo, 'chunks', cid + '.mp3'); wav = os.path.join(out_dir, cid + '.wav')
@@ -115,7 +115,11 @@ def main():
         pieces[cid] = (x, starts, files)
     allf = [f for v in pieces.values() for f in v[2]]
     print(f'{"Re-merging" if pieces_dir else "AudioSR on"} {len(allf)} pieces from {len(todo)} takes…', flush=True)
-    if not pieces_dir: subprocess.run([py, '-c', RUNNER, str(os.cpu_count() or 4), *allf], check=True)
+    # Resumable: with --pieces, only the pieces that have no AudioSR output yet are run (a killed run keeps its work).
+    run = [f for f in allf if not os.path.exists(f[:-4] + '.sr.wav')] if pieces_dir else allf
+    if run:
+        if not py: sys.exit(f'{len(run)} pieces have no AudioSR output yet: set AUDIOSR_PYTHON')
+        subprocess.run([py, '-c', RUNNER, str(os.cpu_count() or 4), *run], check=True)
     for cid, (x, starts, files) in pieces.items():
         srs = [load(f[:-4] + '.sr.wav') for f in files]
         y = merge(x, srs, starts)

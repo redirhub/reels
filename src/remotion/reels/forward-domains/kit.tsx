@@ -4,9 +4,18 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { font } from '../../brand/tokens';
-import { clamp, easeBack, easeOut, fx, prog } from '../../lib/anim';
+import { clamp, easeBack, easeInOut, easeOut, fx as baseFx, prog } from '../../lib/anim';
 
 export const W = 1920, H = 1080;
+
+/** Opacity + transform, smooth at sub-pixel precision. Chrome snaps a plain translation to whole pixels, so
+    the slow tail of every ease moved in 1-px steps on alternate frames (measured: 0.47, 0.00, 0.54, 0.01).
+    Its own layer plus a 0.02° turn (invisible) makes it a true sub-pixel transform: the tail decays
+    continuously, and text at rest measured as sharp as before. */
+export const SMOOTH = (x: number, y: number, s = 1, r = 0) => `translate3d(${x}px, ${y}px, 0) scale(${s}) rotate(${r + 0.02}deg)`;
+export function fx(o = 1, x = 0, y = 0, s = 1, r = 0): CSSProperties {
+    return { ...baseFx(o, x, y, s, r), transform: SMOOTH(x, y, s, r), willChange: 'transform, opacity', backfaceVisibility: 'hidden' };
+}
 export const C = {
     teal: '#20A795', red: '#E5484D', amber: '#E59426', blue: '#1C6DB6',
     ink: '#FFFFFF', soft: '#B9C6D8', mute: '#6B7A90',
@@ -54,7 +63,7 @@ export function RoomBg({ room, grid = true, t = 0, opacity = 1, children }: { ro
     const tex = room === 'mesh' ? MESH_GRID : room === 'lab' ? LAB_GRID : room === 'light' ? DOTS : null;
     return (
         <AbsoluteFill style={{ background: ROOM_BG[room], opacity, fontFamily: DISPLAY, color: room === 'light' ? C.char : C.ink, WebkitFontSmoothing: 'antialiased' }}>
-            {grid && tex && <div style={{ ...tex, transform: `translate(${dx}px, ${dy}px)` }} />}
+            {grid && tex && <div style={{ ...tex, transform: SMOOTH(dx, dy), willChange: 'transform' }} />}
             <Dither strength={DITHER[room]} />
             {children}
         </AbsoluteFill>
@@ -66,7 +75,7 @@ export function RoomBg({ room, grid = true, t = 0, opacity = 1, children }: { ro
 export function Eyebrow({ k = 1, color, dash, children, top = 110 }: { k?: number; color: string; dash: string; children: ReactNode; top?: number }) {
     return (
         <div style={{ position: 'absolute', left: 120, top, display: 'flex', alignItems: 'center', gap: 14, fontSize: 22, fontWeight: 700, letterSpacing: '0.14em', color, ...fx(k, (1 - k) * -14, 0) }}>
-            <span style={{ width: 36 * clamp(k * 1.4), height: 3, borderRadius: 2, background: dash }} />{children}
+            <span style={{ width: 36, height: 3, borderRadius: 2, background: dash, transform: `scaleX(${clamp(k * 1.4)})`, transformOrigin: 'left center', willChange: 'transform' }} />{children}
         </div>
     );
 }
@@ -77,7 +86,7 @@ export function Progress({ fill, k = 1, on = C.teal, off = C.g300 }: { fill: num
         <div style={{ position: 'absolute', left: 1560, top: 110, width: 240, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, opacity: k }}>
             {[0, 1, 2].map((i) => (
                 <span key={i} style={{ position: 'relative', width: 64, height: 6, borderRadius: 3, background: off, overflow: 'hidden' }}>
-                    <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${clamp(fill - i) * 100}%`, background: on, borderRadius: 3 }} />
+                    <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '100%', background: on, borderRadius: 3, transform: `scaleX(${clamp(fill - i)})`, transformOrigin: 'left center', willChange: 'transform' }} />
                 </span>
             ))}
         </div>
@@ -178,8 +187,10 @@ export function SiteCard({ domain, w = 500, h = 250, style, grey = false, childr
     outgoing scene never double-exposes with this one), then the content fades in on top of it. */
 export function SceneFade({ t, room, inD = 0.3, outAt, outD = 0.3, color = C.ink, children }: { t: number; room?: Room; inD?: number; outAt?: number; outD?: number; color?: string; children: ReactNode }) {
     const out = outAt === undefined ? 1 : outK(t, outAt, outD);
-    const cover = room ? easeOut(prog(t, 0, inD * 0.45)) : 1;
-    const o = (room ? easeOut(prog(t, inD * 0.35, inD)) : easeOut(prog(t, 0, inD))) * out;
+    // One continuous dissolve: both curves ease in and out and overlap, so the cut never moves in two steps
+    // (an ease-out content fade started at full speed right after the cover: measured as a one-frame jump).
+    const cover = room ? easeInOut(prog(t, 0, inD * 0.6)) : 1;
+    const o = (room ? easeInOut(prog(t, inD * 0.2, inD)) : easeInOut(prog(t, 0, inD))) * out;
     return (
         <AbsoluteFill style={{ color, fontFamily: DISPLAY }}>
             {room && <RoomBg room={room} t={t} opacity={cover * out} />}

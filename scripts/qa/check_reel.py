@@ -5,7 +5,8 @@
 
 Checks, and fails (exit 1) on anything that would break a social upload or the
 RedirHub QR standard:
-  - format: H.264, yuv420p, 1080x1920 (vertical) or 1920x1080 (landscape), 30 fps, an AAC audio track
+  - format: H.264, yuv420p, 1080x1920 (vertical) or 1920x1080 (landscape), 30 fps (16:9 YouTube videos may
+    be 60 fps, for smoother motion), an AAC audio track
   - loudness: integrated LUFS near the -14 social target (warns outside -16..-12)
   - QR: at each --qr SECONDS=URL, a QR in the frame must decode to exactly URL
 Writes a contact sheet (out/qa/<id>/sheet.png) to eyeball layout, safe area (vertical
@@ -94,6 +95,8 @@ def main():
     info = probe(args.mp4)
     report["format"] = info
     for key, want in EXPECT.items():
+        if key == "fps" and info["size"] == (1920, 1080) and info["fps"] in (30, 60):
+            continue  # YouTube (16:9) plays 1080p60, so landscape videos may render at 60 fps
         if info[key] != want:
             failures.append(f"{key}: {info[key]} (want {want})")
     if info["size"] not in SIZES:

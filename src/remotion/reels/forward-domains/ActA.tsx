@@ -1,6 +1,6 @@
 /* Act A · Many names, one problem: w43-Domains (beats 1–5), w43-DeadEnds (6–7), w43-Title (8). */
-import { useTime, easeOut, easeInOut, prog, clamp, fx } from '../../lib/anim';
-import { C, DOTS, Dots3, GlassPill, Lock, MONO, RoomBg, SceneFade, Typo, UI, popIn, slideIn, outK } from './kit';
+import { useTime, easeOut, easeInOut, prog, clamp } from '../../lib/anim';
+import { C, DOTS, Dots3, GlassPill, Lock, MONO, RoomBg, SceneFade, Typo, UI, popIn, slideIn, outK, fx } from './kit';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
@@ -9,7 +9,8 @@ const L1 = local('domains');
 export function DomainsScene({ extras, main, typoSpan }: ForwardDomainsProps) {
     const t = useTime();
     const float = (i: number) => Math.sin(t * 0.9 + i * 1.7) * 4;
-    const pill = (a: number, i: number) => ({ ...popIn(t, a, 0.45), marginTop: float(i) });
+    // The idle float rides on the transform (a margin would snap to whole pixels and step).
+    const pill = (a: number, i: number) => { const p = popIn(t, a, 0.45); return { ...p, transform: `translate3d(0, ${float(i)}px, 0) ${p.transform}` }; }; // p.transform is already sub-pixel (kit fx)
     const head = slideIn(t, L1.at(1) + 0.05, 0.6, 0, 26);
     const sub = slideIn(t, L1.word(5, 'every'), 0.45, 0, 18);
     return (
@@ -24,7 +25,7 @@ export function DomainsScene({ extras, main, typoSpan }: ForwardDomainsProps) {
                 <span style={{ position: 'absolute', left: 200, top: 106, ...pill(L1.word(2, 'net'), 1) }}><GlassPill>{extras[0]}</GlassPill></span>
                 <span style={{ position: 'absolute', left: 20, top: 212, ...pill(L1.word(2, 'co'), 2) }}><GlassPill>{extras[1]}</GlassPill></span>
                 <div style={{ position: 'absolute', left: 240, top: 318, display: 'flex', flexDirection: 'column', gap: 10, ...pill(L1.at(3) + 0.1, 3) }}>
-                    <GlassPill><Typo text={extras[2]} span={typoSpan} thick={2 * clamp(prog(t, L1.word(3, 'misspelling'), L1.word(3, 'misspelling') + 0.4))} /></GlassPill>
+                    <GlassPill><Typo text={extras[2]} span={typoSpan} thick={2} color={`rgba(229,72,77,${clamp(prog(t, L1.word(3, 'misspelling'), L1.word(3, 'misspelling') + 0.4))})`} /></GlassPill>
                     <span style={{ paddingLeft: 30, fontSize: 24, fontWeight: 600, color: C.soft, ...slideIn(t, L1.word(3, 'bought'), 0.4, 0, 10) }}>the typo you bought</span>
                 </div>
                 <div style={{ position: 'absolute', left: 70, top: 470, width: 380, height: 230, borderRadius: 14, background: C.paper, boxShadow: '0 30px 70px rgba(0,0,0,0.5)', color: C.ink3, padding: '26px 30px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 10, ...flyerIn(t, L1.at(4) + 0.05) }}>
@@ -70,7 +71,7 @@ export function DeadEndsScene({ extras }: ForwardDomainsProps) {
     const side = (a: number, dir: 1 | -1) => {
         const k = easeOut(prog(t, a, a + 0.5));
         const rack = prog(t, aC, aC + 0.5); // focus rack: the sides recede when "Not secure" arrives
-        return { opacity: clamp(k * 1.6) * (1 - 0.3 * rack), filter: `blur(${rack * 2.5}px)`, transform: `translateX(${(1 - k) * 80 * dir}px) rotateY(${32 * dir}deg) scale(${0.9 - 0.03 * rack})`, transformOrigin: dir === 1 ? 'right center' : 'left center' };
+        return { opacity: clamp(k * 1.6) * (1 - 0.3 * rack), filter: `blur(${rack * 2.5}px)`, willChange: 'transform', transform: `translateX(${(1 - k) * 80 * dir}px) rotateY(${32 * dir}deg) scale(${0.9 - 0.03 * rack})`, transformOrigin: dir === 1 ? 'right center' : 'left center' };
     };
     const cK = easeOut(prog(t, aC, aC + 0.5));
     const glow = 0.4 + 0.6 * cK;
@@ -118,7 +119,7 @@ export function TitleScene() {
     return (
         <SceneFade t={t} room="sweep">
             <RoomBg room="sweep" t={t} />
-            <div style={{ position: 'absolute', left: -400, right: -400, top: 640, height: 900, transform: `perspective(700px) rotateX(62deg) translateY(${(1 - floorK) * 60 - t * 6}px)`, transformOrigin: 'top center', backgroundImage: 'linear-gradient(rgba(255,255,255,0.22) 2px, rgba(0,0,0,0) 2px), linear-gradient(90deg, rgba(255,255,255,0.22) 2px, rgba(0,0,0,0) 2px)', backgroundSize: '120px 120px', WebkitMaskImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0) 80%)', maskImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0) 80%)', opacity: floorK }} />
+            <div style={{ position: 'absolute', left: -400, right: -400, top: 640, height: 900, willChange: 'transform', transform: `perspective(700px) rotateX(62deg) translateY(${(1 - floorK) * 60 - t * 6}px)`, transformOrigin: 'top center', backgroundImage: 'linear-gradient(rgba(255,255,255,0.22) 2px, rgba(0,0,0,0) 2px), linear-gradient(90deg, rgba(255,255,255,0.22) 2px, rgba(0,0,0,0) 2px)', backgroundSize: '120px 120px', WebkitMaskImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0) 80%)', maskImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0) 80%)', opacity: floorK }} />
             <div style={{ position: 'absolute', left: '50%', top: 520, width: 1400, height: 520, transform: 'translateX(-50%)', background: 'radial-gradient(closest-side, rgba(255,255,255,0.18), rgba(255,255,255,0))' }} />
             <div style={{ position: 'absolute', left: 0, right: 0, top: 170, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 34, textAlign: 'center', color: C.ink }}>
                 <svg width="220" height="120" viewBox="0 0 220 120" aria-hidden="true" style={{ opacity: clamp(prog(t, a - 0.2, a + 0.1)) }}>

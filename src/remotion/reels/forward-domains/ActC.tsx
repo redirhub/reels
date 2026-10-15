@@ -4,12 +4,14 @@
    form's defaults, so they are ringed as she names them, not clicked. */
 import type { CSSProperties } from 'react';
 import { AbsoluteFill } from 'remotion';
-import { clamp, easeInOut, easeOut, fx, lerp, prog, useTime } from '../../lib/anim';
-import { C, Eyebrow, Lock, MONO, Progress, RoomBg, SceneFade, Tick, TipCard, UI, outK, popIn, slideIn } from './kit';
+import { clamp, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
+import { C, Eyebrow, Lock, MONO, Progress, RoomBg, SceneFade, Tick, TipCard, UI, outK, popIn, slideIn, fx } from './kit';
 import { ConnectDialog, CreateButton, CreateChooser, HostnamesBody, LinksBody, RedirectForm, Shell } from './Product';
 import type { ForwardDomainsProps } from './props';
 import { local } from './timeline';
 
+/** Blend two #rrggbb colours (the window's background as it turns from the list into the form). */
+const mix = (a: string, b: string, k: number) => '#' + [1, 3, 5].map((i) => Math.round(lerp(parseInt(a.slice(i, i + 2), 16), parseInt(b.slice(i, i + 2), 16), clamp(k))).toString(16).padStart(2, '0')).join('');
 /** Characters of `text` typed over [a, b]. */
 const typed = (text: string, t: number, a: number, b: number) => text.slice(0, Math.round(text.length * prog(t, a, b)));
 /** 0→1→0 over [a, a+d]: a highlight that comes and goes. */
@@ -61,6 +63,7 @@ export function MainAddressScene({ main, extras, tips }: ForwardDomainsProps) {
 const LD = local('dash');
 /** The window: the Links list (sidebar shell, 1000×633 at 1.2) or the full-page form (1235×566 at 1.36). */
 const LIST = { w: 1000, h: 633, s: 1.2 }, FORM = { w: 1235, h: 566, s: 1.36 };
+const WIN = { w: FORM.w * FORM.s, h: Math.max(LIST.h * LIST.s, FORM.h * FORM.s) };
 export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps) {
     const t = useTime();
     const T = {
@@ -72,7 +75,6 @@ export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps)
     };
     const back = T.save + 0.4;                                  // the form closes into the list
     const toForm = easeInOut(prog(t, T.form, T.form + 0.45)) * (1 - easeInOut(prog(t, back, back + 0.45)));
-    const showForm = toForm > 0.5;
     const win = { w: lerp(LIST.w * LIST.s, FORM.w * FORM.s, toForm), h: lerp(LIST.h * LIST.s, FORM.h * FORM.s, toForm) };
     const rowsK = [back + 0.35, ...T.rows].map((a) => easeOut(prog(t, a, a + 0.4)));
     const nRows = rowsK.filter((k) => k > 0).length;
@@ -98,17 +100,22 @@ export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps)
             <Eyebrow k={easeOut(prog(t, 0.2, 0.6))} color={C.char} dash={C.teal}>STEP TWO · REDIRECT EVERY OTHER DOMAIN</Eyebrow>
             <h2 style={{ position: 'absolute', left: 120, top: 420, margin: 0, fontSize: 104, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.04, color: C.char, ...lead, opacity: Number(lead.opacity) * leadOut }}>Redirect every<br /><span style={{ color: C.teal }}>other domain.</span></h2>
             <Progress fill={stepFill} />
-            <div data-ui="dashboard" style={{ position: 'absolute', left: 120, top: 170, width: win.w, height: win.h, borderRadius: 24, overflow: 'hidden', background: showForm ? '#F9FAFB' : '#F2F4F7', boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', ...slideIn(t, winIn, 0.55, 0, 40) }}>
-                <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${LIST.s})`, transformOrigin: 'top left', opacity: 1 - clamp(toForm * 2) }}>
+            {/* The window grows from the list to the full-page form. Width/height would re-layout and snap to whole
+                pixels every frame, so the frame is a scaled panel and the content a clip, both sub-pixel smooth. */}
+            <div data-ui="dashboard" style={{ position: 'absolute', left: 120, top: 170, width: WIN.w, height: WIN.h, ...slideIn(t, winIn, 0.55, 0, 40) }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, width: WIN.w, height: WIN.h, borderRadius: 24, background: mix('#F2F4F7', '#F9FAFB', toForm), boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', transform: `scale(${win.w / WIN.w}, ${win.h / WIN.h})`, transformOrigin: 'top left', willChange: 'transform' }} />
+                <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${WIN.w - win.w}px ${WIN.h - win.h}px 0 round 24px)` }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${LIST.s})`, transformOrigin: 'top left', opacity: 1 - toForm }}>
                     <Shell w={LIST.w} h={LIST.h} active="links" counts={{ links: nRows, hostnames: nRows }} crumb="Links" pulse={bump(t, T.links - 0.1, 0.8)}
                         right={<CreateButton press={bump(t, T.create - 0.05, 0.25)} ring={Math.max(bump(t, T.create - 0.25, 0.7), bump(t, T.csvCreate - 0.1, 0.8))} />}>
                         <LinksBody main={main} rows={extras.map((d, i) => ({ domain: d, k: rowsK[i] }))} />
                     </Shell>
                 </div>
-                <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${FORM.s})`, transformOrigin: 'top left', opacity: clamp(toForm * 2 - 1) }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${FORM.s})`, transformOrigin: 'top left', opacity: toForm }}>
                     <RedirectForm s={form} main={main} from={extras[0]} deepPath={deepPath} />
                 </div>
                 {chooser && <AbsoluteFill style={{ background: `rgba(16,24,40,${0.35 * chooserK})` }} />}
+                </div>
             </div>
             {chooser && (
                 <div style={{ position: 'absolute', left: 320, top: 300, ...fx(chooserK, 0, (1 - chooserK) * 16, 0.96 + 0.04 * chooserK) }}>
@@ -234,5 +241,5 @@ export function HttpsIssuedScene({ extras }: ForwardDomainsProps) {
 function swap(t: number, a: number, on: boolean): CSSProperties {
     if (!on) return {};
     const k = easeOut(prog(t, a, a + 0.18));
-    return { transform: `translateY(${(1 - k) * 30}px)`, opacity: k };
+    return { willChange: 'transform', transform: `translate3d(0, ${(1 - k) * 30}px, 0) rotate(0.02deg)`, opacity: k };
 }
