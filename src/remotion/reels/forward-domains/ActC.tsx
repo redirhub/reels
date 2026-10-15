@@ -89,12 +89,16 @@ export function DashScene({ main, extras, deepPath, tips }: ForwardDomainsProps)
         save: prog(t, T.save, T.save + 0.3),
     };
     const stepFill = 1 + easeInOut(prog(t, LD.at(23) + 0.4, LD.at(23) + 1.0));
+    const winIn = LD.word(23, "here's") - 0.25;
+    const lead = slideIn(t, 0.15, 0.5, 0, 18);
+    const leadOut = 1 - easeOut(prog(t, winIn - 0.1, winIn + 0.25));
     return (
         <SceneFade t={t} room="light" color={C.char}>
             <RoomBg room="light" t={t} />
             <Eyebrow k={easeOut(prog(t, 0.2, 0.6))} color={C.char} dash={C.teal}>STEP TWO · REDIRECT EVERY OTHER DOMAIN</Eyebrow>
+            <h2 style={{ position: 'absolute', left: 120, top: 420, margin: 0, fontSize: 104, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.04, color: C.char, ...lead, opacity: Number(lead.opacity) * leadOut }}>Redirect every<br /><span style={{ color: C.teal }}>other domain.</span></h2>
             <Progress fill={stepFill} />
-            <div data-ui="dashboard" style={{ position: 'absolute', left: 120, top: 170, width: win.w, height: win.h, borderRadius: 24, overflow: 'hidden', background: showForm ? '#F9FAFB' : '#F2F4F7', boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', ...slideIn(t, 0.15, 0.55, 0, 40) }}>
+            <div data-ui="dashboard" style={{ position: 'absolute', left: 120, top: 170, width: win.w, height: win.h, borderRadius: 24, overflow: 'hidden', background: showForm ? '#F9FAFB' : '#F2F4F7', boxShadow: '0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', ...slideIn(t, winIn, 0.55, 0, 40) }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, transform: `scale(${LIST.s})`, transformOrigin: 'top left', opacity: 1 - clamp(toForm * 2) }}>
                     <Shell w={LIST.w} h={LIST.h} active="links" counts={{ links: nRows, hostnames: nRows }} crumb="Links" pulse={bump(t, T.links - 0.1, 0.8)}
                         right={<CreateButton press={bump(t, T.create - 0.05, 0.25)} ring={Math.max(bump(t, T.create - 0.25, 0.7), bump(t, T.csvCreate - 0.1, 0.8))} />}>
@@ -140,7 +144,7 @@ export function ConnectDnsScene({ extras, records, tips }: ForwardDomainsProps) 
                 <div style={{ transform: 'scale(1.2)', transformOrigin: 'top left' }}>
                     <Shell w={1025} h={642} active="hostnames" counts={{ links: extras.length, hostnames: extras.length }} crumb="Hostnames" pulse={bump(t, LN.word(33, 'hostnames') - 0.1, 0.8)}>
                         <div style={{ position: 'relative' }}>
-                            <HostnamesBody domains={extras} />
+                            <HostnamesBody domains={extras} warn={extras.map((_, i) => easeOut(prog(t, LN.word(32, 'point') + i * 0.15, LN.word(32, 'point') + i * 0.15 + 0.3)))} />
                             <div style={{ position: 'absolute', left: 24, right: 24, top: 22, height: 50, borderRadius: '12px 12px 0 0', boxShadow: `inset 0 0 0 ${2 * rowHi}px #1C6DB6`, background: `rgba(28,109,182,${0.06 * rowHi})` }} />
                         </div>
                     </Shell>

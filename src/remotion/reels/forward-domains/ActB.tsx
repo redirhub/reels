@@ -12,13 +12,13 @@ import { local, type Local } from './timeline';
 const LP = local('pointer');
 export function PointerScene({ main, extras, hostIp }: ForwardDomainsProps) {
     const t = useTime();
+    // Each object lands on its word and stays: the site where it "lives", the address book on "DNS",
+    // then the other four names on "five domains". Nothing leaves before the scene ends.
+    const site = slideIn(t, LP.word(9, 'lives') - 0.15, 0.5, 30, 0);
     const book = slideIn(t, LP.word(10, 'dns') - 0.2, 0.5, 0, 30);
-    const site = slideIn(t, LP.word(10, 'book') + 0.2, 0.5, 0, 30);
-    const line1 = easeInOut(prog(t, LP.word(10, 'pointer'), LP.word(10, 'dns')));
-    const line2 = easeInOut(prog(t, LP.word(10, 'book'), LP.word(10, 'book') + 0.5));
-    const away = outK(t, LP.word(11, 'pointing') - 0.1, 0.4);
+    const line1 = easeInOut(prog(t, LP.word(10, 'dns') - 0.1, LP.word(10, 'dns') + 0.4));
+    const line2 = easeInOut(prog(t, LP.word(10, 'book') - 0.1, LP.word(10, 'book') + 0.4));
     const hi = clamp(prog(t, LP.word(10, 'address'), LP.word(10, 'address') + 0.3));
-    const many = easeOut(prog(t, LP.word(11, 'five'), LP.word(11, 'five') + 0.6));
     return (
         <SceneFade t={t} room="light" color={C.char}>
             <RoomBg room="light" t={t} />
@@ -27,27 +27,27 @@ export function PointerScene({ main, extras, hostIp }: ForwardDomainsProps) {
                 <span style={slideIn(t, LP.at(9) + 0.3, 0.5, 0, 20)}>A domain doesn&apos;t hold your site.</span><br />
                 <span style={{ color: C.teal, display: 'inline-block', ...slideIn(t, LP.word(9, 'points') - 0.1, 0.5, 0, 20) }}>It points to where it lives.</span>
             </h2>
-            <svg width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, opacity: away }}>
-                <path d="M540 700 L650 700" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeDasharray="2 14" strokeDashoffset={-t * 30} style={{ clipPath: `inset(0 ${(1 - line1) * 100}% 0 0)` }} />
-                <path d="M636 688 L652 700 L636 712" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity={line1 > 0.95 ? 1 : 0} />
-                <path d="M1205 700 L1288 700" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeDasharray="2 14" strokeDashoffset={-t * 30} style={{ clipPath: `inset(0 ${(1 - line2) * 100}% 0 0)` }} />
-                <path d="M1274 688 L1290 700 L1274 712" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity={line2 > 0.95 ? 1 : 0} />
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0 }}>
+                <path d="M500 554 L655 554" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeDasharray="2 14" strokeDashoffset={-t * 30} style={{ clipPath: `inset(0 ${(1 - line1) * 100}% 0 0)` }} />
+                <path d="M641 542 L657 554 L641 566" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity={line1 > 0.95 ? 1 : 0} />
+                <path d="M1205 554 L1288 554" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeDasharray="2 14" strokeDashoffset={-t * 30} style={{ clipPath: `inset(0 ${(1 - line2) * 100}% 0 0)` }} />
+                <path d="M1274 542 L1290 554 L1274 566" fill="none" stroke={C.teal} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity={line2 > 0.95 ? 1 : 0} />
             </svg>
-            <div style={{ position: 'absolute', left: 120, top: 560 - 130 * many, width: 520, display: 'flex', flexDirection: 'column', gap: 18, ...slideIn(t, LP.word(9, 'points') + 0.2, 0.45, 0, 20) }}>
+            <div style={{ position: 'absolute', left: 120, top: 470, width: 520, display: 'flex', flexDirection: 'column', gap: 18, ...slideIn(t, LP.word(9, 'points') + 0.2, 0.45, 0, 20) }}>
                 <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: '0.14em', color: C.g600 }}>WHAT PEOPLE TYPE</span>
                 <span style={{ width: 'max-content' }}><LightPill>{main}</LightPill></span>
                 {extras.map((d, i) => (
                     <span key={d} style={{ width: 'max-content', marginTop: i ? -6 : 0, ...popIn(t, LP.word(11, 'five') + i * 0.12, 0.4) }}><LightPill size={28}>{d}</LightPill></span>
                 ))}
             </div>
-            <div style={{ position: 'absolute', left: 680, top: 540, width: 500, borderRadius: 18, background: C.paper, boxShadow: `0 30px 70px rgba(16,24,40,0.16), inset 0 0 0 1px ${C.paper2}`, padding: '30px 34px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 18, color: C.ink3, ...book, opacity: Number(book.opacity) * away }}>
+            <div style={{ position: 'absolute', left: 680, top: 440, width: 500, borderRadius: 18, background: C.paper, boxShadow: `0 30px 70px rgba(16,24,40,0.16), inset 0 0 0 1px ${C.paper2}`, padding: '30px 34px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 18, color: C.ink3, ...book }}>
                 <span style={{ fontWeight: 700, fontSize: 18, letterSpacing: '0.16em', color: C.ink8 }}>ADDRESS BOOK · DNS</span>
                 <div style={{ height: 10, width: 300, borderRadius: 5, background: C.paper2 }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 18px', borderRadius: 12, background: C.paperHi, boxShadow: `0 0 0 ${3 * hi}px rgba(32,167,149,${0.6 * hi})`, fontFamily: MONO, fontSize: 24, fontWeight: 600 }}><span>{main}</span><span style={{ color: C.ink6, padding: '0 10px' }}>→</span><span>{hostIp}</span></div>
                 <div style={{ height: 10, width: 340, borderRadius: 5, background: C.paper2 }} />
                 <div style={{ height: 10, width: 260, borderRadius: 5, background: C.paper2 }} />
             </div>
-            <div style={{ position: 'absolute', left: 1310, top: 500, width: 490, display: 'flex', flexDirection: 'column', gap: 14, ...site, opacity: Number(site.opacity) * away }}>
+            <div style={{ position: 'absolute', left: 1310, top: 420, width: 490, display: 'flex', flexDirection: 'column', gap: 14, ...site }}>
                 <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: '0.14em', color: C.g600 }}>WHERE THE SITE LIVES · <span style={{ fontFamily: MONO, letterSpacing: 0, fontWeight: 600 }}>{hostIp}</span></span>
                 <div data-ui="browser" style={{ borderRadius: 20, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 30px 70px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)', fontFamily: UI }}>
                     <div style={{ height: 48, display: 'flex', alignItems: 'center', gap: 8, padding: '0 16px', borderBottom: `1px solid ${C.g200}` }}>{['#F97066', '#FDB022', '#32D583'].map((c) => <span key={c} style={{ width: 11, height: 11, borderRadius: '50%', background: c }} />)}</div>
@@ -228,17 +228,21 @@ const STEPS: readonly { n: string; t: string; sub?: string }[] = [
 ];
 export function StepsScene({ recap = false, L }: { recap?: boolean; L: Local }) {
     const t = useTime();
-    const n = recap ? 48 : 19;
-    const cardA = (i: number) => (recap ? 0.05 : L.at(19) + 0.35) + i * 0.18;
+    // Beat 19 opens with what the steps do ("Here's how to set that up in RedirHub, with HTTPS"),
+    // then names them ("three steps, and one test"): the goal line lands first, the headline and cards on "three".
+    const three = recap ? 0.05 : L.word(19, 'three') - 0.1;
+    const cardA = (i: number) => (recap ? 0.15 : three + 0.25) + i * 0.18;
     const ticks = recap ? [L.word(48, 'main'), L.word(48, '301'), L.word(48, 'https'), L.word(48, 'test')] : [];
-    const head = slideIn(t, recap ? 0.05 : L.at(n) + 0.05, 0.5, 0, 18);
+    const goal = slideIn(t, recap ? 0.05 : L.word(19, "here's") - 0.05, 0.5, 0, 14);
+    const head = slideIn(t, three, 0.5, 0, 18);
     return (
         <SceneFade t={t} room="radial" inD={0.25}>
             <RoomBg room="radial" t={t} />
             <div style={{ position: 'absolute', left: '50%', top: -200, width: 1600, height: 900, transform: 'translateX(-50%)', background: 'radial-gradient(closest-side, rgba(255,255,255,0.14), rgba(255,255,255,0))' }} />
-            <Eyebrow k={easeOut(prog(t, 0.1, 0.5))} color={C.ink} dash={C.ink}>{recap ? 'SO' : 'THE FIX'}</Eyebrow>
-            <h2 style={{ position: 'absolute', left: 120, top: 170, margin: 0, fontSize: 80, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.05, color: C.ink, ...head }}>Three steps. One test.</h2>
-            <div style={{ position: 'absolute', left: 120, top: 330, width: 1680, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 30 }}>
+            <Eyebrow k={easeOut(prog(t, 0.1, 0.5))} color={C.ink} dash={C.ink}>{recap ? 'SO' : 'HERE’S HOW'}</Eyebrow>
+            <span style={{ position: 'absolute', left: 120, top: 162, fontSize: 40, fontWeight: 700, letterSpacing: '-0.02em', color: 'rgba(255,255,255,0.86)', ...goal }}>Set up way two in RedirHub, with HTTPS.</span>
+            <h2 style={{ position: 'absolute', left: 120, top: 222, margin: 0, fontSize: 80, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.05, color: C.ink, ...head }}>Three steps. One test.</h2>
+            <div style={{ position: 'absolute', left: 120, top: 360, width: 1680, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 30 }}>
                 {STEPS.map((s, i) => {
                     const done = recap ? clamp(prog(t, ticks[i] - 0.1, ticks[i] + 0.3)) : 0;
                     return (
@@ -252,7 +256,7 @@ export function StepsScene({ recap = false, L }: { recap?: boolean; L: Local }) 
                     );
                 })}
             </div>
-            <div style={{ position: 'absolute', left: 120, top: 830, display: 'flex', alignItems: 'center', gap: 16, height: 64, padding: '0 28px', borderRadius: 32, background: 'rgba(255,255,255,0.16)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.45), 0 20px 50px rgba(16,24,40,0.16)', fontSize: 30, fontWeight: 700, color: C.ink, ...slideIn(t, recap ? 0.6 : L.word(19, 'test') - 0.1, 0.45, 0, 20) }}>
+            <div style={{ position: 'absolute', left: 120, top: 862, display: 'flex', alignItems: 'center', gap: 16, height: 64, padding: '0 28px', borderRadius: 32, background: 'rgba(255,255,255,0.16)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.45), 0 20px 50px rgba(16,24,40,0.16)', fontSize: 30, fontWeight: 700, color: C.ink, ...slideIn(t, recap ? 0.6 : L.word(19, 'test') - 0.1, 0.45, 0, 20) }}>
                 {recap ? <span style={popIn(t, ticks[3], 0.35)}><Tick size={30} fill="#FFFFFF" stroke={C.teal} /></span> : <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>}
                 Then one test: every version of every domain.
             </div>

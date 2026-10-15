@@ -33,21 +33,21 @@ const CUES: readonly SfxCue[] = [
     S(word(16, 'typo') - 0.3, 'denied', 0.36),               // the typo stays in the bar
     S(local('addressbar').start + REWIND_FROM(), 'rewind', 0.42), // the film's only time-reverse
     S(word(17, '301') - 0.05, 'pop', 0.3),                   // the 301 tags
-    S(at(19) + 0.35, 'pop', 0.28),                           // three steps
+    S(word(19, 'three') - 0.05, 'pop', 0.28),               // three steps
     // Act C: the three steps, in RedirHub
     S(word(20, 'main') - 0.1, 'pop', 0.3),                   // the main address card
     S(at(23) - 0.3, 'transition', 0.36),                     // into the product (2 of 2)
     S(word(24, 'create') - 0.05, 'click', 0.4),              // Create
     S(word(24, 'domain') - 0.05, 'click', 0.4),              // Domain Redirect
-    S(word(25, 'mybrand'), 'typing', 0.2),                   // Redirect from
-    S(word(25, 'https'), 'typing', 0.2),                     // Redirect to
+    S(word(25, 'mybrand'), 'typeShort', 0.28),               // Redirect from
+    S(word(25, 'https'), 'typeLong', 0.28),                  // Redirect to
     S(word(28, 'save') - 0.05, 'click', 0.4),                // Create redirect
-    S(word(28, 'save') + 0.75, 'success', 0.32),             // the first row lands
+    S(word(28, 'save') + 0.75, 'treasure', 0.5),             // the redirect is created: the first row lands
     S(word(28, 'co'), 'pop', 0.24), S(word(28, 'typo'), 'pop', 0.24), S(word(28, 'get'), 'pop', 0.24), // a pop per row
     S(word(30, 'dozens') - 0.1, 'pop', 0.26),                // the CSV tip
     S(word(33, 'connect') + 0.1, 'click', 0.4),              // Connect DNS
     S(word(37, 'quick') - 0.1, 'pop', 0.26),                 // the MX tip
-    S(word(38, 'automatically') + 0.15, 'success', 0.42),    // the certificate: the room floods
+    S(word(38, 'automatically') + 0.15, 'secure', 0.45),     // the certificate: the room floods
     // Act D: prove it, then close
     S(word(41, 'sixteen') - 0.1, 'burst', 0.4),              // "16" slams in
     S(at(43) + 0.25, 'click', 0.4),                          // Check Redirect

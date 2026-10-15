@@ -242,14 +242,14 @@ function Radios({ label, k, items, foot }: { label: string; k: number; items: re
 }
 
 /* ---------------------------------------------------------------- Hostnames + Connect DNS */
-export function HostnamesBody({ domains }: { domains: readonly string[] }) {
+export function HostnamesBody({ domains, warn = [] }: { domains: readonly string[]; warn?: readonly number[] }) {
     return (
         <div style={{ padding: '22px 24px' }}>
             <div style={{ border: '1px solid #EAECF0', borderRadius: 12, overflow: 'hidden' }}>
                 {domains.map((d, i) => (
                     <div key={d} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', borderTop: i ? '1px solid #EAECF0' : undefined, fontSize: 15 }}>
                         <span style={{ fontFamily: MONO, flexGrow: 1 }}>{d}</span>
-                        <span style={{ fontSize: 12, fontWeight: 600, color: '#717680' }}>Not connected</span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: '#717680' }}><span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E59426', opacity: warn[i] ?? 0, transform: `scale(${0.6 + 0.4 * (warn[i] ?? 0)})` }} />Not connected</span>
                     </div>
                 ))}
             </div>

@@ -46,15 +46,18 @@ for (const composition of all.filter((c) => !wanted.length || wanted.includes(c.
     }
     const file = path.join(outDir, `${composition.id}.mp4`);
     let last = -1;
+    // 16:9 YouTube videos are long, gradient-heavy and re-encoded by YouTube: capture frames losslessly
+    // (JPEG frames block up smooth gradients) and encode at a higher quality, so rooms stay free of bands.
+    const youtube = composition.width > composition.height;
     await renderMedia({
         serveUrl,
         composition,
         codec: 'h264',
-        crf: 18,
+        crf: youtube ? 15 : 18,
+        x264Preset: youtube ? 'slow' : 'medium',
         pixelFormat: 'yuv420p',
         colorSpace: 'bt709', // tagged BT.709 so phones show brand colors correctly
-        imageFormat: 'jpeg',
-        jpegQuality: 95,
+        ...(youtube ? { imageFormat: 'png' } : { imageFormat: 'jpeg', jpegQuality: 95 }),
         audioCodec: 'aac',
         audioBitrate: '192k',
         enforceAudioTrack: true,

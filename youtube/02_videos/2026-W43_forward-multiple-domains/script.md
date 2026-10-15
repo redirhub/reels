@@ -1,6 +1,6 @@
 # Script v2 — How to Forward Multiple Domains to One Website (With HTTPS)
 
-**Status:** v2, 2026-10-14. Script v1 (Leo's draft, 52 beats, in the W43 brief) with every change from
+**Status:** v3, 2026-10-15 (Leo's review of the first cut: beat 19 opens the steps with what they do). v2, 2026-10-14. Script v1 (Leo's draft, 52 beats, in the W43 brief) with every change from
 `script-deltas.md` applied after the key frames were approved on the canvas (Review 2). This file is the
 source of truth for the build: `scripts/yt/beats-from-script.py` turns it into
 `src/remotion/reels/forward-domains/script.ts`.
@@ -70,8 +70,8 @@ from `keyframes.md`). Beat numbers are v2's own; `script-deltas.md` uses v1's.
 **18.** It tells browsers and Google: this moved, go here.
 `[A 301 tag pops onto each line.]`
 
-**19.** Three steps, and one test.
-`[w43-Steps. Three frosted cards rise; "Then one test: every version of every domain."]`
+**19.** Here's how to set that up in RedirHub, with HTTPS: three steps, and one test.
+`[w43-Steps. "Here's how" eyebrow and the goal line "Set up way two in RedirHub, with HTTPS."; three frosted cards rise on "three"; "Then one test: every version of every domain."]`
 
 ## ACT C — The three steps, in RedirHub
 

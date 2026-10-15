@@ -41,10 +41,17 @@ export function FourAddressesScene({ extras }: ForwardDomainsProps) {
     const solo = 1 - easeOut(prog(t, split, split + 0.25));
     const hd = (c: number) => Math.max(c % 2 === 1 ? clamp(Math.sin(Math.PI * prog(t, wwwA, wwwA + 1.2))) : 0, c >= 2 ? clamp(Math.sin(Math.PI * prog(t, httpsA, httpsA + 1.2))) : 0);
     const big = prog(t, sixteen, sixteen + 0.3);
+    const lead = slideIn(t, LF.at(39) + 0.1, 0.5, 0, 18);
+    const leadOut = 1 - easeOut(prog(t, sixteen - 0.25, sixteen + 0.05));
     return (
         <SceneFade t={t} room="lab">
             <RoomBg room="lab" t={t} />
             <Eyebrow k={easeOut(prog(t, 0.2, 0.6))} color={C.soft} dash={C.teal}>NOW TEST IT</Eyebrow>
+            {/* Beats 39–40: the line she says, so the lab is never an empty room; "16" takes its place. */}
+            <div style={{ position: 'absolute', left: 120, top: 170, display: 'flex', flexDirection: 'column', gap: 14, ...lead, opacity: Number(lead.opacity) * leadOut }}>
+                <span style={{ fontSize: 104, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1 }}>Now test it.</span>
+                <span style={{ fontSize: 36, fontWeight: 600, color: C.soft, ...slideIn(t, LF.word(39, 'part') - 0.1, 0.45, 0, 12) }}>The part most people skip.</span>
+            </div>
             <div style={{ position: 'absolute', left: 120, top: 160, display: 'flex', alignItems: 'flex-end', gap: 36 }}>
                 <span style={{ fontSize: 240, fontWeight: 800, lineHeight: 0.82, letterSpacing: '-0.06em', ...fx(clamp(big * 3), 0, 0, lerp(1.35, 1, easeOut(big))) }}>16</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 6 }}>
@@ -186,7 +193,7 @@ export function AllGreenScene({ main, extras }: ForwardDomainsProps) {
 const LHn = local('honest');
 export function HonestScene() {
     const t = useTime();
-    // Each card lands as she says it: what it doesn't do comes first in the line, so the grey card lands first.
+    // Each card lands as she says it, left to right: what it doesn't do comes first in the line, then what it does.
     const grey = slideIn(t, LHn.word(46, "won't") - 0.15, 0.5, 0, 30);
     const teal = slideIn(t, LHn.word(46, 'catches') - 0.15, 0.5, 0, 30);
     const greyDim = 1 - 0.35 * easeOut(prog(t, LHn.word(46, 'catches'), LHn.word(46, 'catches') + 0.4));
@@ -195,15 +202,15 @@ export function HonestScene() {
             <RoomBg room="charcoal" t={t} />
             <Eyebrow k={easeOut(prog(t, 0.2, 0.6))} color={C.soft} dash={C.teal}>ONE HONEST NOTE</Eyebrow>
             <div style={{ position: 'absolute', left: 120, top: 260, width: 1680, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
-                <div style={{ height: 520, boxSizing: 'border-box', padding: 56, borderRadius: 34, background: 'linear-gradient(160deg, rgba(32,167,149,0.22) 0%, rgba(32,167,149,0.06) 100%)', boxShadow: `inset 0 0 0 2px ${C.teal}`, display: 'flex', flexDirection: 'column', gap: 30, ...teal }}>
-                    <Tick size={72} draw={prog(t, LHn.word(46, 'catches'), LHn.word(46, 'catches') + 0.4)} />
-                    <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: '0.12em', color: C.teal }}>WHAT IT DOES</span>
-                    <span style={{ fontSize: 80, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.02 }}>Forwarding catches people.</span>
-                </div>
                 <div style={{ height: 520, boxSizing: 'border-box', padding: 56, borderRadius: 34, background: 'rgba(255,255,255,0.04)', boxShadow: 'inset 0 0 0 2px rgba(255,255,255,0.12)', display: 'flex', flexDirection: 'column', gap: 30, ...grey, opacity: Number(grey.opacity) * greyDim }}>
                     <svg style={{ flex: 'none' }} width="72" height="72" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke={C.mute} strokeWidth="4" /><path d="M23 23l18 18M41 23l-18 18" fill="none" stroke={C.mute} strokeWidth="6" strokeLinecap="round" /></svg>
                     <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: '0.12em', color: C.mute }}>WHAT IT DOESN&apos;T</span>
                     <span style={{ fontSize: 64, fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.08, color: C.soft }}>It doesn&apos;t lift rankings on its own.</span>
+                </div>
+                <div style={{ height: 520, boxSizing: 'border-box', padding: 56, borderRadius: 34, background: 'linear-gradient(160deg, rgba(32,167,149,0.22) 0%, rgba(32,167,149,0.06) 100%)', boxShadow: `inset 0 0 0 2px ${C.teal}`, display: 'flex', flexDirection: 'column', gap: 30, ...teal }}>
+                    <Tick size={72} draw={prog(t, LHn.word(46, 'catches'), LHn.word(46, 'catches') + 0.4)} />
+                    <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: '0.12em', color: C.teal }}>WHAT IT DOES</span>
+                    <span style={{ fontSize: 80, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.02 }}>Forwarding catches people.</span>
                 </div>
             </div>
         </SceneFade>

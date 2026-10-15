@@ -1,8 +1,20 @@
 # W43 production notes: from key frames to film
 
-**Status:** 2026-10-14. Composition `forward-domains` (`src/remotion/reels/forward-domains/`), built from the
-approved canvas page `w43` (Leo's edits synced) and `script.md` v2. Length follows the voice (`timings.json`),
-currently **305 s**.
+**Status:** 2026-10-15, round 2 (Leo's review of the first cut, below). Composition `forward-domains`
+(`src/remotion/reels/forward-domains/`), built from the approved canvas page `w43` (Leo's edits synced) and `script.md` v3.
+Length follows the voice (`timings.json`), currently **290 s** (was 305 s).
+
+## Round 2: Leo's review of the first cut (Oct 15)
+
+| Note | What changed |
+|---|---|
+| Pauses (0:15–0:20, nothing until 0:56, 1:49–1:57, 2:00): "every second counts" | Most were the 11 silent stand-ins. All 17 takes are now real, regenerated on the paid ElevenLabs account (connected through Composio; same voice, model and settings, seed 42), which also clears them for commercial use (see Voice). The air I had added between beats is cut from up to 1.3 s to 0.15–0.5 s, kept only where the picture needs it: the title transition, "it looks perfect", the rewind, the padlock, the pass chime. The lead-in drops from 0.6 s to 0.35 s and the end-screen hold from 4 s to 3 s. |
+| Gradients look pixelated | Two causes, both fixed. (1) The encode: 16:9 renders now capture frames losslessly (PNG, not JPEG) and encode at CRF 15 on x264 `slow` (`scripts/render.mjs`). (2) The gradients themselves: every room carries a static, zero-mean overlay dither (`Dither` in `kit.tsx`), so 8-bit steps can't form bands. A contrast-boosted crop of the title's sweep went from blocky bands to a smooth gradient. |
+| 0:48: a card appears and disappears at once | The site card arrived on "book" and faded on "Pointing" half a second later. Now the site lands on "lives", the address book on "DNS", the other four names on "five domains", and nothing leaves the scene. |
+| 1:30 jumps straight to "Three steps" | Beat 19 now opens with what the steps do: "Here's how to set that up in RedirHub, with HTTPS: three steps, and one test." (worded so it doesn't repeat the title line at beat 8). On screen: eyebrow "HERE'S HOW", the goal line "Set up way two in RedirHub, with HTTPS.", then the headline and cards on "three". |
+| "Check the video yourself for hidden slops" | Every beat was reviewed as a still against the real voice, and the whole cut was run through `scripts/qa/flash_check.py`, which flags anything that appears and disappears within a second (it catches the 0:48 slip on the old cut). Fixed: an empty lab with one pill while she says "Now test it" (now the line itself, until "16" takes its place); the honest note's empty left half (the cards now read left to right in the order she says them); a static Hostnames list for 8 s (each "Not connected" takes an amber dot as she says the domain has to point at RedirHub); an empty Links panel at step two (step two is said over its own headline, and the product rises on "Here's what that looks like"). |
+| 2:19: the sound after "Create redirect" | The generated success sound is replaced by Leo's "You find a treasure". The other generated effects (HTTPS issued, the signature chime, typing) are replaced too, with Mixkit sounds chosen to match Leo's set: warm (brightness centre 1.3–1.8 kHz), tonal, short. |
+| Music | Kept: the calm pad Leo likes, moved from D major to C major so the tonal effects (treasure: C, F, G; chime: C, E; HTTPS: C, G) sit in key. |
 
 ## Voice
 
@@ -16,27 +28,30 @@ currently **305 s**.
   On the test take, 8–10 kHz went from −63 dB to −24.5 dB, with zero lag against the original.
   The restored takes are committed (`voiceover/chunks-sr/`), so CI never needs AudioSR.
   `vo-build.py` prefers them, then runs the W41 studio chain (`voice_enhance.py --no-bwe`).
-- **Blocked: 11 of 17 takes.** ElevenLabs disabled the account's free tier ("unusual activity… upgrade to a paid
-  subscription"), and its 10,000-credit quota is spent. Six takes are real (c01, c05, c06, c07, c08, c12). The other
-  eleven are silent stand-ins at her measured pace (`scripts/yt/vo-placeholder.py`), so the picture is timed and
-  audited now. When the takes come in, run: `voice_sr.py` → `vo-placeholder.py` (drops the stand-ins) →
-  `vo-build.py` → `bed-build.py`. Every scene reads beat and word times, so the picture re-times itself. A paid plan is also
-  what makes the narration cleared for commercial use; W41 flagged this as well.
+- **All 17 takes are paid-plan generations** (round 2). The first cut's six free-plan takes and eleven stand-ins are
+  gone: every take was regenerated on the paid account (≈3,900 characters), so the whole narration is cleared for
+  commercial use. Pace check: no pause inside any take is over 0.5 s; the only longer gaps are the deliberate ones
+  listed in `assembly.json`. To redo a take: replace `voiceover/chunks/<id>.mp3`, remove its entry from
+  `asr-vosk.json`, then `voice_sr.py` → `vo-build.py` → `bed-build.py`; every scene reads beat and word times, so the
+  picture re-times itself.
 
 ## Sound
 
 - **Leo's five Pixabay effects** are in the library (`youtube/01_library/audio/sfx/`). Two are new
   (pop-click, ui-error-denied), and three were already there byte for byte (balloon burst, transition, swoosh).
   Cut with `prepare_track.py oneshot` into `public/audio/forward-domains/`. Licences are in `docs/audio-licenses.md`.
-- **Generated effects** (`typing`, `success`, `fixed`) are short and dry like Leo's set, with no tails or reverb.
-- **Cue sheet** (`ForwardDomains.tsx`, 33 cues in 305 s, under the default budget of 60):
+- **No generated effects** since round 2. Leo's treasure sound marks the redirect being created. Three Mixkit sounds,
+  profiled against Leo's set (length, attack, brightness, pitch), cover the rest: "Software interface start" (HTTPS
+  issued), "Alert quick chime" (the signature chime) and two stretches of "Typing on a laptop keyboard". Licences
+  and cut points are in `docs/audio-licenses.md`.
+- **Cue sheet** (`ForwardDomains.tsx`, 33 cues in 293 s, under the default budget of 58):
   - one sound per story beat;
   - `transition` twice (title, into the product);
   - `rewind` once (the film's only time-reverse);
   - `fixed`, the signature chime, twice ("That's a pass", "One website");
   - clicks only on real product actions (Create, Domain Redirect, Create redirect, Connect DNS, Check Redirect), as Leo asked on W41;
   - typing on the two fields.
-- **Music:** a generated pad (`music.json`, `"kind": "pad"`). `bed-build.py` ducks it under every word and fails the
+- **Music:** a generated pad (`music.json`, `"kind": "pad"`, C major since round 2). `bed-build.py` ducks it under every word and fails the
   build if it ever comes within 10 LU of her while she speaks.
 
 ## Where the film differs from the approved frames (and why)

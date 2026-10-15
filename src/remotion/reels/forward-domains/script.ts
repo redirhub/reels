@@ -94,8 +94,8 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 19,
-        "vo": "Three steps, and one test.",
-        "visual": "w43-Steps. Three frosted cards rise; \"Then one test: every version of every domain.\""
+        "vo": "Here's how to set that up in RedirHub, with HTTPS: three steps, and one test.",
+        "visual": "w43-Steps. \"Here's how\" eyebrow and the goal line \"Set up way two in RedirHub, with HTTPS.\"; three frosted cards rise on \"three\"; \"Then one test: every version of every domain.\""
     },
     {
         "n": 20,

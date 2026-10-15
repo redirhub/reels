@@ -31,6 +31,22 @@ const MESH_GRID: CSSProperties = { position: 'absolute', inset: 0, backgroundIma
 const LAB_GRID: CSSProperties = { position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, rgba(0,0,0,0) 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0) 1px)', backgroundSize: '60px 60px', WebkitMaskImage: 'radial-gradient(75% 70% at 50% 45%, #000 35%, rgba(0,0,0,0) 85%)', maskImage: 'radial-gradient(75% 70% at 50% 45%, #000 35%, rgba(0,0,0,0) 85%)' };
 export const DOTS: CSSProperties = { position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(16,24,40,0.10) 1.5px, rgba(0,0,0,0) 1.5px)', backgroundSize: '32px 32px', WebkitMaskImage: 'radial-gradient(70% 70% at 60% 50%, #000 20%, rgba(0,0,0,0) 80%)', maskImage: 'radial-gradient(70% 70% at 60% 50%, #000 20%, rgba(0,0,0,0) 80%)' };
 
+/** Zero-mean dither over a room's gradient. Overlay-blended fractal noise moves each pixel a fraction of a
+    shade up or down, so 8-bit gradients (and the encoder after them) can't collapse into visible bands.
+    Static and seeded, so it costs little bitrate and never shimmers. */
+function Dither({ strength }: { strength: number }) {
+    return (
+        <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: strength, mixBlendMode: 'overlay', pointerEvents: 'none' }}>
+            <filter id="w43-dither" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="43" stitchTiles="stitch" />
+                <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#w43-dither)" />
+        </svg>
+    );
+}
+const DITHER: Record<Room, number> = { mesh: 0.12, sweep: 0.1, light: 0.06, twist: 0.12, radial: 0.1, lab: 0.12, charcoal: 0.1 };
+
 /** A full-frame room. `grid` adds the room's own texture (mesh grid, lab grid, light dots). `drift`
     nudges the texture a few px over the scene so a held frame never reads as frozen. */
 export function RoomBg({ room, grid = true, t = 0, opacity = 1, children }: { room: Room; grid?: boolean; t?: number; opacity?: number; children?: ReactNode }) {
@@ -39,6 +55,7 @@ export function RoomBg({ room, grid = true, t = 0, opacity = 1, children }: { ro
     return (
         <AbsoluteFill style={{ background: ROOM_BG[room], opacity, fontFamily: DISPLAY, color: room === 'light' ? C.char : C.ink, WebkitFontSmoothing: 'antialiased' }}>
             {grid && tex && <div style={{ ...tex, transform: `translate(${dx}px, ${dy}px)` }} />}
+            <Dither strength={DITHER[room]} />
             {children}
         </AbsoluteFill>
     );

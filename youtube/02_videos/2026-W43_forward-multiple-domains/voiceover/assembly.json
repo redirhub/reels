@@ -1,39 +1,25 @@
 {
   "_doc": "How the VO chunks are cut into beats and laid on the timeline. Seconds. Read by scripts/yt/vo-build.py.",
-  "leadIn": 0.6,
-  "join": 0.22,
+  "leadIn": 0.35,
+  "join": 0.18,
   "extraAfter": {
-    "5": 0.4,
-    "7": 0.7,
-    "8": 1.2,
-    "11": 0.3,
-    "13": 1.1,
-    "15": 0.3,
-    "16": 1.3,
-    "18": 0.4,
-    "19": 0.6,
-    "22": 0.5,
-    "23": 0.4,
-    "27": 0.4,
-    "30": 0.5,
-    "33": 0.3,
-    "37": 0.5,
-    "38": 1.2,
-    "42": 0.4,
-    "43": 1.0,
-    "44": 0.8,
-    "45": 0.5,
-    "46": 0.6,
-    "47": 0.6,
-    "48": 0.6,
-    "49": 0.4,
-    "50": 0.3
+    "5": 0.15,
+    "7": 0.3,
+    "8": 0.5,
+    "13": 0.35,
+    "16": 0.65,
+    "19": 0.2,
+    "22": 0.2,
+    "38": 0.45,
+    "43": 0.4,
+    "44": 0.25,
+    "49": 0.2
   },
   "silentBeats": {
-    "52": 4.0
+    "52": 3.0
   },
   "_notes": {
-    "extraAfter": "air after: the hook (5), before the title (7), the title card (8), 'it looks perfect' (13), the turn after the typo (16, the one-second silence), the padlock (38), the pass chime (43), all sixteen (44)",
+    "extraAfter": "Leo, Oct 15: every second counts. Air only where the picture needs it: the title transition (8), 'it looks perfect' (13), the rewind after the typo (16: the time-reverse runs 0.75 s inside this gap), the padlock (38), the pass chime (43). Everything else runs on the join.",
     "silentBeats": "52: the end card holds for YouTube's end screen after the last line"
   }
 }

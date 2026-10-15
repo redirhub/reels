@@ -67,8 +67,11 @@
       18,
       19
     ],
-    "text": "Way two: one main address. Every other domain sends people there with a 301, the permanent kind. It tells browsers and Google: this moved, go here. Three steps, and one test.",
-    "words": 31
+    "text": "Way two: one main address. Every other domain sends people there with a 301, the permanent kind. It tells browsers and Google: this moved, go here. Here's how to set that up in RedirHub, with HTTPS: three steps, and one test.",
+    "words": 41,
+    "spoken": {
+      "19": "Here's how to set that up in RedirHub, with HTTPS: three steps, and one test."
+    }
   },
   {
     "id": "c08",
