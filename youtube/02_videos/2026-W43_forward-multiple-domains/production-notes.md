@@ -44,6 +44,11 @@ the 15 left are all one grey level a frame or less: a slow fade over a flat colo
 peak and drops those under 1.5 grey levels a frame (`--min-peak 0` shows them all). The one real jump left (the
 counter's "/16" shifting when 8 became 12) is fixed above.
 
+**Final cut (60 fps, 290.05 s):** `stutter_check.py` 68 findings → 33, and above the 1.5-level threshold 9, every one a
+flat-colour fade or a crossfade stepping one or two grey levels a frame (peaks ≤ 3.5). Each was checked frame by
+frame against lossless PNG captures: none is a frozen or skipped frame of moving content. `flash_check.py` lists the
+same 18 dissolves as before (all cuts or deliberate hand-overs, none a card that flashes).
+
 ## Voice
 
 - **Narrator:** ElevenLabs "Emily" (`zHGX9VSXpW8cGSDRCqy0`), `eleven_multilingual_v2`, the same voice as W41.
@@ -110,13 +115,10 @@ counter's "/16" shifting when 8 became 12) is fixed above.
   - a partial rewind;
   - SMIL traffic dots that ran on the wall clock (now a pure function of time).
 - End card: the QR decodes to `https://redirhub.com/support`, and nothing on the frame goes below y 950.
-- `npm run typecheck` and `npm run build` pass. The full render (`out/forward-domains.mp4`) passes `check_reel.py`:
-  - format: 1920×1080, 30 fps, h264/aac, 305.05 s;
-  - the QR at 300 s scans to `https://redirhub.com/support`;
-  - true peak −2.8 dBTP.
-- Loudness: integrated −18.3 LUFS, outside the −16…−12 window only because 11 takes are still silent.
-  The sections with real takes measure −15.1 (0–16 s), −14.7 (78–108 s) and −14.9 LUFS (175–204 s).
-  Re-check once all takes are in.
+- `npm run typecheck` and `npm run build` pass. The full render (`out/forward-domains.mp4`, round 3) passes `check_reel.py`:
+  - format: 1920×1080, 60 fps, h264/aac, 290.05 s;
+  - the QR at 287 s scans to `https://redirhub.com/support`;
+  - loudness −14.9 LUFS integrated, true peak −1.1 dBTP (all 17 takes real since round 2).
 - Voice restoration: every restored take keeps its original below 7 kHz (correlation ≥ 0.9999) and falls off
   naturally above it (6–7.4 kHz → 8–10 kHz about −4 dB → 10–14 kHz about −10 dB). The seams between AudioSR's 10 s
   pieces show no level steps.
