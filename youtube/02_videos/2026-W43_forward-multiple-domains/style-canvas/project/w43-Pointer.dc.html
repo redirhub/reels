@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>W43 · How a domain works</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+[style*="JetBrains"]{font-variant-ligatures:none}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1080px; box-sizing: border-box; position: relative; overflow: hidden; background: linear-gradient(160deg, #F2F7FC 0%, #EEF8F6 100%); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #181D27">
+<div data-bg style="position: absolute; inset: 0; background-image: radial-gradient(rgba(16,24,40,0.10) 1.5px, rgba(0,0,0,0) 1.5px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(70% 70% at 60% 50%, #000 20%, rgba(0,0,0,0) 80%); mask-image: radial-gradient(70% 70% at 60% 50%, #000 20%, rgba(0,0,0,0) 80%)"></div>
+<div style="position: absolute; left: 120px; top: 110px; display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 700; letter-spacing: 0.14em; color: #181D27"><span style="width: 36px; height: 3px; border-radius: 2px; background: #20A795"></span>HOW A DOMAIN WORKS</div>
+<h2 style="position: absolute; left: 120px; top: 170px; margin: 0; font-size: 80px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.08">A domain doesn&#39;t hold your site.<br><span style="color: #20A795">It points to where it lives.</span></h2>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<path d="M540 700 L650 700" fill="none" stroke="#20A795" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 14"></path>
+<path d="M636 688 L652 700 L636 712" fill="none" stroke="#20A795" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M1205 700 L1288 700" fill="none" stroke="#20A795" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 14"></path>
+<path d="M1274 688 L1290 700 L1274 712" fill="none" stroke="#20A795" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<div style="position: absolute; left: 120px; top: 560px; width: 400px; display: flex; flex-direction: column; gap: 18px">
+<span style="font-size: 20px; font-weight: 700; letter-spacing: 0.14em; color: #475467">WHAT PEOPLE TYPE</span>
+<span style="display: inline-flex; align-items: center; gap: 14px; height: 92px; padding: 0 30px; border-radius: 46px; background: linear-gradient(140deg, rgba(255,255,255,0.79) 0%, rgba(255,255,255,0.64) 100%); box-shadow: inset 0 0 0 1.5px #FFFFFF, 0 24px 60px rgba(16,24,40,0.12); font-family: 'JetBrains Mono', monospace; font-size: 40px; font-weight: 600; width: max-content"><span style="width: 16px; height: 16px; border-radius: 50%; background: #20A795"></span>mybrand.com</span>
+</div>
+<div style="position: absolute; left: 680px; top: 540px; width: 500px; transform: rotate(-2deg); border-radius: 18px; background: #FBF7EF; box-shadow: 0 30px 70px rgba(16,24,40,0.16), inset 0 0 0 1px #F4EFE6; padding: 30px 34px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; color: #3B3A36">
+<span style="font-weight: 700; font-size: 18px; letter-spacing: 0.16em; color: #8A8478">ADDRESS BOOK · DNS</span>
+<div style="height: 10px; width: 300px; border-radius: 5px; background: #F4EFE6"></div>
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; border-radius: 12px; background: #FFF4D6; font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600"><span>mybrand.com</span><span style="color: #6B675F; padding: 0 10px">→</span><span>203.0.113.10</span></div>
+<div style="height: 10px; width: 340px; border-radius: 5px; background: #F4EFE6"></div>
+<div style="height: 10px; width: 260px; border-radius: 5px; background: #F4EFE6"></div>
+</div>
+<div style="position: absolute; left: 1310px; top: 500px; width: 490px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 20px; font-weight: 700; letter-spacing: 0.14em; color: #475467">WHERE THE SITE LIVES · <span style="font-family: 'JetBrains Mono', monospace; letter-spacing: 0; font-weight: 600">203.0.113.10</span></span>
+<div data-ui="browser" style="border-radius: 20px; overflow: hidden; background: #FFFFFF; box-shadow: 0 30px 70px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06); font-family: 'Inter', sans-serif">
+<div style="height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid #EAECF0"><span style="width: 11px; height: 11px; border-radius: 50%; background: #F97066"></span><span style="width: 11px; height: 11px; border-radius: 50%; background: #FDB022"></span><span style="width: 11px; height: 11px; border-radius: 50%; background: #32D583"></span></div>
+<div style="padding: 30px 30px 34px; display: flex; flex-direction: column; gap: 14px"><span style="width: 40px; height: 40px; border-radius: 9px; background: #1E2A44"></span><span style="font-size: 30px; font-weight: 600; color: #181D27">Welcome to mybrand</span><span style="height: 10px; width: 330px; border-radius: 5px; background: #EAECF0"></span><span style="height: 10px; width: 250px; border-radius: 5px; background: #EAECF0"></span></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

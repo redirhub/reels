@@ -1,0 +1,198 @@
+[
+  {
+    "id": "c01",
+    "beats": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "text": "Most brands own more than one domain. The dot com. The dot net. The dot co. The misspelling you bought, so nobody else could. The short one you put on flyers. Every one of them is a way in. Someone types it, clicks it, or scans it.",
+    "words": 47,
+    "spoken": {
+      "2": "The dot com. The dot net. The dot co."
+    }
+  },
+  {
+    "id": "c02",
+    "beats": [
+      6,
+      7
+    ],
+    "text": "But a lot of extra domains lead nowhere. A parking page. An error. A \"Not secure\" warning. Each of those is a visitor who almost reached you.",
+    "words": 27
+  },
+  {
+    "id": "c03",
+    "beats": [
+      8
+    ],
+    "text": "Here's how to forward every domain you own to one website, with HTTPS on every one. Three steps, and one test at the end.",
+    "words": 24
+  },
+  {
+    "id": "c04",
+    "beats": [
+      9,
+      10,
+      11
+    ],
+    "text": "First, what a domain actually does. It doesn't hold your website. It points to where your website lives. That pointer lives in DNS, the internet's address book. Pointing five domains at one website sounds easy. There are two ways to do it.",
+    "words": 42
+  },
+  {
+    "id": "c05",
+    "beats": [
+      12,
+      13
+    ],
+    "text": "Way one: point every domain at your hosting, so each one shows your site. And it looks perfect.",
+    "words": 18
+  },
+  {
+    "id": "c06",
+    "beats": [
+      14,
+      15,
+      16
+    ],
+    "text": "But to Google, that's one website at five addresses. Five copies. And when Google finds copies, it picks one address to show. Maybe not the one you'd pick. And the address bar shows whatever they typed. Even the typo.",
+    "words": 39
+  },
+  {
+    "id": "c07",
+    "beats": [
+      17,
+      18,
+      19
+    ],
+    "text": "Way two: one main address. Every other domain sends people there with a 301, the permanent kind. It tells browsers and Google: this moved, go here. Here's how to set that up in RedirHub, with HTTPS: three steps, and one test.",
+    "words": 41,
+    "spoken": {
+      "19": "Here's how to set that up in RedirHub, with HTTPS: three steps, and one test."
+    }
+  },
+  {
+    "id": "c08",
+    "beats": [
+      20,
+      21,
+      22
+    ],
+    "text": "Step one: pick your main address. Choose it exactly the way you want people to see it. Say, HTTPS, mybrand dot com. Quick tip: if one of your domains already ranks, or has links from other sites, that's usually the one to keep.",
+    "words": 43,
+    "spoken": {
+      "21": "Choose it exactly the way you want people to see it. Say, HTTPS, mybrand dot com."
+    }
+  },
+  {
+    "id": "c09",
+    "beats": [
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "text": "Step two: redirect every other domain. Here's what that looks like in RedirHub. Links. Create. Domain Redirect. Redirect from: mybrand dot net. Redirect to: HTTPS, mybrand dot com. Type: 301. Keep the path on, so mybrand dot net slash pricing lands on mybrand dot com slash pricing, not the homepage. The www version comes along too: a root domain covers its www.",
+    "words": 62,
+    "spoken": {
+      "25": "Redirect from: mybrand dot net. Redirect to: HTTPS, mybrand dot com. Type: 301.",
+      "26": "Keep the path on, so mybrand dot net slash pricing lands on mybrand dot com slash pricing, not the homepage."
+    }
+  },
+  {
+    "id": "c10",
+    "beats": [
+      28,
+      29,
+      30
+    ],
+    "text": "Save. Then the same for the next one: mybrand dot co, the typo, and get mybrand dot com from the flyers. Each domain gets its own redirect. All of them point to the same place. Got dozens? Import them all from one CSV: Links, Create, Import CSV. That gets its own video soon.",
+    "words": 53,
+    "spoken": {
+      "28": "Save. Then the same for the next one: mybrand dot co, the typo, and get mybrand dot com from the flyers."
+    }
+  },
+  {
+    "id": "c11",
+    "beats": [
+      31,
+      32,
+      33
+    ],
+    "text": "Step three: connect each domain, with HTTPS. For a redirect to work, the domain has to point at RedirHub in its DNS. Open Hostnames, and click Connect DNS. RedirHub shows you the exact records for that domain.",
+    "words": 37
+  },
+  {
+    "id": "c12",
+    "beats": [
+      34,
+      35,
+      36,
+      37
+    ],
+    "text": "For a root domain, that's an A record that says where to go, and a T-X-T record that proves the domain is yours. Plus a C-name for the www. Copy the values from your own dashboard, not from this video. If your DNS is at Cloudflare, the Automatic tab adds them for you. You approve on Cloudflare and come straight back. Quick tip: if a domain handles email, leave its M-X records alone. They're your email.",
+    "words": 76,
+    "spoken": {
+      "34": "For a root domain, that's an A record that says where to go, and a T-X-T record that proves the domain is yours. Plus a C-name for the www.",
+      "37": "Quick tip: if a domain handles email, leave its M-X records alone. They're your email."
+    }
+  },
+  {
+    "id": "c13",
+    "beats": [
+      38
+    ],
+    "text": "Once the records are in, RedirHub checks them and issues the HTTPS certificate automatically. That's the padlock, on every domain.",
+    "words": 20
+  },
+  {
+    "id": "c14",
+    "beats": [
+      39,
+      40,
+      41,
+      42
+    ],
+    "text": "Now test it. And here's the part most people skip. Every domain is really four addresses. With and without www. With and without https. Four extra domains? That's sixteen ways in. Open RedirHub's free Redirect Checker, and paste each one. Start with the HTTPS www versions. They're the easiest to forget.",
+    "words": 51,
+    "spoken": {
+      "42": "Open RedirHub's free Redirect Checker, and paste each one. Start with the HTTPS www versions. They're the easiest to forget."
+    }
+  },
+  {
+    "id": "c15",
+    "beats": [
+      43,
+      44,
+      45
+    ],
+    "text": "One hop. A 301. And it lands on HTTPS, mybrand dot com. That's a pass. Do that for all sixteen, and you're done. Not passing yet? Often it's a DNS record that hasn't caught up. Give it a few minutes, then check again.",
+    "words": 43,
+    "spoken": {
+      "43": "One hop. A 301. And it lands on HTTPS, mybrand dot com. That's a pass."
+    }
+  },
+  {
+    "id": "c16",
+    "beats": [
+      46,
+      47
+    ],
+    "text": "One honest note. Forwarding extra domains won't lift your rankings on its own. It catches people. And one rule: keep renewing every domain you forward. If one expires, someone else can buy it, along with everyone who types it.",
+    "words": 39
+  },
+  {
+    "id": "c17",
+    "beats": [
+      48,
+      49,
+      50,
+      51
+    ],
+    "text": "So. One main address. A 301 from every other domain. HTTPS on all of them. Then test all four versions. Every name you own. One website. Links to everything in this video are in the description. And if you get stuck, reach out. We're happy to help. Next week: how to change your domain name without losing SEO.",
+    "words": 58
+  }
+]
