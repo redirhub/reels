@@ -9,13 +9,16 @@ import { AbsoluteFill } from 'remotion';
 import { RedirHubIcon, RedirHubLogo } from '../../brand/Logo';
 import { color, font, yt } from '../../brand/tokens';
 import { NIGHT_BG } from '../../components/FixedEndCard';
+import { Beat } from '../../components/Beat';
 import { Grain } from '../../components/Grain';
 import { LinksPage, ROW_GEOM, type RowData } from '../../components/LinksList';
 import { Phone } from '../../components/Phone';
+import { Sfx, type SfxCue } from '../../components/Sfx';
 import { UrlPill } from '../../components/UrlPill';
 import { easeBack, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/anim';
 import { Bubble, Caption, Card, Check, Line, SAFE, Tap, assertHold, env, f, smooth, type Pt } from './kit';
 import { CARDS, type EzMarketingProps } from './props';
+import { SOUND } from './sound';
 import { CAPTIONS, beat, chipWindow, word } from './timeline';
 
 const B = (n: number) => beat(n);
@@ -164,11 +167,16 @@ function PhoneShot({ tau, fixed, p, y = 0, scale = 1 }: { tau: number; fixed: bo
     );
 }
 
+/** Beat 1: three taps arrive on the old link (each one heard). */
+const TAPS = [0.45, 1.25, 2.05] as const;
+/** Beat 2: the phone tap and the moment find-in-page comes up empty (0/0), in reel seconds. */
+const PHONE_UP = 0.6, TAP_TAU = 0.3, ZERO_TAU = 2.9;
+
 function Opening({ t, p }: { t: number; p: EzMarketingProps }) {
     const [s1] = B(1), [s2] = B(2);
     const up = easeInOut(prog(t, s2, s2 + 0.6)); // the phone rises; the pill flies into its address bar
     const pillK = smooth(prog(t, s2 + 0.35, s2 + 0.6));
-    const tau = t - (s2 + 0.6);
+    const tau = t - (s2 + PHONE_UP);
     const center: Pt = [540, 880];
     const px = lerp(center[0], BAR_C[0], up), py = lerp(center[1], BAR_C[1], up);
     return (
@@ -179,9 +187,9 @@ function Opening({ t, p }: { t: number; p: EzMarketingProps }) {
                     <UrlPill url={`${p.oldDomain}${p.paths.careers}`} size={54} />
                 </div>
             </div>
-            <Tap t={t} when={s2 + 0.9} at={BAR_C} from={[1160, 300]} />
-            {[0.45, 1.25, 2.05, 2.75].map((d, i) => (
-                <Tap key={i} t={t} when={s1 + d} at={center} from={([[-80, 420], [1160, 1320], [1160, 380], [-80, 1300]] as const)[i]} />
+            <Tap t={t} when={s2 + PHONE_UP + TAP_TAU} at={BAR_C} from={[1160, 300]} />
+            {TAPS.map((d, i) => (
+                <Tap key={i} t={t} when={s1 + d} at={center} from={([[-80, 420], [1160, 1320], [1160, 380]] as const)[i]} />
             ))}
         </div>
     );
@@ -474,6 +482,33 @@ function End({ t, p }: { t: number; p: EzMarketingProps }) {
     );
 }
 
+/* ---------------------------------------------------------------- sound: one cue per on-screen event */
+function cues(): SfxCue[] {
+    const [s1] = B(1), [s2] = B(2), [s5] = B(5), [s9] = B(9), [s10] = B(10), [s12] = B(12);
+    return [
+        ...TAPS.map((d): SfxCue => [s1 + d, SOUND.tap_soft, 0.4]),                     // 1 traffic arrives on the old link
+        [s2 + PHONE_UP + TAP_TAU, SOUND.tap_soft, 0.4],                                // 2 the tap…
+        [s2 + PHONE_UP + ZERO_TAU, SOUND.error_thunk, 0.45],                           //   …and "jobs" finds nothing
+        [word(4, 'forwarded'), SOUND.tick_soft, 0.5], [word(4, 'shut'), SOUND.tick_soft, 0.5], // 4 the two ticks
+        [s5 + 0.2, SOUND.notif_pop, 0.5],                                              // 5 the client's message
+        [word(6, 'one') - 0.2, SOUND.problem_tone, 0.4],                               // 6 the catch
+        [DNS_GO() - 0.1, SOUND.swipe_line, 0.4],                                       // 7 the only whoosh: into the product
+        ...[0, 1, 2].map((i): SfxCue => [LIST_AT() + 0.25 + i * 0.4, SOUND.click_ui, 0.35]), //   a click per redirect
+        ...[0, 1, 2].map((i): SfxCue => [chipWindow(i)[0], SOUND.pop_glass, 0.4]),    // 8 a pop per chip
+        [s9 + 0.4, SOUND.count_roll, 0.4],                                             // 9 the count, stopping on 201
+        [s10, SOUND.rewind_tape, 0.45],                                                // 10 the rewind…
+        [s10 + REWIND, SOUND.tap_soft, 0.4],                                           //    …the same tap…
+        [s10 + REWIND + 0.65, SOUND.fixed_chime, 0.5],                                 //    …lands on Jobs
+        [s12 + 0.75, SOUND.fixed_chime, 0.5],                                          // 12 "Fixed."
+    ];
+}
+/** The bed: steady under the text-only cut; it dips while the film rewinds, then comes back. */
+const bed = (t: number) => {
+    const [s10] = B(10);
+    return 1 - 0.65 * smooth(prog(t, s10 - 0.05, s10 + 0.15)) * (1 - smooth(prog(t, s10 + REWIND - 0.1, s10 + REWIND + 0.25)));
+};
+const BUDGET = { max: 22, reason: 'EZMarketing story sync sheet: the sounds are part of the story (taps arriving on the old link, the checklist ticks, a click per redirect created, a pop per chip, the count stopping on 201, the rewind), each on its on-screen event.' };
+
 /* ---------------------------------------------------------------- the reel */
 export function EzMarketingStory(props: EzMarketingProps) {
     const t = useTime();
@@ -481,6 +516,8 @@ export function EzMarketingStory(props: EzMarketingProps) {
     const c = (n: number, text: string, from = B(n)[0] + 0.2, until = B(n)[1]) => <Card t={t} from={from} until={until} text={text} color={ink} />;
     return (
         <AbsoluteFill style={{ fontFamily: font.display }}>
+            <Beat volume={bed} />
+            <Sfx cues={cues()} budget={BUDGET} />
             <Rooms t={t} />
             <Opening t={t} p={props} />
             <Agency t={t} p={props} />
