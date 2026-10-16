@@ -42,13 +42,19 @@ export function Card({ t, from, until, text, children, size = 88, color = yt.ink
 }
 
 /** The caption (the script line), bottom of the safe band, white, brand font Medium. */
-export function Caption({ t, text, from, until }: { t: number; text: string; from: number; until: number }) {
+export function Caption({ t, text, from, until, backing = 0 }: {
+    t: number; text: string; from: number; until: number;
+    /** 0–1: a dark backing behind the words, for light and teal rooms (white text stays readable). */
+    backing?: number;
+}) {
     const o = env(t, from, until, 0.25, 0.25);
     return (
         <div style={{
             position: 'absolute', left: SAFE.x, width: SAFE.w, bottom: 1920 - Z.capBottom, fontFamily: font.display, fontSize: 50, fontWeight: 500,
-            lineHeight: 1.3, letterSpacing: '-.01em', color: '#FFFFFF', textShadow: '0 2px 16px rgba(0,0,0,.45)', ...f(o, 0, (1 - smooth(prog(t, from, from + 0.3))) * 10),
-        }}>{text}</div>
+            lineHeight: 1.36, letterSpacing: '-.01em', color: '#FFFFFF', textShadow: `0 2px 16px rgba(0,0,0,${0.45 * (1 - backing)})`, ...f(o, 0, (1 - smooth(prog(t, from, from + 0.3))) * 10),
+        }}>
+            <span style={{ background: `rgba(11,20,38,${(0.84 * backing).toFixed(3)})`, borderRadius: 14, padding: '3px 16px', marginLeft: -16, boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}>{text}</span>
+        </div>
     );
 }
 
@@ -109,10 +115,10 @@ export function Tap({ t, when, at: p, from }: { t: number; when: number; at: Pt;
 }
 
 /** A chat message from the client. */
-export function Bubble({ children, label, style }: { children: ReactNode; label: string; style?: CSSProperties }) {
+export function Bubble({ children, label, style }: { children: ReactNode; label: ReactNode; style?: CSSProperties }) {
     return (
         <div style={{ position: 'absolute', ...style }}>
-            <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 600, color: yt.inkSoft, marginLeft: 8, marginBottom: 12 }}>{label}</div>
+            <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 600, color: yt.inkSoft, marginLeft: 8, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 12 }}>{label}</div>
             <div style={{
                 position: 'relative', padding: '34px 44px', borderRadius: '44px 44px 44px 12px', background: '#FFFFFF', color: '#101828',
                 fontFamily: font.display, fontSize: 68, fontWeight: 700, letterSpacing: '-.03em', lineHeight: 1.08, boxShadow: '0 30px 80px rgba(0,0,0,.45)',
