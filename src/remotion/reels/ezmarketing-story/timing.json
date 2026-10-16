@@ -1,0 +1,6 @@
+{
+    "mode": "text",
+    "readingPace": { "wordsPerSecond": 3, "padSeconds": 0.75 },
+    "leadIn": 0.4,
+    "endCard": 3.0
+}
