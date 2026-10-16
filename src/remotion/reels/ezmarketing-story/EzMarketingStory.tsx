@@ -22,8 +22,9 @@ import { SOUND } from './sound';
 import { CAPTIONS, beat, chipWindow, word } from './timeline';
 
 const B = (n: number) => beat(n);
-/** A group that spans beats a..b: in just before a starts, out just after b ends (crossfades overlap). */
-const span = (t: number, a: number, b: number) => env(t, B(a)[0] - 0.2, B(b)[1] + 0.2, 0.4, 0.4);
+/** A group that spans beats a..b: it eases in over the first 0.35 s of a and out over the last 0.3 s
+    of b, so one scene has left before the next arrives (overlapping crossfades double-exposed). */
+const span = (t: number, a: number, b: number) => env(t, B(a)[0], B(b)[1], 0.35, 0.3);
 
 /* ---------------------------------------------------------------- rooms */
 type Room = 'night' | 'catch' | 'light' | 'flood';
@@ -298,7 +299,7 @@ function Catch({ t, p }: { t: number; p: EzMarketingProps }) {
     const ring = smooth(prog(t, word(6, 'one') - 0.2, word(6, 'one') + 0.3));
     const leave = smooth(prog(t, s7, s7 + 0.45)); // beat 7: the pages go; the domain pill stays put
     return (
-        <div style={{ position: 'absolute', inset: 0, opacity: env(t, s6 - 0.2, B(7)[1], 0.4, 0.3) }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: env(t, s6, B(7)[1], 0.35, 0.3) }}>
             {labels.map((l, i) => {
                 const a = s6 + 0.2 + i * 0.35; // each link is opened in turn…
                 const load = smooth(prog(t, a + 0.25, a + 0.6));
@@ -337,9 +338,9 @@ function Connect({ t, p }: { t: number; p: EzMarketingProps }) {
     const from: Pt = [cellX(0) + CELL.w / 2, CELL.top - 80 + 58];
     const dnsK = easeInOut(prog(t, DNS_GO(), LIGHT_AT()));
     const mark = smooth(prog(t, LIGHT_AT() - 0.15, LIGHT_AT() + 0.25));
-    const out = 1 - smooth(prog(t, LIST_AT() - 0.1, LIST_AT() + 0.15));
+    const out = 1 - smooth(prog(t, LIST_AT() - 0.2, LIST_AT()));
     return (
-        <div style={{ position: 'absolute', inset: 0, opacity: env(t, s7, LIST_AT() + 0.15, 0.3, 0.25) }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: env(t, s7, LIST_AT(), 0.3, 0.2) }}>
             <Line id="dns" from={from} to={[MARK[0] - 70, MARK[1] - 90]} progress={dnsK} bend={-0.25} opacity={out} />
             <div style={{ position: 'absolute', left: 560, top: 760, fontFamily: font.mono, fontSize: 34, fontWeight: 600, color: lerpColor(onLight(t)), ...f(smooth(dnsK * 3) * out) }}>DNS</div>
             <div style={{ position: 'absolute', left: MARK[0] - 120, top: MARK[1] - 120, width: 240, height: 240, borderRadius: 120, background: '#fff', boxShadow: `0 30px 80px rgba(16,24,40,.25), 0 0 0 ${14 * mark}px rgba(229,148,38,.18)`, display: 'flex', alignItems: 'center', justifyContent: 'center', ...f(mark * out, 0, 0, lerp(0.7, 1, easeBack(mark))) }}>
@@ -366,7 +367,7 @@ function Links({ t, p }: { t: number; p: EzMarketingProps }) {
     const enter = rows.map((_, i) => easeOut(prog(t, at + 0.25 + i * 0.4, at + 0.65 + i * 0.4)));
     const k = easeOut(prog(t, at - 0.05, at + 0.35));
     return (
-        <div style={{ position: 'absolute', inset: 0, opacity: env(t, at - 0.05, e7 + 0.2, 0.2, 0.4) }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: env(t, at, e7, 0.2, 0.3) }}>
             <div style={{ position: 'absolute', left: (1080 - W * S) / 2, top: 560, width: W * S, height: H * S, borderRadius: 32, overflow: 'hidden', background: '#fff', boxShadow: '0 40px 100px rgba(16,24,40,.20), 0 0 0 2px rgba(16,24,40,.06)', ...f(1, 0, (1 - k) * 60, lerp(0.96, 1, k)) }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `scale(${S})`, transformOrigin: 'top left' }}>
                     <LinksPage rows={rows} enter={enter} linkCount={3} />
@@ -417,7 +418,7 @@ function Chips({ t }: { t: number }) {
                 const [a, b] = chipWindow(i);
                 assertHold(c, a, b);
                 const last = i === CARDS.chips.length - 1;
-                const inK = smooth(prog(t, a, a + 0.3)), outK = last ? 0 : smooth(prog(t, b - 0.05, b + 0.25));
+                const inK = smooth(prog(t, a, a + 0.3)), outK = last ? 0 : smooth(prog(t, b - 0.25, b)); // out, then the next one in
                 const act = easeOut(prog(t, a + 0.15, a + 1.0));
                 const icon = i === 0 ? <Stopwatch k={act} /> : i === 1 ? <Padlock k={easeBack(prog(t, a + 0.25, a + 0.7))} /> : <Server k={act} />;
                 return (
@@ -469,7 +470,7 @@ function End({ t, p }: { t: number; p: EzMarketingProps }) {
     const logo = smooth(prog(t, l2 + 0.3, l2 + 0.8));
     const r = (a: number) => f(smooth(prog(t, a, a + 0.35)), 0, (1 - easeOut(prog(t, a, a + 0.4))) * 30);
     return (
-        <AbsoluteFill style={{ textAlign: 'center', fontFamily: font.display, opacity: smooth(prog(t, s - 0.2, s + 0.15)) }}>
+        <AbsoluteFill style={{ textAlign: 'center', fontFamily: font.display, opacity: smooth(prog(t, s, s + 0.3)) }}>
             <div style={{ position: 'absolute', left: 0, right: 0, top: 640, fontSize: 150, fontWeight: 800, letterSpacing: '-.045em', lineHeight: 1.02 }}>
                 <div style={{ color: color.charcoal, ...r(l1) }}>{p.endLines[0]}</div>
                 <div style={{ color: yt.teal, ...r(l2) }}>{p.endLines[1]}</div>
