@@ -35,13 +35,24 @@ function wordAt(n: number, token: string, nth = 0) {
 const CHIP_WORDS = ['ten', 'https', 'no'] as const;
 const CHIPS: { at: number; until: number }[] = [];
 for (let i = 0; i < CHIP_WORDS.length; i++) {
-    const at = Math.max(wordAt(8, CHIP_WORDS[i]), i ? CHIPS[i - 1].at + minHold(CARDS.chips[i - 1]) : 0);
+    const hold = (c: string) => Math.max(minHold(c), timing.holds.chip);
+    const at = Math.max(wordAt(8, CHIP_WORDS[i]), i ? CHIPS[i - 1].at + hold(CARDS.chips[i - 1]) : 0);
     if (i) CHIPS[i - 1].until = at;
-    CHIPS.push({ at, until: at + minHold(CARDS.chips[i]) });
+    CHIPS.push({ at, until: at + hold(CARDS.chips[i]) });
 }
 
+/** Beat 7: the DNS line reaches RedirHub on "RedirHub"; the mark holds `logo` seconds before the cut
+    to the Links list; three rows land 0.4 s apart and stay up long enough to read. */
+const LIST_OFF = Math.max(wordAt(7, 'set') - 0.1, wordAt(7, 'redirhub') + timing.holds.logo);
+/** Beat 10: `rewind` seconds back to beat 2's frame, the replay lands ~0.9 s later, then it holds. */
+export const REWIND = timing.holds.rewind;
+
 /** What a beat needs beyond its reading time (its on-screen events have to fit inside it). */
-const NEEDS: Record<number, number> = { 8: CHIPS[CHIPS.length - 1].until + 0.15 };
+const NEEDS: Record<number, number> = {
+    7: LIST_OFF + 0.25 + 2 * 0.4 + 0.4 + timing.holds.rowsRead,
+    8: CHIPS[CHIPS.length - 1].until + 0.15,
+    10: REWIND + 0.9 + timing.holds.landed,
+};
 
 const durations = LINES.map((line, i) => Math.max(readTime(line), NEEDS[i + 1] ?? 0));
 const starts: number[] = [];
@@ -58,6 +69,9 @@ export const word = (n: number, token: string, nth = 0) => beat(n)[0] + wordAt(n
 
 /** Beat 8's chip windows in absolute seconds. */
 export const chipWindow = (i: number) => [beat(8)[0] + CHIPS[i].at, beat(8)[0] + CHIPS[i].until] as const;
+
+/** Beat 7's cut from the DNS line to the Links list. */
+export const listAt = () => beat(7)[0] + LIST_OFF;
 
 export const TOTAL = beat(12)[1];
 

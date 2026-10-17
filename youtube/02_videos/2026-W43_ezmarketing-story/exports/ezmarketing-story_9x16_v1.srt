@@ -1,43 +1,43 @@
 1
-00:00:00,400 --> 00:00:04,483
+00:00:00,400 --> 00:00:04,733
 A company gets sold. Its old links keep getting clicked.
 
 2
-00:00:04,483 --> 00:00:08,567
+00:00:04,733 --> 00:00:09,067
 Like this Careers link. It was landing on a homepage.
 
 3
-00:00:08,567 --> 00:00:12,650
+00:00:09,067 --> 00:00:13,400
 EZMarketing, an agency in Lancaster, Pennsylvania, ran that company’s website.
 
 4
-00:00:12,650 --> 00:00:17,400
+00:00:13,400 --> 00:00:18,400
 After the sale, they forwarded the domain and shut the hosting down.
 
 5
-00:00:17,400 --> 00:00:21,817
+00:00:18,400 --> 00:00:23,067
 Then the client asked: can the old Careers page still work?
 
 6
-00:00:21,817 --> 00:00:26,567
+00:00:23,067 --> 00:00:28,067
 Here’s the catch. Their forwarding sent every old link to one page.
 
 7
-00:00:26,567 --> 00:00:31,317
+00:00:28,067 --> 00:00:34,517
 So they pointed the domain at RedirHub and set up three redirects.
 
 8
-00:00:31,317 --> 00:00:37,100
+00:00:34,517 --> 00:00:40,967
 Ten minutes from sign-up to live. HTTPS included. No server.
 
 9
-00:00:37,100 --> 00:00:41,183
+00:00:40,967 --> 00:00:45,300
 In twenty days, that old Careers link got 201 visits.
 
 10
-00:00:41,183 --> 00:00:44,600
+00:00:45,300 --> 00:00:49,100
 Every one landed on the new Jobs page.
 
 11
-00:00:44,600 --> 00:00:48,350
+00:00:49,100 --> 00:00:53,100
 The client moved on. The old links still work.

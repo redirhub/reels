@@ -19,7 +19,7 @@ import { easeBack, easeInOut, easeOut, lerp, prog, useTime } from '../../lib/ani
 import { Bubble, Caption, Card, Check, Line, SAFE, Tap, assertHold, env, f, smooth, type Pt } from './kit';
 import { CARDS, type EzMarketingProps } from './props';
 import { SOUND } from './sound';
-import { CAPTIONS, beat, chipWindow, word } from './timeline';
+import { CAPTIONS, REWIND, beat, chipWindow, listAt, word } from './timeline';
 
 const B = (n: number) => beat(n);
 /** A group that spans beats a..b: it eases in over the first 0.35 s of a and out over the last 0.3 s
@@ -30,8 +30,8 @@ const span = (t: number, a: number, b: number) => env(t, B(a)[0], B(b)[1], 0.35,
 type Room = 'night' | 'catch' | 'light' | 'flood';
 /** Beat 7 turns light when the DNS line reaches RedirHub; beat 10 floods teal when the tap lands. */
 const LIGHT_AT = () => word(7, 'redirhub');
-const REWIND = 0.8; // seconds of beat 10 spent rewinding to beat 2
-const LAND = 0.75; // into the replay: the page lands
+/** Into beat 10's replay: the tap, and the page landing on Jobs (the room floods teal). */
+const REPLAY_TAP = 0.25, LAND = 0.85;
 const FLOOD_AT = () => B(10)[0] + REWIND + LAND;
 function roomWeights(t: number): Record<Room, number> {
     const x = (a: number, d = 0.5) => smooth(prog(t, a - d / 2, a + d / 2));
@@ -65,6 +65,7 @@ const PH_LEFT = (1080 - PH.w * PH.s) / 2;
 const ph = (x: number, y: number): Pt => [PH_LEFT + (16 + x) * PH.s, PH.top + (16 + y) * PH.s];
 const BAR_C = ph(204, 97); // centre of the address bar
 const FIND_C = ph(204, 172); // centre of the find-in-page bar
+const LINK_C = ph(204, 452); // centre of the old link's preview card, in the post
 /** The phone's window: the camera pushes in inside it, clear of the text above and the caption below. */
 const WIN = { top: 430, bottom: 1300 } as const;
 
@@ -119,39 +120,85 @@ function Site({ jobs, scroll = 0 }: { jobs: boolean; scroll?: number }) {
     );
 }
 
-/** The phone opening the old Careers link. `tau` is its own clock (seconds since the phone is up),
-    so beat 10 can play beat 2 backwards and then forwards with the fix: the same frame, two endings.
-      0.30 tap · 0.30–0.75 loading · 0.55 the address changes · 0.60–0.95 the page lands
-      fail only: 1.3–2.3 scrolls down looking for jobs · 2.2 find-in-page "jobs" → 0/0 */
-function PhoneShot({ tau, fixed, p, y = 0, scale = 1 }: { tau: number; fixed: boolean; p: EzMarketingProps; y?: number; scale?: number }) {
+/** A post on the phone with the old Careers link in it: where the taps land (beat 1) and what the
+    tap opens (beat 2). Generic placeholders around it; the only words are the link's own. */
+function Post({ p, press }: { p: EzMarketingProps; press: number }) {
+    const bar = (w: string, h = 14, c: string = color.g200) => <i style={{ display: 'block', width: w, height: h, borderRadius: h / 2, background: c }} />;
+    return (
+        <div style={{ position: 'absolute', inset: 0, background: color.g50, fontFamily: font.sans }}>
+            <div style={{ position: 'absolute', left: 0, right: 0, top: 60, height: 70, display: 'flex', alignItems: 'center', gap: 14, padding: '0 22px', borderBottom: `1px solid ${color.g200}`, background: '#fff' }}>
+                <i style={{ width: 30, height: 30, borderRadius: 8, background: color.g200 }} />{bar('40%', 16, color.g300)}
+            </div>
+            <div style={{ position: 'absolute', left: 14, right: 14, top: 150, borderRadius: 22, background: '#fff', padding: 20, boxShadow: '0 2px 8px rgba(16,24,40,.06)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <i style={{ width: 52, height: 52, borderRadius: 26, background: '#DCE7F3' }} />
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 9 }}>{bar('46%', 14, color.g300)}{bar('28%', 11)}</div>
+                </div>
+                <div style={{ margin: '18px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>{bar('94%')}{bar('70%')}</div>
+                <div style={{ borderRadius: 18, overflow: 'hidden', border: `2px solid ${color.g200}`, transform: `scale(${1 - 0.03 * press})`, background: press > 0 ? `rgba(28,109,182,${0.06 * press})` : '#fff' }}>
+                    <div style={{ height: 120, background: 'linear-gradient(135deg, #E8F0F8, #D6E6F5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke={yt.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18" /></svg>
+                    </div>
+                    <div style={{ padding: '14px 18px 16px' }}>
+                        <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 800, color: color.charcoal, letterSpacing: '-.02em' }}>Careers</div>
+                        <div style={{ fontSize: 21, color: color.g500, marginTop: 4 }}>{`${p.oldDomain}${p.paths.careers}`}</div>
+                    </div>
+                </div>
+            </div>
+            {[0, 1].map((i) => (
+                <div key={i} style={{ position: 'absolute', left: 14, right: 14, top: 650 + i * 120, height: 100, borderRadius: 22, background: '#fff', padding: 20, display: 'flex', gap: 14, boxSizing: 'border-box' }}>
+                    <i style={{ width: 52, height: 52, borderRadius: 26, background: color.g200 }} />
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 9, paddingTop: 6 }}>{bar('52%', 14, color.g300)}{bar('80%', 11)}</div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+/** The camera, like a screen recording. Beat 1 drifts in on the link in the post; then it pushes in on
+    the address bar as the address changes, and (beat 2) on the find bar as "jobs" finds nothing. It runs
+    on the phone's clock, so the rewind plays it backwards too. Returns the transform's numbers so taps
+    outside the camera can land on the same spot. */
+function camera(tau: number, fixed: boolean) {
+    const post = 0.35 * smooth(prog(tau, -4.6, -2.6)) * (1 - smooth(prog(tau, 0.05, 0.35)));
+    const addr = smooth(prog(tau, 0.4, 0.7)) * (1 - smooth(prog(tau, 1.15, 1.5)));
+    const find = fixed ? 0 : smooth(prog(tau, 2.05, 2.45));
+    const shots: [number, Pt, Pt, number][] = [[post, LINK_C, [540, 860], 1], [addr, BAR_C, [540, 680], 0.8], [find, FIND_C, [540, 720], 0.8]];
+    const [w, F, P, amt] = shots.reduce((a, b) => (b[0] > a[0] ? b : a));
+    const zs = 1 + (amt === 1 ? 1 : amt) * w;
+    return { zs, zx: lerp(F[0], P[0], w) - F[0] * zs, zy: lerp(F[1], P[1], w) - F[1] * zs };
+}
+const onCamera = (c: ReturnType<typeof camera>, q: Pt): Pt => [c.zx + q[0] * c.zs, c.zy + q[1] * c.zs];
+
+/** The phone with the old Careers link. `tau` is its own clock, so beat 10 can play beat 2 backwards
+    and then forwards with the fix: the same frame, two endings.
+      tau < 0.30 the post with the link (beat 1) · 0.30 the tap opens it · 0.30–0.75 loading ·
+      0.55 the address changes · 0.60–0.95 the page lands ·
+      fail only: 1.3–2.3 scrolls looking for jobs · 2.2 find-in-page "jobs" → 0/0 */
+function PhoneShot({ tau, fixed, p, y = 0, scale = 1, press = 0 }: { tau: number; fixed: boolean; p: EzMarketingProps; y?: number; scale?: number; press?: number }) {
     const old = `${p.oldDomain}${p.paths.careers}`;
     const landed = tau >= 0.55;
     const url = landed ? (fixed ? `${p.newDomain}${p.paths.jobs}` : p.newDomain) : old;
+    const browser = smooth(prog(tau, 0.3, 0.45)); // the post gives way to the browser as the link opens
     const pageK = smooth(prog(tau, 0.6, 0.95));
     const scroll = fixed ? 0 : 340 * easeInOut(prog(tau, 1.3, 2.3));
     const findK = fixed ? 0 : smooth(prog(tau, 2.2, 2.45));
     const typed = 'jobs'.slice(0, Math.max(0, Math.min(4, Math.floor((tau - 2.45) / 0.09) + 1)));
     const none = !fixed && tau >= 2.9;
     const dot = !landed ? 'none' : fixed ? (tau >= 0.95 ? 'teal' : 'none') : (none ? 'red' : 'none');
-    // The camera, like a screen recording: it pushes in on the address bar as the address changes,
-    // and (beat 2) on the find bar as "jobs" finds nothing. Inside a window, so it never reaches the
-    // text above or the caption below. Driven by tau, so the rewind plays it backwards too.
-    const addr = smooth(prog(tau, 0.4, 0.7)) * (1 - smooth(prog(tau, 1.15, 1.5)));
-    const find = fixed ? 0 : smooth(prog(tau, 2.05, 2.45));
-    const w = Math.max(addr, find);
-    const F = addr >= find ? BAR_C : FIND_C;
-    const Pz: Pt = addr >= find ? [540, 680] : [540, 720];
-    const zs = 1 + 0.8 * w;
-    const zx = lerp(F[0], Pz[0], w) - F[0] * zs, zy = lerp(F[1], Pz[1], w) - F[1] * zs;
+    const c = camera(tau, fixed);
     return (
         <div style={{ position: 'absolute', inset: 0, clipPath: `inset(${WIN.top}px 0 ${1920 - WIN.bottom}px 0)` }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, transformOrigin: '0 0', transform: `translate3d(${zx}px, ${zy}px, 0) scale(${zs})`, willChange: 'transform' }}>
+        <div style={{ position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, transformOrigin: '0 0', transform: `translate3d(${c.zx}px, ${c.zy}px, 0) scale(${c.zs})`, willChange: 'transform' }}>
         <div style={{ position: 'absolute', left: PH_LEFT, top: PH.top, width: PH.w * PH.s, height: PH.h * PH.s, transformOrigin: '50% 0', ...f(1, 0, y, scale) }}>
             <div style={{ width: PH.w, height: PH.h, transform: `scale(${PH.s})`, transformOrigin: '0 0' }}>
                 <Phone width={PH.w} height={PH.h} style={{ left: 0, top: 0 }}>
                     <div style={{ position: 'absolute', inset: 0, background: '#fff' }}>
-                        <AddressBar url={url} loading={prog(tau, 0.3, 0.75)} dot={dot} />
-                        <div style={{ position: 'absolute', inset: 0, opacity: pageK }}><Site jobs={fixed} scroll={scroll} /></div>
+                        <div style={{ position: 'absolute', inset: 0, opacity: browser }}>
+                            <AddressBar url={url} loading={prog(tau, 0.3, 0.75)} dot={dot} />
+                            <div style={{ position: 'absolute', inset: 0, opacity: pageK }}><Site jobs={fixed} scroll={scroll} /></div>
+                        </div>
+                        {browser < 1 && <div style={{ position: 'absolute', inset: 0, opacity: 1 - browser }}><Post p={p} press={press} /></div>}
                         {findK > 0 && (
                             <div style={{ position: 'absolute', left: 22, right: 22, top: 140, height: 64, borderRadius: 16, background: '#fff', boxShadow: '0 10px 30px rgba(16,24,40,.18)', border: `2px solid ${none ? '#FDA29B' : color.g200}`, display: 'flex', alignItems: 'center', gap: 12, padding: '0 18px', fontFamily: font.sans, fontSize: 24, color: color.charcoal, zIndex: 5, ...f(findK, 0, (1 - findK) * -20) }}>
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color.g500} strokeWidth="2.4" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
@@ -168,47 +215,48 @@ function PhoneShot({ tau, fixed, p, y = 0, scale = 1 }: { tau: number; fixed: bo
     );
 }
 
-/** Beat 1: three taps arrive on the old link (each one heard). */
-const TAPS = [0.45, 1.25, 2.05] as const;
-/** Beat 2: the phone tap and the moment find-in-page comes up empty (0/0), in reel seconds. */
-const PHONE_UP = 0.6, TAP_TAU = 0.3, ZERO_TAU = 2.9;
+/** Beat 1: three taps arrive on the old link in the post (each one heard). */
+const TAPS = [0.6, 1.45, 2.3] as const;
+/** Beat 2: the tap that opens the link, and find-in-page coming up empty (0/0), on the phone's clock. */
+const OPEN_AT = 0.15, TAP_TAU = 0.3, ZERO_TAU = 2.9;
+/** A short press on the link card around each tap. */
+const pressAt = (t: number, at: number) => Math.sin(Math.PI * prog(t, at - 0.05, at + 0.2));
 
+/** Beats 1–2, one shot: the phone is up from the first frame with the old Careers link in a post;
+    taps keep arriving on it (beat 1); the same tap then opens it (beat 2). */
 function Opening({ t, p }: { t: number; p: EzMarketingProps }) {
     const [s1] = B(1), [s2] = B(2);
-    const up = easeInOut(prog(t, s2, s2 + 0.6)); // the phone rises; the pill flies into its address bar
-    const pillK = smooth(prog(t, s2 + 0.35, s2 + 0.6));
-    const tau = t - (s2 + PHONE_UP);
-    const center: Pt = [540, 880];
-    const px = lerp(center[0], BAR_C[0], up), py = lerp(center[1], BAR_C[1], up);
+    const tau = t - (s2 + OPEN_AT - TAP_TAU); // the opening tap lands at tau = TAP_TAU
+    const c = camera(tau, false);
+    const taps = [...TAPS.map((d) => s1 + d), s2 + OPEN_AT];
+    const press = Math.max(...taps.map((a) => pressAt(t, a)));
+    const rise = easeOut(prog(t, 0, 0.5)); // a short settle on the first frame, already in place
     return (
-        <div style={{ position: 'absolute', inset: 0, opacity: span(t, 1, 2) }}>
-            {t >= s2 && <PhoneShot tau={Math.max(0, tau)} fixed={false} p={p} y={(1 - up) * 1100} />}
-            <div style={{ position: 'absolute', left: 0, top: 0, ...f(1 - pillK, px, py) }}>
-                <div style={{ transform: `translate(-50%, -50%) scale(${lerp(1, 0.5, up)})` }}>
-                    <UrlPill url={`${p.oldDomain}${p.paths.careers}`} size={54} />
-                </div>
-            </div>
-            <Tap t={t} when={s2 + PHONE_UP + TAP_TAU} at={BAR_C} from={[1160, 300]} />
-            {TAPS.map((d, i) => (
-                <Tap key={i} t={t} when={s1 + d} at={center} from={([[-80, 420], [1160, 1320], [1160, 380]] as const)[i]} />
+        <div style={{ position: 'absolute', inset: 0, opacity: env(t, -1, B(2)[1], 0.35, 0.3) }}>
+            <PhoneShot tau={tau} fixed={false} p={p} y={(1 - rise) * 40} press={press} />
+            {taps.map((when, i) => (
+                <Tap key={i} t={t} when={when} at={onCamera(c, LINK_C)} from={([[-80, 420], [1160, 1320], [1160, 380], [-80, 1300]] as const)[i]} />
             ))}
         </div>
     );
 }
 
-/** Beat 10: rewind to beat 2's frame (its state at the moment it found nothing), then the same tap,
-    now redirected. Beat 11 pulls back ~3%, in the teal room. */
+/** Beat 10: rewind to beat 2's frame, back past the moment it found nothing to the post with the link,
+    then the same tap, now redirected. Beat 11 pulls back ~3%, in the teal room. */
 function Callback({ t, p }: { t: number; p: EzMarketingProps }) {
     const [s10] = B(10), [s11, e11] = B(11);
     const back = easeInOut(prog(t, s10, s10 + REWIND));
     const rewinding = t < s10 + REWIND;
-    const tau = rewinding ? lerp(3.4, 0.3, back) : 0.3 + (t - (s10 + REWIND));
+    const start = TAP_TAU - REPLAY_TAP; // the replay starts this far before the tap
+    const tau = rewinding ? lerp(3.4, start, back) : start + (t - (s10 + REWIND));
     const pull = 1 - 0.03 * easeInOut(prog(t, s11, e11));
     const shake = rewinding ? Math.sin(t * 90) * 3 * Math.sin(Math.PI * back) : 0;
+    const tapAt = s10 + REWIND + REPLAY_TAP;
+    const c = camera(tau, !rewinding);
     return (
         <div style={{ position: 'absolute', inset: 0, opacity: span(t, 10, 11) }}>
             <div style={{ position: 'absolute', inset: 0, transformOrigin: '540px 900px', ...f(1, shake, 0, pull) }}>
-                <PhoneShot tau={tau} fixed={!rewinding} p={p} />
+                <PhoneShot tau={tau} fixed={!rewinding} p={p} press={pressAt(t, tapAt)} />
             </div>
             {/* The rewind reads as one: scan lines and a reverse glyph while it runs. */}
             {rewinding && (
@@ -218,7 +266,7 @@ function Callback({ t, p }: { t: number; p: EzMarketingProps }) {
                     </svg>
                 </div>
             )}
-            <Tap t={t} when={s10 + REWIND} at={BAR_C} from={[1160, 300]} />
+            <Tap t={t} when={tapAt} at={onCamera(c, LINK_C)} from={[1160, 300]} />
         </div>
     );
 }
@@ -268,7 +316,7 @@ function Handover({ t }: { t: number }) {
     );
     return (
         <div style={{ position: 'absolute', inset: 0, opacity: span(t, 4, 5) }}>
-            <div style={{ position: 'absolute', left: SAFE.x + 20, width: SAFE.w - 40, top: 600, transformOrigin: '50% 30%', ...f(inK * (1 - 0.6 * dim), 0, (1 - inK) * 60, 1 - 0.04 * dim, lerp(-2.5, -1.5, inK)) }}>
+            <div style={{ position: 'absolute', left: SAFE.x, width: SAFE.w, top: 600, transformOrigin: '50% 30%', ...f(inK * (1 - 0.6 * dim), 0, (1 - inK) * 60, 1 - 0.04 * dim) }}>
                 <div style={{ background: '#fff', borderRadius: 30, padding: '40px 48px 14px', boxShadow: '0 40px 100px rgba(0,0,0,.45)' }}>
                     <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 800, letterSpacing: '.16em', color: color.g500, marginBottom: 14 }}>HANDOVER</div>
                     {row(easeOut(prog(t, t1, t1 + 0.45)), 'Domain forwarded', (
@@ -282,7 +330,7 @@ function Handover({ t }: { t: number }) {
                     ))}
                 </div>
             </div>
-            <Bubble label={<><i style={{ width: 16, height: 16, borderRadius: 8, background: yt.amber, boxShadow: `0 0 12px ${yt.amber}` }} />Client</>} style={{ left: SAFE.x + 60, top: 1010, transformOrigin: '0 100%', ...f(smooth(pop * 1.8) * (1 - smooth(prog(t, e5 - 0.3, e5))), 0, 0, lerp(0.85, 1, easeBack(pop))) }}>
+            <Bubble label={<><i style={{ width: 16, height: 16, borderRadius: 8, background: yt.amber, boxShadow: `0 0 12px ${yt.amber}` }} />Client</>} style={{ left: SAFE.x, top: 1010, transformOrigin: '0 100%', ...f(smooth(pop * 1.8) * (1 - smooth(prog(t, e5 - 0.3, e5))), 0, 0, lerp(0.85, 1, easeBack(pop))) }}>
                 {CARDS.ask}
             </Bubble>
         </div>
@@ -296,7 +344,7 @@ const cellX = (i: number) => (1080 - 3 * CELL.w - 2 * CELL.gap) / 2 + i * (CELL.
 function Catch({ t, p }: { t: number; p: EzMarketingProps }) {
     const [s6] = B(6), [s7] = B(7);
     const labels = [p.oldDomain, p.paths.careers, p.paths.contact];
-    const ring = smooth(prog(t, word(6, 'one') - 0.2, word(6, 'one') + 0.3));
+    const ring = smooth(prog(t, word(6, 'every') - 0.2, word(6, 'every') + 0.3));
     const leave = smooth(prog(t, s7, s7 + 0.45)); // beat 7: the pages go; the domain pill stays put
     return (
         <div style={{ position: 'absolute', inset: 0, opacity: env(t, s6, B(7)[1], 0.35, 0.3) }}>
@@ -330,7 +378,7 @@ function Catch({ t, p }: { t: number; p: EzMarketingProps }) {
 
 /* ---------------------------------------------------------------- beat 7: RedirHub (the room turns light) */
 const DNS_GO = () => word(7, 'pointed');
-const LIST_AT = () => word(7, 'set') - 0.1;
+const LIST_AT = listAt;
 const MARK: Pt = [540, 980];
 
 function Connect({ t, p }: { t: number; p: EzMarketingProps }) {
@@ -363,12 +411,12 @@ function Links({ t, p }: { t: number; p: EzMarketingProps }) {
         { icon: 'globe', title: `${p.oldDomain}${p.paths.careers}`, dest: `https://${p.newDomain}${p.paths.jobs}`, clicks: '0' },
         { icon: 'globe', title: `${p.oldDomain}${p.paths.contact}`, dest: `https://${p.newDomain}`, clicks: '0' },
     ];
-    const S = 0.9, W = 1000, H = ROW_GEOM.top + 3 * (ROW_GEOM.h + ROW_GEOM.gap) + 10;
+    const S = SAFE.w / 1000, W = 1000, H = ROW_GEOM.top + 3 * (ROW_GEOM.h + ROW_GEOM.gap) + 10;
     const enter = rows.map((_, i) => easeOut(prog(t, at + 0.25 + i * 0.4, at + 0.65 + i * 0.4)));
     const k = easeOut(prog(t, at - 0.05, at + 0.35));
     return (
         <div style={{ position: 'absolute', inset: 0, opacity: env(t, at, e7, 0.2, 0.3) }}>
-            <div style={{ position: 'absolute', left: (1080 - W * S) / 2, top: 560, width: W * S, height: H * S, borderRadius: 32, overflow: 'hidden', background: '#fff', boxShadow: '0 40px 100px rgba(16,24,40,.20), 0 0 0 2px rgba(16,24,40,.06)', ...f(1, 0, (1 - k) * 60, lerp(0.96, 1, k)) }}>
+            <div style={{ position: 'absolute', left: SAFE.x, top: 560, width: W * S, height: H * S, borderRadius: 32, overflow: 'hidden', background: '#fff', boxShadow: '0 40px 100px rgba(16,24,40,.20), 0 0 0 2px rgba(16,24,40,.06)', ...f(1, 0, (1 - k) * 60, lerp(0.96, 1, k)) }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `scale(${S})`, transformOrigin: 'top left' }}>
                     <LinksPage rows={rows} enter={enter} linkCount={3} />
                 </div>
@@ -488,18 +536,18 @@ function cues(): SfxCue[] {
     const [s1] = B(1), [s2] = B(2), [s5] = B(5), [s9] = B(9), [s10] = B(10), [s12] = B(12);
     return [
         ...TAPS.map((d): SfxCue => [s1 + d, SOUND.tap_soft, 0.4]),                     // 1 traffic arrives on the old link
-        [s2 + PHONE_UP + TAP_TAU, SOUND.tap_soft, 0.4],                                // 2 the tap…
-        [s2 + PHONE_UP + ZERO_TAU, SOUND.error_thunk, 0.45],                           //   …and "jobs" finds nothing
+        [s2 + OPEN_AT, SOUND.tap_soft, 0.4],                                           // 2 the tap…
+        [s2 + OPEN_AT + (ZERO_TAU - TAP_TAU), SOUND.error_thunk, 0.45],                           //   …and "jobs" finds nothing
         [word(4, 'forwarded'), SOUND.tick_soft, 0.5], [word(4, 'shut'), SOUND.tick_soft, 0.5], // 4 the two ticks
         [s5 + 0.2, SOUND.notif_pop, 0.5],                                              // 5 the client's message
-        [word(6, 'one') - 0.2, SOUND.problem_tone, 0.4],                               // 6 the catch
+        [word(6, 'every') - 0.2, SOUND.problem_tone, 0.4],                               // 6 the catch
         [DNS_GO() - 0.1, SOUND.swipe_line, 0.4],                                       // 7 the only whoosh: into the product
         ...[0, 1, 2].map((i): SfxCue => [LIST_AT() + 0.25 + i * 0.4, SOUND.click_ui, 0.35]), //   a click per redirect
         ...[0, 1, 2].map((i): SfxCue => [chipWindow(i)[0], SOUND.pop_glass, 0.4]),    // 8 a pop per chip
         [s9 + 0.4, SOUND.count_roll, 0.4],                                             // 9 the count, stopping on 201
         [s10, SOUND.rewind_tape, 0.45],                                                // 10 the rewind…
-        [s10 + REWIND, SOUND.tap_soft, 0.4],                                           //    …the same tap…
-        [s10 + REWIND + 0.65, SOUND.fixed_chime, 0.5],                                 //    …lands on Jobs
+        [s10 + REWIND + REPLAY_TAP, SOUND.tap_soft, 0.4],                                           //    …the same tap…
+        [s10 + REWIND + LAND + 0.05, SOUND.fixed_chime, 0.5],                                 //    …lands on Jobs
         [s12 + 0.75, SOUND.fixed_chime, 0.5],                                          // 12 "Fixed."
     ];
 }
