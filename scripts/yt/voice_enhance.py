@@ -46,9 +46,9 @@ def bwe(x, rel_db=-12.0):
     g = 10 ** ((band_db(x, 4000, 6000) + rel_db - band_db(h, 8000, 11000)) / 20)
     return h * g
 
-def main(inp, outp):
+def main(inp, outp, extend=True):
     x = load(inp)
-    y = x + bwe(x)
+    y = x + bwe(x) if extend else x
     tmp = outp + '.pre.wav'
     save(tmp, y)
     chain = ('highpass=f=70:poles=2,'
@@ -60,4 +60,11 @@ def main(inp, outp):
     import os; os.remove(tmp)
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    # --bwe-only in out: just the bandwidth extension (vo-build.py runs it per take that has no
+    #   AudioSR version); --no-bwe in out: tone and de-esser only (the top end is already there).
+    if sys.argv[1] == '--bwe-only':
+        x = load(sys.argv[2]); save(sys.argv[3], x + bwe(x))
+    elif sys.argv[1] == '--no-bwe':
+        main(sys.argv[2], sys.argv[3], extend=False)
+    else:
+        main(sys.argv[1], sys.argv[2])

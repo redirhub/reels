@@ -16,6 +16,7 @@ the canvas, and never put a second video's frames on an existing video's page.
 | Page id | Page name (= video) | Frames (file prefix) | Source in the repo |
 |---|---|---|---|
 | `w41` | W41 · How to Redirect a Domain to Another Domain | no prefix (the first video) | `youtube/02_videos/2026-W41_redirect-domain/style-canvas/project/` |
+| `w43` | W43 · How to Forward Multiple Domains to One Website | `w43-` | `youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/` (key frames for Review 2; notes in `keyframes.md`, `script-deltas.md`, `open-questions.md`) |
 
 Add a row for each new video.
 
@@ -35,17 +36,22 @@ Add a row for each new video.
    title card · the problem in real browser UI · concept map · one object per idea · dashboard step with
    a quick tip · the turn (caption) · checks · before-you-go tips · end card · system · sound and timing.
    Add or drop frames to fit the story, but every video has a title card, a dashboard step and the end card.
-5. **Draw them in the channel look** (tokens in `src/remotion/brand/tokens.ts`, `yt`): Night `#0B1426`
-   with the soft blue glow at the top, Plus Jakarta Sans for display and eyebrows, Inter for captions and
-   product UI, JetBrains Mono for every address and record. Teal means fixed, red means broken, amber
+5. **Draw them in the channel look** (tokens in `src/remotion/brand/tokens.ts`, `yt`): Plus Jakarta Sans for
+   display, eyebrows and captions, Inter only inside product UI, JetBrains Mono for every address and record.
+   **Vary the backgrounds:** give each act its own room built from the website's gradients and glass (dark
+   mesh, brand sweep, light, brand radial, lab, charcoal; recipes on the W43 System board and in its
+   `keyframes.md`). Leo's note on W43 (2026-10-14): one background for a whole video is boring. Make the
+   twist visible (its own frames, a room change), and mix kinds of visual: props, fan diagrams, big numbers,
+   perspective floors. Teal means fixed, red means broken, amber
    once a scene, blue only inside product UI. Eyebrow top-left at 120 px; captions under the stage;
    tips solid and beside the stage. Product UI mirrors the real dashboard; no invented features.
 6. **Real content only**: the video's actual lines, domains and records. Every QR mockup encodes the real
    branded link and shows it underneath, exactly as on screen.
-7. **Publish only the new files and the index** to the canvas `url`, then save them in
+7. **Check every frame before publishing:** `PREFIX=wNN- python3 scripts/yt/keyframes-check.py <video>/style-canvas/project <video>/style-canvas/stills` renders each frame to PNG and flags text outside the safe area, wrong fonts, off-token colours and more than one amber object; mark decorative background layers (grids, floors, glows) `data-bg` so they may reach the edge. Then look at every still yourself.
+8. **Publish only the new files and the index** to the canvas `url`, then save them in
    `youtube/02_videos/<video>/style-canvas/project/` and add the row above in the same commit. Film stills
    of the approved cut go in `youtube/01_library/style/keyframes/<video>/`.
-8. Build the video in Remotion from the approved frames (`docs/reel-playbook.md`), reusing the shared
+9. Build the video in Remotion from the approved frames (`docs/reel-playbook.md`), reusing the shared
    components (`FixedEndCard`, `BrandedQr`, `OnScreenText`, `Cursor`, the browser and dashboard pages).
    If the built film drifts from the canvas on purpose, update the canvas after the cut is approved.
 

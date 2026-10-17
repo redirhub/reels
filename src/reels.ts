@@ -14,6 +14,8 @@ import { EzMarketingStory } from './remotion/reels/ezmarketing-story/EzMarketing
 import { ezMarketingDefaults } from './remotion/reels/ezmarketing-story/props';
 import { TOTAL as EZMARKETING_SECONDS } from './remotion/reels/ezmarketing-story/timeline';
 import { redirectDomainDefaults } from './remotion/reels/redirect-domain/props';
+import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forward-domains/ForwardDomains';
+import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -74,5 +76,15 @@ export const reels: Reel[] = [
         defaultProps: redirectDomainDefaults,
         durationInSeconds: REDIRECT_DOMAIN_SECONDS,
         ...LANDSCAPE,
+    },
+    {
+        id: 'forward-domains',
+        title: 'How to forward multiple domains to one website (YouTube, W43)',
+        description: 'A 16:9 motion-graphics tutorial with voiceover: why pointing every domain at your hosting makes copies, one main address with a 301 from every other domain, the three steps in RedirHub (Domain Redirect, Connect DNS, HTTPS), and the sixteen-address test.',
+        component: ForwardDomains,
+        defaultProps: forwardDomainsDefaults,
+        durationInSeconds: FORWARD_DOMAINS_SECONDS,
+        ...LANDSCAPE,
+        fps: 60, // YouTube plays 1080p60: motion graphics move in half the step, so slides and pops stay smooth
     },
 ];

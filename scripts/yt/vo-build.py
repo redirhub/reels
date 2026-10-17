@@ -168,7 +168,22 @@ json.dump(out, open(os.path.join(vo_dir, 'timings.json'), 'w'), indent=1)
 inputs, fc = [], []
 files = sorted({s['chunk'] for s, _ in placed})
 idx = {f: i for i, f in enumerate(files)}
-for f in files: inputs += ['-i', os.path.join(vo_dir, 'chunks', f + '.mp3')]
+# Each take's source: its AudioSR version (voiceover/chunks-sr/<id>.wav, scripts/yt/voice_sr.py) when
+# there is one, else the mp3 with the harmonic bandwidth extension. Either way the top end is in place
+# before the studio chain, which then only does tone and de-essing.
+enh = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice_enhance.py')
+tmp_dir = os.path.join(vo_dir, '.build'); os.makedirs(tmp_dir, exist_ok=True)
+sources = {}
+for f in files:
+    sr_wav = os.path.join(vo_dir, 'chunks-sr', f + '.wav')
+    mp3 = os.path.join(vo_dir, 'chunks', f + '.mp3')
+    if os.path.exists(sr_wav) and os.path.getmtime(sr_wav) >= os.path.getmtime(mp3):
+        sources[f] = sr_wav
+    else:
+        sources[f] = os.path.join(tmp_dir, f + '.bwe.wav')
+        subprocess.check_call([sys.executable, enh, '--bwe-only', mp3, sources[f]])
+    inputs += ['-i', sources[f]]
+print('AudioSR takes:', ', '.join(f for f in files if sources[f].endswith(f + '.wav') and 'chunks-sr' in sources[f]) or 'none')
 labels = []
 for k, (seg, at) in enumerate(placed):
     fc.append(f"[{idx[seg['chunk']]}:a]atrim={seg['from']:.3f}:{seg['to']:.3f},asetpts=PTS-STARTPTS,aresample={SR},"
@@ -179,8 +194,9 @@ tmp_wav = out_wav or (os.path.splitext(out_mp3)[0] + '.tmp.wav')
 subprocess.check_call(['ffmpeg', '-y', '-v', 'error', *inputs, '-filter_complex', ';'.join(fc), '-map', '[out]',
                        '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s24le', tmp_wav + '.raw.wav'])
 # Studio chain: put back the top end the voice was rendered without, take the box out (voice_enhance.py).
-subprocess.check_call([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice_enhance.py'), tmp_wav + '.raw.wav', tmp_wav])
+subprocess.check_call([sys.executable, enh, '--no-bwe', tmp_wav + '.raw.wav', tmp_wav])
 os.remove(tmp_wav + '.raw.wav')
+import shutil; shutil.rmtree(tmp_dir, ignore_errors=True)
 # Master the voice: gentle compression, a static gain to the channel level, a true-peak ceiling.
 # Static gain, not loudnorm's dynamic mode, so the read keeps its own dynamics.
 VO_LUFS, VO_CEIL = -14.2, -2.2
