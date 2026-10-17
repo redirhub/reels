@@ -586,7 +586,7 @@ export function EzMarketingStory(props: EzMarketingProps) {
             {c(10, CARDS.right, B(10)[0] + REWIND)}
             {c(11, CARDS.still, B(11)[0] + 0.1)}
 
-            {CAPTIONS.map((cap, i) => <Caption key={i} t={t} {...cap} backing={needsBacking(t)} />)}
+            {!props.hideCaptions && CAPTIONS.map((cap, i) => <Caption key={i} t={t} {...cap} backing={needsBacking(t)} />)}
             {t >= B(12)[0] - 0.2 && <End t={t} p={props} />}
         </AbsoluteFill>
     );

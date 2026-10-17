@@ -13,6 +13,8 @@ export type EzMarketingProps = {
     /** End card: first line white, second teal, then a small line. */
     endLines: readonly [string, string];
     endSub: string;
+    /** Covers and thumbnails: render a frame without the burned-in caption. */
+    hideCaptions?: boolean;
 };
 
 export const ezMarketingDefaults: EzMarketingProps = {
