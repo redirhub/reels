@@ -36,8 +36,10 @@ const FLOOD_AT = () => B(10)[0] + REWIND + LAND;
 function roomWeights(t: number): Record<Room, number> {
     const x = (a: number, d = 0.5) => smooth(prog(t, a - d / 2, a + d / 2));
     const catchK = x(B(6)[0]) * (1 - x(B(7)[0]));
+    // Into the end card the light room fills in under the teal first, then the teal lifts off it, so
+    // the change never passes through the dark room underneath (a dark dip read as a flash).
     const light = x(LIGHT_AT(), 0.4) * (1 - x(B(9)[0])) + x(B(12)[0], 0.4);
-    const flood = x(FLOOD_AT(), 0.6) * (1 - x(B(12)[0], 0.4));
+    const flood = x(FLOOD_AT(), 0.6) * (1 - x(B(12)[0] + 0.3, 0.6));
     return { night: 1, catch: catchK, light, flood };
 }
 function Rooms({ t }: { t: number }) {
