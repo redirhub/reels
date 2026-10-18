@@ -2,7 +2,7 @@
 
     python3 scripts/audio/prepare_track.py analyze <track.mp3>
     python3 scripts/audio/prepare_track.py fit <track.mp3> <reel-id> --duration 15.6 \
-        --align <track-seconds>=<reel-seconds> [--splice <reel-s>=<track-s>] [--fade 0.25] [--lufs -16]
+        --align <track-seconds>=<reel-seconds> [--splice <reel-s>=<track-s>] [--fade 0.25] [--fade-in 0.03] [--lufs -16]
     python3 scripts/audio/prepare_track.py oneshot <effect.mp3> <out.wav> --start 0.1 --end 0.4 \
         [--fade-out 0.03] [--highpass 30] [--peak -3]
 
@@ -120,7 +120,7 @@ def render(st, n, segs, xf):
     return out
 
 
-def fit(path, reel, duration, align, fade, target, splices=()):
+def fit(path, reel, duration, align, fade, target, splices=(), fade_in=0.03):
     st = decode(path)
     src_t, reel_t = (float(x) for x in align.split("="))
     shift = int(round((reel_t - src_t) * SR))  # >0: track starts later in the reel
@@ -131,7 +131,7 @@ def fit(path, reel, duration, align, fade, target, splices=()):
         segs.append((int(round(r * SR)), int(round((s - r) * SR))))
     out = render(st, n, segs, int(0.012 * SR))
     t = np.arange(n) / SR
-    fi = np.clip((t - max(0, shift) / SR) / 0.03, 0, 1)
+    fi = np.clip((t - max(0, shift) / SR) / fade_in, 0, 1)
     fo = np.clip((duration - t) / fade, 0, 1)
     out *= fi * fo
     tmp = ROOT / "public" / "audio" / f"{reel}-beat.wav"
@@ -184,6 +184,7 @@ if __name__ == "__main__":
     f = sub.add_parser("fit"); f.add_argument("track"); f.add_argument("reel")
     f.add_argument("--duration", type=float, required=True); f.add_argument("--align", required=True)
     f.add_argument("--fade", type=float, default=0.25); f.add_argument("--lufs", type=float, default=-16.0)
+    f.add_argument("--fade-in", type=float, default=0.03, help="seconds; longer when the reel starts mid-track (the bed comes in)")
     f.add_argument("--splice", action="append", default=[], metavar="REEL=TRACK",
                    help="at REEL seconds, jump to TRACK seconds of the track (repeatable)")
     args = ap.parse_args()
@@ -192,4 +193,4 @@ if __name__ == "__main__":
     elif args.cmd == "oneshot":
         oneshot(args.track, args.dst, args.start, args.end, args.fade_out, args.highpass, args.peak)
     else:
-        fit(args.track, args.reel, args.duration, args.align, args.fade, args.lufs, args.splice)
+        fit(args.track, args.reel, args.duration, args.align, args.fade, args.lufs, args.splice, args.fade_in)

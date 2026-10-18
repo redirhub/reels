@@ -10,6 +10,9 @@ import { freeCoffeeDefaults } from './remotion/reels/free-coffee/props';
 import { QrNoReprint } from './remotion/reels/qr-no-reprint/QrNoReprint';
 import { qrNoReprintDefaults } from './remotion/reels/qr-no-reprint/props';
 import { RedirectDomain, REDIRECT_DOMAIN_SECONDS } from './remotion/reels/redirect-domain/RedirectDomain';
+import { EzMarketingStory } from './remotion/reels/ezmarketing-story/EzMarketingStory';
+import { ezMarketingDefaults } from './remotion/reels/ezmarketing-story/props';
+import { TOTAL as EZMARKETING_SECONDS } from './remotion/reels/ezmarketing-story/timeline';
 import { redirectDomainDefaults } from './remotion/reels/redirect-domain/props';
 import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forward-domains/ForwardDomains';
 import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
@@ -54,6 +57,15 @@ export const reels: Reel[] = [
         component: FreeCoffee,
         defaultProps: freeCoffeeDefaults,
         durationInSeconds: 16,
+        ...VERTICAL,
+    },
+    {
+        id: 'ezmarketing-story',
+        title: 'EZMarketing: old links, fixed (customer story)',
+        description: 'Customer story, text-only cut: after a company is sold, its old Careers link lands on a homepage; EZMarketing points the domain at RedirHub, sets up three redirects, and the same link lands on the new Jobs page.',
+        component: EzMarketingStory,
+        defaultProps: ezMarketingDefaults,
+        durationInSeconds: EZMARKETING_SECONDS,
         ...VERTICAL,
     },
     {
