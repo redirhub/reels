@@ -1,0 +1,1184 @@
+{
+  "attachments": {},
+  "boards": {
+    "Checks.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Checks, all green",
+      "w": 1920,
+      "x": 0,
+      "y": 3000
+    },
+    "Concept301.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "One object per idea",
+      "w": 1920,
+      "x": 0,
+      "y": 1500
+    },
+    "ConceptMap.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Concept map",
+      "w": 1920,
+      "x": 4000,
+      "y": 0
+    },
+    "Dashboard.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Dashboard step + quick tip",
+      "w": 1920,
+      "x": 2000,
+      "y": 1500
+    },
+    "EndCard.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "End card",
+      "w": 1920,
+      "x": 4000,
+      "y": 3000
+    },
+    "Main.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Title card",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "Plan.dc.html": {
+      "h": 1820,
+      "page": "plan",
+      "title": "12-week content calendar",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "Problem.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "The problem, in real browser UI",
+      "w": 1920,
+      "x": 2000,
+      "y": 0
+    },
+    "Sound.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Sound and timing",
+      "w": 1920,
+      "x": 2000,
+      "y": 4500
+    },
+    "System.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Colour, type, layout",
+      "w": 1920,
+      "x": 0,
+      "y": 4500
+    },
+    "Tips.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "Before you go",
+      "w": 1920,
+      "x": 2000,
+      "y": 3000
+    },
+    "Turn.dc.html": {
+      "h": 1080,
+      "page": "w41",
+      "title": "The turn (caption)",
+      "w": 1920,
+      "x": 4000,
+      "y": 1500
+    },
+    "w43-AddressBar.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "The twist: what the visitor sees",
+      "w": 1920,
+      "x": 6000,
+      "y": 1900
+    },
+    "w43-AllGreen.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "All sixteen land",
+      "w": 1920,
+      "x": 4000,
+      "y": 5700
+    },
+    "w43-Checker.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Redirect Checker: a pass",
+      "w": 1920,
+      "x": 2000,
+      "y": 5700
+    },
+    "w43-ConnectDNS.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Step three: Connect DNS",
+      "w": 1920,
+      "x": 8000,
+      "y": 3800
+    },
+    "w43-Copies.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "The twist: five copies",
+      "w": 1920,
+      "x": 4000,
+      "y": 1900
+    },
+    "w43-DeadEnds.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "What visitors hit",
+      "w": 1920,
+      "x": 2000,
+      "y": 0
+    },
+    "w43-DomainRedirect.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Step two: Domain Redirect",
+      "w": 1920,
+      "x": 4000,
+      "y": 3800
+    },
+    "w43-Domains.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "The domains a brand owns",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "w43-EndCard.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "End card",
+      "w": 1920,
+      "x": 10000,
+      "y": 5700
+    },
+    "w43-FourAddresses.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Every domain is four addresses",
+      "w": 1920,
+      "x": 0,
+      "y": 5700
+    },
+    "w43-Honest.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "One honest note",
+      "w": 1920,
+      "x": 6000,
+      "y": 5700
+    },
+    "w43-HttpsIssued.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Step three: HTTPS issued",
+      "w": 1920,
+      "x": 10000,
+      "y": 3800
+    },
+    "w43-LinksList.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Step two: every other domain",
+      "w": 1920,
+      "x": 6000,
+      "y": 3800
+    },
+    "w43-MainAddress.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Step one: the main address",
+      "w": 1920,
+      "x": 2000,
+      "y": 3800
+    },
+    "w43-OneAddress.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Way two: one main address",
+      "w": 1920,
+      "x": 8000,
+      "y": 1900
+    },
+    "w43-Perfect.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Way one: it looks perfect",
+      "w": 1920,
+      "x": 2000,
+      "y": 1900
+    },
+    "w43-Pointer.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "A domain is a pointer",
+      "w": 1920,
+      "x": 0,
+      "y": 1900
+    },
+    "w43-Renew.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "One rule: keep renewing",
+      "w": 1920,
+      "x": 8000,
+      "y": 5700
+    },
+    "w43-Sound.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Sound and timing",
+      "w": 1920,
+      "x": 2000,
+      "y": 7600
+    },
+    "w43-Steps.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Three steps, one test",
+      "w": 1920,
+      "x": 0,
+      "y": 3800
+    },
+    "w43-System.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Colour, type, layout",
+      "w": 1920,
+      "x": 0,
+      "y": 7600
+    },
+    "w43-Title.dc.html": {
+      "h": 1080,
+      "page": "w43",
+      "title": "Title card",
+      "w": 1920,
+      "x": 4000,
+      "y": 0
+    },
+    "w44-Checker.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Redirect Checker: a pass",
+      "w": 1920,
+      "x": 0,
+      "y": 12700
+    },
+    "w44-Dentist.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Is this a dental clinic?",
+      "w": 1920,
+      "x": 0,
+      "y": 6100
+    },
+    "w44-EndCard.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "End card",
+      "w": 1920,
+      "x": 10000,
+      "y": 12700
+    },
+    "w44-Everything.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Update everything you control",
+      "w": 1920,
+      "x": 14000,
+      "y": 10500
+    },
+    "w44-Flip.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Every address changes",
+      "w": 1920,
+      "x": 2000,
+      "y": 8300
+    },
+    "w44-Keep.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Two rules before you go",
+      "w": 1920,
+      "x": 6000,
+      "y": 12700
+    },
+    "w44-Map.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Step one: the map",
+      "w": 1920,
+      "x": 0,
+      "y": 10500
+    },
+    "w44-Melt.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "The top spot melts",
+      "w": 1920,
+      "x": 4000,
+      "y": 10500
+    },
+    "w44-Migration.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Step two: Website Migration",
+      "w": 1920,
+      "x": 8000,
+      "y": 10500
+    },
+    "w44-OneToOne.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "One to one",
+      "w": 1920,
+      "x": 6000,
+      "y": 10500
+    },
+    "w44-Pages.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Google ranks pages",
+      "w": 1920,
+      "x": 0,
+      "y": 8300
+    },
+    "w44-Preview.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Changed pages, previewed",
+      "w": 1920,
+      "x": 10000,
+      "y": 10500
+    },
+    "w44-Rename.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "A new name: Velvet Scoop",
+      "w": 1920,
+      "x": 2000,
+      "y": 6100
+    },
+    "w44-Return.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Right where Frosty Bites used to be",
+      "w": 1920,
+      "x": 8000,
+      "y": 12700
+    },
+    "w44-SEO.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "What holds the spot",
+      "w": 1920,
+      "x": 4000,
+      "y": 3900
+    },
+    "w44-Search.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Right at the top",
+      "w": 1920,
+      "x": 2000,
+      "y": 3900
+    },
+    "w44-Shop.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Meet Frosty Bites",
+      "w": 1920,
+      "x": 0,
+      "y": 3900
+    },
+    "w44-Shortcut.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "The shortcut looks perfect",
+      "w": 1920,
+      "x": 2000,
+      "y": 10500
+    },
+    "w44-Sound.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Sound, voice and timing",
+      "w": 1920,
+      "x": 2000,
+      "y": 14900
+    },
+    "w44-Steps.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Three steps",
+      "w": 1920,
+      "x": 4000,
+      "y": 8300
+    },
+    "w44-System.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "System: rooms, colour, type",
+      "w": 1920,
+      "x": 0,
+      "y": 14900
+    },
+    "w44-TellGoogle.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Step three: tell Google",
+      "w": 1920,
+      "x": 12000,
+      "y": 10500
+    },
+    "w44-Title.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Title card",
+      "w": 1920,
+      "x": 6000,
+      "y": 6100
+    },
+    "w44-Watch.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Watch the move happen",
+      "w": 1920,
+      "x": 4000,
+      "y": 12700
+    },
+    "w44-Wobble.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "The wobble",
+      "w": 1920,
+      "x": 2000,
+      "y": 12700
+    },
+    "w44-World.dc.html": {
+      "h": 3520,
+      "page": "w44",
+      "title": "The story world",
+      "w": 3280,
+      "x": 0,
+      "y": 0
+    },
+    "w44-Worry.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "What happens to the spot?",
+      "w": 1920,
+      "x": 4000,
+      "y": 6100
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-10T01:15:48Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "w44",
+    "view": "canvas"
+  },
+  "notes": {
+    "about": {
+      "fill": "teal",
+      "maxH": 900,
+      "page": "w41",
+      "size": 40,
+      "text": "W41 · How to Redirect a Domain to Another Domain (With HTTPS That Actually Works) · approved cut, 5:09 (commit 9ca8786).\n\nEvery frame is a live HTML mockup at 1920×1080, redrawn from the film. One canvas for the whole channel: each video gets its own page here, named after the video, starting from a copy of the latest video's frames (rules: docs/youtube-style-canvas.md in redirhub/reels).\n\nCode tokens: src/remotion/brand/tokens.ts. Film stills: youtube/01_library/style/keyframes/w41-redirect-domain/.",
+      "w": 760,
+      "x": 4000,
+      "y": 4500
+    },
+    "rowA": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act A · Open on the problem",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "rowB": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act B–C · Teach one idea at a time, then do it in the dashboard",
+      "w": 240,
+      "x": 0,
+      "y": 1200
+    },
+    "rowC": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "Act D · Prove it, then close",
+      "w": 240,
+      "x": 0,
+      "y": 2700
+    },
+    "rowD": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w41",
+      "text": "The system behind every frame",
+      "w": 240,
+      "x": 0,
+      "y": 4200
+    },
+    "w43-AddressBar-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "NEW · beat 17. The twist, made personal.\nIN: push-in from the typo card. The address bar fills the frame; the other names stack behind it.\n\"rna\" is the swapped letters, red with a wavy underline.\nThen 1 s of silence.\nOUT: TIME-REVERSE, the film's only one. Bar → cards → five lines run back to their domains…\nROOM: Twist night (dark red)",
+      "w": 1180,
+      "x": 6000,
+      "y": 3020
+    },
+    "w43-AllGreen-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "The one combined-result frame (new).\nIN: back to the grid. Rows turn teal one by one, four pops.\nOUT: silence (done). Then the honest note.\nROOM: Brand radial",
+      "w": 1180,
+      "x": 4000,
+      "y": 6820
+    },
+    "w43-Checker-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 43–45.\nIN: the morph lands in the input. Check Redirect. The chain draws: hop 1 → 301 → hop 2 → 200.\nThe three checks land on \"One hop. A 301. Lands on…\"\nFIXED CHIME on \"That's a pass\" (1 of 2). Beat 45 is VO only.\nFLAG: the checker's result layout is drawn, not captured (open-questions).\nROOM: Lab: Night + grid, teal glow",
+      "w": 1180,
+      "x": 2000,
+      "y": 6820
+    },
+    "w43-ConnectDNS-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 33–38.\nIN: Hostnames → Connect DNS. The real dialog (Automatic tab) over the new app shell, dimmed, Hostnames active. Rows highlight as she names A, TXT, CNAME www.\nThe MX tip slides in on 38 (register change).\nVO NEEDS \"copy yours, not mine\": the real edge IP is on screen.\nOUT: cut to the checks.\nROOM: Light (product room)",
+      "w": 1180,
+      "x": 8000,
+      "y": 4920
+    },
+    "w43-Copies-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "THE TWIST · beats 15–16.\nIN: the room plunges from light to dark red. The cards stay put, drain to grey and get stamped COPY one by one; mybrand.net stays lit under the magnifier (the frame's only amber): Google's pick, labelled Example.\nSOUND: one soft problem tone as the room drops.\nOUT: push into the address bar of the typo card.\nFEEL: the floor shifts.\nROOM: Twist night (dark red)",
+      "w": 1180,
+      "x": 4000,
+      "y": 3020
+    },
+    "w43-DeadEnds-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 6–7.\nIN: cut. Parked page, then \"can't be reached\", then \"Not secure\" racks into focus (focus rack: three places, one job).\nOUT: cut to the title.\nSOUND: one soft problem tone on \"Not secure\". FEEL: a small, specific loss, never blame.\nROOM: Dark mesh, red glow under the stage",
+      "w": 1180,
+      "x": 2000,
+      "y": 1120
+    },
+    "w43-DomainRedirect-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 25–29. UI: Unified Links prototype, \"New domain redirect\" (03-create-redirect).\nIN: Links → Create → Domain Redirect, three quick cuts on her three words (the prototype's create chooser).\nFields fill on her words: mybrand.net → https://mybrand.com; \"301 · Permanent\" on \"Type\"; \"Keep the path\" on \"path\"; What happens fills with three hops. On 29 the form's own hint \"A root domain also covers www.\" takes a teal ring.\nOUT: Create redirect → success sound → the list.\nFLAG: release timing and the \"Passes SEO value\" hint (open-questions UI-10, UI-11).\nROOM: Light (product room)",
+      "w": 1180,
+      "x": 4000,
+      "y": 4920
+    },
+    "w43-Domains-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 1–5 · cold open, no eyebrow.\nIN: cut on her first word. Each pill appears on its name: .com, .net, .co, then the typo (the swapped letters underlined), then the flyer one.\nOUT: dock. The pills slide left as the dead ends open (now they're context).\nSOUND: pad only. FEEL: \"that's me\".\nROOM: Dark mesh (site hero) + grid",
+      "w": 1180,
+      "x": 0,
+      "y": 1120
+    },
+    "w43-EndCard-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 50–52.\nIN: the five hook pills turn teal and collapse into \"Five domains. One website.\" FIXED CHIME (2 of 2).\nThe right half stays clear for YouTube's end screen (next week's video).\nThe QR slot waits for the branded link.\nROOM: Dark mesh (site hero)",
+      "w": 1180,
+      "x": 10000,
+      "y": 6820
+    },
+    "w43-FourAddresses-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 40–43.\nIN: one domain splits into four (2 × 2), then the grid fills row by row to sixteen (draw).\nOn \"easiest to forget\" the https://www. column takes the amber outline.\nOUT: shared-element morph. The amber cell https://www.mybrand.net flies into the checker's input.\nROOM: Lab: Night + grid",
+      "w": 1180,
+      "x": 0,
+      "y": 6820
+    },
+    "w43-Honest-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beat 47.\nRegister change: the film steps back and talks straight. No effect.\nThe teal card (what it does) lands first and holds; then the grey card (what it doesn't).\nOUT: cut. FEEL: trust.\nROOM: Charcoal",
+      "w": 1180,
+      "x": 6000,
+      "y": 6820
+    },
+    "w43-HttpsIssued-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beat 39.\nIN: the three steps tick down the list. On \"automatically\" the padlock closes and grows out of the dialog (shared element).\nSOUND: success. FEEL: step three pays off.\nROOM: Brand sweep (payoff)",
+      "w": 1180,
+      "x": 10000,
+      "y": 4920
+    },
+    "w43-LinksList-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 30–32. UI: Unified Links prototype, new app shell + Links list.\nIN: cut on Create redirect. Cards arrive one by one, every one ↳ https://mybrand.com (a pop each).\nThe CSV tip slides in on \"dozens\" (register change).\nAMBER: the orange split Create button, the frame's only amber.\nOUT: cut to Hostnames.\nROOM: Light (product room)",
+      "w": 1180,
+      "x": 6000,
+      "y": 4920
+    },
+    "w43-MainAddress-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 22–24.\nIN: shared-element morph. The main pill from way two grows; the other four dim. The two chips land on \"exactly\".\nThe tip slides in beside (register change: an aside).\nOUT: cut into the dashboard. FEEL: a decision, made calmly.\nROOM: Light (product room)",
+      "w": 1180,
+      "x": 2000,
+      "y": 4920
+    },
+    "w43-OneAddress-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 18–20.\nIN: …and re-route: four domains fan into one node, then a thick teal line to https://mybrand.com. A 301 tag pops onto each line on \"with a 301\".\nOUT: the main card docks as the steps come up.\nSOUND: one pop per tag. FEEL: relief.\nROOM: Dark mesh, teal glow on the main address",
+      "w": 1180,
+      "x": 8000,
+      "y": 3020
+    },
+    "w43-Perfect-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "NEW · beats 12–14. Way one, the calm before the twist.\nIN: five lines draw into one host; five identical sites pop up, each with its own address, and each takes a teal tick.\nBEAT: hold alone on \"And it looks perfect.\" Leave the beat.\nOUT: the room drops to dark red with the cards in place (same layout as the next frame, so it reads as a reversal).\nROOM: Light + dot pattern",
+      "w": 1180,
+      "x": 2000,
+      "y": 3020
+    },
+    "w43-Pointer-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 10–11.\nIN: room change, dark → light (act B opens). The mybrand.com pill from the hook morphs into this glass pill; the dotted line draws to the address book, then to the site.\nOUT: the one pill becomes five as the five sites rise into the next frame.\nFEEL: oh, a domain is just a pointer.\nROOM: Light + dot pattern",
+      "w": 1180,
+      "x": 0,
+      "y": 3020
+    },
+    "w43-Renew-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beat 48.\nIN: cut. The flyer domain and its paper renewal calendar (the date is an example).\nOUT: the step map returns ticked for the recap (49), then the end card.\nROOM: Light + paper prop",
+      "w": 1180,
+      "x": 8000,
+      "y": 6820
+    },
+    "w43-Steps-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beat 21, reused ticked at the recap (49).\nA list replaces narration: VO says only \"Three steps, and one test.\"\nAt 49 each card takes a teal check as she names it.\nOUT: transition sound, 2 of 2. Card 01 morphs into step one (room change into the light product room).\nROOM: Brand radial + floor",
+      "w": 1180,
+      "x": 0,
+      "y": 4920
+    },
+    "w43-Title-note": {
+      "maxH": 460,
+      "page": "w43",
+      "size": 24,
+      "text": "Beats 8–9, merged into one line (script-deltas #2).\nIN: transition sound, 1 of 2. The five grey dots draw into one teal dot, then the title lands.\nHOLD ≈ 1.5 s. OUT: cut.\nFEEL: a promise, not a pitch.\nROOM: Brand sweep + perspective floor",
+      "w": 1180,
+      "x": 4000,
+      "y": 1120
+    },
+    "w43about": {
+      "fill": "teal",
+      "maxH": 1000,
+      "page": "w43",
+      "size": 40,
+      "text": "How to Forward Multiple Domains to One Website (With HTTPS) · W43 · publishes Oct 19.\n\nKey frames for Review 2, round 2 (after Leo's notes, Oct 14): each act now has its own room built from the RedirHub website's gradients (dark mesh, brand sweep, light, twist night, brand radial, lab, charcoal), with the site's glass cards. The twist is three frames: It looks perfect → five copies → the address bar. The dashboard frames use the latest Unified Links prototype (app shell, Links list, New domain redirect).\n\nComment on any frame. The sticky under it gives the move in and out, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W43_forward-multiple-domains/style-canvas/project/ in redirhub/reels (branch yt/w43-keyframes). Script changes: script-deltas.md; open questions: open-questions.md.",
+      "w": 900,
+      "x": 4000,
+      "y": 7600
+    },
+    "w43rowA": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w43",
+      "text": "A · Many names, one problem",
+      "w": 240,
+      "x": 0,
+      "y": -260
+    },
+    "w43rowB": {
+      "kind": "title1",
+      "maxW": 8000,
+      "page": "w43",
+      "text": "B · How it works, the shortcut that fakes it, and the twist",
+      "w": 240,
+      "x": 0,
+      "y": 1640
+    },
+    "w43rowC": {
+      "kind": "title1",
+      "maxW": 8000,
+      "page": "w43",
+      "text": "C · Three steps, in RedirHub",
+      "w": 240,
+      "x": 0,
+      "y": 3540
+    },
+    "w43rowD": {
+      "kind": "title1",
+      "maxW": 8000,
+      "page": "w43",
+      "text": "D · Prove it, then close",
+      "w": 240,
+      "x": 0,
+      "y": 5440
+    },
+    "w43rowS": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w43",
+      "text": "The system behind every frame: rooms, colour, type, sound",
+      "w": 240,
+      "x": 0,
+      "y": 7340
+    },
+    "w44-Checker-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 48–51. Test it the way Google sees it: one hop, a 301, lands on its twin.\nIN: Shared element: the pistachio card’s URL flies into the checker’s input. Check Redirect; the chain draws: hop 1 301, hop 2 200. The checks land on “One hop. A 301. And it lands…”; “That’s a pass.” on her words. The three chips pop on #51.\nOUT: Cut.\nVOICE: [curious] → [delighted] · SOUND: Fixed chime (1 of 2) on “That’s a pass”.\nFEEL: Proof, not promise. · ROOM: Lab, teal glow\nThe result layout is drawn, not captured (open-questions UI-7).",
+      "w": 1180,
+      "x": 0,
+      "y": 13820
+    },
+    "w44-Dentist-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 9–12. The name has a problem: it sounds medical.\nIN: Register change (an aside): the sign hangs in the light room; bubble one pops on “dental clinic”, bubble two on “frostbite”. On [sighs] the mark slides out of the sign next to a dotted tooth, with ≈ between them. One gag only.\nOUT: Cut to the rename.\nVOICE: [amused] → [laughs softly] → [sighs] · SOUND: None. Her laugh is the sound.\nFEEL: A giggle, and sympathy. · ROOM: Light",
+      "w": 1180,
+      "x": 0,
+      "y": 7220
+    },
+    "w44-EndCard-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 61–63. New name. Same spot.\nIN: The card docks under “New name. Same spot.” Links line and the help line land.\nOUT: Silence (done) under the end screen.\nVOICE: [warm] · SOUND: Pad, then silence.\nFEEL: Done, and pleased. · ROOM: Dark mesh\nRight half clear for YouTube’s end screen (next week’s video). QR slot until a branded link is given.",
+      "w": 1180,
+      "x": 10000,
+      "y": 13820
+    },
+    "w44-Everything-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 47. Everything the owner controls now says Velvet Scoop.\nIN: Each prop flips from Frosty Bites to Velvet Scoop as she names it (a mini logo morph on each) and takes a teal check.\nOUT: Cut to the test.\nVOICE: brisk · SOUND: None (four checks would be noise).\nFEEL: Thorough. · ROOM: Light\nAll generic: no platform logos. The menu shows a QR slot, not a code.",
+      "w": 1180,
+      "x": 14000,
+      "y": 11620
+    },
+    "w44-Flip-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 22–23. Change the domain and every address changes; the history doesn’t follow on its own.\nIN: Same tree. On “every one of those addresses changes too” the domain part of each card rolls to the new one, left to right; each history badge drops off on a red broken line. The caption lands on #23.\nOUT: Dock: the tree shrinks into card 01 of the steps.\nVOICE: clear, a little grave · SOUND: One soft problem tone as the badges drop.\nFEEL: “So that’s the risk.” · ROOM: Lab\nNew frame: the brief’s Pages beat split in two (one idea each).",
+      "w": 1180,
+      "x": 2000,
+      "y": 9420
+    },
+    "w44-Keep-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 55–57. Keep the redirects a year at least (better, for good), and keep renewing the old domain.\nIN: Rule one lands, its months tick, “Better still: keep them for good.” Rule two lands; “someone else” in red on #57, said kindly.\nOUT: The steps return ticked for the recap (#58).\nVOICE: [playful] · SOUND: Pad only.\nFEEL: Looked after. · ROOM: Light + paper\nRenewal date labelled “Example date”.",
+      "w": 1180,
+      "x": 6000,
+      "y": 13820
+    },
+    "w44-Map-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 25–28. Old address on the left, new on the right; same paths are one rule, changed pages get their own line.\nIN: Card 01 opens into the sheet. Rows write in; the pistachio row lifts on her example. The teal bracket draws on “one rule covers every page”, the grey one on “its own line”. The tip slides in on “Quick tip” (register change).\nOUT: Cut to the shortcut.\nVOICE: clear → [aside] for the tip · SOUND: Pad; one pop for the tip.\nFEEL: “I can do that.” · ROOM: Light + paper\nProgress bar 1 of 3.",
+      "w": 1180,
+      "x": 0,
+      "y": 11620
+    },
+    "w44-Melt-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 33–34. Google can treat those pages as gone, and the pistachio ranking starts to melt.\nIN: The room drops to twist night. On #33 the old pages strike through: “treated as gone”. On “melt” the card sags, its bottom edge runs into drips and it slides from slot 1 to slot 4 (amber ring, the frame’s one amber). Then one second of silence.\nOUT: Time-reverse into the next frame.\nVOICE: [serious] → [softly] · SOUND: One soft problem tone as the room drops; then silence.\nFEEL: The floor shifts. · ROOM: Twist night\nThe melt is a shape change on the card only. Positions are labelled “Example”.",
+      "w": 1180,
+      "x": 4000,
+      "y": 11620
+    },
+    "w44-Migration-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 36–39. In RedirHub: one Website Migration, same paths, from getfrostybites.com to getvelvetscoop.com.\nIN: Transition (2 of 2). Links → Create → Website Migration as three quick cuts on her three words (the real create chooser: “Move many URLs with one same-path rule, or map them one-to-one.”). Old domain and New base URL fill on #38; “Keep the same paths” rings on #39; What happens fills, the pistachio row rings; the www pill lands on “The www version comes along too”.\nOUT: The form switches to “Map URLs one by one”.\nVOICE: calm, product voice · SOUND: Transition (2 of 2); a click on Create and on Website Migration.\nFEEL: Easy. · ROOM: Light (product)\nUI: Dashboard (lviv) prototype 03-create-migration (Oct 25). The www line is unconfirmed for migrations (open-questions UI-3).",
+      "w": 1180,
+      "x": 8000,
+      "y": 11620
+    },
+    "w44-OneToOne-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 35. One old page, one matching new page: that’s the rule.\nIN: Time-reverse, the film’s only one: the drips run back up, the card lifts, and the bent lines un-bend; each old page snaps onto its twin, one per row, with a 301 tag. The pistachio row snaps last and thickest.\nOUT: Transition (2 of 2) into the dashboard.\nVOICE: [firm] · SOUND: Rewind (once); one soft snap per row.\nFEEL: Click. Relief. · ROOM: Teal mesh",
+      "w": 1180,
+      "x": 6000,
+      "y": 11620
+    },
+    "w44-Pages-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 19–21. Google ranks pages, not domains: the site is a map of pages, each with its own history.\nIN: Cut to the lab. The tree draws out from “/” as she names the homepage, the flavor menu and the pistachio page; history badges pop on #21.\nOUT: Shared-element morph into the next frame (same tree).\nVOICE: clear, teaching · SOUND: Pad only.\nFEEL: “Oh, it’s pages.” · ROOM: Lab\nNumbers are labelled “Example numbers”.",
+      "w": 1180,
+      "x": 0,
+      "y": 9420
+    },
+    "w44-Preview-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 40–43. Paste the changed pages; RedirHub shows what it will create and flags a problem row before anything is created.\nIN: On “Paste your map” the rows paste in; the CSV card rings on “spreadsheet file”. What happens fills; the skipped row takes a red ring on “flags every row with a problem”. Redirect type rings teal on “301”. The DNS-and-padlock tip slides in on #43 (register change).\nOUT: Create 2 redirects → success → cut to step three.\nVOICE: calm · SOUND: Click on Create; one success.\nFEEL: Safe: nothing goes live by accident. · ROOM: Light (product)\nThe skip wording is the prototype’s. Tags and Monitoring rows are cropped (open-questions UI-4).",
+      "w": 1180,
+      "x": 10000,
+      "y": 11620
+    },
+    "w44-Rename-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 13. Same shop, new name.\nIN: Shared-element morph on “Velvet Scoop”: the ice-cube-molar’s two roots soften into drips, the cube rounds into a scoop, frost warms to pistachio, a cone slides in under it and its rim curves into a smile. The monoline caps loosen into the soft serif. The pill under it rolls from the old domain to the new one on “velvetscoop.com”.\nOUT: The new pill slides right and becomes the new site in the next frame.\nVOICE: [excited] · SOUND: One shimmer on the morph.\nFEEL: Delight: the shop smiles. · ROOM: Light\nThe ghost of the old sign stays faintly on the left so the morph reads.",
+      "w": 1180,
+      "x": 2000,
+      "y": 7220
+    },
+    "w44-Return-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 59–61. A few weeks later, the same search: Velvet Scoop in the exact slot Frosty Bites held.\nIN: Shared-element morph with Search: the identical page, the identical slot. The card re-freezes into place and its name and address roll from Frosty Bites to Velvet Scoop in place.\nOUT: Dock: the card shrinks under the end-card headline.\nVOICE: [warm] → [proud] · SOUND: Fixed chime (2 of 2) on “right where Frosty Bites used to be”.\nFEEL: The story clicks shut. · ROOM: Light\nSame “Example search” label as Search.",
+      "w": 1180,
+      "x": 8000,
+      "y": 13820
+    },
+    "w44-SEO-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 5–8. SEO is what makes Google pick your page, and for Frosty Bites all of it is tied to one address.\nIN: The headline lands on “SEO”. Ropes draw from the pill as she names them: pages, food blogs, reviews.\nOUT: On “[pause] … frostybites.com” everything holds, then cut.\nVOICE: plain, then [pause] on the address · SOUND: Pad only; the pause is the beat.\nFEEL: “So that’s what SEO is.” · ROOM: Dark mesh\nBlogs and reviews are generic; no reviewer or platform named. Stars are ink, not amber.",
+      "w": 1180,
+      "x": 4000,
+      "y": 5020
+    },
+    "w44-Search-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 3–4. Search for the best pistachio near the shop, and Frosty Bites is #1.\nIN: The scoop icon lands in the card; the query writes itself on “best pistachio ice cream” (no typing sound); the card rises into slot 1 on “there they are”.\nOUT: Dock: the card shrinks into the address pill at the centre of the next frame.\nVOICE: [curious] → [proud] · SOUND: Pad only.\nFEEL: Pride, theirs. · ROOM: Light\nThe page is generic (no search engine named or drawn) and labelled “Example search”.",
+      "w": 1180,
+      "x": 2000,
+      "y": 5020
+    },
+    "w44-Shop-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 1–2. This is Frosty Bites, and its pistachio is famous.\nIN: Cut on “Meet” (cold open). The site is already there; on “pistachio” the pistachio tile lifts and takes its ring. 5 · 40 · 1 land on her three numbers.\nOUT: Shared-element morph: the pistachio tile’s scoop icon flies out of the site and becomes the icon on the search result.\nVOICE: [warm] · SOUND: Pad only.\nFEEL: “I’d go there.” · ROOM: Light",
+      "w": 1180,
+      "x": 0,
+      "y": 5020
+    },
+    "w44-Shortcut-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 29–32. Sending every old page to the new homepage looks perfect, and strands the visitor.\nIN: On “send everything to the new homepage” every line bends into one homepage (draw). Teal ticks on “No errors” (it really does look fixed). [pause], then the cursor wanders the homepage in a loop: “Where’s the pistachio?”\nOUT: The room drops for the twist; the old cards stay, the homepage falls away.\nVOICE: [conspiratorial] → [light] → [pause] · SOUND: Pad only.\nFEEL: Smug, then uh-oh. · ROOM: Light\nSame old cards as the one-to-one frame, so the fix reads as a reversal.",
+      "w": 1180,
+      "x": 2000,
+      "y": 11620
+    },
+    "w44-Sound-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats —. Effects only on story beats; the voice tag each frame plays under.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nChanged from W43: noted on the board. No audio made in this pass.",
+      "w": 1180,
+      "x": 2000,
+      "y": 16020
+    },
+    "w44-Steps-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 24 (+58 recap). Three steps: map it, redirect it, tell Google.\nIN: The tree docks into card 01; the three cards rise on her three words. “Then let it settle.” waits for the recap.\nOUT: Card 01 morphs into the map sheet (shared element). At the recap (#58) the frame returns and each card takes a teal check as she names it.\nVOICE: clear · SOUND: Pad only.\nFEEL: A plan you can hold. · ROOM: Brand radial",
+      "w": 1180,
+      "x": 4000,
+      "y": 9420
+    },
+    "w44-System-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats —. Rooms per story beat, colour roles, type, the story-world palettes.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nChanged from W43: noted on the board.",
+      "w": 1180,
+      "x": 0,
+      "y": 16020
+    },
+    "w44-TellGoogle-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 44–46. Tell Google you’ve moved: change of address, then the new sitemap.\nIN: Cut. The old site sits in the panel; the new site is picked on #45 and “Move requested” ticks; the sitemap row ticks “Submitted” on #46. The two numbered lines land beside it.\nOUT: The panel docks; the shop props fly in.\nVOICE: calm · SOUND: One pop per tick (2).\nFEEL: “Done, that was easy.” · ROOM: Light\nGeneric, labelled “Generic illustration, not the real console”. Progress bar 3 of 3.",
+      "w": 1180,
+      "x": 12000,
+      "y": 11620
+    },
+    "w44-Title-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 18. The promise: how to change your domain name without losing SEO, in three steps.\nIN: Transition (1 of 2). The arrow draws from the old pill to the new; the title lands, then “Three steps.”\nOUT: Cut.\nVOICE: [curious], even · SOUND: Transition (1 of 2).\nFEEL: A promise, not a pitch. · ROOM: Brand sweep + floor\nHold ≥ 4.7 s (11 words on screen); beat 18 runs about 6 s.",
+      "w": 1180,
+      "x": 6000,
+      "y": 7220
+    },
+    "w44-Watch-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 54. RedirHub analytics show how many people still come in through the old domain.\nIN: Cut to Analytics. The old domain’s row rings as she says it.\nOUT: Cut.\nVOICE: calm · SOUND: Pad only.\nFEEL: “I can watch it.” · ROOM: Light (product)\nNew frame. VO proposed per domain, not per path (script-deltas #19). Numbers are “Example numbers”.",
+      "w": 1180,
+      "x": 4000,
+      "y": 13820
+    },
+    "w44-Wobble-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 52–53. Rankings may wobble for a few weeks; that’s normal, don’t undo the redirects.\nIN: The track draws left to right; the scoop rides it down after “the move”, dips twice, and settles back at #1 by week 4 on “It’s normal”. The caption lands on “don’t undo the redirects”.\nOUT: Cut.\nVOICE: [gently] → [reassuring] · SOUND: Pad only.\nFEEL: Calm. Nobody panics. · ROOM: Charcoal\nLabelled “Example”: no timing or recovery is promised.",
+      "w": 1180,
+      "x": 2000,
+      "y": 13820
+    },
+    "w44-World-note": {
+      "maxH": 600,
+      "page": "w44",
+      "size": 24,
+      "text": "Logos and sites are original. Fraunces is the one prop typeface (Velvet Scoop only); Frosty Bites’ wordmark is drawn. Shop palettes are gated to the shop world by the checker.",
+      "w": 1180,
+      "x": 3400,
+      "y": 1300
+    },
+    "w44-Worry-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 14–17. Will the #1 spot survive the move?\nIN: The room drops to Night (the thought that keeps owners up at night). The card from Search slides back in with a “?”; on “total stranger” the new site arrives with three empty sockets: no links, no reviews, no history.\nOUT: Transition (1 of 2) into the title on “three steps”.\nVOICE: [pause] [worried] → [reassuring] · SOUND: Transition whoosh into the title.\nFEEL: The real worry, said out loud. · ROOM: Night\nVO #17 needs a hedge (script-deltas #4).",
+      "w": 1180,
+      "x": 4000,
+      "y": 7220
+    },
+    "w44about": {
+      "fill": "teal",
+      "maxH": 1100,
+      "page": "w44",
+      "size": 40,
+      "text": "How to Change Your Domain Name Without Losing SEO · W44 · key-frame pass for Review 2.\n\nThe story: Frosty Bites (people kept asking if it was a dental clinic) becomes Velvet Scoop without losing its place on Google. The thread is the pistachio page: it ranks #1, the owner fears losing it, it’s the example in the map, it melts in the twist, it passes the test, and it’s back in the same slot at the end.\n\nComment on any frame; the sticky under it gives the beats, the move in and out, the voice tag, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W44_change-domain-seo/ in redirhub/reels (branch yt/w44-keyframes): keyframes.md, script-deltas.md, open-questions.md.",
+      "w": 900,
+      "x": 3400,
+      "y": 0
+    },
+    "w44rowA": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w44",
+      "text": "A · Meet Frosty Bites",
+      "w": 240,
+      "x": 0,
+      "y": 3640
+    },
+    "w44rowB": {
+      "kind": "title1",
+      "maxW": 7920,
+      "page": "w44",
+      "text": "B · The name problem",
+      "w": 240,
+      "x": 0,
+      "y": 5840
+    },
+    "w44rowC": {
+      "kind": "title1",
+      "maxW": 5920,
+      "page": "w44",
+      "text": "C · How Google sees your site",
+      "w": 240,
+      "x": 0,
+      "y": 8040
+    },
+    "w44rowD": {
+      "kind": "title1",
+      "maxW": 15920,
+      "page": "w44",
+      "text": "D · The three steps, the shortcut and the twist",
+      "w": 240,
+      "x": 0,
+      "y": 10240
+    },
+    "w44rowE": {
+      "kind": "title1",
+      "maxW": 11920,
+      "page": "w44",
+      "text": "E · Proof, wobble, keep, and the same spot",
+      "w": 240,
+      "x": 0,
+      "y": 12440
+    },
+    "w44rowS": {
+      "kind": "title1",
+      "maxW": 3920,
+      "page": "w44",
+      "text": "The system behind every frame: rooms, colour, type, sound and voice",
+      "w": 240,
+      "x": 0,
+      "y": 14640
+    },
+    "w44rowW": {
+      "kind": "title1",
+      "maxW": 5000,
+      "page": "w44",
+      "text": "The world · cast and props (every frame reuses them)",
+      "w": 240,
+      "x": 0,
+      "y": -260
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Problem.dc.html",
+    "ConceptMap.dc.html",
+    "Concept301.dc.html",
+    "Dashboard.dc.html",
+    "Turn.dc.html",
+    "Checks.dc.html",
+    "Tips.dc.html",
+    "EndCard.dc.html",
+    "System.dc.html",
+    "Sound.dc.html",
+    "Plan.dc.html",
+    "w43-Domains.dc.html",
+    "w43-DeadEnds.dc.html",
+    "w43-Title.dc.html",
+    "w43-Pointer.dc.html",
+    "w43-Perfect.dc.html",
+    "w43-Copies.dc.html",
+    "w43-AddressBar.dc.html",
+    "w43-OneAddress.dc.html",
+    "w43-Steps.dc.html",
+    "w43-MainAddress.dc.html",
+    "w43-DomainRedirect.dc.html",
+    "w43-LinksList.dc.html",
+    "w43-ConnectDNS.dc.html",
+    "w43-HttpsIssued.dc.html",
+    "w43-FourAddresses.dc.html",
+    "w43-Checker.dc.html",
+    "w43-AllGreen.dc.html",
+    "w43-Honest.dc.html",
+    "w43-Renew.dc.html",
+    "w43-EndCard.dc.html",
+    "w43-System.dc.html",
+    "w43-Sound.dc.html",
+    "w44-World.dc.html",
+    "w44-Shop.dc.html",
+    "w44-Search.dc.html",
+    "w44-SEO.dc.html",
+    "w44-Dentist.dc.html",
+    "w44-Rename.dc.html",
+    "w44-Worry.dc.html",
+    "w44-Title.dc.html",
+    "w44-Pages.dc.html",
+    "w44-Flip.dc.html",
+    "w44-Steps.dc.html",
+    "w44-Map.dc.html",
+    "w44-Shortcut.dc.html",
+    "w44-Melt.dc.html",
+    "w44-OneToOne.dc.html",
+    "w44-Migration.dc.html",
+    "w44-Preview.dc.html",
+    "w44-TellGoogle.dc.html",
+    "w44-Everything.dc.html",
+    "w44-Checker.dc.html",
+    "w44-Wobble.dc.html",
+    "w44-Watch.dc.html",
+    "w44-Keep.dc.html",
+    "w44-Return.dc.html",
+    "w44-EndCard.dc.html",
+    "w44-System.dc.html",
+    "w44-Sound.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "plan",
+      "name": "Content calendar · W43–W01"
+    },
+    {
+      "id": "w41",
+      "name": "W41 · How to Redirect a Domain to Another Domain"
+    },
+    {
+      "id": "w43",
+      "name": "W43 · How to Forward Multiple Domains to One Website"
+    },
+    {
+      "id": "w44",
+      "name": "W44 · How to Change Your Domain Name Without Losing SEO"
+    }
+  ],
+  "title": "RedirHub YouTube Style Frames",
+  "v": 3
+}
