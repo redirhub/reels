@@ -281,20 +281,12 @@
       "x": 0,
       "y": 12700
     },
-    "w44-Dentist.dc.html": {
-      "h": 1080,
-      "page": "w44",
-      "title": "Is this a dental clinic?",
-      "w": 1920,
-      "x": 0,
-      "y": 6100
-    },
     "w44-EndCard.dc.html": {
       "h": 1080,
       "page": "w44",
       "title": "End card",
       "w": 1920,
-      "x": 10000,
+      "x": 12000,
       "y": 12700
     },
     "w44-Everything.dc.html": {
@@ -318,7 +310,7 @@
       "page": "w44",
       "title": "Two rules before you go",
       "w": 1920,
-      "x": 6000,
+      "x": 8000,
       "y": 12700
     },
     "w44-Map.dc.html": {
@@ -344,6 +336,14 @@
       "w": 1920,
       "x": 8000,
       "y": 10500
+    },
+    "w44-OldMenu.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "The sweet surprise: old menus still work",
+      "w": 1920,
+      "x": 2000,
+      "y": 12700
     },
     "w44-OneToOne.dc.html": {
       "h": 1080,
@@ -372,7 +372,7 @@
     "w44-Rename.dc.html": {
       "h": 1080,
       "page": "w44",
-      "title": "A new name: Velvet Scoop",
+      "title": "A new name: Frosty Bites",
       "w": 1920,
       "x": 2000,
       "y": 6100
@@ -380,9 +380,9 @@
     "w44-Return.dc.html": {
       "h": 1080,
       "page": "w44",
-      "title": "Right where Frosty Bites used to be",
+      "title": "Right where Frosty Fusion used to be",
       "w": 1920,
-      "x": 8000,
+      "x": 10000,
       "y": 12700
     },
     "w44-SEO.dc.html": {
@@ -404,7 +404,7 @@
     "w44-Shop.dc.html": {
       "h": 1080,
       "page": "w44",
-      "title": "Meet Frosty Bites",
+      "title": "Meet Frosty Fusion",
       "w": 1920,
       "x": 0,
       "y": 3900
@@ -416,6 +416,14 @@
       "w": 1920,
       "x": 2000,
       "y": 10500
+    },
+    "w44-Smoothie.dc.html": {
+      "h": 1080,
+      "page": "w44",
+      "title": "Is this a smoothie bar?",
+      "w": 1920,
+      "x": 0,
+      "y": 6100
     },
     "w44-Sound.dc.html": {
       "h": 1080,
@@ -462,7 +470,7 @@
       "page": "w44",
       "title": "Watch the move happen",
       "w": 1920,
-      "x": 4000,
+      "x": 6000,
       "y": 12700
     },
     "w44-Wobble.dc.html": {
@@ -470,7 +478,7 @@
       "page": "w44",
       "title": "The wobble",
       "w": 1920,
-      "x": 2000,
+      "x": 4000,
       "y": 12700
     },
     "w44-World.dc.html": {
@@ -785,34 +793,25 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 48–51. Test it the way Google sees it: one hop, a 301, lands on its twin.\nIN: Shared element: the pistachio card’s URL flies into the checker’s input. Check Redirect; the chain draws: hop 1 301, hop 2 200. The checks land on “One hop. A 301. And it lands…”; “That’s a pass.” on her words. The three chips pop on #51.\nOUT: Cut.\nVOICE: [curious] → [delighted] · SOUND: Fixed chime (1 of 2) on “That’s a pass”.\nFEEL: Proof, not promise. · ROOM: Lab, teal glow\nThe result layout is drawn, not captured (open-questions UI-7).",
+      "text": "Beats 48–51. Test it the way Google sees it: one hop, a 301, lands on its twin.\nIN: Shared element: the strawberry card’s URL flies into the checker’s input. Check Redirect; the chain draws: hop 1 301, hop 2 200. The checks land on “One hop. A 301. And it lands…”; “That’s a pass.” on her words. The three chips pop on #51.\nOUT: Cut to the surprise.\nVOICE: [curious] then [delighted] · SOUND: Fixed chime (1 of 2) on “That’s a pass”.\nFEEL: Proof, not promise. · ROOM: Glow, teal\nThe result layout is drawn, not captured (open-questions UI-7).",
       "w": 1180,
       "x": 0,
       "y": 13820
-    },
-    "w44-Dentist-note": {
-      "maxH": 560,
-      "page": "w44",
-      "size": 24,
-      "text": "Beats 9–12. The name has a problem: it sounds medical.\nIN: Register change (an aside): the sign hangs in the light room; bubble one pops on “dental clinic”, bubble two on “frostbite”. On [sighs] the mark slides out of the sign next to a dotted tooth, with ≈ between them. One gag only.\nOUT: Cut to the rename.\nVOICE: [amused] → [laughs softly] → [sighs] · SOUND: None. Her laugh is the sound.\nFEEL: A giggle, and sympathy. · ROOM: Light",
-      "w": 1180,
-      "x": 0,
-      "y": 7220
     },
     "w44-EndCard-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 61–63. New name. Same spot.\nIN: The card docks under “New name. Same spot.” Links line and the help line land.\nOUT: Silence (done) under the end screen.\nVOICE: [warm] · SOUND: Pad, then silence.\nFEEL: Done, and pleased. · ROOM: Dark mesh\nRight half clear for YouTube’s end screen (next week’s video). QR slot until a branded link is given.",
+      "text": "Beats 61–63. New name. Same spot.\nIN: The card docks under “New name. Same spot.” The links line and the help line land.\nOUT: Silence (done) under the end screen.\nVOICE: [warm] · SOUND: Pad, then silence.\nFEEL: Done, and pleased. · ROOM: Glow\nRight half clear for YouTube’s end screen. QR slot until a branded link is given.",
       "w": 1180,
-      "x": 10000,
+      "x": 12000,
       "y": 13820
     },
     "w44-Everything-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 47. Everything the owner controls now says Velvet Scoop.\nIN: Each prop flips from Frosty Bites to Velvet Scoop as she names it (a mini logo morph on each) and takes a teal check.\nOUT: Cut to the test.\nVOICE: brisk · SOUND: None (four checks would be noise).\nFEEL: Thorough. · ROOM: Light\nAll generic: no platform logos. The menu shows a QR slot, not a code.",
+      "text": "Beats 47. Everything the owner controls now says Frosty Bites.\nIN: Each prop flips from Frosty Fusion to Frosty Bites as she names it (a mini logo morph on each) and takes a teal check.\nOUT: Cut to the test.\nVOICE: brisk · SOUND: None (four checks would be noise).\nFEEL: Thorough. · ROOM: Light\nAll generic: no platform logos. The menu shows a QR slot, not a code.",
       "w": 1180,
       "x": 14000,
       "y": 11620
@@ -821,7 +820,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 22–23. Change the domain and every address changes; the history doesn’t follow on its own.\nIN: Same tree. On “every one of those addresses changes too” the domain part of each card rolls to the new one, left to right; each history badge drops off on a red broken line. The caption lands on #23.\nOUT: Dock: the tree shrinks into card 01 of the steps.\nVOICE: clear, a little grave · SOUND: One soft problem tone as the badges drop.\nFEEL: “So that’s the risk.” · ROOM: Lab\nNew frame: the brief’s Pages beat split in two (one idea each).",
+      "text": "Beats 22–23. Change the domain and every address changes; the history doesn’t follow on its own.\nIN: Same tree. On “every one of those addresses changes too” the domain part of each card rolls to the new one, left to right; each history badge drops off on a red broken line. The room warms to the Glow. The caption lands on #23.\nOUT: Dock: the tree shrinks into card 01 of the steps.\nVOICE: clear, a little grave · SOUND: One soft problem tone as the badges drop.\nFEEL: “So that’s the risk.” · ROOM: Glow",
       "w": 1180,
       "x": 2000,
       "y": 9420
@@ -832,14 +831,14 @@
       "size": 24,
       "text": "Beats 55–57. Keep the redirects a year at least (better, for good), and keep renewing the old domain.\nIN: Rule one lands, its months tick, “Better still: keep them for good.” Rule two lands; “someone else” in red on #57, said kindly.\nOUT: The steps return ticked for the recap (#58).\nVOICE: [playful] · SOUND: Pad only.\nFEEL: Looked after. · ROOM: Light + paper\nRenewal date labelled “Example date”.",
       "w": 1180,
-      "x": 6000,
+      "x": 8000,
       "y": 13820
     },
     "w44-Map-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 25–28. Old address on the left, new on the right; same paths are one rule, changed pages get their own line.\nIN: Card 01 opens into the sheet. Rows write in; the pistachio row lifts on her example. The teal bracket draws on “one rule covers every page”, the grey one on “its own line”. The tip slides in on “Quick tip” (register change).\nOUT: Cut to the shortcut.\nVOICE: clear → [aside] for the tip · SOUND: Pad; one pop for the tip.\nFEEL: “I can do that.” · ROOM: Light + paper\nProgress bar 1 of 3.",
+      "text": "Beats 25–28. Old address on the left, new on the right; same paths are one rule, changed pages get their own line.\nIN: Card 01 opens into the sheet. Rows write in; the strawberry row lifts on her example. The teal bracket draws on “one rule covers every page”, the grey one on “its own line”, where the CHANGED tag pops. The tip slides in on “Quick tip” (register change).\nOUT: Cut to the shortcut.\nVOICE: clear, then an aside for the tip · SOUND: Pad; one pop for the tip.\nFEEL: “I can do that.” · ROOM: Light + paper\nColumns and tags instead of row arrows. Progress bar 1 of 3.",
       "w": 1180,
       "x": 0,
       "y": 11620
@@ -848,7 +847,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 33–34. Google can treat those pages as gone, and the pistachio ranking starts to melt.\nIN: The room drops to twist night. On #33 the old pages strike through: “treated as gone”. On “melt” the card sags, its bottom edge runs into drips and it slides from slot 1 to slot 4 (amber ring, the frame’s one amber). Then one second of silence.\nOUT: Time-reverse into the next frame.\nVOICE: [serious] → [softly] · SOUND: One soft problem tone as the room drops; then silence.\nFEEL: The floor shifts. · ROOM: Twist night\nThe melt is a shape change on the card only. Positions are labelled “Example”.",
+      "text": "Beats 33–34. Google can treat those pages as gone, and the strawberry ranking starts to melt.\nIN: The room drops to the Glow. On #33 the old pages strike through: “treated as gone”. On “melt” the card’s bottom edge runs into drips and it slides from its old spot down to #4, upright (amber ring, the frame’s one amber). Then one second of silence.\nOUT: Time-reverse into the next frame.\nVOICE: [serious] then [softly] · SOUND: One soft problem tone; then silence.\nFEEL: The floor shifts. · ROOM: Glow\nThe catch, not the twist (Leo). A shape change only: no tilt. Positions labelled “Example”.",
       "w": 1180,
       "x": 4000,
       "y": 11620
@@ -857,16 +856,25 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 36–39. In RedirHub: one Website Migration, same paths, from getfrostybites.com to getvelvetscoop.com.\nIN: Transition (2 of 2). Links → Create → Website Migration as three quick cuts on her three words (the real create chooser: “Move many URLs with one same-path rule, or map them one-to-one.”). Old domain and New base URL fill on #38; “Keep the same paths” rings on #39; What happens fills, the pistachio row rings; the www pill lands on “The www version comes along too”.\nOUT: The form switches to “Map URLs one by one”.\nVOICE: calm, product voice · SOUND: Transition (2 of 2); a click on Create and on Website Migration.\nFEEL: Easy. · ROOM: Light (product)\nUI: Dashboard (lviv) prototype 03-create-migration (Oct 25). The www line is unconfirmed for migrations (open-questions UI-3).",
+      "text": "Beats 36–39. In RedirHub: one Website Migration, same paths, from getfrostyfusion.com to getfrostybites.com.\nIN: Transition (2 of 2). Links, Create, Website Migration as three quick cuts on her three words (the real create chooser). Old domain and New base URL fill on #38; “Keep the same paths” rings on #39; What happens fills, the strawberry row rings; the www pill lands on “The www version comes along too”.\nOUT: The form switches to “Map URLs one by one”.\nVOICE: calm, product voice · SOUND: Transition (2 of 2); a click on Create and on Website Migration.\nFEEL: Easy. · ROOM: Light (product)\nUI: Dashboard (lviv) prototype 03-create-migration (Oct 25); its arrows are the product’s own. The www line is unconfirmed for migrations (open-questions UI-3).",
       "w": 1180,
       "x": 8000,
       "y": 11620
+    },
+    "w44-OldMenu-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats new (after 51). The twist: even a menu printed in 2021, with the old name and the old QR, still lands on the strawberry.\nIN: Cut to colour (the brand sweep). The old menu slides in with its “PRINTED IN 2021” tag. A phone scans its QR slot; the explainer fills line by line (THE OLD MENU SAYS, THE PHONE OPENS) and the phone lands on the strawberry page with a teal check.\nOUT: Silence for a beat, then cut to the wobble.\nVOICE: [delighted], a little amazed · SOUND: One sparkle when the phone lands.\nFEEL: Joy: “oh, that still works?” · ROOM: Brand sweep\nNew frame and new VO (script-deltas #18). The joyful twist Leo asked for: unexpected, and it teaches that redirects catch printed links too.",
+      "w": 1180,
+      "x": 2000,
+      "y": 13820
     },
     "w44-OneToOne-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 35. One old page, one matching new page: that’s the rule.\nIN: Time-reverse, the film’s only one: the drips run back up, the card lifts, and the bent lines un-bend; each old page snaps onto its twin, one per row, with a 301 tag. The pistachio row snaps last and thickest.\nOUT: Transition (2 of 2) into the dashboard.\nVOICE: [firm] · SOUND: Rewind (once); one soft snap per row.\nFEEL: Click. Relief. · ROOM: Teal mesh",
+      "text": "Beats 35. One old page, one matching new page: that’s the rule.\nIN: Time-reverse, the film’s only one: the drips run back up, the card lifts, and the bent lines un-bend; each old page snaps onto its twin, one per row, with a 301 tag. The strawberry row snaps last and thickest.\nOUT: Transition (2 of 2) into the dashboard.\nVOICE: [firm] · SOUND: Rewind (once); one soft snap per row.\nFEEL: Click. Relief. · ROOM: Glow, teal\nPlain lines with a 301 tag, no arrowheads.",
       "w": 1180,
       "x": 6000,
       "y": 11620
@@ -875,7 +883,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 19–21. Google ranks pages, not domains: the site is a map of pages, each with its own history.\nIN: Cut to the lab. The tree draws out from “/” as she names the homepage, the flavor menu and the pistachio page; history badges pop on #21.\nOUT: Shared-element morph into the next frame (same tree).\nVOICE: clear, teaching · SOUND: Pad only.\nFEEL: “Oh, it’s pages.” · ROOM: Lab\nNumbers are labelled “Example numbers”.",
+      "text": "Beats 19–21. Google ranks pages, not domains: the site is a map of pages, each with its own history.\nIN: Cut. The tree draws out from “/” as she names the homepage, the flavor menu and the strawberry page; history badges pop on #21.\nOUT: Shared-element morph into the next frame (same tree).\nVOICE: clear, teaching · SOUND: Pad only.\nFEEL: “Oh, it’s pages.” · ROOM: Charcoal\nNumbers labelled “Example numbers”.",
       "w": 1180,
       "x": 0,
       "y": 9420
@@ -884,7 +892,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 40–43. Paste the changed pages; RedirHub shows what it will create and flags a problem row before anything is created.\nIN: On “Paste your map” the rows paste in; the CSV card rings on “spreadsheet file”. What happens fills; the skipped row takes a red ring on “flags every row with a problem”. Redirect type rings teal on “301”. The DNS-and-padlock tip slides in on #43 (register change).\nOUT: Create 2 redirects → success → cut to step three.\nVOICE: calm · SOUND: Click on Create; one success.\nFEEL: Safe: nothing goes live by accident. · ROOM: Light (product)\nThe skip wording is the prototype’s. Tags and Monitoring rows are cropped (open-questions UI-4).",
+      "text": "Beats 40–43. Paste the changed pages; RedirHub shows what it will create and flags a problem row before anything is created.\nIN: On “Paste your map” the rows paste in; the CSV card rings on “spreadsheet file”. What happens fills; the skipped row takes a red ring on “flags every row with a problem”. Redirect type rings teal on “301”. The DNS-and-padlock tip slides in on #43 (register change).\nOUT: Create 2 redirects, a success, then cut to step three.\nVOICE: calm · SOUND: Click on Create; one success.\nFEEL: Safe: nothing goes live by accident. · ROOM: Light (product)\nThe skip wording is the prototype’s. Tags and Monitoring rows are cropped (open-questions UI-4).",
       "w": 1180,
       "x": 10000,
       "y": 11620
@@ -893,7 +901,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 13. Same shop, new name.\nIN: Shared-element morph on “Velvet Scoop”: the ice-cube-molar’s two roots soften into drips, the cube rounds into a scoop, frost warms to pistachio, a cone slides in under it and its rim curves into a smile. The monoline caps loosen into the soft serif. The pill under it rolls from the old domain to the new one on “velvetscoop.com”.\nOUT: The new pill slides right and becomes the new site in the next frame.\nVOICE: [excited] · SOUND: One shimmer on the morph.\nFEEL: Delight: the shop smiles. · ROOM: Light\nThe ghost of the old sign stays faintly on the left so the morph reads.",
+      "text": "Beats 13. Same shop, new name: Frosty Bites.\nIN: Shared-element morph on “Frosty Bites”: the swirl splits into two scoops, the blue one opens its eyes and smiles, a drip runs over the rim, and “Fusion” rolls to “Bites”. The old logo slides left and fades to BEFORE; the domain pill rolls to the new address.\nOUT: The new pill slides right and becomes the new site in the next frame.\nVOICE: [excited] · SOUND: One shimmer on the morph.\nFEEL: Delight: the shop smiles, literally. · ROOM: Light\nLabels (BEFORE / NOW) instead of an arrow.",
       "w": 1180,
       "x": 2000,
       "y": 7220
@@ -902,16 +910,16 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 59–61. A few weeks later, the same search: Velvet Scoop in the exact slot Frosty Bites held.\nIN: Shared-element morph with Search: the identical page, the identical slot. The card re-freezes into place and its name and address roll from Frosty Bites to Velvet Scoop in place.\nOUT: Dock: the card shrinks under the end-card headline.\nVOICE: [warm] → [proud] · SOUND: Fixed chime (2 of 2) on “right where Frosty Bites used to be”.\nFEEL: The story clicks shut. · ROOM: Light\nSame “Example search” label as Search.",
+      "text": "Beats 59–61. A few weeks later, the same search: Frosty Bites in the exact slot Frosty Fusion held.\nIN: Shared-element morph with Search: the identical page, the identical slot. The card re-freezes into place and its name and address roll from Frosty Fusion to Frosty Bites in place.\nOUT: Dock: the card shrinks under the end-card headline.\nVOICE: [warm] then [proud] · SOUND: Fixed chime (2 of 2) on “right where Frosty Fusion used to be”.\nFEEL: The story clicks shut. · ROOM: Light\nSame “Example search” label as Search.",
       "w": 1180,
-      "x": 8000,
+      "x": 10000,
       "y": 13820
     },
     "w44-SEO-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 5–8. SEO is what makes Google pick your page, and for Frosty Bites all of it is tied to one address.\nIN: The headline lands on “SEO”. Ropes draw from the pill as she names them: pages, food blogs, reviews.\nOUT: On “[pause] … frostybites.com” everything holds, then cut.\nVOICE: plain, then [pause] on the address · SOUND: Pad only; the pause is the beat.\nFEEL: “So that’s what SEO is.” · ROOM: Dark mesh\nBlogs and reviews are generic; no reviewer or platform named. Stars are ink, not amber.",
+      "text": "Beats 5–8. SEO is what makes Google pick your page, and for Frosty Fusion all of it is tied to one address.\nIN: The headline lands on “SEO”. The ropes draw out from the pill as she names them: pages, food blogs, reviews.\nOUT: On “[pause] … getfrostyfusion.com” everything holds, then cut.\nVOICE: plain, then [pause] on the address · SOUND: Pad only; the pause is the beat.\nFEEL: “So that’s what SEO is.” · ROOM: Glow\nBlogs and reviews are generic; no reviewer or platform named. Stars are ink, not amber.",
       "w": 1180,
       "x": 4000,
       "y": 5020
@@ -920,7 +928,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 3–4. Search for the best pistachio near the shop, and Frosty Bites is #1.\nIN: The scoop icon lands in the card; the query writes itself on “best pistachio ice cream” (no typing sound); the card rises into slot 1 on “there they are”.\nOUT: Dock: the card shrinks into the address pill at the centre of the next frame.\nVOICE: [curious] → [proud] · SOUND: Pad only.\nFEEL: Pride, theirs. · ROOM: Light\nThe page is generic (no search engine named or drawn) and labelled “Example search”.",
+      "text": "Beats 3–4. Search for the best strawberry ice cream near the shop, and Frosty Fusion is #1.\nIN: The scoop icon lands in the card; the query writes itself on “best strawberry ice cream” (no typing sound); the card rises into slot 1 on “there they are”.\nOUT: Dock: the card shrinks into the address pill at the centre of the next frame.\nVOICE: [curious] then [proud] · SOUND: Pad only.\nFEEL: Pride, theirs. · ROOM: Light\nGeneric (no search engine named or drawn), labelled “Example search”.",
       "w": 1180,
       "x": 2000,
       "y": 5020
@@ -929,7 +937,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 1–2. This is Frosty Bites, and its pistachio is famous.\nIN: Cut on “Meet” (cold open). The site is already there; on “pistachio” the pistachio tile lifts and takes its ring. 5 · 40 · 1 land on her three numbers.\nOUT: Shared-element morph: the pistachio tile’s scoop icon flies out of the site and becomes the icon on the search result.\nVOICE: [warm] · SOUND: Pad only.\nFEEL: “I’d go there.” · ROOM: Light",
+      "text": "Beats 1–2. This is Frosty Fusion, and its strawberry is famous.\nIN: Cut on “Meet” (cold open). The site is already there; on “strawberry” the strawberry tile lifts and takes its ring. The three number stickers pop on her three numbers.\nOUT: Shared-element morph: the strawberry tile’s scoop icon flies out of the site and becomes the icon on the search result.\nVOICE: [warm] · SOUND: Pad only.\nFEEL: “I’d go there.” · ROOM: Light",
       "w": 1180,
       "x": 0,
       "y": 5020
@@ -938,16 +946,25 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 29–32. Sending every old page to the new homepage looks perfect, and strands the visitor.\nIN: On “send everything to the new homepage” every line bends into one homepage (draw). Teal ticks on “No errors” (it really does look fixed). [pause], then the cursor wanders the homepage in a loop: “Where’s the pistachio?”\nOUT: The room drops for the twist; the old cards stay, the homepage falls away.\nVOICE: [conspiratorial] → [light] → [pause] · SOUND: Pad only.\nFEEL: Smug, then uh-oh. · ROOM: Light\nSame old cards as the one-to-one frame, so the fix reads as a reversal.",
+      "text": "Beats 29–32. Sending every old page to the new homepage looks perfect, and strands the visitor.\nIN: On “send everything to the new homepage” every line bends into one homepage (draw). Teal ticks on “No errors” (it really does look fixed). [pause], then the cursor wanders the homepage in a loop: “Where’s the strawberry?”\nOUT: The room drops to the Glow; the old cards stay, the homepage falls away.\nVOICE: [conspiratorial] then [light] then [pause] · SOUND: Pad only.\nFEEL: Smug, then uh-oh. · ROOM: Light\nSame old cards as the one-to-one frame, so the fix reads as a reversal.",
       "w": 1180,
       "x": 2000,
       "y": 11620
+    },
+    "w44-Smoothie-note": {
+      "maxH": 560,
+      "page": "w44",
+      "size": 24,
+      "text": "Beats 9–12. The name has a problem: “Fusion” sounds like a smoothie bar.\nIN: Register change (an aside): the sign hangs in the light room; bubble one pops on “smoothie bar”, bubble two on “green detox”. On [sighs] a striped straw drops into the Frosty Fusion swirl. One gag only.\nOUT: Cut to the rename.\nVOICE: [amused] then [laughs softly] then [sighs] · SOUND: None. Her laugh is the sound.\nFEEL: A giggle, and sympathy. · ROOM: Light\nReplaces round 1’s dental-clinic frame.",
+      "w": 1180,
+      "x": 0,
+      "y": 7220
     },
     "w44-Sound-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats —. Effects only on story beats; the voice tag each frame plays under.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nChanged from W43: noted on the board. No audio made in this pass.",
+      "text": "Beats —. Effects only on story beats; the voice tag each frame plays under.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nNo audio made in this pass.",
       "w": 1180,
       "x": 2000,
       "y": 16020
@@ -956,7 +973,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 24 (+58 recap). Three steps: map it, redirect it, tell Google.\nIN: The tree docks into card 01; the three cards rise on her three words. “Then let it settle.” waits for the recap.\nOUT: Card 01 morphs into the map sheet (shared element). At the recap (#58) the frame returns and each card takes a teal check as she names it.\nVOICE: clear · SOUND: Pad only.\nFEEL: A plan you can hold. · ROOM: Brand radial",
+      "text": "Beats 24 (+58 recap). Three steps: map it, redirect it, tell Google.\nIN: The tree docks into card 01; the three cards rise on her three words. “Then let it settle.” waits for the recap.\nOUT: Card 01 opens into the map sheet (shared element). At the recap (#58) the frame returns and each card takes a teal check as she names it.\nVOICE: clear · SOUND: Pad only.\nFEEL: A plan you can hold. · ROOM: Brand radial\nThe cards sit at three heights (a staircase); none is tilted.",
       "w": 1180,
       "x": 4000,
       "y": 9420
@@ -965,7 +982,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats —. Rooms per story beat, colour roles, type, the story-world palettes.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nChanged from W43: noted on the board.",
+      "text": "Beats —. Gradient rooms only, colour roles, type, the shop palette.\nIN: —\nOUT: —\nVOICE: — · SOUND: —\nFEEL: — · ROOM: —\nChanged in round 2: noted on the board.",
       "w": 1180,
       "x": 0,
       "y": 16020
@@ -974,7 +991,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 44–46. Tell Google you’ve moved: change of address, then the new sitemap.\nIN: Cut. The old site sits in the panel; the new site is picked on #45 and “Move requested” ticks; the sitemap row ticks “Submitted” on #46. The two numbered lines land beside it.\nOUT: The panel docks; the shop props fly in.\nVOICE: calm · SOUND: One pop per tick (2).\nFEEL: “Done, that was easy.” · ROOM: Light\nGeneric, labelled “Generic illustration, not the real console”. Progress bar 3 of 3.",
+      "text": "Beats 44–46. Tell Google you’ve moved: change of address, then the new sitemap.\nIN: Cut. The old site sits in the panel; the new site is picked on #45 and “Move requested” ticks; the sitemap row ticks “Submitted” on #46. The two numbered lines land beside it.\nOUT: The panel docks; the shop props fly in.\nVOICE: calm · SOUND: One pop per tick (2).\nFEEL: “Done, that was easy.” · ROOM: Light\nGeneric, labelled “Generic illustration, not the real console”. “to” between the fields, no arrow. Progress bar 3 of 3.",
       "w": 1180,
       "x": 12000,
       "y": 11620
@@ -983,7 +1000,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 18. The promise: how to change your domain name without losing SEO, in three steps.\nIN: Transition (1 of 2). The arrow draws from the old pill to the new; the title lands, then “Three steps.”\nOUT: Cut.\nVOICE: [curious], even · SOUND: Transition (1 of 2).\nFEEL: A promise, not a pitch. · ROOM: Brand sweep + floor\nHold ≥ 4.7 s (11 words on screen); beat 18 runs about 6 s.",
+      "text": "Beats 18. The promise: how to change your domain name without losing SEO, in three steps.\nIN: Transition (1 of 2). The two pills land with “becomes” between them (no arrow); the title lands, then “Three steps.”\nOUT: Cut.\nVOICE: [curious], even · SOUND: Transition (1 of 2).\nFEEL: A promise, not a pitch. · ROOM: Brand sweep (no floor)\nHold ≥ 4.7 s (11 words on screen); beat 18 runs about 6 s.",
       "w": 1180,
       "x": 6000,
       "y": 7220
@@ -992,25 +1009,25 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 54. RedirHub analytics show how many people still come in through the old domain.\nIN: Cut to Analytics. The old domain’s row rings as she says it.\nOUT: Cut.\nVOICE: calm · SOUND: Pad only.\nFEEL: “I can watch it.” · ROOM: Light (product)\nNew frame. VO proposed per domain, not per path (script-deltas #19). Numbers are “Example numbers”.",
+      "text": "Beats 54. RedirHub analytics show how many people still come in through the old domain.\nIN: Cut to Analytics. The old domain’s row rings as she says it.\nOUT: Cut.\nVOICE: calm · SOUND: Pad only.\nFEEL: “I can watch it.” · ROOM: Light (product)\nVO proposed per domain, not per path (script-deltas #22). Numbers are “Example numbers”.",
       "w": 1180,
-      "x": 4000,
+      "x": 6000,
       "y": 13820
     },
     "w44-Wobble-note": {
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 52–53. Rankings may wobble for a few weeks; that’s normal, don’t undo the redirects.\nIN: The track draws left to right; the scoop rides it down after “the move”, dips twice, and settles back at #1 by week 4 on “It’s normal”. The caption lands on “don’t undo the redirects”.\nOUT: Cut.\nVOICE: [gently] → [reassuring] · SOUND: Pad only.\nFEEL: Calm. Nobody panics. · ROOM: Charcoal\nLabelled “Example”: no timing or recovery is promised.",
+      "text": "Beats 52–53. Rankings may wobble for a few weeks; that’s normal, don’t undo the redirects.\nIN: The track draws left to right; the scoop rides it down after “the move”, dips twice, and settles back at #1 by week 4 on “It’s normal”. The caption lands on “don’t undo the redirects”.\nOUT: Cut.\nVOICE: [gently] then [reassuring] · SOUND: Pad only.\nFEEL: Calm. Nobody panics. · ROOM: Charcoal\nLabelled “Example”: no timing or recovery is promised.",
       "w": 1180,
-      "x": 2000,
+      "x": 4000,
       "y": 13820
     },
     "w44-World-note": {
       "maxH": 600,
       "page": "w44",
       "size": 24,
-      "text": "Logos and sites are original. Fraunces is the one prop typeface (Velvet Scoop only); Frosty Bites’ wordmark is drawn. Shop palettes are gated to the shop world by the checker.",
+      "text": "Both logos are built on Leo’s cup-of-scoops reference: Frosty Fusion holds one blue-and-pink swirl, Frosty Bites two scoops (one smiles). Fredoka is the one prop typeface, logos only. The palette is gated to the shop world by the checker.",
       "w": 1180,
       "x": 3400,
       "y": 1300
@@ -1019,7 +1036,7 @@
       "maxH": 560,
       "page": "w44",
       "size": 24,
-      "text": "Beats 14–17. Will the #1 spot survive the move?\nIN: The room drops to Night (the thought that keeps owners up at night). The card from Search slides back in with a “?”; on “total stranger” the new site arrives with three empty sockets: no links, no reviews, no history.\nOUT: Transition (1 of 2) into the title on “three steps”.\nVOICE: [pause] [worried] → [reassuring] · SOUND: Transition whoosh into the title.\nFEEL: The real worry, said out loud. · ROOM: Night\nVO #17 needs a hedge (script-deltas #4).",
+      "text": "Beats 14–17. Will the #1 spot survive the move?\nIN: The room changes to the Glow. The card from Search slides back in with a “?”; on “total stranger” the new site arrives with three empty sockets: no links, no reviews, no history.\nOUT: Transition (1 of 2) into the title on “three steps”.\nVOICE: [pause] [worried] then [reassuring] · SOUND: Transition whoosh into the title.\nFEEL: The real worry, said out loud. · ROOM: Glow\nRound 1’s moon is gone. VO #17 needs a hedge (script-deltas #6).",
       "w": 1180,
       "x": 4000,
       "y": 7220
@@ -1029,7 +1046,7 @@
       "maxH": 1100,
       "page": "w44",
       "size": 40,
-      "text": "How to Change Your Domain Name Without Losing SEO · W44 · key-frame pass for Review 2.\n\nThe story: Frosty Bites (people kept asking if it was a dental clinic) becomes Velvet Scoop without losing its place on Google. The thread is the pistachio page: it ranks #1, the owner fears losing it, it’s the example in the map, it melts in the twist, it passes the test, and it’s back in the same slot at the end.\n\nComment on any frame; the sticky under it gives the beats, the move in and out, the voice tag, the sound, the feeling and the room.\n\nFiles: youtube/02_videos/2026-W44_change-domain-seo/ in redirhub/reels (branch yt/w44-keyframes): keyframes.md, script-deltas.md, open-questions.md.",
+      "text": "How to Change Your Domain Name Without Losing SEO · W44 · key-frame pass for Review 2, round 2.\n\nThe story: Frosty Fusion (customers keep ordering smoothies) becomes Frosty Bites without losing its place on Google. The thread is the strawberry page: it ranks #1, the owner fears losing it, it’s the example in the map, it melts, it passes the test, an old printed menu still finds it, and it’s back in the same slot at the end.\n\nRound 2, from Leo’s notes: new names and pink-and-blue logos on the cup-of-scoops reference; strawberry; nothing tilted; no Dark mesh, grids or floors; no eyebrow dash; fewer arrows; a joyful twist (old menus still work).\n\nFiles: youtube/02_videos/2026-W44_change-domain-seo/ in redirhub/reels (branch yt/w44-keyframes): keyframes.md, script-deltas.md, open-questions.md.",
       "w": 900,
       "x": 3400,
       "y": 0
@@ -1038,7 +1055,7 @@
       "kind": "title1",
       "maxW": 5920,
       "page": "w44",
-      "text": "A · Meet Frosty Bites",
+      "text": "A · Meet Frosty Fusion",
       "w": 240,
       "x": 0,
       "y": 3640
@@ -1063,18 +1080,18 @@
     },
     "w44rowD": {
       "kind": "title1",
-      "maxW": 15920,
+      "maxW": 8000,
       "page": "w44",
-      "text": "D · The three steps, the shortcut and the twist",
+      "text": "D · The three steps, the shortcut and the catch",
       "w": 240,
       "x": 0,
       "y": 10240
     },
     "w44rowE": {
       "kind": "title1",
-      "maxW": 11920,
+      "maxW": 8000,
       "page": "w44",
-      "text": "E · Proof, wobble, keep, and the same spot",
+      "text": "E · Proof, the sweet surprise, and the same spot",
       "w": 240,
       "x": 0,
       "y": 12440
@@ -1137,7 +1154,7 @@
     "w44-Shop.dc.html",
     "w44-Search.dc.html",
     "w44-SEO.dc.html",
-    "w44-Dentist.dc.html",
+    "w44-Smoothie.dc.html",
     "w44-Rename.dc.html",
     "w44-Worry.dc.html",
     "w44-Title.dc.html",
@@ -1153,6 +1170,7 @@
     "w44-TellGoogle.dc.html",
     "w44-Everything.dc.html",
     "w44-Checker.dc.html",
+    "w44-OldMenu.dc.html",
     "w44-Wobble.dc.html",
     "w44-Watch.dc.html",
     "w44-Keep.dc.html",

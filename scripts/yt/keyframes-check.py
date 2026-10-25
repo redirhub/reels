@@ -13,7 +13,8 @@ only, so those layers may reach the edge.
 A story world (W44 on) may add one prop typeface for its fictional logos and a palette for its fictional
 shops: PROP_FONT=<family> PROP_FONT_FILE=<woff2> allows that family only inside [data-logo], and SHOP_HEX="AABBCC ..."
 allows those colours only inside [data-shop] or [data-logo]. A board that is not 1920 x 1080 (a world or
-reference sheet) skips the safe-area and ink checks; fonts, colours and amber still apply.
+reference sheet) skips the safe-area and ink checks; fonts, colours and amber still apply. NO_TILT=1 flags any element
+that is rotated, skewed or put in perspective (Leo, W44: nothing on screen is tilted).
 
 Each frame is written with literal markup (no {{holes}}), so it renders in plain Chromium once the
 canvas runtime line is dropped and the brand fonts are loaded from public/fonts. The audit runs in
@@ -32,6 +33,7 @@ PREFIX = os.environ.get('PREFIX', 'w43-')
 PROP_FONT = os.environ.get('PROP_FONT', '')
 PROP_FONT_FILE = os.environ.get('PROP_FONT_FILE', '')
 SHOP_HEX = os.environ.get('SHOP_HEX', '').split()
+NO_TILT = os.environ.get('NO_TILT', '') == '1'
 os.makedirs(WORK, exist_ok=True); os.makedirs(STILLS, exist_ok=True)
 
 FACES = f"""
@@ -73,6 +75,14 @@ window.addEventListener('load', () => setTimeout(() => {
     if (film && (box.x < 120 || box.r > 1800)) out.viol.push(`text outside the 120px gutters (x ${box.x}-${box.r}): ${t}`);
     if (end && box.r > 960 && !el.closest('[data-allow-right]')) out.viol.push(`end card text in the right half: ${t}`);
   }
+  if (__NOTILT__) root.querySelectorAll('*').forEach(el => {
+    const t = getComputedStyle(el).transform;
+    if (!t || t === 'none') return;
+    if (t.startsWith('matrix3d')) { out.viol.push(`tilted (3D) element: ${el.tagName.toLowerCase()} ${(el.textContent || '').trim().slice(0, 30)}`); return; }
+    const m = t.match(/matrix\(([^)]+)\)/); if (!m) return;
+    const [a, b, c, d] = m[1].split(',').map(Number);
+    if (Math.abs(b) > 1e-3 || Math.abs(c) > 1e-3) out.viol.push(`tilted element: ${el.tagName.toLowerCase()} ${(el.textContent || '').trim().slice(0, 30)}`);
+  });
   const AMBER = 'rgb(229, 148, 38)';
   root.querySelectorAll('*').forEach(el => {
     if (el.closest('[data-logo]')) return;
@@ -120,7 +130,7 @@ def page(src, bg_only=False):
     s = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^>]*>', '', s)
     s = s.replace('<head>', '<head><style>' + FACES + '</style>', 1)
     shop = '[' + ', '.join("'rgb(%d, %d, %d)'" % tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) for h in SHOP_HEX) + ']'
-    s = s.replace('</body>', AUDIT.replace('__PROP__', PROP_FONT).replace('__SHOP__', shop) + '</body>')
+    s = s.replace('</body>', AUDIT.replace('__PROP__', PROP_FONT).replace('__SHOP__', shop).replace('__NOTILT__', 'true' if NO_TILT else 'false') + '</body>')
     return s
 
 def chrome(args, size=(1920, 1080)):
