@@ -1,0 +1,9 @@
+{
+  "_doc": "Music bed for this video, built by scripts/yt/bed-build.py. Swap 'source' for a track from youtube/01_library/audio/music/ (Leo's RedirHub sounds) and rebuild; the build refuses any setting that brings the music near the voice.",
+  "source": "generated",
+  "start": 0,
+  "speech": -29,
+  "gaps": -25,
+  "fadeIn": 1.5,
+  "fadeOut": 3.0
+}

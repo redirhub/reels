@@ -1,0 +1,581 @@
+1
+00:00:00,414 --> 00:00:01,671
+Meet Frosty Fusion.
+
+2
+00:00:01,986 --> 00:00:04,586
+A little ice cream shop with a very loyal
+following.
+
+3
+00:00:04,900 --> 00:00:06,329
+Five years of scooping.
+
+4
+00:00:06,586 --> 00:00:07,729
+Forty flavors.
+
+5
+00:00:07,929 --> 00:00:10,986
+And one strawberry that people drive
+across town for.
+
+6
+00:00:11,500 --> 00:00:15,157
+Now, type "best strawberry ice cream" into
+Google, anywhere near their shop…
+
+7
+00:00:15,529 --> 00:00:17,414
+…and there they are. Right at the top.
+
+8
+00:00:17,708 --> 00:00:19,537
+That spot didn't happen by luck.
+
+9
+00:00:19,822 --> 00:00:21,434
+It's SEO.
+
+10
+00:00:21,484 --> 00:00:25,830
+SEO, search engine optimization,
+is everything that helps Google decide
+
+11
+00:00:25,880 --> 00:00:28,394
+your page is the best answer to a search.
+
+12
+00:00:28,708 --> 00:00:31,565
+For Frosty Fusion,
+that's five years of it.
+
+13
+00:00:32,022 --> 00:00:33,537
+Pages Google trusts.
+
+14
+00:00:33,594 --> 00:00:35,680
+Food blogs that linked to their
+strawberry.
+
+15
+00:00:35,880 --> 00:00:37,737
+Reviews that mention them by name.
+
+16
+00:00:38,165 --> 00:00:42,880
+And all of it is tied to one address:
+getfrostyfusion.com.
+
+17
+00:00:43,280 --> 00:00:45,537
+There was one small problem.
+
+18
+00:00:46,251 --> 00:00:49,851
+Customers kept asking if Frosty Fusion was
+a smoothie bar.
+
+19
+00:00:50,137 --> 00:00:53,316
+One ordered a green detox. Fair.
+
+20
+00:00:53,366 --> 00:00:55,994
+"Fusion" does sound a little… blended.
+
+21
+00:00:56,280 --> 00:00:57,566
+So, a new name.
+
+22
+00:00:57,823 --> 00:00:58,937
+Frosty Bites.
+
+23
+00:00:59,051 --> 00:01:01,594
+Short, sweet, and nobody's ordering kale.
+
+24
+00:01:01,880 --> 00:01:04,623
+New domain: getfrostybites.com.
+
+25
+00:01:04,827 --> 00:01:08,398
+And then comes the thought that keeps
+every business owner up at night.
+
+26
+00:01:08,684 --> 00:01:10,627
+What happens to the Google spot?
+
+27
+00:01:10,913 --> 00:01:12,313
+The strawberry page.
+
+28
+00:01:12,484 --> 00:01:13,798
+The five years.
+
+29
+00:01:14,084 --> 00:01:18,577
+Change the domain the wrong way,
+and Google meets Frosty Bites like a total
+
+30
+00:01:18,627 --> 00:01:22,377
+stranger. Do it right,
+and Google can carry your rankings over to
+
+31
+00:01:22,427 --> 00:01:25,113
+the new name. You don't start from zero.
+
+32
+00:01:25,684 --> 00:01:28,570
+So how do you change your domain name
+without losing SEO?
+
+33
+00:01:28,998 --> 00:01:30,741
+It comes down to three steps.
+
+34
+00:01:31,380 --> 00:01:33,780
+First, the thing most people get wrong.
+
+35
+00:01:34,065 --> 00:01:35,837
+Google doesn't rank your domain.
+
+36
+00:01:36,008 --> 00:01:37,351
+It ranks your pages.
+
+37
+00:01:37,637 --> 00:01:42,037
+To Google, Frosty Fusion is a list of
+addresses. The homepage.
+
+38
+00:01:42,180 --> 00:01:43,208
+The flavor menu.
+
+39
+00:01:43,608 --> 00:01:49,380
+And that famous page:
+getfrostyfusion.com/flavors/strawberry.
+
+40
+00:01:50,037 --> 00:01:51,951
+Each page has its own history.
+
+41
+00:01:52,237 --> 00:01:54,694
+How long it has ranked,
+and who links to it.
+
+42
+00:01:55,351 --> 00:01:58,473
+Change the domain,
+and every one of those addresses changes
+
+43
+00:01:58,523 --> 00:02:01,265
+too. The new ones start with no history.
+
+44
+00:02:01,551 --> 00:02:03,494
+So the job isn't moving a domain.
+
+45
+00:02:03,751 --> 00:02:07,940
+It's moving every page,
+in a way Google can follow. Three steps.
+
+46
+00:02:08,026 --> 00:02:10,712
+Map it. Redirect it. Tell Google.
+
+47
+00:02:10,982 --> 00:02:12,611
+Step one: the map.
+
+48
+00:02:12,896 --> 00:02:15,811
+Old address on the left,
+new address on the right.
+
+49
+00:02:16,096 --> 00:02:22,639
+getfrostyfusion.com/flavors/strawberry
+becomes
+
+50
+00:02:22,725 --> 00:02:27,896
+getfrostybites.com/flavors/strawberry.
+
+51
+00:02:28,696 --> 00:02:32,325
+If the paths stay the same,
+one rule covers every page.
+
+52
+00:02:32,811 --> 00:02:35,896
+If some pages changed,
+each one gets its own line.
+
+53
+00:02:36,182 --> 00:02:41,304
+Quick tip: before you change anything,
+export your page list from your sitemap or
+
+54
+00:02:41,354 --> 00:02:42,668
+from Google Search Console.
+
+55
+00:02:42,725 --> 00:02:43,868
+That's your inventory.
+
+56
+00:02:44,168 --> 00:02:47,311
+Now, here's where most domain changes
+quietly go wrong.
+
+57
+00:02:47,768 --> 00:02:50,197
+Mapping every page feels like a chore.
+
+58
+00:02:50,483 --> 00:02:54,083
+So people take a shortcut:
+send everything to the new homepage.
+
+59
+00:02:54,368 --> 00:02:55,425
+And it looks perfect.
+
+60
+00:02:55,825 --> 00:02:58,740
+Every old link lands somewhere. No errors.
+
+61
+00:02:59,025 --> 00:03:02,511
+Strawberry fans arrive at
+getfrostybites.com.
+
+62
+00:03:03,254 --> 00:03:04,854
+But they wanted the strawberry.
+
+63
+00:03:05,168 --> 00:03:07,168
+Now they're on a homepage, hunting for it.
+
+64
+00:03:07,454 --> 00:03:08,968
+And Google notices too.
+
+65
+00:03:09,254 --> 00:03:11,654
+Hundreds of pages, all poured into one.
+
+66
+00:03:11,940 --> 00:03:14,654
+It can treat them as pages that no longer
+exist.
+
+67
+00:03:14,940 --> 00:03:17,597
+And that top spot for "best strawberry ice
+cream"?
+
+68
+00:03:17,883 --> 00:03:19,397
+It starts to melt.
+
+69
+00:03:20,625 --> 00:03:24,568
+One old page,
+one matching new page. That's the rule.
+
+70
+00:03:25,067 --> 00:03:27,095
+Step two: the redirects.
+
+71
+00:03:27,438 --> 00:03:32,009
+Here's what that looks like in RedirHub.
+Links. Create.
+
+72
+00:03:32,294 --> 00:03:33,609
+Website Migration.
+
+73
+00:03:33,894 --> 00:03:37,351
+Old domain: getfrostyfusion.com.
+
+74
+00:03:37,637 --> 00:03:41,037
+New domain: getfrostybites.com.
+
+75
+00:03:41,323 --> 00:03:42,380
+Same paths?
+
+76
+00:03:42,666 --> 00:03:46,437
+One same-path rule,
+and every page forwards to its twin.
+
+77
+00:03:46,723 --> 00:03:47,923
+Changed pages?
+
+78
+00:03:48,209 --> 00:03:52,209
+Paste your map,
+or upload it as a spreadsheet file, a CSV.
+
+79
+00:03:52,494 --> 00:03:56,016
+Before anything goes live,
+RedirHub shows you what it will create,
+
+80
+00:03:56,066 --> 00:03:58,151
+and flags every row with a problem.
+
+81
+00:03:58,609 --> 00:04:01,294
+Nothing is created until you click Create.
+
+82
+00:04:01,580 --> 00:04:05,180
+Every redirect should be a 301,
+the permanent kind.
+
+83
+00:04:05,523 --> 00:04:09,666
+It's the signal Google uses to carry a
+page's history to its new address.
+
+84
+00:04:09,951 --> 00:04:15,780
+Then point getfrostyfusion.com at RedirHub
+with the records it gives you.
+
+85
+00:04:16,066 --> 00:04:18,216
+The padlock is set up automatically.
+
+86
+00:04:18,266 --> 00:04:20,009
+Our earlier videos walk through it.
+
+87
+00:04:20,416 --> 00:04:22,987
+Step three: tell Google you've moved.
+
+88
+00:04:23,559 --> 00:04:27,044
+Google Search Console is Google's free
+dashboard for your site.
+
+89
+00:04:27,559 --> 00:04:31,651
+Open the old site there,
+and use Change of Address to point it at
+
+90
+00:04:31,701 --> 00:04:36,787
+the new one. Then submit the new sitemap:
+the list of pages you want Google to find.
+
+91
+00:04:37,301 --> 00:04:39,301
+And update everything you control.
+
+92
+00:04:39,559 --> 00:04:40,959
+Your site's own links.
+
+93
+00:04:41,016 --> 00:04:42,273
+Your Instagram bio.
+
+94
+00:04:42,501 --> 00:04:44,044
+The QR code on the menu.
+
+95
+00:04:44,244 --> 00:04:45,701
+Your Google Maps listing.
+
+96
+00:04:45,873 --> 00:04:48,216
+All of it says Frosty Bites now.
+
+97
+00:04:48,490 --> 00:04:50,461
+Now, test it the way Google sees it.
+
+98
+00:04:50,833 --> 00:04:55,347
+Open RedirHub's free Redirect Checker,
+and paste the old strawberry page.
+
+99
+00:04:55,633 --> 00:04:58,097
+One hop. A 301.
+
+100
+00:04:58,147 --> 00:05:04,261
+And it lands on
+getfrostybites.com/flavors/strawberry.
+
+101
+00:05:04,690 --> 00:05:07,247
+That's a pass. Try a few more.
+
+102
+00:05:07,504 --> 00:05:08,733
+Your best sellers.
+
+103
+00:05:09,018 --> 00:05:10,304
+An old blog post.
+
+104
+00:05:10,590 --> 00:05:12,390
+The www version.
+
+105
+00:05:12,584 --> 00:05:14,013
+And here's the sweet part.
+
+106
+00:05:14,470 --> 00:05:19,841
+A regular finds a menu from 2021,
+the one that still says Frosty Fusion.
+
+107
+00:05:20,098 --> 00:05:23,527
+She scans it…
+and lands right on the strawberry.
+
+108
+00:05:23,813 --> 00:05:27,984
+Every old link, every old flyer,
+still works.
+
+109
+00:05:28,724 --> 00:05:30,809
+Then comes the part nobody warns you
+about.
+
+110
+00:05:31,095 --> 00:05:33,381
+For a few weeks, your rankings may wobble.
+
+111
+00:05:33,667 --> 00:05:37,152
+That's Google re-reading your site at its
+new address. It's normal.
+
+112
+00:05:37,438 --> 00:05:40,467
+Whatever you do, don't undo the redirects.
+
+113
+00:05:40,752 --> 00:05:44,217
+And RedirHub's analytics show how many
+people still come in through the old
+
+114
+00:05:44,267 --> 00:05:46,638
+domain, so you can watch the move happen.
+
+115
+00:05:46,933 --> 00:05:48,444
+Two rules before you go.
+
+116
+00:05:48,939 --> 00:05:51,453
+Keep the redirects for at least a year.
+
+117
+00:05:51,739 --> 00:05:54,596
+Google says as long as possible. Honestly?
+
+118
+00:05:54,767 --> 00:05:55,767
+Keep them for good.
+
+119
+00:05:56,282 --> 00:05:59,082
+And keep renewing getfrostyfusion.com.
+
+120
+00:05:59,425 --> 00:06:01,510
+If it expires,
+someone else can buy it,
+
+121
+00:06:01,625 --> 00:06:03,825
+along with every link that still points to
+it.
+
+122
+00:06:04,110 --> 00:06:07,539
+And every strawberry fan who types it. So.
+
+123
+00:06:07,796 --> 00:06:09,167
+Map every page.
+
+124
+00:06:09,396 --> 00:06:14,995
+Redirect each one to its twin with a 301.
+Tell Google. Then let it settle.
+
+125
+00:06:15,384 --> 00:06:19,413
+A few weeks later,
+search "best strawberry ice cream" again…
+
+126
+00:06:19,870 --> 00:06:21,642
+…and there's Frosty Bites.
+
+127
+00:06:21,813 --> 00:06:23,956
+Right where Frosty Fusion used to be.
+
+128
+00:06:24,592 --> 00:06:26,677
+Same ice cream. New name.
+
+129
+00:06:26,963 --> 00:06:28,420
+Same spot on Google.
+
+130
+00:06:28,706 --> 00:06:31,163
+Links to everything in this video are in
+the description.
+
+131
+00:06:31,449 --> 00:06:34,134
+And if you get stuck,
+reach out. We're happy to help.
+
+132
+00:06:34,420 --> 00:06:39,363
+Next week: moving hundreds of domains at
+once, with one spreadsheet.
+

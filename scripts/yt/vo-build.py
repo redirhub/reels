@@ -118,6 +118,53 @@ def align(chunk):
         out.append({'n': n_, 'words': ws})
     return out, total, matched, len(script_words)
 
+# ---- 2b. tighten (optional) ---------------------------------------------------------------------
+# Some models (ElevenLabs v3) leave 0.5–0.9 s between sentences. assembly.json "tighten" shortens every
+# *silent* gap between two words to `keep` seconds when it is longer than `maxGap`: the cut is taken from
+# the middle of the gap (the breath before the next word stays), and only where the cut region is at least
+# `quietDb` below the take's speech level, so a laugh or a sigh (a performed tag) is never cut. `protect`
+# lists gaps to leave alone, as "beat:word" (the word before the gap): the deliberate pauses.
+TIGHT = cfg.get('tighten')
+# assembly.json "tempo": a gentle time-stretch of every take (Rubber Band, formants preserved), e.g. 1.05 for a
+# model that reads slower than the channel's pace. Applied after tightening; 1.0 = off.
+TEMPO = float(cfg.get('tempo', 1.0))
+keep_regions = {}  # chunk id → [(a, b)] in original take time
+def _pcm(path):
+    import numpy as np
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', '16000', '-f', 's16le', '-'], capture_output=True).stdout
+    return np.frombuffer(raw, np.int16).astype(np.float32) / 32768
+def tighten(chunk, bts, total):
+    import numpy as np
+    x = _pcm(os.path.join(vo_dir, 'chunks', chunk['id'] + '.mp3'))
+    db = lambda a, b: 20 * np.log10(np.sqrt(np.mean(x[int(a * 16000):max(int(a * 16000) + 1, int(b * 16000))] ** 2)) + 1e-9)
+    flat = [(b['n'], w) for b in bts for w in b['words']]
+    speech = np.median([db(w['s'], w['e']) for _, w in flat if w['e'] - w['s'] > 0.12] or [-20])
+    protect = set(TIGHT.get('protect', []))
+    cuts = []
+    for (n1, w1), (n2, w2) in zip(flat, flat[1:]):
+        gap = w2['s'] - w1['e']
+        if gap <= TIGHT['maxGap'] or f"{n1}:{norm(w1['w']).replace(' ', '')}" in protect:
+            continue
+        a = w1['e'] + TIGHT['keep'] * 0.45; b = w2['s'] - TIGHT['keep'] * 0.55
+        if b - a > 0.04 and db(a, b) < speech + TIGHT['quietDb']:
+            cuts.append((a, b))
+    keep, at = [], 0.0
+    for a, b in cuts:
+        keep.append((at, a)); at = b
+    keep.append((at, total))
+    keep_regions[chunk['id']] = keep
+    def m(t):
+        out = 0.0
+        for a, b in keep:
+            if t >= b: out += b - a
+            else: return out + max(0.0, t - a)
+        return out
+    for b_ in bts:
+        for w in b_['words']:
+            w['s'] = round(m(w['s']), 3); w['e'] = round(m(w['e']), 3)
+    saved = sum(b - a for a, b in cuts)
+    return bts, total - saved, len(cuts), saved
+
 # ---- 3. cut into beats and lay out --------------------------------------------------------------
 segments = []   # (chunk file, cut_from, cut_to, beat n)
 report = []
@@ -126,6 +173,14 @@ for c in chunks:
         sys.exit(f"missing take {c['id']}.mp3 for beats {c['beats']}")
     bts, total, matched, nwords = align(c)
     report.append(f"{c['id']}: {matched}/{nwords} words matched")
+    if TIGHT:
+        bts, total, n_cut, saved = tighten(c, bts, total)
+        if n_cut: report.append(f"{c['id']}: {n_cut} silent gaps tightened, {saved:.2f}s saved")
+    if TEMPO != 1.0:  # the take is time-stretched (pitch and formants kept): every time scales with it
+        for b_ in bts:
+            for w in b_['words']:
+                w['s'] = round(w['s'] / TEMPO, 3); w['e'] = round(w['e'] / TEMPO, 3)
+        total /= TEMPO
     edges = [0.0]
     for a, b in zip(bts, bts[1:]):
         last_e, first_s = a['words'][-1]['e'], b['words'][0]['s']
@@ -182,6 +237,20 @@ for f in files:
     else:
         sources[f] = os.path.join(tmp_dir, f + '.bwe.wav')
         subprocess.check_call([sys.executable, enh, '--bwe-only', mp3, sources[f]])
+    if f in keep_regions and len(keep_regions[f]) > 1:  # the tightened take: keep regions joined with 5 ms fades
+        parts = ''.join(f"[0:a]atrim={a:.4f}:{b:.4f},asetpts=PTS-STARTPTS,afade=t=in:d=0.005,afade=t=out:st={max(0.0, b - a - 0.005):.4f}:d=0.005[k{i}];"
+                        for i, (a, b) in enumerate(keep_regions[f]))
+        tight = os.path.join(tmp_dir, f + '.tight.wav')
+        subprocess.check_call(['ffmpeg', '-y', '-v', 'error', '-i', sources[f], '-filter_complex',
+                               parts + ''.join(f'[k{i}]' for i in range(len(keep_regions[f]))) + f"concat=n={len(keep_regions[f])}:v=0:a=1[o]",
+                               '-map', '[o]', '-c:a', 'pcm_s24le', tight])
+        sources[f] = tight
+    if TEMPO != 1.0:
+        st = os.path.join(tmp_dir, f + '.tempo.wav')
+        subprocess.check_call(['ffmpeg', '-y', '-v', 'error', '-i', sources[f], '-af',
+                               f'rubberband=tempo={TEMPO}:pitch=1:formant=preserved:pitchq=quality:transients=smooth:detector=soft:window=standard:channels=together',
+                               '-c:a', 'pcm_s24le', st])
+        sources[f] = st
     inputs += ['-i', sources[f]]
 print('AudioSR takes:', ', '.join(f for f in files if sources[f].endswith(f + '.wav') and 'chunks-sr' in sources[f]) or 'none')
 labels = []

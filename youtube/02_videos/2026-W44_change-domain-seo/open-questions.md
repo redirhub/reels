@@ -81,5 +81,14 @@ guarantees, Product Facts' SEO hint in the redirect-type picker.
 - Signal Red `#E5484D` and Night `#0B1426` are still pending approval as channel tokens (carried from W41).
 - The branded link for the end-card QR (drawn as a slot: "Branded QR · link pending").
 - UI-1, UI-2, UI-3, UI-5, UI-8 above.
-- The ElevenLabs v3 delivery tags: the W43 narrator ran on `eleven_multilingual_v2`; the tags in this script need
-  the v3 model. Confirm the voice and model before Review 3.
+- ~~The ElevenLabs v3 delivery tags~~ (film, 2026-10-27): the narration is Emily on `eleven_v3`, the same voice
+  measured against W43 (production-notes.md, Voice). Leo: approve v3 as the channel's model for tagged scripts?
+
+## Film (2026-10-27): new questions from the build
+
+| ID | Question | What the film does |
+|---|---|---|
+| F-1 | Pace. v3 reads slower than v2 (169 against 180 wpm); the film tightens silent gaps to 0.3 s and time-stretches the voice by 1.05 (Rubber Band, pitch and formants kept). Is 1.05 right, or keep her natural pace (about 7:00)? | 1.05: 6:42 |
+| F-2 | The www line (beat 39) is cut until UI-3 is answered. | Cut, with its pill |
+| F-3 | The sweet-surprise sparkle is Leo's "You find a treasure" (`treasure.wav`), whose source and licence are still unconfirmed (W43, `docs/audio-licenses.md`). | Used; swap for a Mixkit sparkle if it can't be confirmed |
+| F-4 | End-card QR: `redirhub.com/support`, as on W43, until the video has its own branded link. | Real, scannable QR |

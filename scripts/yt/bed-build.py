@@ -23,6 +23,7 @@ A track shorter than the film loops with a 2 s crossfade.
 """
 import json, os, re, subprocess, sys
 import numpy as np
+from scipy.signal import fftconvolve  # same result as np.convolve to float precision, ~1000x faster on long kernels
 
 video, rid = sys.argv[1], sys.argv[2]
 root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -89,7 +90,7 @@ target = np.where(speech, g_speech, g_gap)
 # smooth the gain: 0.35 s ramps, no jumps
 k = int(0.35 * SR)
 kern = np.hanning(2 * k + 1); kern /= kern.sum()
-env = np.convolve(np.pad(target, k, mode='edge'), kern, mode='valid')
+env = fftconvolve(np.pad(target, k, mode='edge'), kern, mode='valid')
 env = np.minimum(env, np.where(speech, g_speech, np.inf))  # the ramp never lifts the bed while she speaks
 bed = m * env
 
@@ -109,7 +110,7 @@ cut = np.repeat(10 ** (-excess / 20), SR // 10)
 cut = np.pad(cut, (0, max(0, need - len(cut))), constant_values=1.0)[:need]
 k2 = int(0.15 * SR)
 kern2 = np.hanning(2 * k2 + 1); kern2 /= kern2.sum()
-cut = np.minimum(cut, np.convolve(np.pad(cut, k2, mode='edge'), kern2, mode='valid'))
+cut = np.minimum(cut, fftconvolve(np.pad(cut, k2, mode='edge'), kern2, mode='valid'))
 bed = bed * cut[None, :]
 
 # 3. prove it stays under the voice

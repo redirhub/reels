@@ -1,0 +1,216 @@
+[
+  {
+    "id": "c01",
+    "beats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "text": "[warm] Meet Frosty Fusion. A little ice cream shop with a very loyal following. Five years of scooping. Forty flavors. And one strawberry that people drive across town for. [curious] Now, type \"best strawberry ice cream\" into Google, anywhere near their shop… [proud] …and there they are. Right at the top.",
+    "words": 48
+  },
+  {
+    "id": "c02",
+    "beats": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "text": "That spot didn't happen by luck. It's SEO. SEO, search engine optimization, is everything that helps Google decide your page is the best answer to a search. For Frosty Fusion, that's five years of it. Pages Google trusts. Food blogs that linked to their strawberry. Reviews that mention them by name. … And all of it is tied to one address: get frosty fusion dot com.",
+    "words": 66,
+    "spoken": {
+      "8": "And all of it is tied to one address: get frosty fusion dot com."
+    }
+  },
+  {
+    "id": "c03",
+    "beats": [
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "text": "[amused] There was one small problem. [laughs softly] Customers kept asking if Frosty Fusion was a smoothie bar. One ordered a green detox. [sighs] Fair. \"Fusion\" does sound a little… blended. [excited] So, a new name. Frosty Bites. Short, sweet, and nobody's ordering kale. New domain: get frosty bites dot com.",
+    "words": 46,
+    "spoken": {
+      "13": "So, a new name. Frosty Bites. Short, sweet, and nobody's ordering kale. New domain: get frosty bites dot com."
+    }
+  },
+  {
+    "id": "c04",
+    "beats": [
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "text": "And then comes the thought that keeps every business owner up at night. [worried] What happens to the Google spot? The strawberry page. The five years. Change the domain the wrong way, and Google meets Frosty Bites like a total stranger. [reassuring] Do it right, and Google can carry your rankings over to the new name. You don't start from zero. So how do you change your domain name without losing SEO? It comes down to three steps.",
+    "words": 76
+  },
+  {
+    "id": "c05",
+    "beats": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "text": "First, the thing most people get wrong. Google doesn't rank your domain. It ranks your pages. To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: get frosty fusion dot com slash flavors slash strawberry. Each page has its own history. How long it has ranked, and who links to it. Change the domain, and every one of those addresses changes too. The new ones start with no history. So the job isn't moving a domain. It's moving every page, in a way Google can follow. Three steps. Map it. Redirect it. Tell Google.",
+    "words": 102,
+    "spoken": {
+      "20": "To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: get frosty fusion dot com slash flavors slash strawberry."
+    },
+    "skip": [
+      24
+    ]
+  },
+  {
+    "id": "c06",
+    "beats": [
+      25,
+      26,
+      27,
+      28
+    ],
+    "text": "Step one: the map. Old address on the left, new address on the right. get frosty fusion dot com slash flavors slash strawberry becomes get frosty bites dot com slash flavors slash strawberry. If the paths stay the same, one rule covers every page. If some pages changed, each one gets its own line. Quick tip: before you change anything, export your page list from your sitemap or from Google Search Console. That's your inventory.",
+    "words": 75,
+    "spoken": {
+      "26": "Old address on the left, new address on the right. get frosty fusion dot com slash flavors slash strawberry becomes get frosty bites dot com slash flavors slash strawberry."
+    }
+  },
+  {
+    "id": "c07",
+    "beats": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "text": "[conspiratorial] Now, here's where most domain changes quietly go wrong. Mapping every page feels like a chore. So people take a shortcut: send everything to the new homepage. [light] And it looks perfect. Every old link lands somewhere. No errors. Strawberry fans arrive at get frosty bites dot com. … But they wanted the strawberry. Now they're on a homepage, hunting for it. [serious] And Google notices too. Hundreds of pages, all poured into one. It can treat them as pages that no longer exist. [softly] And that top spot for \"best strawberry ice cream\"? It starts to melt. [firm] One old page, one matching new page. That's the rule.",
+    "words": 105,
+    "spoken": {
+      "31": "And it looks perfect. Every old link lands somewhere. No errors. Strawberry fans arrive at get frosty bites dot com."
+    }
+  },
+  {
+    "id": "c08",
+    "beats": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "text": "Step two: the redirects. Here's what that looks like in RedirHub. Links. Create. Website Migration. Old domain: get frosty fusion dot com. New domain: get frosty bites dot com. Same paths? One same-path rule, and every page forwards to its twin. Changed pages? Paste your map, or upload it as a spreadsheet file, a CSV. Before anything goes live, RedirHub shows you what it will create, and flags every row with a problem. Nothing is created until you click Create. Every redirect should be a three-oh-one, the permanent kind. It's the signal Google uses to carry a page's history to its new address. Then point get frosty fusion dot com at RedirHub with the records it gives you. The padlock is set up automatically. Our earlier videos walk through it.",
+    "words": 130,
+    "spoken": {
+      "38": "Old domain: get frosty fusion dot com. New domain: get frosty bites dot com.",
+      "42": "Every redirect should be a three oh one, the permanent kind. It's the signal Google uses to carry a page's history to its new address.",
+      "43": "Then point get frosty fusion dot com at RedirHub with the records it gives you. The padlock is set up automatically. Our earlier videos walk through it."
+    }
+  },
+  {
+    "id": "c09",
+    "beats": [
+      44,
+      45,
+      46,
+      47
+    ],
+    "text": "Step three: tell Google you've moved. Google Search Console is Google's free dashboard for your site. Open the old site there, and use Change of Address to point it at the new one. Then submit the new sitemap: the list of pages you want Google to find. And update everything you control. Your site's own links. Your Instagram bio. The QR code on the menu. Your Google Maps listing. All of it says Frosty Bites now.",
+    "words": 76
+  },
+  {
+    "id": "c10",
+    "beats": [
+      48,
+      49,
+      50,
+      51
+    ],
+    "text": "[curious] Now, test it the way Google sees it. Open RedirHub's free Redirect Checker, and paste the old strawberry page. [delighted] One hop. A three-oh-one. And it lands on get frosty bites dot com slash flavors slash strawberry. That's a pass. Try a few more. Your best sellers. An old blog post. The www version.",
+    "words": 53,
+    "spoken": {
+      "50": "One hop. A three oh one. And it lands on get frosty bites dot com slash flavors slash strawberry. That's a pass."
+    }
+  },
+  {
+    "id": "c11",
+    "beats": [
+      52
+    ],
+    "text": "[delighted] And here's the sweet part. A regular finds a menu from twenty twenty-one, the one that still says Frosty Fusion. She scans it… and lands right on the strawberry. Every old link, every old flyer, still works.",
+    "words": 37,
+    "spoken": {
+      "52": "And here's the sweet part. A regular finds a menu from twenty twenty one, the one that still says Frosty Fusion. She scans it… and lands right on the strawberry. Every old link, every old flyer, still works."
+    }
+  },
+  {
+    "id": "c12",
+    "beats": [
+      53,
+      54,
+      55
+    ],
+    "text": "[gently, smiling] Then comes the part nobody warns you about. For a few weeks, your rankings may wobble. [reassuring] That's Google re-reading your site at its new address. It's normal. Whatever you do, don't undo the redirects. And RedirHub's analytics show how many people still come in through the old domain, so you can watch the move happen.",
+    "words": 55
+  },
+  {
+    "id": "c13",
+    "beats": [
+      56,
+      57,
+      58,
+      59
+    ],
+    "text": "Two rules before you go. Keep the redirects for at least a year. Google says as long as possible. Honestly? Keep them for good. [playful] And keep renewing get frosty fusion dot com. If it expires, someone else can buy it, along with every link that still points to it. And every strawberry fan who types it. So. Map every page. Redirect each one to its twin with a three-oh-one. Tell Google. Then let it settle.",
+    "words": 75,
+    "spoken": {
+      "58": "And keep renewing get frosty fusion dot com. If it expires, someone else can buy it, along with every link that still points to it. And every strawberry fan who types it.",
+      "59": "So. Map every page. Redirect each one to its twin with a three oh one. Tell Google. Then let it settle."
+    },
+    "skip": [
+      56
+    ]
+  },
+  {
+    "id": "c14",
+    "beats": [
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "text": "[warm] A few weeks later, search \"best strawberry ice cream\" again… [proud] …and there's Frosty Bites. Right where Frosty Fusion used to be. Same ice cream. New name. Same spot on Google. Links to everything in this video are in the description. And if you get stuck, reach out. We're happy to help. Next week: moving hundreds of domains at once, with one spreadsheet.",
+    "words": 62
+  },
+  {
+    "id": "c15",
+    "beats": [
+      24
+    ],
+    "text": "Three steps. Map it. Redirect it. Tell Google.",
+    "words": 8
+  },
+  {
+    "id": "c16",
+    "beats": [
+      56
+    ],
+    "text": "Two rules before you go.",
+    "words": 5
+  }
+]

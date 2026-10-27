@@ -1,6 +1,6 @@
 # W44 script deltas: what the key frames change in script v2 (round 2, 2026-10-25)
 
-Leo updates `script.md` from this list before the voice is recorded. Beat numbers are script v2's. "On screen" is
+**Applied (2026-10-27): `script.md` v3 is v2 with every change below, renumbered 1–65; beat 39's www line is cut (UI-3).** Beat numbers below are v2's. Beat numbers are script v2's. "On screen" is
 what the frame shows; "VO" is the proposed line. The facts, the order of the three steps and the RedirHub
 walkthrough are unchanged.
 
