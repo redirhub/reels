@@ -173,3 +173,11 @@ at 34.5 s. That is the same before AudioSR, and Vosk hears "linked" on the raw t
 **Render:** in 50 s segments (`out/render-parts.mjs`, same encoder settings as `scripts/render.mjs`), concatenated
 by stream copy, audio rendered separately and muxed: the container restarted twice during whole-film renders, and a
 segment render resumes where it stopped. CI still renders the whole film in one pass from the branch.
+
+## Round 3c: the SEO scene's address becomes a search bar (Leo, 0:40)
+
+Leo: the ropes from PAGES touched the `getfrostyfusion.com` bubble, but the ropes from FOOD BLOGS and REVIEWS ended
+in empty space to its right. The bubble was sized to its text (about 424 px) while the right ropes ended at x 1240.
+It is now a search bar (the magnifier from the search scene, `Mag`) exactly as wide as the gap between the ropes
+(x 700 to 1240), and all six ropes end at its vertical centre (y 634), so both sides end on its edges.
+Checked on stills: the card docking into it at the cut, the ropes drawing in, the glow on "tied", and the cut out.

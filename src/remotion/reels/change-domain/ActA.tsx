@@ -1,7 +1,7 @@
 /* Act A · Meet Frosty Fusion: w44-Shop (beats 1–2), w44-Search (3–4), w44-SEO (5–8). */
 import { clamp, easeInOut, easeOut, prog, useTime } from '../../lib/anim';
 import { At, Browser, C, Eyebrow, Headline, Label, Pill, SOFT_SHADOW, SceneFade, fx, popIn, slideIn, smooth } from './kit';
-import { BlogCard, Home, PageCard, ReviewCard, ScoopIcon, SearchPage, Sticker, StrawberryCard } from './shop';
+import { BlogCard, Home, Mag, PageCard, ReviewCard, ScoopIcon, SearchPage, Sticker, StrawberryCard } from './shop';
 import { NAMES } from './props';
 import { local } from './timeline';
 
@@ -92,10 +92,10 @@ export function SeoScene() {
             </Headline>
             <span style={{ position: 'absolute', left: 122, top: 252, fontSize: 26, fontWeight: 600, color: C.soft, ...slideIn(t, L3.word(6, 'search') - 0.05, 0.45, 0, 10), opacity: (slideIn(t, L3.word(6, 'search') - 0.05, 0.45, 0, 10).opacity as number) * (1 - smooth(prog(t, pages - 0.6, pages - 0.2))) }}>Search engine optimization</span>
             <svg width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true" style={{ position: 'absolute', inset: 0 }}>
-                {[0, 1, 2].map((i) => <g key={i}><path d={rope(640, 458 + i * 120, 700, 640)} fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - ropeK(pages + 0.15 + i * 0.12)} /><circle cx={640} cy={458 + i * 120} r={6 * ropeK(pages + 0.15 + i * 0.12)} fill="rgba(255,255,255,0.55)" /></g>)}
+                {[0, 1, 2].map((i) => <g key={i}><path d={rope(640, 458 + i * 120, 700, 634)} fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - ropeK(pages + 0.15 + i * 0.12)} /><circle cx={640} cy={458 + i * 120} r={6 * ropeK(pages + 0.15 + i * 0.12)} fill="rgba(255,255,255,0.55)" /></g>)}
                 {[480, 720, 850].map((y, i) => {
                     const a = i === 0 ? blogs + 0.15 : reviews + 0.15 + (i - 1) * 0.25;
-                    return <g key={y}><path d={rope(1360, y, 1240, 640)} fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - ropeK(a)} /><circle cx={1360} cy={y} r={6 * ropeK(a)} fill="rgba(255,255,255,0.55)" /></g>;
+                    return <g key={y}><path d={rope(1360, y, 1240, 634)} fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - ropeK(a)} /><circle cx={1360} cy={y} r={6 * ropeK(a)} fill="rgba(255,255,255,0.55)" /></g>;
                 })}
             </svg>
             <Label x={120} y={380} style={slideIn(t, pages - 0.1, 0.4, -10, 0)}>PAGES</Label>
@@ -105,7 +105,8 @@ export function SeoScene() {
             <Label x={1360} y={610} style={slideIn(t, reviews - 0.1, 0.4, 10, 0)}>REVIEWS</Label>
             <At x={1360} y={644} style={slideIn(t, reviews, 0.45, 24, 0)}><ReviewCard quote="The strawberry at Frosty Fusion is worth the drive." w={440} /></At>
             <At x={1360} y={790} style={slideIn(t, reviews + 0.25, 0.45, 24, 0)}><ReviewCard quote="Five stars for Frosty Fusion. That strawberry!" who="a first-timer" w={440} /></At>
-            <At x={700} y={600} style={pill}><Pill size={32} ring={glow > 0 ? `rgba(255,255,255,${0.35 * glow})` : undefined}>{NAMES.old}</Pill></At>
+            {/* A search bar as wide as the gap between the ropes (700-1240), so both sides end on its edges. */}
+            <At x={700} y={600} style={pill}><Pill size={32} ring={glow > 0 ? `rgba(255,255,255,${0.35 * glow})` : undefined} style={{ width: 540, boxSizing: 'border-box', gap: 16, paddingLeft: 26 }}><Mag />{NAMES.old}</Pill></At>
             <At x={700} y={526} style={{ ...popIn(t, L3.word(7, 'five') - 0.05, 0.4), opacity: (popIn(t, L3.word(7, 'five') - 0.05, 0.4).opacity as number) * (1 - smooth(prog(t, tied, tied + 0.3))) }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 20, background: 'rgba(255,255,255,0.12)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.35)', fontSize: 19, fontWeight: 700, color: C.ink }}>Five years of it</span>
             </At>

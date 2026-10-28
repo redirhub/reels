@@ -168,7 +168,8 @@ function SkeletonResult({ w = 1040, alpha = 1 }: { w?: number; alpha?: number })
         </div>
     );
 }
-const Mag = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#475467" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>;
+/** The magnifier of the search bars (the results page, and the address searched for in the SEO scene). */
+export const Mag = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#475467" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>;
 /** A generic search results page (no search engine's name, colours or copy), 1280 × h. `typed` 0–1 writes the
     query; `skeletonShift` moves the two skeleton results (the strawberry card swaps places with them); `slot`
     is the first result. */
