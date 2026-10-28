@@ -190,8 +190,9 @@ const L4 = local('watch');
 export function WatchScene() {
     const t = useTime();
     const ring = smooth(prog(t, L4.word(55, 'old') - 0.2, L4.word(55, 'old') + 0.3));
+    // dark wobble chart -> light dashboard: a longer dissolve, so the brightness swing eases out (stutter_check, round 3)
     return (
-        <SceneFade t={t} room="light">
+        <SceneFade t={t} room="light" inD={0.7}>
             <Eyebrow t={t} a={0.15} dark>WATCH THE MOVE</Eyebrow>
             <At x={120} y={200} style={slideIn(t, 0.15, 0.6, 0, 40)}>
                 <Dashboard s={1.4} w={900} h={520}>
