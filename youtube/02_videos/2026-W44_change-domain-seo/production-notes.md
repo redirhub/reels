@@ -75,6 +75,30 @@ phase; nothing moves by `left`/`top`/`width`. Nothing tilts (Leo, round 2).
 - **Music:** a generated pad (`music.json`, `"kind": "pad"`, C major, 402 s), ducked under every word by
   `bed-build.py`, which fails the build if the bed comes within 10 LU of her while she speaks.
 
-## Audit
+## Audit (animated and audited together, as Leo asked)
 
-See the checklist at the end of this file (filled in after the render).
+Every scene was checked as stills against its approved frame while it was built (settled state and mid-move), then
+every 50 s segment of the 60 fps render was run through `stutter_check.py` and `flash_check.py` as it came off the
+renderer. What the checks caught, and the fix:
+
+| Finding | Cause | Fix | After |
+|---|---|---|---|
+| Hold + one-frame blip at 17.4 s (Search → SEO) | The card carried across the cut was drawn over the original, so its shadow doubled for one frame | The carried copy's shadow fades in as it moves (also Return → End card) | 0 findings |
+| Every cut stopped dead (49 → 14 → 1.8 grey levels a frame) | The room cover was clamped linear at its end | Cover and content both on smoothsteps: every dissolve eases out to rest | 0 findings |
+| "Jump" at both ends of every roll (58.1, 58.7, 63.4, 80.7 s and more) | `Roll` switched between a plain span at rest and a clipped box mid-roll, moving the text a pixel | `Roll` keeps one layout for its whole life (both texts in one grid cell); text that follows a rolled word rolls with it | 0 findings (rename clip: 3 → 0) |
+| Jumps at 214.9, 217.7, 218.7 s | The form fields' focus ring and caret snapped on and off | Focus fades over 0.2 s; the "New website migration" crumb fades in with the form | 0 findings (typing clip: 3 → 0) |
+
+**Final picture:** 7 stutter findings left in 402 s, every one a fade at 1.6–2.6 grey levels a frame (the tool's
+noise floor is 1.5; W43 shipped with peaks up to 3.5): the dashboard rising, the chooser pick, the scan beam turning,
+the wobble → watch and recap → return cuts. `flash_check.py` lists only cuts and moving objects (the scoop flying into
+the search card, the card swapping to slot 1, the scoop riding the track, the 1.7 s create chooser the script asks for).
+
+**Sound:** every cue printed against the words she says at that moment; one moved (the checker click was on
+"paste", it now sits on the Check Redirect press). Bed: at least 11.0 LU under her while she speaks.
+
+**`check_reel.py`** (preview v1): 1920 × 1080, 60 fps, h264/aac, 402.0 s; loudness −14.6 LUFS integrated,
+true peak −2.2 dBTP; the end-card QR at 400 s decodes to `https://redirhub.com/support`.
+
+**Render:** in 50 s segments (`out/render-parts.mjs`, same encoder settings as `scripts/render.mjs`), concatenated
+by stream copy, audio rendered separately and muxed: the container restarted twice during whole-film renders, and a
+segment render resumes where it stopped. CI still renders the whole film in one pass from the branch.
