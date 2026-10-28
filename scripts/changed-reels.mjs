@@ -18,7 +18,9 @@
 //   youtube/**                                    → the reels that import that file (a video's
 //     timings.json); production sources (takes, stills, canvas, library originals) → nothing
 //   src/reels.ts                                  → the reels whose entries changed
-//   anything else (components, brand, lib, shared SFX, fonts, deps, render script…) → all reels
+//   public/fonts/<file>                           → the reels whose sources name it; all reels when
+//     shared code does (brand/fonts.ts); nothing when no source does (a licence text)
+//   anything else (components, brand, lib, shared SFX, deps, render script…) → all reels
 // No usable base (first push of a branch, force push) → all reels.
 import { execFileSync } from 'node:child_process';
 
@@ -72,6 +74,19 @@ function youtubeReels(f) {
     return new Set(reelImports.filter(([, path]) => path === f).map(([id]) => id));
 }
 
+/** Reels whose sources name public/fonts/<file> (`staticFile('fonts/<file>')`, or a licence comment);
+    'all' when a source outside a reel folder does (the brand fonts every reel loads). */
+function fontReels(f) {
+    let hits = [];
+    try {
+        hits = git('grep', '-l', '-F', f.replace(/^public\//, ''), 'HEAD', '--', 'src/').split('\n').filter(Boolean);
+    } catch {
+        return new Set(); // git grep exits 1 when nothing matches
+    }
+    const ids = hits.map((h) => h.replace(/^HEAD:/, '').match(/^src\/remotion\/reels\/([^/]+)\//)?.[1] ?? null);
+    return ids.includes(null) ? 'all' : new Set(ids);
+}
+
 /** Reel ids whose registry entries changed. An `id:` line inside a changed block names
     that block's reel; a changed line elsewhere belongs to the entry above it. Changes
     before the first entry (imports) and removed entries render nothing. */
@@ -118,6 +133,11 @@ for (const f of files) {
     }
     if (f === 'src/reels.ts') {
         registryReels().forEach((id) => reels.add(id));
+        continue;
+    }
+    const fonts = f.startsWith('public/fonts/') ? fontReels(f) : null;
+    if (fonts && fonts !== 'all') {
+        fonts.forEach((id) => reels.add(id));
         continue;
     }
     console.error(`all reels because of: ${f}`);
