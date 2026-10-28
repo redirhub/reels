@@ -121,20 +121,20 @@ export function StrawberryCard({ k = 0, w = 1080, s = 1, rank, rankK = 1, rankRo
 }) {
     const r = (v: number) => Math.round(v * s);
     const name = <Roll from={NAMES.oldName} to={NAMES.newName} k={k} h={r(26)} />;
-    const dom = <Roll from={NAMES.old} to={NAMES.new} k={k} h={r(24)} />;
+    const dom = <Roll from={`${NAMES.old} › flavors › strawberry`} to={`${NAMES.new} › flavors › strawberry`} k={k} h={r(24)} />;
     const title = <Roll from={`Strawberry ice cream · ${NAMES.oldName}`} to={`Strawberry ice cream · ${NAMES.newName}`} k={k} h={r(40)} />;
     return (
         <div data-ui="website" style={{ position: 'relative', width: r(w), boxSizing: 'border-box', padding: `${r(26)}px ${r(32)}px ${r(28)}px`, borderRadius: r(22), background: '#FFFFFF', boxShadow: `${ring ? `0 0 0 ${r(4) * clamp(ringK)}px ${ring}, ` : ''}0 ${r(24)}px ${r(60)}px rgba(16,24,40,0.16), 0 0 0 1px ${C.g200}`, fontFamily: UI, color: C.char, display: 'flex', flexDirection: 'column', gap: r(12), ...style }}>
             {(rank !== undefined || rankRoll) && (
                 <span style={{ position: 'absolute', left: r(-78), top: r(34), width: r(52), height: r(52), borderRadius: '50%', background: C.char, color: '#FFFFFF', fontFamily: MONO, fontSize: r(24), fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', opacity: smooth(rankK * 1.6), transform: `scale(${0.6 + 0.4 * easeOut(clamp(rankK))})`, willChange: 'transform' }}>
-                    {rankRoll ? <Roll from={rankRoll.from} to={rankRoll.to} k={rankRoll.k} h={r(30)} /> : rank}
+                    {rankRoll ? <Roll from={rankRoll.from} to={rankRoll.to} k={rankRoll.k} h={r(30)} align="center" /> : rank}
                 </span>
             )}
             <div style={{ display: 'flex', alignItems: 'center', gap: r(16) }}>
                 <span style={{ display: 'inline-flex', opacity: iconK }}><ScoopIcon size={r(56)} /></span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: r(3) }}>
                     <span style={{ fontSize: r(21), fontWeight: 600 }}>{name}</span>
-                    <span style={{ fontFamily: MONO, fontSize: r(18), color: C.g600, whiteSpace: 'nowrap' }}>{dom} › flavors › strawberry</span>
+                    <span style={{ fontFamily: MONO, fontSize: r(18), color: C.g600, whiteSpace: 'nowrap' }}>{dom}</span>
                 </div>
             </div>
             <span style={{ fontSize: r(32), fontWeight: 700, letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>{title}</span>
@@ -289,7 +289,7 @@ export function PageCard({ path, k = 0, w = 420, hero = false, dim = false, badg
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 {hero ? <ScoopIcon size={44} /> : <span style={{ width: 44, height: 44, flex: 'none', borderRadius: 12, background: C.g100 }} />}
                 <span style={{ fontFamily: MONO, fontSize: 18, color: C.char, whiteSpace: 'nowrap' }}>
-                    <span style={{ color: C.g500 }}>{k > 0 ? <Roll from={NAMES.old} to={NAMES.new} k={k} h={24} /> : NAMES.old}</span>{path}
+                    <Roll from={<><span style={{ color: C.g500 }}>{NAMES.old}</span>{path}</>} to={<><span style={{ color: C.g500 }}>{NAMES.new}</span>{path}</>} k={k} h={24} />
                 </span>
             </div>
             {badge}
@@ -359,7 +359,7 @@ export function SiteLinksCard({ w = 400, k = 1, id }: { w?: number; k?: number; 
             <div style={{ padding: '16px 24px 22px', background: '#FFFFFF', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.1em', color: C.g500 }}>SITE LINKS</span>
                 {['/flavors', '/visit', '/order'].map((p, i) => (
-                    <span key={p} style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: MONO, fontSize: 15, color: C.g700 }}><LinkIcon /><Roll from={NAMES.old} to={NAMES.new} k={clamp(k * 1.3 - i * 0.15)} h={20} />{p}</span>
+                    <span key={p} style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: MONO, fontSize: 15, color: C.g700 }}><LinkIcon /><Roll from={`${NAMES.old}${p}`} to={`${NAMES.new}${p}`} k={clamp(k * 1.3 - i * 0.15)} h={20} /></span>
                 ))}
             </div>
         </div>

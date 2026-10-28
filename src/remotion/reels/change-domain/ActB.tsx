@@ -69,7 +69,7 @@ export function RenameScene() {
                 </div>
             </At>
             <div style={{ position: 'absolute', left: 620, width: 1180, top: 800, display: 'flex', justifyContent: 'center', ...withShift(popIn(t, 0.4, 0.5)) }}>
-                <Pill size={36}><Roll from={NAMES.old} to={NAMES.new} k={pillK} h={46} /></Pill>
+                <Pill size={36}><Roll from={NAMES.old} to={NAMES.new} k={pillK} h={46} align="center" /></Pill>
             </div>
         </SceneFade>
     );

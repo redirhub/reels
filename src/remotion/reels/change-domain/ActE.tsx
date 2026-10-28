@@ -121,7 +121,7 @@ export function OldMenuScene() {
             <At x={1380} y={286} style={fx(smooth(phone * 1.5), (1 - phone) * 80, 0)}>
                 <Phone w={380} h={650}>
                     <div style={{ height: 44, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', background: C.g100, fontFamily: MONO, fontSize: 12, color: C.g700 }}>
-                        <Roll from="Scanning…" to={`${NAMES.new}${NAMES.path}`} k={prog(t, land - 0.1, land + 0.25)} h={16} />
+                        <Roll from="Scanning…" to={`${NAMES.new}${NAMES.path}`} k={prog(t, land - 0.1, land + 0.25)} h={16} align="center" />
                     </div>
                     <div style={{ position: 'relative', flex: 1 }}>
                         {/* The camera view while scanning: a soft frame and a beam. */}

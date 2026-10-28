@@ -285,7 +285,7 @@ export function MigrationButtons({ mode, ring = 0 }: { mode: number; ring?: numb
     return (
         <span style={{ display: 'inline-flex', gap: 10 }}>
             <span style={BTN_S}>Cancel</span>
-            <span style={{ ...BTN_P, boxShadow: `0 0 0 ${4 * ring}px rgba(28,109,182,${0.3 * ring})` }}><Roll from="Create redirect" to="Create 2 redirects" k={mode} h={20} /></span>
+            <span style={{ ...BTN_P, boxShadow: `0 0 0 ${4 * ring}px rgba(28,109,182,${0.3 * ring})` }}><Roll from="Create redirect" to="Create 2 redirects" k={mode} h={20} align="center" /></span>
         </span>
     );
 }

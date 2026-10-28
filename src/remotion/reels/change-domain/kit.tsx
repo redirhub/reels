@@ -116,15 +116,18 @@ export const outK = (t: number, b: number, d = 0.3) => 1 - smooth(prog(t, b, b +
 /** Eased 0 → 1 over [a, a+d], starting and ending at rest. */
 export const ease = (t: number, a: number, d = 0.5) => easeInOut(prog(t, a, a + d));
 
-/** A word or value that changes rolls: the old one rolls up and out as the new one rolls in (never a one-frame swap). */
-export function Roll({ from, to, k, h, style }: { from: ReactNode; to: ReactNode; k: number; h: number; style?: CSSProperties }) {
+/** A word or value that changes rolls: the old one rises and fades as the new one rises in (never a one-frame swap).
+    The structure never changes over time: both texts sit in one grid cell for the roll's whole life, so the layout
+    is fixed (a plain span at rest and a clipped box mid-roll moved the text a pixel at each end: stutter_check
+    "jump"s at every roll, W44 cut 1). The box is as wide as the wider text, so put any text that follows a rolled
+    word inside the roll. `align` places the narrower one ('center' in a centred pill). */
+export function Roll({ from, to, k, h, style, align = 'start' }: { from: ReactNode; to: ReactNode; k: number; h: number; style?: CSSProperties; align?: 'start' | 'center' | 'end' }) {
     const e = easeInOut(clamp(k));
-    if (e <= 0) return <span style={style}>{from}</span>;
-    if (e >= 1) return <span style={style}>{to}</span>;
+    const item = (o: number, y: number): CSSProperties => ({ gridArea: '1 / 1', justifySelf: align, whiteSpace: 'nowrap', opacity: o, transform: SMOOTH(0, y), willChange: 'transform, opacity' });
     return (
-        <span style={{ position: 'relative', display: 'inline-block', verticalAlign: 'bottom', height: h, overflow: 'hidden', ...style }}>
-            <span style={{ display: 'inline-block', opacity: 1 - e, transform: SMOOTH(0, -e * h * 0.9), willChange: 'transform' }}>{from}</span>
-            <span style={{ position: 'absolute', left: 0, top: 0, whiteSpace: 'nowrap', opacity: e, transform: SMOOTH(0, (1 - e) * h * 0.9), willChange: 'transform' }}>{to}</span>
+        <span style={{ display: 'inline-grid', ...style }}>
+            <span style={item(1 - e, -e * h * 0.45)}>{from}</span>
+            <span style={item(e, (1 - e) * h * 0.45)}>{to}</span>
         </span>
     );
 }

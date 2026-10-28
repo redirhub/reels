@@ -149,7 +149,7 @@ export function MeltScene() {
                     <StrawberryCard w={1040} s={0.94} ring={C.amber} ringK={m} />
                     <MeltDrips w={1040} s={0.94} melt={m} />
                     <span style={{ position: 'absolute', left: -78, top: 40, width: 52, height: 52, borderRadius: '50%', background: mix(C.char, '#FFFFFF', m), color: mix('#FFFFFF', C.char, m), fontFamily: MONO, fontSize: 24, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.4)', overflow: 'hidden' }}>
-                        <Roll from="1" to="4" k={prog(m, 0.35, 0.8)} h={30} />
+                        <Roll from="1" to="4" k={prog(m, 0.35, 0.8)} h={30} align="center" />
                     </span>
                 </div>
             </At>
