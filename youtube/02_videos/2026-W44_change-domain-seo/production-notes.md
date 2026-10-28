@@ -1,6 +1,6 @@
 # W44 production notes: from key frames to film
 
-**Status:** 2026-10-28, final cut (AudioSR voice). Composition `change-domain` (`src/remotion/reels/change-domain/`), built from the
+**Status:** 2026-10-28, round 3 (new narrator, steps framing, House 02 bed); the first cut below is kept for its record. Composition `change-domain` (`src/remotion/reels/change-domain/`), built from the
 approved canvas page `w44` (Review 2: "the frames look awesome, now it all falls down to execution") and `script.md`
 v3. Length follows the voice (`voiceover/timings.json`): **402 s** (6:42), 60 fps.
 
@@ -8,7 +8,49 @@ Leo's brief for this pass: keep the script's tone emotionally sound and expressi
 no delay or pause in the watch time ("just like we learned before", W43); check every animation and sound while
 building it, so the audit happens as the film is made.
 
-## Voice
+## Round 3 (2026-10-28)
+
+Leo, after the final cut: the animation is great; (1) the film "jumped right away in the steps": the viewer needs to
+know steps to *what*, maybe start with a question; (2) the voice "is not good and sounds different in different
+scenarios", it should be persistent and clear, almost studio-recorded (use the ElevenLabs subscription); (3) the music
+"does not fit": a bit energetic, beaty, slightly tech, a bit fast, never over the voice, continuous.
+
+**Script (v3.1, beats 18, 19, 24; approved by Leo).** 18 ends "But before the steps, one thing most people get
+wrong." 19 drops "First," (it read as step one). 24 opens with the question, "So how do you move every page, and keep
+everything it has earned?", then says what each step does: "Map it: match every old address to its new one. Redirect
+it: send each old address to its match, permanently. And tell Google, so it knows the whole site has moved." On screen
+the headline rolls from "How do you move every page?" to "Three steps." and each card writes in its one-liner as she
+says it. +41 words: the film is 417 s (6:57).
+
+**Voice: why it sounded wrong, measured.**
+- Emily has nothing above about 8 kHz on every model (8-12 kHz at -60 dB on v4, -49 dB on v3), so AudioSR had to
+  invent the top end, take by take; and she has a -35 dB room/hiss floor between phrases, which the gap tightening
+  switched on and off.
+- Her v3 "Creative" takes also drift in colour from take to take (centroid 1,000-1,290 Hz across the 14 takes).
+- Audition (`out/w44-r3-previews/`, same passage, eleven_v4): Emily -60 dB top end / -35 dB floor; studio-quality voices
+  Megan -21/-51, Catherine -19/-53, Frankie -19/-42. **Leo picked Frankie** ("Friendly Instructor", `7li2FesTkwg1glJviKzT`).
+
+**Voice: the recording.** 14 takes (same runs of beats as before), `eleven_v4`, stability 0.5, similarity 0.75, seed 42,
+`mp3_44100_128` (the pay-as-you-go plan's best format), paid account through Composio, about 6,100 credits. Every take
+was checked before use: full band (8-12 kHz at -17 to -20 dB), floor -38 to -48 dB. No AudioSR, no bandwidth
+extension, no tone EQ (`assembly.json` `"studio": "clean"`: 70 Hz high-pass, light de-esser).
+
+**Voice: one session, not fourteen.** Separately generated takes still differ in colour (spread 1.14 dB across
+90 Hz-14 kHz, worst in the low end and on the "[gently]" take). `vo-build.py` `"match": true` gives each take a smooth,
+linear-phase EQ (at most +-3 dB) and a gain that put it on the median take: spread 0.58 dB, tighter than the old
+Emily track (0.67). Then the same tightening and 1.05 Rubber Band stretch as before. Her articulation is 174 wpm
+(Emily 177), with fewer long gaps (5 over 0.6 s against 11).
+
+**Music.** Mixkit "House 02" (#744, 123 BPM tech-house, instrumental), picked by Leo from three previews mixed under the
+voice at the film's level. Chosen for: no breakdowns (within +-1 dB for 100 s), the least energy in the speech band of
+the 16 tracks measured (1.5 %), no vocals (Whisper finds none). `bed-build.py` `"loop"`: the track's two 24-bar halves
+match best at 46.86 s and 93.69 s (beat grid 123.01 BPM measured from the kick), so the bed plays from 23.45 s, repeats
+that section seven times on its downbeat with a 60 ms crossfade centred on the seam, and ends on the track's own outro.
+Measured on the bed: the beat grid holds within 8 ms across every seam (the first try drifted 60 ms a seam and was
+fixed); 3-second loudness stays within 4.8 LU over the whole film (continuous, no pumping); at least 11.0 LU under her
+whenever she speaks.
+
+## Voice (first cut, Emily on v3; replaced in round 3)
 
 - **Narrator:** ElevenLabs "Emily" (`zHGX9VSXpW8cGSDRCqy0`), the W41/W43 voice, on **`eleven_v3`** this time, because
   the script's delivery tags (`[warm]`, `[amused]`, `[laughs softly]`, `[sighs]`, `[worried]`, `[delighted]`…) are

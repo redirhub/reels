@@ -88,7 +88,9 @@ guarantees, Product Facts' SEO hint in the redirect-type picker.
 
 | ID | Question | What the film does |
 |---|---|---|
-| F-1 | Pace. v3 reads slower than v2 (169 against 180 wpm); the film tightens silent gaps to 0.3 s and time-stretches the voice by 1.05 (Rubber Band, pitch and formants kept). Is 1.05 right, or keep her natural pace (about 7:00)? | 1.05: 6:42 |
+| F-1 | Pace. Round 3: Frankie reads at about 153 wpm; the film tightens silent gaps to 0.3 s and time-stretches the voice by 1.05 (Rubber Band, pitch and formants kept). Is 1.05 right, or keep her natural pace (about 7:18)? | 1.05: 6:57 (the steps' new lines add 41 words) |
 | F-2 | The www line (beat 39) is cut until UI-3 is answered. | Cut, with its pill |
 | F-3 | The sweet-surprise sparkle is Leo's "You find a treasure" (`treasure.wav`), whose source and licence are still unconfirmed (W43, `docs/audio-licenses.md`). | Used; swap for a Mixkit sparkle if it can't be confirmed |
 | F-4 | End-card QR: `redirhub.com/support`, as on W43, until the video has its own branded link. | Real, scannable QR |
+| F-5 | Narrator (round 3). Leo picked Frankie (ElevenLabs studio-quality voice, `eleven_v4`) for W44 over Emily, whose voice is band-limited on every model. Should Frankie on v4 be the channel voice from now on (W41/W43 stay Emily)? | Frankie on v4 |
+| F-6 | "RedirHub" pronunciation. Whisper hears Frankie's "RedirHub" as "reader hub" (Emily's was "redear hub"). If the brand is said differently (e.g. "redirect hub"), v4 takes an IPA spelling and the four takes that say it can be regenerated. | As read |
