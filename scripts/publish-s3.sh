@@ -38,6 +38,7 @@ LATEST="${REELS_PUBLISH_LATEST:-}"
 if [[ "$LATEST" == 1 ]]; then
     : "${CLOUDFRONT_DISTRIBUTION_ID:?set the CLOUDFRONT_DISTRIBUTION_ID repository variable}"
 fi
+mkdir -p out   # a main run with nothing to render has no out/, and index.json is written there
 declare -A KEY
 for kv in $REELS_KEYS; do KEY["${kv%%=*}"]="${kv#*=}"; done
 
@@ -75,7 +76,7 @@ if [[ "$LATEST" != 1 ]]; then invalidate; exit 0; fi
 # is already current is left alone; one rendered on a branch before the merge is copied from renders/.
 old="$(curl -sf "$BASE_URL/index.json" || true)"
 echo "$old" | jq -e '.reels | type == "array"' >/dev/null 2>&1 || old='{"reels":[]}'
-tmp="$(mktemp -d)"
+tmp="$(mktemp -d -p out)"   # inside the workspace: CI's AWS CLI may run in a container that sees only it
 entries=()
 for id in ${REELS_REGISTERED:-${!KEY[@]}}; do
     key="${KEY[$id]:?no key for $id}"

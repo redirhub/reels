@@ -20,12 +20,20 @@ concurrency:
 
 jobs:
   render:
-    runs-on: ubuntu-latest
-    timeout-minutes: 240 # the YouTube videos (5-7 min of 1080p each, some at 60 fps, lossless frames) take most of it
+    # Our own machines, like redirhub/marketing and redirhub/lviv. The RENDER_RUNNER repository variable
+    # (a JSON label list) can point renders at a bigger machine; the default is the shared one. Only pushes
+    # and manual runs trigger this workflow, never pull requests, so a fork can't run code on the runner.
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '["self-hosted", "light"]') }}
+    timeout-minutes: 300 # the YouTube videos (5-7 min of 1080p each, some at 60 fps, lossless frames) take most of it
     permissions:
       contents: read
       id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
     steps:
+      # Something that ran as root on this machine (a job container, a `docker run` without --user) can
+      # leave root-owned files in the workspace, and checkout then fails. Hand them back first (as lviv does).
+      - name: Reclaim the workspace
+        run: docker run --rm -v "$GITHUB_WORKSPACE:/w" alpine:3.20 chown -R "$(id -u):$(id -g)" /w
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -54,9 +62,24 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
 
+      # The machine lacks the system libraries Chromium needs, so the render runs in Playwright's image
+      # (which has them, and a chrome-headless-shell Remotion can use) as the runner's user: files written
+      # as root would break the next checkout. node_modules comes from `npm ci` above.
       - name: Render MP4s and covers
         if: steps.changes.outputs.render == 'true'
-        run: npm run render -- ${{ steps.changes.outputs.reels }} # never empty here (empty would render all)
+        env:
+          REELS: ${{ steps.changes.outputs.reels }} # never empty here (empty would render all)
+        run: |
+          docker run --rm --init --ipc=host \
+            --user "$(id -u):$(id -g)" \
+            -e CI=true -e HOME=/tmp/home -e REELS \
+            -v "$GITHUB_WORKSPACE:/w" -w /w \
+            mcr.microsoft.com/playwright:v1.61.1-noble \
+            bash -c 'set -e
+              node --version
+              shell=$(ls /ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell /ms-playwright/chromium_headless_shell-*/chrome-linux/headless_shell 2>/dev/null | head -1 || true)
+              if [ -n "$shell" ]; then export CHROME_PATH="$shell"; echo "Chrome: $shell"; fi
+              npm run render -- $REELS'
 
       # Also kept as a private artifact, e.g. while publishing isn't configured.
       - uses: actions/upload-artifact@v4
@@ -78,6 +101,29 @@ jobs:
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
+
+      # publish-s3.sh needs the AWS CLI and jq. Use the machine's own when it has them; otherwise jq's
+      # static binary, and the AWS CLI from its official image (the credentials above go in by env).
+      - name: AWS CLI and jq
+        if: steps.aws.outcome == 'success'
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          bin="$RUNNER_TEMP/bin"; mkdir -p "$bin"
+          if ! command -v jq >/dev/null; then
+            curl -sSfL -o "$bin/jq" https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+            chmod +x "$bin/jq"
+          fi
+          if ! command -v aws >/dev/null; then
+            cat > "$bin/aws" <<'SH'
+          #!/usr/bin/env bash
+          exec docker run --rm -i --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e AWS_REGION -e AWS_DEFAULT_REGION \
+            -v "$PWD:$PWD" -w "$PWD" amazon/aws-cli:2.22.35 "$@"
+          SH
+            chmod +x "$bin/aws"
+          fi
+          echo "$bin" >> "$GITHUB_PATH"
+          PATH="$bin:$PATH"; jq --version; aws --version
 
       - name: Publish to S3 + CloudFront
         id: publish
