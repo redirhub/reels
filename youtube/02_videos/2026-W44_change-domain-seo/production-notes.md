@@ -61,6 +61,15 @@ whenever she speaks.
 - Whisper over the final mix (voice, House 02, effects): every word as scripted; the only differences are spelling
   (domains as one word, digits, "S E O", "home page") and the "linked to" blend.
 
+**Round 3b: the "robotic" voice (Leo: fine in the audition clip, robotic in the film).** The audition clip was the raw
+take; the film's voice went through `vo-build.py`. Measured on take c04, stage by stage (cepstral peak prominence /
+harmonics-to-noise): raw 2.84 / 8.8 dB; tone match 2.82 / 8.4; studio chain 2.80 / 8.4; **Rubber Band 1.05 stretch
+2.35 / 6.6 (-17 % / -2.3 dB)**; ffmpeg `atempo` 1.05 2.83 / 8.3. The phase vocoder smears the harmonics: that is the
+robotic edge (and it was in the Emily cut too). `vo-build.py` now stretches with `atempo`; the same factor keeps
+`timings.json` byte-identical (picture unchanged, words within 5 ms of the old track). Whole voice track: CPP 2.23 ->
+2.63 (raw takes 2.68). Final mix, 69.6-189.6 s: CPP 1.98 -> 2.28, HNR 5.2 -> 6.6 dB. `check_reel`: -14.6 LUFS,
+-2.8 dBTP, QR decodes; Whisper match 0.939 -> 0.954. A/B clip: `out/w44-r3-previews/voice-AB-raw-then-before-then-after.mp3`.
+
 ## Voice (first cut, Emily on v3; replaced in round 3)
 
 - **Narrator:** ElevenLabs "Emily" (`zHGX9VSXpW8cGSDRCqy0`), the W41/W43 voice, on **`eleven_v3`** this time, because
