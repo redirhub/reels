@@ -125,7 +125,7 @@ def align(chunk):
 # `quietDb` below the take's speech level, so a laugh or a sigh (a performed tag) is never cut. `protect`
 # lists gaps to leave alone, as "beat:word" (the word before the gap): the deliberate pauses.
 TIGHT = cfg.get('tighten')
-# assembly.json "tempo": a gentle time-stretch of every take (Rubber Band, formants preserved), e.g. 1.05 for a
+# assembly.json "tempo": a gentle time-stretch of every take (ffmpeg atempo by default; see step 4), e.g. 1.05 for a
 # model that reads slower than the channel's pace. Applied after tightening; 1.0 = off.
 TEMPO = float(cfg.get('tempo', 1.0))
 keep_regions = {}  # chunk id → [(a, b)] in original take time
@@ -258,9 +258,13 @@ for f in files:
         sources[f] = tight
     if TEMPO != 1.0:
         st = os.path.join(tmp_dir, f + '.tempo.wav')
-        subprocess.check_call(['ffmpeg', '-y', '-v', 'error', '-i', sources[f], '-af',
-                               f'rubberband=tempo={TEMPO}:pitch=1:formant=preserved:pitchq=quality:transients=smooth:detector=soft:window=standard:channels=together',
-                               '-c:a', 'pcm_s24le', st])
+        # atempo (time-domain, waveform-similarity overlap-add), not Rubber Band: measured on a W44 take at 1.05,
+        # Rubber Band (a phase vocoder) cut the voice's cepstral peak prominence by 17 % and its harmonics-to-noise
+        # ratio by 2.3 dB, which Leo heard as "robotic"; atempo changes them by -0.4 % and -0.6 dB.
+        # assembly.json "stretch": "rubberband" brings the old filter back.
+        af = (f'rubberband=tempo={TEMPO}:pitch=1:formant=preserved:pitchq=quality:transients=smooth:detector=soft:window=standard:channels=together'
+              if cfg.get('stretch') == 'rubberband' else f'atempo={TEMPO}')
+        subprocess.check_call(['ffmpeg', '-y', '-v', 'error', '-i', sources[f], '-af', af, '-c:a', 'pcm_s24le', st])
         sources[f] = st
     inputs += ['-i', sources[f]]
 print('AudioSR takes:', ', '.join(f for f in files if sources[f].endswith(f + '.wav') and 'chunks-sr' in sources[f]) or 'none')
