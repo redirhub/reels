@@ -50,6 +50,17 @@ Measured on the bed: the beat grid holds within 8 ms across every seam (the firs
 fixed); 3-second loudness stays within 4.8 LU over the whole film (continuous, no pumping); at least 11.0 LU under her
 whenever she speaks.
 
+**Round 3 audit (render, 60 fps, nine 50 s segments, each checked as it came off the renderer).**
+- `stutter_check.py`: one real finding, a hold of 4.6 grey levels over 11 frames at 355.1 s, the cut from the dark
+  wobble chart into the light Analytics dashboard (the room laid in 0.18 s, so the brightness swing stopped dead).
+  Fixed: that scene dissolves in over 0.7 s; re-rendered, 2.5 over 2 frames, like the other fades (1.6-2.6).
+- `flash_check.py`: only cuts and moving objects (the scoop flight, the slot swap, the title build, the catch, the
+  rewind, the checker, the recap); the new Steps scene (135-153 s) has no finding.
+- `check_reel.py`: 1920 x 1080, 60 fps, h264/aac, 417.0 s; -14.6 LUFS integrated, -2.2 dBTP; the end-card QR at
+  414 s decodes to `https://redirhub.com/support`.
+- Whisper over the final mix (voice, House 02, effects): every word as scripted; the only differences are spelling
+  (domains as one word, digits, "S E O", "home page") and the "linked to" blend.
+
 ## Voice (first cut, Emily on v3; replaced in round 3)
 
 - **Narrator:** ElevenLabs "Emily" (`zHGX9VSXpW8cGSDRCqy0`), the W41/W43 voice, on **`eleven_v3`** this time, because
