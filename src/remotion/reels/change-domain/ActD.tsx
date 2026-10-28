@@ -215,7 +215,8 @@ export function ProductScene({ paste }: ChangeDomainProps) {
     const st: MigState = {
         mode,
         oldTyped: prog(t, o1, o2), newTyped: prog(t, n1, n2),
-        caret: t > o1 - 0.2 && t < o2 + 0.3 ? 'old' : t > n1 - 0.2 && t < n2 + 0.3 ? 'new' : null,
+        oldFocus: smooth(prog(t, o1 - 0.35, o1 - 0.1)) * (1 - smooth(prog(t, o2 + 0.15, o2 + 0.4))),
+        newFocus: smooth(prog(t, n1 - 0.35, n1 - 0.1)) * (1 - smooth(prog(t, n2 + 0.15, n2 + 0.4))),
         sameRing: pulse(L5.word(39, 'same') - 0.1, 1.4),
         sameRows: [0, 1, 2].map((i) => prog(t, L5.word(39, 'rule') + i * 0.2, L5.word(39, 'rule') + 0.4 + i * 0.2)),
         heroRing: smooth(prog(t, L5.word(39, 'twin') - 0.2, L5.word(39, 'twin') + 0.2)),

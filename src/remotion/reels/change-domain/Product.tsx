@@ -196,7 +196,9 @@ export type MigState = {
     /** 0 = Keep the same paths, 1 = Map URLs one by one (the body crossfades, the radios blend). */
     mode: number;
     /** Typed share 0–1 of the two fields (same paths). */
-    oldTyped: number; newTyped: number; caret: 'old' | 'new' | null;
+    oldTyped: number; newTyped: number;
+    /** Focus 0–1 of each field: its ring and caret fade (a focus that snaps on in one frame reads as a jump). */
+    oldFocus: number; newFocus: number;
     /** Rings 0–1: the same-paths option; the strawberry row in What happens; the CSV card; the skipped row; the
         redirect type; the Create button. */
     sameRing: number; heroRing: number; csvRing: number; skipRing: number; typeRing: number; createRing: number;
@@ -221,13 +223,13 @@ export function MigrationPage({ st, paste }: { st: MigState; paste: readonly (re
         </div>
     );
     const ring = (k: number): CSSProperties => ({ borderColor: mix('#D5D7DA', '#20A795', k), boxShadow: `0 0 0 ${3 * k}px rgba(32,167,149,0.25)` });
-    const caret = <span style={{ width: 1.5, height: 20, background: C.char, marginLeft: 1 }} />;
+    const caret = (k: number) => <span style={{ width: 1.5, height: 20, background: C.char, marginLeft: 1, opacity: k }} />;
     const same = (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 24px minmax(0, 1fr)', alignItems: 'end', gap: 12 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={LBL}>Old domain</span><span style={{ ...INP, ...ring(st.caret === 'old' ? 1 : 0) }}>{typed(O, st.oldTyped)}{st.caret === 'old' && caret}</span></div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={LBL}>Old domain</span><span style={{ ...INP, ...ring(st.oldFocus) }}>{typed(O, st.oldTyped)}{caret(st.oldFocus)}</span></div>
                 <span style={{ height: 42, display: 'flex', alignItems: 'center', color: '#717680' }}><Ico d="M5 12h14M13 6l6 6-6 6" size={22} color="#717680" sw={2} /></span>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={LBL}>New base URL</span><span style={{ ...INP, ...ring(st.caret === 'new' ? 1 : 0) }}>{typed(`https://${N}`, st.newTyped)}{st.caret === 'new' && caret}</span></div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={LBL}>New base URL</span><span style={{ ...INP, ...ring(st.newFocus) }}>{typed(`https://${N}`, st.newTyped)}{caret(st.newFocus)}</span></div>
             </div>
             <span style={{ fontSize: 13, lineHeight: '19px', color: '#535862', marginTop: -6 }}>Every old path is added after the new base URL. A few pages moved anyway? Map just those one by one.</span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={LBL}>More options</span><OptRows rows={[OPT_TYPE, OPT_QUERY, OPT_DOM]} /></div>
