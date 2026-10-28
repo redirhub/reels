@@ -279,7 +279,7 @@ export function EndCardScene({ end, qr }: ChangeDomainProps) {
     return (
         <SceneFade t={t} room="glow" carry={dock < 1 ? (
             <div style={{ position: 'absolute', left: 0, top: 0, transformOrigin: 'top left', ...fx(1, SEARCH.cardX + (cardX - SEARCH.cardX) * dock, SEARCH.cardY + (cardY - SEARCH.cardY) * dock, 1 - (1 - cardS) * dock) }}>
-                <StrawberryCard w={1040} k={1} />
+                <StrawberryCard w={1040} k={1} style={{ boxShadow: `0 24px 60px rgba(16,24,40,${(0.16 * clamp(dock * 3)).toFixed(3)}), 0 0 0 1px ${C.g200}` }} />
             </div>
         ) : null}>
             <div style={{ position: 'absolute', left: 140, top: 200, display: 'flex', flexDirection: 'column' }}>

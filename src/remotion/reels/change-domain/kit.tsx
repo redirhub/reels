@@ -87,8 +87,9 @@ export function SceneFade({ t, room, inD = 0.32, outAt, outD = 0.3, blend, carry
 }) {
     const out = outAt === undefined ? 1 : 1 - easeOut(prog(t, outAt, outAt + outD));
     const ph = easeInOut(prog(t, 0, inD));
-    const cover = clamp(ph / 0.6);
-    const o = clamp((ph - 0.25) / 0.75) * out;
+    // Both curves start and end at rest: a clamped linear cover stopped dead mid-dissolve (measured, W44 cut 1).
+    const cover = smooth(ph / 0.6);
+    const o = smooth((ph - 0.25) / 0.75) * out;
     return (
         <AbsoluteFill style={{ fontFamily: DISPLAY, color: DARK_ROOM[room] ? C.ink : C.char, WebkitFontSmoothing: 'antialiased' }}>
             <RoomBg room={room} t={t} opacity={cover * out} />

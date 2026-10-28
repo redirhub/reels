@@ -1,5 +1,5 @@
 /* Act A · Meet Frosty Fusion: w44-Shop (beats 1–2), w44-Search (3–4), w44-SEO (5–8). */
-import { easeInOut, easeOut, prog, useTime } from '../../lib/anim';
+import { clamp, easeInOut, easeOut, prog, useTime } from '../../lib/anim';
 import { At, Browser, C, Eyebrow, Headline, Label, Pill, SOFT_SHADOW, SceneFade, fx, popIn, slideIn, smooth } from './kit';
 import { BlogCard, Home, PageCard, ReviewCard, ScoopIcon, SearchPage, Sticker, StrawberryCard } from './shop';
 import { NAMES } from './props';
@@ -73,7 +73,8 @@ export function SeoScene() {
     const dock = easeInOut(prog(t, 0, 0.7));
     const carry = dock < 1 && (
         <div style={{ position: 'absolute', left: 0, top: 0, transformOrigin: 'top left', ...fx(1 - smooth(prog(t, 0.45, 0.7)), SEARCH.cardX + (700 - SEARCH.cardX) * dock, SEARCH.cardY + (600 - SEARCH.cardY) * dock, 1 - 0.55 * dock) }}>
-            <StrawberryCard w={1040} rank="1" />
+            {/* A copy over the original: its shadow fades in, or two shadows stack for a frame (measured). */}
+            <StrawberryCard w={1040} rank="1" style={{ boxShadow: `0 24px 60px rgba(16,24,40,${(0.16 * clamp(dock * 3)).toFixed(3)}), 0 0 0 1px ${C.g200}` }} />
         </div>
     );
     const pill = popIn(t, 0.45, 0.45);
