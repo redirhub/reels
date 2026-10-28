@@ -26,7 +26,10 @@ const WS = [
 ] as const;
 
 /** The app shell at its native size; the caller scales it. `crumbs` is the breadcrumb (last one bold). */
-export function Shell({ w, h, active, crumbs, right, pulse = 0, children }: { w: number; h: number; active: 'Analytics' | 'Links'; crumbs: readonly ReactNode[]; right?: ReactNode; pulse?: number; children: ReactNode }) {
+/** `crumbOpacity` fades a crumb (and its separator) in, so a crumb never appears in one frame; `bold` is the current
+    page's crumb (default: the last). */
+export function Shell({ w, h, active, crumbs, crumbOpacity, bold, right, pulse = 0, children }: { w: number; h: number; active: 'Analytics' | 'Links'; crumbs: readonly ReactNode[]; crumbOpacity?: readonly number[]; bold?: number; right?: ReactNode; pulse?: number; children: ReactNode }) {
+    const cur = bold ?? crumbs.length - 1;
     return (
         <div style={{ width: w, height: h, display: 'flex', background: C.g100, fontFamily: UI, color: C.char }}>
             <aside style={{ width: 236, height: h, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 14, padding: '14px 12px', boxSizing: 'border-box' }}>
@@ -56,9 +59,9 @@ export function Shell({ w, h, active, crumbs, right, pulse = 0, children }: { w:
             <div style={{ margin: '8px 8px 8px 0', height: h - 16, borderRadius: 16, background: '#FFFFFF', boxShadow: '0 1px 2px rgba(16,24,40,0.05), 0 0 0 1px #EAECF0', overflow: 'hidden', flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ height: 64, flexShrink: 0, display: 'flex', alignItems: 'center', gap: 10, padding: '0 16px 0 24px', borderBottom: '1px solid #EAECF0', boxSizing: 'border-box' }}>
                     {crumbs.map((c, k) => (
-                        <span key={k} style={{ display: 'inline-flex', alignItems: 'center' }}>
+                        <span key={k} style={{ display: 'inline-flex', alignItems: 'center', opacity: crumbOpacity?.[k] ?? 1 }}>
                             {k > 0 && <span style={{ margin: '0 8px 0 -2px', color: '#D5D7DA' }}>/</span>}
-                            <span style={{ fontSize: 14, fontWeight: k === crumbs.length - 1 ? 600 : 400, color: k === crumbs.length - 1 ? C.char : '#717680' }}>{c}</span>
+                            <span style={{ fontSize: 14, fontWeight: k === cur ? 600 : 400, color: k === cur ? C.char : '#717680' }}>{c}</span>
                         </span>
                     ))}
                     <span style={{ flexGrow: 1 }} />{right}

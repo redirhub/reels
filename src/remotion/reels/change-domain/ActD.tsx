@@ -238,7 +238,7 @@ export function ProductScene({ paste }: ChangeDomainProps) {
             <At x={120} y={170} style={fx(smooth(rise * 1.5), 0, (1 - rise) * 80, 0.97 + 0.03 * rise)}>
                 <Dashboard s={DS} w={DW} h={DH}>
                     <Shell w={DW} h={DH} active="Links" pulse={pulse(links - 0.1, 0.8)}
-                        crumbs={formK > 0.5 ? [...crumbs, 'New website migration'] : crumbs}
+                        crumbs={[...crumbs, 'New website migration']} crumbOpacity={[1, 1, smooth((formK - 0.2) / 0.6)]}
                         right={formK > 0.5 ? <span style={{ opacity: smooth((formK - 0.5) * 2) }}><MigrationButtons mode={mode} ring={st.createRing} /></span> : <span style={{ opacity: 1 - smooth(formK * 2) }}><CreateButton press={pulse(create - 0.05, 0.15)} ring={pulse(create - 0.2, 0.5)} /></span>}>
                         {formK < 1 && <div style={{ position: 'absolute', inset: 0, opacity: 1 - formK }}><LinksBody /></div>}
                         {formK > 0 && <div style={{ position: 'absolute', inset: 0, display: 'flex', opacity: formK }}><MigrationPage st={st} paste={paste} /></div>}
