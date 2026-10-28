@@ -1,6 +1,6 @@
 # W44 production notes: from key frames to film
 
-**Status:** 2026-10-27, first cut. Composition `change-domain` (`src/remotion/reels/change-domain/`), built from the
+**Status:** 2026-10-28, final cut (AudioSR voice). Composition `change-domain` (`src/remotion/reels/change-domain/`), built from the
 approved canvas page `w44` (Review 2: "the frames look awesome, now it all falls down to execution") and `script.md`
 v3. Length follows the voice (`voiceover/timings.json`): **402 s** (6:42), 60 fps.
 
@@ -37,7 +37,11 @@ building it, so the audit happens as the film is made.
 - **Air only where the picture needs it** (`assembly.json`): the title transition (18), one second after the melt
   (34, script-deltas #12; the rewind plays inside it), into the product (35), the pass chime (50), the sweet
   surprise (52), the second chime (61). The end card holds 3 s for YouTube's end screen.
-- **Top octave:** AudioSR on every take, as on W43 (`voiceover/chunks-sr/`, committed so CI never needs it).
+- **Top octave:** AudioSR on every take, as on W43 (`voiceover/chunks-sr/`, committed so CI never needs it). Each restored
+  take was checked against its original before use: same length to the sample, peak ≤ 0.97, correlation 0.994–0.999,
+  8–14 kHz back from 45–65 dB under her speech to 20–30 dB. Rebuilt from them, `timings.json` and `script.ts` are
+  byte-identical to the first cut (every picture cue still lands on its word); the new track's 10 ms loudness envelope
+  correlates 0.994 with the old one and no word moves by more than 0.5 ms. In the mix: 8–10 kHz +4.7 dB, 14–20 kHz +12 dB.
 
 ## Picture
 
@@ -96,8 +100,13 @@ the search card, the card swapping to slot 1, the scoop riding the track, the 1.
 **Sound:** every cue printed against the words she says at that moment; one moved (the checker click was on
 "paste", it now sits on the Check Redirect press). Bed: at least 11.0 LU under her while she speaks.
 
-**`check_reel.py`** (preview v1): 1920 × 1080, 60 fps, h264/aac, 402.0 s; loudness −14.6 LUFS integrated,
-true peak −2.2 dBTP; the end-card QR at 400 s decodes to `https://redirhub.com/support`.
+**`check_reel.py`** (final cut): 1920 × 1080, 60 fps, h264/aac, 402.0 s; loudness −14.6 LUFS integrated,
+true peak −3.0 dBTP; the end-card QR at 400 s decodes to `https://redirhub.com/support`.
+
+**Whisper (`small.en`) over the final mix** against the script: every difference is spelling (the domains as one word,
+"40", "301", "2021", "site map", "RedirHub" heard as "redear hub", as on W43), except "linked to" heard as "link to"
+at 34.5 s. That is the same before AudioSR, and Vosk hears "linked" on the raw take, so it is the "-d" running into
+"to", not a slip (a slip is re-recorded only when both recognisers hear it).
 
 **Render:** in 50 s segments (`out/render-parts.mjs`, same encoder settings as `scripts/render.mjs`), concatenated
 by stream copy, audio rendered separately and muxed: the container restarted twice during whole-film renders, and a
