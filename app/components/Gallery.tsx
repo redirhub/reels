@@ -13,10 +13,11 @@ const CDN = process.env.NEXT_PUBLIC_REELS_BASE_URL ?? 'https://dcr3565853rcg.clo
 /* Which rendered MP4s to try, in order (native video scrubs instantly, and it's exactly
    what CI rendered, so it catches anything the in-browser Player gets wrong):
    - production: main's published render (<id>/latest.mp4)
-   - branch previews: CI's render of this exact commit (renders/<id>/<sha>.mp4); then the newest
-     render of the reel on this branch (renders/<id>/branch-<slug>.mp4: CI only renders the reels a
-     push changes, so a docs-only commit has none of its own, and a commit CI is still rendering
-     has none yet); then main's latest.mp4 (a reel this branch never changed).
+   - branch previews: CI's render of exactly this content, renders/<id>/<key>.mp4 (the key is a sha256 of
+     every file that can change the reel, computed in next.config.ts the same way CI does, so any commit
+     with the same content finds it, a docs-only commit included); then the newest render of the reel on
+     this branch (renders/<id>/branch-<slug>.mp4, while CI is still rendering this content); then main's
+     latest.mp4.
    - local dev: none, live Player only
    A source is offered (played, downloaded) only once its cover has loaded: CI uploads the mp4
    before the jpg, so a cover that loads proves the video is there. A link to a file that doesn't
@@ -24,24 +25,23 @@ const CDN = process.env.NEXT_PUBLIC_REELS_BASE_URL ?? 'https://dcr3565853rcg.clo
 const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
 const COMMIT = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
 const BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF;
+const KEYS: Record<string, string> = JSON.parse(process.env.NEXT_PUBLIC_REEL_KEYS || '{}');
 /** Same slug as scripts/publish-s3.sh: [A-Za-z0-9._-] kept, anything else becomes "-". */
 const SLUG = BRANCH?.replace(/[^A-Za-z0-9._-]/g, '-');
 
-type Source = { kind: 'commit' | 'branch' | 'latest'; mp4: string; poster: string; download: string };
+type Source = { kind: 'render' | 'branch' | 'latest'; mp4: string; poster: string; download: string };
 
 function sourcesFor(id: string): Source[] {
     const latest: Source = {
         kind: 'latest', mp4: `${CDN}/${id}/latest.mp4`, poster: `${CDN}/${id}/latest.jpg`, download: `${CDN}/${id}/download.mp4`,
     };
     if (VERCEL_ENV === 'production') return [latest];
-    if (COMMIT) {
-        const mp4 = `${CDN}/renders/${id}/${COMMIT}.mp4`;
-        const branch: Source[] = SLUG
-            ? [{ kind: 'branch', mp4: `${CDN}/renders/${id}/branch-${SLUG}.mp4`, poster: `${CDN}/renders/${id}/branch-${SLUG}.jpg`, download: `${CDN}/renders/${id}/branch-${SLUG}.mp4` }]
-            : [];
-        return [{ kind: 'commit', mp4, poster: `${CDN}/renders/${id}/${COMMIT}.jpg`, download: mp4 }, ...branch, latest];
-    }
-    return [];
+    if (!COMMIT) return [];
+    const own = (name: string, kind: Source['kind']): Source => {
+        const mp4 = `${CDN}/renders/${id}/${name}.mp4`;
+        return { kind, mp4, poster: `${CDN}/renders/${id}/${name}.jpg`, download: mp4 };
+    };
+    return [...(KEYS[id] ? [own(KEYS[id], 'render')] : []), ...(SLUG ? [own(`branch-${SLUG}`, 'branch')] : []), latest];
 }
 
 /** The first source whose cover loads: 'checking' while it looks, 'none' if no source is there. */
@@ -69,7 +69,8 @@ type Mode = 'video' | 'live';
 
 /* The gallery is split by shape: vertical reels and landscape videos are watched in different
    places and need different player sizes, so each gets its own section. The shape comes from the
-   reel's own width and height, so a new reel lands in the right section without extra config. */
+   reel's own width and height, so a new reel lands in the right section without extra config.
+   Newest first: the registry lists reels in the order they were added. */
 const SECTIONS = [
     {
         id: 'short',
@@ -88,7 +89,7 @@ const SECTIONS = [
 ] as const;
 
 export function Gallery() {
-    const groups = SECTIONS.map((s) => ({ ...s, items: reels.filter(s.test) })).filter((g) => g.items.length > 0);
+    const groups = SECTIONS.map((s) => ({ ...s, items: [...reels].reverse().filter(s.test) })).filter((g) => g.items.length > 0);
     return (
         <>
             <nav className="sections" aria-label="Sections">
@@ -170,13 +171,13 @@ function ReelCard({ reel: r }: { reel: Reel }) {
                 </div>
                 <p className="hint">
                     {mode === 'video'
-                        ? source?.kind === 'commit'
-                            ? `CI’s render of ${BRANCH ?? 'this branch'} at ${COMMIT?.slice(0, 7)}, exactly what main will publish.`
+                        ? source?.kind === 'render'
+                            ? `CI’s render of exactly this code (version ${KEYS[r.id]?.slice(0, 7)}), what main will publish.`
                             : source?.kind === 'branch'
-                                ? `The newest render of this reel on ${BRANCH}: this commit has none of its own (CI is still rendering it, or this push didn’t change the reel). Refresh after CI to get this commit’s.`
+                                ? `An earlier render of this reel on ${BRANCH}: CI is still rendering this version. Refresh after CI to get it.`
                                 : VERCEL_ENV === 'production'
                                     ? 'The published render from main, exactly what gets posted.'
-                                    : 'This branch never changed this reel, so this is main’s published version.'
+                                    : 'Main’s published version: this version hasn’t been rendered yet (CI is still rendering it).'
                         : unplayable
                             ? 'This browser can’t play the rendered MP4 inline; Download MP4 still gets it. Showing the live preview.'
                             : available === 'checking'
