@@ -3,7 +3,13 @@
 CI renders on every branch push and uploads to S3, served from CloudFront:
 
 - **Every push, any branch:** `renders/<id>/<commit>.mp4|.jpg`, that commit's render. A branch's
-  Vercel preview plays it under **Rendered MP4**.
+  Vercel preview plays it under **Rendered MP4**. Also `renders/<id>/branch-<slug>.mp4|.jpg`, the newest
+  render of the reel on that branch (slug: the branch name with anything but `A-Za-z0-9._-` turned into
+  `-`), short-cached and invalidated on every upload. CI renders only the reels a push changes, so a
+  docs-only commit (or one CI is still rendering) has no file of its own: the preview falls back to the
+  branch's newest render, then to main's `latest`, and offers **Download MP4** only once a file's cover
+  has loaded. S3 answers a link to a missing file with `AccessDenied`, which is what the button used
+  to hand out (2026-10-28).
 - **`main` only (after a merge):** also updates the public `latest` links, `download.mp4` and
   `index.json`, and invalidates them in CloudFront.
 
@@ -12,6 +18,7 @@ https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.mp4     stable link to th
 https://dcr3565853rcg.cloudfront.net/reels/<id>/download.mp4   same file, downloads instead of playing
 https://dcr3565853rcg.cloudfront.net/reels/<id>/latest.jpg     cover image
 https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/<commit>.mp4   any commit's render (any branch), kept 90 days
+https://dcr3565853rcg.cloudfront.net/reels/renders/<id>/branch-<slug>.mp4   a branch's newest render, kept 90 days after its last upload
 https://dcr3565853rcg.cloudfront.net/reels/index.json          manifest of all reels
 ```
 

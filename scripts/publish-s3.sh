@@ -6,6 +6,13 @@
 #   renders/<id>/<commit>.mp4|.jpg   every push, any branch: this commit's render, immutable.
 #                                    A branch's Vercel preview plays it. One fixed prefix so
 #                                    a lifecycle rule expires old ones (reels-lifecycle.json).
+#   renders/<id>/branch-<slug>.mp4|.jpg  every push, any branch: the newest render of the reel on
+#                                    that branch (slug: the branch name, [A-Za-z0-9._-] kept, the
+#                                    rest -). A push that doesn't change the reel (docs, another
+#                                    reel) renders nothing, so its commit has no file of its own;
+#                                    the preview plays and downloads this one instead of a link
+#                                    to a file that doesn't exist (S3 answers that with
+#                                    "AccessDenied"). Short cache, invalidated on every upload.
 # main only (REELS_PUBLISH_LATEST=1), i.e. after a merge:
 #   <id>/latest.mp4|.jpg             the public, stable link (5 min cache + invalidation)
 #   <id>/download.mp4                same as latest.mp4 but served as an attachment
@@ -17,6 +24,8 @@ set -euo pipefail
 BASE_URL="https://dcr3565853rcg.cloudfront.net/reels"
 PREFIX="reels"
 SHA="${GITHUB_SHA:-$(git rev-parse HEAD)}"
+BRANCH="${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}"
+SLUG="$(printf %s "$BRANCH" | tr -c 'A-Za-z0-9._-' '-')"   # app/components/Gallery.tsx makes the same slug
 NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 IMMUTABLE="public, max-age=31536000, immutable"
 SHORT="public, max-age=300"
@@ -32,7 +41,7 @@ put() { # put <file> <key> <content-type> <cache-control> [content-disposition]
 }
 
 entries=()
-invalidation_paths=("/$PREFIX/index.json")
+invalidation_paths=()
 for mp4 in out/*.mp4; do
     id="$(basename "$mp4" .mp4)"
     jpg="out/$id.jpg"
@@ -41,6 +50,12 @@ for mp4 in out/*.mp4; do
     put "$mp4" "renders/$id/$SHA.mp4" video/mp4 "$IMMUTABLE" "attachment; filename=\"redirhub-$id-${SHA::7}.mp4\""
     put "$jpg" "renders/$id/$SHA.jpg" image/jpeg "$IMMUTABLE"
     echo "render $BASE_URL/renders/$id/$SHA.mp4"
+    # The branch's newest render: the mp4 first, so a cover that loads means its video is there
+    # (the gallery checks the cover before it offers the download).
+    put "$mp4" "renders/$id/branch-$SLUG.mp4" video/mp4 "$SHORT" "attachment; filename=\"redirhub-$id-$SLUG.mp4\""
+    put "$jpg" "renders/$id/branch-$SLUG.jpg" image/jpeg "$SHORT"
+    invalidation_paths+=("/$PREFIX/renders/$id/branch-$SLUG.mp4" "/$PREFIX/renders/$id/branch-$SLUG.jpg")
+    echo "branch $BASE_URL/renders/$id/branch-$SLUG.mp4"
     [[ "$LATEST" == 1 ]] || continue
 
     put "$mp4" "$id/latest.mp4" video/mp4 "$SHORT"
@@ -58,7 +73,13 @@ for mp4 in out/*.mp4; do
           cover: "\($base)/latest.jpg", pinned: $pinned}')")
     echo "latest $BASE_URL/$id/latest.mp4"
 done
-[[ "$LATEST" == 1 ]] || exit 0
+invalidate() {
+    [[ ${#invalidation_paths[@]} -gt 0 && -n "${CLOUDFRONT_DISTRIBUTION_ID:-}" ]] || return 0
+    aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+        --paths "${invalidation_paths[@]}" --query 'Invalidation.Id' --output text
+}
+if [[ "$LATEST" != 1 ]]; then invalidate; exit 0; fi
+invalidation_paths+=("/$PREFIX/index.json")
 
 # Only the reels rendered in this run are in out/, so merge into the published manifest:
 # replace their entries, keep the others, and drop reels no longer in the registry
@@ -74,6 +95,5 @@ printf '%s\n' "${entries[@]}" | jq -s --argjson old "$old" --arg registered "${R
                 + . | sort_by(.id)) }' > out/index.json
 put out/index.json index.json application/json "$SHORT"
 
-# Commit-addressed renders are immutable. Invalidate only the mutable stable paths.
-aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
-    --paths "${invalidation_paths[@]}" --query 'Invalidation.Id' --output text
+# Commit-addressed renders are immutable. Invalidate only the mutable paths (branch, latest, index).
+invalidate
