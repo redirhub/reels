@@ -1,11 +1,11 @@
 # W44 script: "How to Change Your Domain Name Without Losing SEO"
 
-**Version:** v3, 2026-10-27, the build script. It is script v2 (2026-10-23, the story version from the key-frame brief)
+**Version:** v3.1, 2026-10-28 (round 3: the steps get a question and a one-line "what and to what" each, beats 18, 19, 24; narrator Frankie on ElevenLabs v4). v3, 2026-10-27, was the build script. It is script v2 (2026-10-23, the story version from the key-frame brief)
 with every change in `script-deltas.md` applied after Review 2 (Leo, 2026-10-27: "the frames look awesome, now it all
 falls down to execution"). This file is the source of truth for the film: `scripts/yt/beats-from-script.py` turns it
 into `src/remotion/reels/change-domain/script.ts`, and `voiceover/chunks.json` sends the same lines to the voice.
 v2 is in git history (commit 7649382).
-**Format:** 16:9, voice-led (one female narrator, Emily, ElevenLabs v3 for the delivery tags), about 5 minutes.
+**Format:** 16:9, voice-led (one female narrator, Frankie, ElevenLabs v4 for the delivery tags), about 5 minutes.
 **Shop:** Frosty Fusion (`getfrostyfusion.com`) becomes Frosty Bites (`getfrostybites.com`). Hero page: `/flavors/strawberry`.
 
 How to read: each numbered line is one VO beat; the line in `[brackets]` is the picture (frame names from
@@ -74,12 +74,12 @@ sentences; the sweet surprise (52); analytics per domain (55); the second fixed 
 **17.** *([reassuring])* Do it right, and Google can carry your rankings over to the new name. You don't start from zero.
 `[The sockets glow teal, one by one.]`
 
-**18.** So how do you change your domain name without losing SEO? It comes down to three steps.
+**18.** So how do you change your domain name without losing SEO? It comes down to three steps. But before the steps, one thing most people get wrong.
 `[w44-Title. Transition 1 of 2. The two pills with "becomes"; the title; "Three steps."]`
 
 ## ACT C — How Google sees your site
 
-**19.** First, the thing most people get wrong. Google doesn't rank your domain. It ranks your pages.
+**19.** Google doesn't rank your domain. It ranks your pages.
 `[w44-Pages. Charcoal. "Google ranks pages, not domains."]`
 
 **20.** To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: getfrostyfusion.com/flavors/strawberry.
@@ -94,8 +94,8 @@ sentences; the sweet surprise (52); analytics per domain (55); the second fixed 
 **23.** So the job isn't moving a domain. It's moving every page, in a way Google can follow.
 `["The history doesn't follow on its own."]`
 
-**24.** Three steps. Map it. Redirect it. Tell Google.
-`[w44-Steps. Brand radial. The three cards rise on her three words.]`
+**24.** *([curious])* So how do you move every page, and keep everything it has earned? Three steps. Map it: match every old address to its new one. Redirect it: send each old address to its match, permanently. And tell Google, so it knows the whole site has moved.
+`[w44-Steps. Brand radial. The headline asks "How do you move every page?" and rolls to "Three steps."; each card rises on its step and its one-liner writes in as she says it.]`
 
 ## ACT D — The three steps
 

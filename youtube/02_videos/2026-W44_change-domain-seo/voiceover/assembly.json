@@ -29,9 +29,13 @@
     "65": 3.0
   },
   "_notes": {
-    "tighten": "ElevenLabs v3 leaves 0.5-0.9 s between sentences (138-160 wpm). Every silent gap longer than 0.36 s is cut to 0.3 s, taken from its middle so the breath stays; a laugh or a sigh is never cut (the cut region must be 28 dB under her speech). Protected: the performed pauses (the ellipses at 3, 12, 52 and 60; the [pause] before 8 and 32; the melt at 34).",
+    "tighten": "ElevenLabs leaves 0.5-0.9 s between sentences. Every silent gap longer than 0.36 s is cut to 0.3 s, taken from its middle so the breath stays; a laugh or a sigh is never cut (the cut region must be 28 dB under her speech). Protected: the performed pauses (the ellipses at 3, 12, 52 and 60; the [pause] before 8 and 32; the melt at 34).",
     "extraAfter": "Leo, W43: every second counts; air only where the picture needs it. 18: the title transition. 34: one second of silence after 'It starts to melt' (script-deltas #12), the rewind runs inside it. 35: into the product transition. 50: the pass chime. 52: the sweet surprise lands. 61: the second chime.",
     "silentBeats": "65: the end card holds for YouTube's end screen after the last line",
-    "tempo": "ElevenLabs v3 reads at about 169 wpm against 180 on W43 (v2); every take is time-stretched by 1.05 with Rubber Band (pitch and formants kept), applied after tightening."
-  }
+    "tempo": "Frankie on ElevenLabs v4 reads at about 153 wpm; every take is time-stretched by 1.05 with Rubber Band (pitch and formants kept), applied after tightening, so the film keeps W43's pace (about 161 wpm).",
+    "match": "Round 3 (Leo: the voice 'sounds different in different scenarios'): the 14 takes are generated separately, so each one's overall colour and level drift a little. vo-build matches every take onto the median take (EQ at most +-3 dB, 90 Hz-14 kHz, and level).",
+    "studio": "Frankie is a full-band studio voice: no bandwidth extension, no AudioSR, no tone EQ; the chain is a 70 Hz high-pass and a light de-esser."
+  },
+  "match": true,
+  "studio": "clean"
 }

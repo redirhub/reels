@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write voiceover/chunks.json from script.md: one take per run of beats, the text sent to ElevenLabs v3 (delivery
+"""Write voiceover/chunks.json from script.md: one take per run of beats, the text sent to ElevenLabs v4 (delivery
 tags kept, URLs and numbers written the way she says them) and, per beat, the words she actually says (`spoken`),
 which vo-build.py aligns against.
     python3 youtube/02_videos/2026-W44_change-domain-seo/voiceover/make_chunks.py"""
@@ -33,7 +33,7 @@ for k, (a, b) in enumerate(TAKES, 1):
         sv = say(vo)
         if sv != vo:
             spoken[str(n)] = sv.replace('three-oh-one', 'three oh one').replace('twenty-one', 'twenty one')
-        # [pause] is not a v3 tag: an ellipsis before the line is the pause.
+        # An ellipsis before the line is the pause (it times better than a [pause] tag inside a take).
         lead = ' '.join(t for t in tags if t != '[pause]')
         if '[pause]' in tags:
             sv = '… ' + sv
@@ -44,9 +44,9 @@ for k, (a, b) in enumerate(TAKES, 1):
     if spoken:
         c['spoken'] = spoken
     out.append(c)
-# Retakes: a newer take of one beat replaces it in its first take (vo-build skips it there). Both recognisers
-# heard "nap it" in c05's beat 24 and "two results" in c13's beat 56 (2026-10-27).
-RETAKES = [('c15', 24), ('c16', 56)]
+# Retakes: a newer take of one beat replaces it in its first take (vo-build skips it there), when both recognisers
+# hear a slip, e.g. RETAKES = [('c15', 24)]. None for the round-3 recording (Frankie, v4, 2026-10-28).
+RETAKES = []
 for cid, n in RETAKES:
     tags, vo = beats[n]
     first = next(c for c in out if n in c['beats'])

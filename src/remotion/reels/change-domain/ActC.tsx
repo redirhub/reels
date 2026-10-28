@@ -54,23 +54,34 @@ export function PagesScene({ tree }: ChangeDomainProps) {
 }
 
 /* ---------------------------------------------------------------- Steps (and the recap) */
-const STEPS = [['01', 'Map it'], ['02', 'Redirect it'], ['03', 'Tell Google']] as const;
+const STEPS = [
+    ['01', 'Map it', 'Every old address, matched to its new one', 'match'],
+    ['02', 'Redirect it', 'Each old page sends you to its match', 'send'],
+    ['03', 'Tell Google', 'So Google knows the site moved', 'knows'],
+] as const;
 export function StepsScene({ L, recap = false, room = 'radial' }: { L: Local; recap?: boolean; room?: Room }) {
     const t = useTime();
     const n = recap ? 59 : 24;
     const cardAt = recap ? [0.2, 0.32, 0.44] : [L.word(24, 'map') - 0.1, L.word(24, 'redirect') - 0.1, L.word(24, 'tell') - 0.1];
+    // each one-liner writes in as she says it (the recap shows them from the start)
+    const lineAt = recap ? cardAt.map((a) => a + 0.1) : STEPS.map(([, , , cue]) => L.word(24, cue) - 0.15);
     const tickAt = recap ? [L.word(59, 'map') - 0.05, L.word(59, 'redirect') - 0.05, L.word(59, 'tell') - 0.05] : null;
+    // the question rolls to the answer on "three"
+    const askK = recap ? 1 : prog(t, L.word(24, 'three') - 0.15, L.word(24, 'three') + 0.35);
     return (
         <SceneFade t={t} room={room}>
             <Eyebrow t={t} a={0.15}>{recap ? 'SO' : 'THE MOVE'}</Eyebrow>
-            <Headline size={80} style={slideIn(t, recap ? 0.1 : L.word(24, 'three') - 0.1, 0.5, 0, 18)}>Three steps.</Headline>
+            <Headline size={80} style={slideIn(t, recap ? 0.1 : L.word(24, 'how') - 0.15, 0.5, 0, 18)}>
+                <Roll from="How do you move every page?" to="Three steps." k={askK} h={80} />
+            </Headline>
             <div style={{ position: 'absolute', left: 120, top: 320, width: 1680, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 30, alignItems: 'start' }}>
-                {STEPS.map(([num, title], i) => {
+                {STEPS.map(([num, title, line], i) => {
                     const tick = tickAt ? easeOut(prog(t, tickAt[i], tickAt[i] + 0.4)) : 0;
                     return (
                         <div key={num} style={{ position: 'relative', height: 360, boxSizing: 'border-box', padding: 40, borderRadius: 30, background: 'linear-gradient(140deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.84) 100%)', boxShadow: `inset 0 0 0 1.5px #FFFFFF, 0 30px 70px rgba(16,24,40,0.20)${tick > 0 ? `, 0 0 0 ${5 * tick}px rgba(32,167,149,${0.6 * tick})` : ''}`, color: C.char, display: 'flex', flexDirection: 'column', gap: 22, marginTop: i * 30, ...slideIn(t, cardAt[i], 0.5, 0, 40) }}>
                             <span style={{ fontFamily: MONO, fontSize: 30, fontWeight: 600, color: C.teal }}>{num}</span>
                             <span style={{ fontSize: 60, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.05 }}>{title}</span>
+                            <span style={{ fontSize: 30, fontWeight: 600, lineHeight: 1.25, color: C.g600, textWrap: 'balance', paddingRight: tickAt ? 60 : 0, ...slideIn(t, lineAt[i], 0.45, 0, 12) }}>{line}</span>
                             <div style={{ marginTop: 'auto', display: 'flex', gap: 8 }}>{[0, 1, 2].map((k) => <span key={k} style={{ width: 40, height: 6, borderRadius: 3, background: k <= i ? C.teal : C.g300 }} />)}</div>
                             {tickAt && <span style={{ position: 'absolute', right: 30, top: 30, ...popIn(t, tickAt[i], 0.4, 0.5) }}><Check size={64} draw={clamp((t - tickAt[i] - 0.08) / 0.3)} /></span>}
                         </div>

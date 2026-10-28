@@ -9,7 +9,8 @@ Reads <video>/bed.json:
       "start": 0,            # seconds into the track to begin
       "speech": -26,         # bed level under speech, LUFS (short-term)
       "gaps": -20,           # bed level in pauses longer than 0.8 s, LUFS
-      "fadeIn": 1.5, "fadeOut": 3.0
+      "fadeIn": 1.5, "fadeOut": 3.0,
+      "loop": {"from": 46.859, "to": 93.685, "beat": 0.48777, "first": 0.0332}   # optional, for a beat track
     }
 and the voice from <video>/voiceover/timings.json + public/audio/<id>-vo.mp3.
 Writes public/audio/<id>-bed.mp3 (played at volume 1; all gain is baked in here).
@@ -19,7 +20,11 @@ The rule it enforces (Leo: "never raise the music louder than the voiceover"):
   - everywhere, even in pauses, the bed stays at least 8 LU under her integrated level.
 Under a quiet word the bed dips further (step 2b), so it can sit at an audible level under normal speech.
 The build fails if either is broken, so a louder track cannot slip in.
-A track shorter than the film loops with a 2 s crossfade.
+A track shorter than the film loops with a 2 s crossfade. A beat track says "loop" instead: from/to are two
+downbeats where the music matches (the jump back from `to` to `from` lands on the same bar), beat/first its
+beat grid. The bed then plays the track's intro, repeats the from-to section on its downbeat (a 60 ms
+crossfade, so the drums never flam), and ends on the track's own outro at the end of the film; the start is
+moved into the intro, on the bar grid, to make the lengths meet.
 """
 import json, os, re, subprocess, sys
 import numpy as np
@@ -56,14 +61,33 @@ def integrated(x, ch):
 
 # 1. fit the track
 m = load(src)
-m = m[:, int(cfg.get('start', 0) * SR):]
 need = int(total * SR)
-xf = int(2.0 * SR)
-while m.shape[1] < need:
-    ramp = np.linspace(0, 1, xf)
-    joined = m[:, -xf:] * (1 - ramp) + m[:, :xf] * ramp
-    m = np.concatenate([m[:, :-xf], joined, m[:, xf:]], axis=1)
-m = m[:, :need]
+if 'loop' in cfg:
+    lp = cfg['loop']; a, b = int(lp['from'] * SR), int(lp['to'] * SR); end = m.shape[1]
+    bar = 4 * lp['beat']
+    xf = int(0.06 * SR); h = xf // 2; ramp = np.linspace(0, 1, 2 * h)
+    rep = b - a                                            # each repeat adds exactly one section: the grid never moves
+    n = max(0, int(np.ceil((need - end) / rep)))           # repeats of the from-to section
+    s0 = (end + n * rep - need) / SR                       # where in the intro to start
+    s0 = max(0.0, lp['first'] + np.floor((s0 - lp['first']) / bar) * bar) if s0 > lp['first'] else 0.0
+    fit = m[:, int(s0 * SR):b + h]
+    for _ in range(n):                                     # at `to`, jump back to `from`: a 60 ms crossfade centred
+        seam = fit[:, -2 * h:] * (1 - ramp) + m[:, a - h:a + h] * ramp   # on the seam, so `to` and `from` coincide
+        fit = np.concatenate([fit[:, :-2 * h], seam, m[:, a + h:b + h]], axis=1)
+    fit = np.concatenate([fit, m[:, b + h:]], axis=1)      # the last pass runs on into the track's outro
+    print(f'loop: start {s0:.2f} s into the track, {n} repeats of {lp["from"]:.2f}-{lp["to"]:.2f} s, outro to the end'
+          f' ({fit.shape[1] / SR:.2f} s for a {need / SR:.2f} s film)')
+    m = fit[:, :need]
+    if m.shape[1] < need:
+        m = np.pad(m, ((0, 0), (0, need - m.shape[1])))
+else:
+    m = m[:, int(cfg.get('start', 0) * SR):]
+    xf = int(2.0 * SR)
+    while m.shape[1] < need:
+        ramp = np.linspace(0, 1, xf)
+        joined = m[:, -xf:] * (1 - ramp) + m[:, :xf] * ramp
+        m = np.concatenate([m[:, :-xf], joined, m[:, xf:]], axis=1)
+    m = m[:, :need]
 t = np.arange(need) / SR
 m *= np.clip(t / cfg.get('fadeIn', 1.5), 0, 1) * np.clip((total - t) / cfg.get('fadeOut', 3.0), 0, 1)
 

@@ -48,8 +48,8 @@
       17,
       18
     ],
-    "text": "And then comes the thought that keeps every business owner up at night. [worried] What happens to the Google spot? The strawberry page. The five years. Change the domain the wrong way, and Google meets Frosty Bites like a total stranger. [reassuring] Do it right, and Google can carry your rankings over to the new name. You don't start from zero. So how do you change your domain name without losing SEO? It comes down to three steps.",
-    "words": 76
+    "text": "And then comes the thought that keeps every business owner up at night. [worried] What happens to the Google spot? The strawberry page. The five years. Change the domain the wrong way, and Google meets Frosty Bites like a total stranger. [reassuring] Do it right, and Google can carry your rankings over to the new name. You don't start from zero. So how do you change your domain name without losing SEO? It comes down to three steps. But before the steps, one thing most people get wrong.",
+    "words": 86
   },
   {
     "id": "c05",
@@ -61,14 +61,11 @@
       23,
       24
     ],
-    "text": "First, the thing most people get wrong. Google doesn't rank your domain. It ranks your pages. To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: get frosty fusion dot com slash flavors slash strawberry. Each page has its own history. How long it has ranked, and who links to it. Change the domain, and every one of those addresses changes too. The new ones start with no history. So the job isn't moving a domain. It's moving every page, in a way Google can follow. Three steps. Map it. Redirect it. Tell Google.",
-    "words": 102,
+    "text": "Google doesn't rank your domain. It ranks your pages. To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: get frosty fusion dot com slash flavors slash strawberry. Each page has its own history. How long it has ranked, and who links to it. Change the domain, and every one of those addresses changes too. The new ones start with no history. So the job isn't moving a domain. It's moving every page, in a way Google can follow. [curious] So how do you move every page, and keep everything it has earned? Three steps. Map it: match every old address to its new one. Redirect it: send each old address to its match, permanently. And tell Google, so it knows the whole site has moved.",
+    "words": 133,
     "spoken": {
       "20": "To Google, Frosty Fusion is a list of addresses. The homepage. The flavor menu. And that famous page: get frosty fusion dot com slash flavors slash strawberry."
-    },
-    "skip": [
-      24
-    ]
+    }
   },
   {
     "id": "c06",
@@ -180,10 +177,7 @@
     "spoken": {
       "58": "And keep renewing get frosty fusion dot com. If it expires, someone else can buy it, along with every link that still points to it. And every strawberry fan who types it.",
       "59": "So. Map every page. Redirect each one to its twin with a three oh one. Tell Google. Then let it settle."
-    },
-    "skip": [
-      56
-    ]
+    }
   },
   {
     "id": "c14",
@@ -196,21 +190,5 @@
     ],
     "text": "[warm] A few weeks later, search \"best strawberry ice cream\" again… [proud] …and there's Frosty Bites. Right where Frosty Fusion used to be. Same ice cream. New name. Same spot on Google. Links to everything in this video are in the description. And if you get stuck, reach out. We're happy to help. Next week: moving hundreds of domains at once, with one spreadsheet.",
     "words": 62
-  },
-  {
-    "id": "c15",
-    "beats": [
-      24
-    ],
-    "text": "Three steps. Map it. Redirect it. Tell Google.",
-    "words": 8
-  },
-  {
-    "id": "c16",
-    "beats": [
-      56
-    ],
-    "text": "Two rules before you go.",
-    "words": 5
   }
 ]

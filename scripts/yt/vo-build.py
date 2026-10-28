@@ -224,9 +224,12 @@ inputs, fc = [], []
 files = sorted({s['chunk'] for s, _ in placed})
 idx = {f: i for i, f in enumerate(files)}
 # Each take's source: its AudioSR version (voiceover/chunks-sr/<id>.wav, scripts/yt/voice_sr.py) when
-# there is one, else the mp3 with the harmonic bandwidth extension. Either way the top end is in place
-# before the studio chain, which then only does tone and de-essing.
+# there is one; else the mp3, with the harmonic bandwidth extension only if the take has no top end of its
+# own (a full-band studio voice skips it). Either way the top end is in place before the studio chain.
+# assembly.json "match": true then matches every take's colour and level (voice_enhance.match_takes), so
+# takes recorded separately sound like one session.
 enh = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice_enhance.py')
+sys.path.insert(0, os.path.dirname(enh)); import voice_enhance as ve
 tmp_dir = os.path.join(vo_dir, '.build'); os.makedirs(tmp_dir, exist_ok=True)
 sources = {}
 for f in files:
@@ -234,9 +237,17 @@ for f in files:
     mp3 = os.path.join(vo_dir, 'chunks', f + '.mp3')
     if os.path.exists(sr_wav) and os.path.getmtime(sr_wav) >= os.path.getmtime(mp3):
         sources[f] = sr_wav
+    elif ve.top_band_db(ve.load(mp3)) > -35:
+        sources[f] = mp3
     else:
         sources[f] = os.path.join(tmp_dir, f + '.bwe.wav')
         subprocess.check_call([sys.executable, enh, '--bwe-only', mp3, sources[f]])
+if cfg.get('match'):
+    matched, rep = ve.match_takes({f: ve.load(sources[f]) for f in files})
+    for f in files:
+        sources[f] = os.path.join(tmp_dir, f + '.match.wav'); ve.save(sources[f], matched[f])
+    print('tone match:', '; '.join(rep))
+for f in files:
     if f in keep_regions and len(keep_regions[f]) > 1:  # the tightened take: keep regions joined with 5 ms fades
         parts = ''.join(f"[0:a]atrim={a:.4f}:{b:.4f},asetpts=PTS-STARTPTS,afade=t=in:d=0.005,afade=t=out:st={max(0.0, b - a - 0.005):.4f}:d=0.005[k{i}];"
                         for i, (a, b) in enumerate(keep_regions[f]))
@@ -262,8 +273,9 @@ fc.append(''.join(labels) + f"amix=inputs={len(labels)}:normalize=0:dropout_tran
 tmp_wav = out_wav or (os.path.splitext(out_mp3)[0] + '.tmp.wav')
 subprocess.check_call(['ffmpeg', '-y', '-v', 'error', *inputs, '-filter_complex', ';'.join(fc), '-map', '[out]',
                        '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s24le', tmp_wav + '.raw.wav'])
-# Studio chain: put back the top end the voice was rendered without, take the box out (voice_enhance.py).
-subprocess.check_call([sys.executable, enh, '--no-bwe', tmp_wav + '.raw.wav', tmp_wav])
+# Studio chain (voice_enhance.py): tone and de-essing for a band-limited voice; high-pass and a light de-esser
+# only for a full-band studio voice (assembly.json "studio": "clean").
+subprocess.check_call([sys.executable, enh, '--clean' if cfg.get('studio') == 'clean' else '--no-bwe', tmp_wav + '.raw.wav', tmp_wav])
 os.remove(tmp_wav + '.raw.wav')
 import shutil; shutil.rmtree(tmp_dir, ignore_errors=True)
 # Master the voice: gentle compression, a static gain to the channel level, a true-peak ceiling.

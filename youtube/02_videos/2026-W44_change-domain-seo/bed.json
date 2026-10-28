@@ -1,9 +1,9 @@
 {
-  "_doc": "Music bed for this video, built by scripts/yt/bed-build.py. Swap 'source' for a track from youtube/01_library/audio/music/ (Leo's RedirHub sounds) and rebuild; the build refuses any setting that brings the music near the voice.",
-  "source": "generated",
-  "start": 0,
-  "speech": -29,
-  "gaps": -25,
-  "fadeIn": 1.5,
-  "fadeOut": 3.0
+  "_doc": "Music bed for this video, built by scripts/yt/bed-build.py. Round 3 (Leo: 'a bit energetic, beaty, slightly tech, a bit fast, does not raise over the voice-over, continuous throughout'): Mixkit 'House 02' (#744, 123 BPM). Its 24-bar section 46.86-93.69 s repeats on its downbeat (the two points matched best of every bar pair in the track) and the film ends on the track's own outro. The build refuses any setting that brings the music near the voice.",
+  "source": "youtube/01_library/audio/music/mixkit-744-house-02.mp3",
+  "loop": {"from": 46.859, "to": 93.685, "beat": 0.48777, "first": 0.0332},
+  "speech": -27,
+  "gaps": -23,
+  "fadeIn": 0.4,
+  "fadeOut": 2.5
 }

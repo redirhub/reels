@@ -89,12 +89,12 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 18,
-        "vo": "So how do you change your domain name without losing SEO? It comes down to three steps.",
+        "vo": "So how do you change your domain name without losing SEO? It comes down to three steps. But before the steps, one thing most people get wrong.",
         "visual": "w44-Title. Transition 1 of 2. The two pills with \"becomes\"; the title; \"Three steps.\""
     },
     {
         "n": 19,
-        "vo": "First, the thing most people get wrong. Google doesn't rank your domain. It ranks your pages.",
+        "vo": "Google doesn't rank your domain. It ranks your pages.",
         "visual": "w44-Pages. Charcoal. \"Google ranks pages, not domains.\""
     },
     {
@@ -119,8 +119,8 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 24,
-        "vo": "Three steps. Map it. Redirect it. Tell Google.",
-        "visual": "w44-Steps. Brand radial. The three cards rise on her three words."
+        "vo": "So how do you move every page, and keep everything it has earned? Three steps. Map it: match every old address to its new one. Redirect it: send each old address to its match, permanently. And tell Google, so it knows the whole site has moved.",
+        "visual": "w44-Steps. Brand radial. The headline asks \"How do you move every page?\" and rolls to \"Three steps.\"; each card rises on its step and its one-liner writes in as she says it."
     },
     {
         "n": 25,
