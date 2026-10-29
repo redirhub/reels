@@ -24,7 +24,7 @@ jobs:
     # (a JSON label list) can point renders at a bigger machine; the default is the shared one. Only pushes
     # and manual runs trigger this workflow, never pull requests, so a fork can't run code on the runner.
     runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '["self-hosted", "light"]') }}
-    timeout-minutes: 300 # the YouTube videos (5-7 min of 1080p each, some at 60 fps, lossless frames) take most of it
+    timeout-minutes: 600 # a full render of every reel takes about 6 h on the light runner (about 2.5 frames/s; the YouTube videos are ~52,000 frames)
     permissions:
       contents: read
       id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
