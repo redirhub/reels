@@ -65,14 +65,19 @@ jobs:
       # The machine lacks the system libraries Chromium needs, so the render runs in Playwright's image
       # (which has them, and a chrome-headless-shell Remotion can use) as the runner's user: files written
       # as root would break the next checkout. node_modules comes from `npm ci` above.
+      # In 900-frame segments (scripts/render.mjs): with too little free memory Remotion keeps every frame
+      # on disk as a PNG until the end, and a whole YouTube video's frames filled this machine's disk
+      # (2026-10-29). A segment's frames are about 3 GB at most.
       - name: Render MP4s and covers
         if: steps.changes.outputs.render == 'true'
         env:
           REELS: ${{ steps.changes.outputs.reels }} # never empty here (empty would render all)
+          RENDER_SEGMENT_FRAMES: 900
         run: |
+          df -h "$GITHUB_WORKSPACE" /tmp
           docker run --rm --init --ipc=host \
             --user "$(id -u):$(id -g)" \
-            -e CI=true -e HOME=/tmp/home -e REELS \
+            -e CI=true -e HOME=/tmp/home -e REELS -e RENDER_SEGMENT_FRAMES \
             -v "$GITHUB_WORKSPACE:/w" -w /w \
             mcr.microsoft.com/playwright:v1.61.1-noble \
             bash -c 'set -e
