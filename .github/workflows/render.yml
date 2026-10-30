@@ -19,16 +19,17 @@ concurrency:
   group: render-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' && 'manual' || 'push' }}
   cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
 
-# Our own machines, like redirhub/marketing and redirhub/lviv. The RENDER_RUNNER repository variable (a JSON
-# label list) can point the jobs at a bigger machine; the default is the shared one. Only pushes and manual
-# runs trigger this workflow, never pull requests, so a fork can't run code on the runner.
+# GitHub's own runners: free for this public repo, and about twice as fast as our shared self-hosted machine
+# (change-domain: 73-90 min here against about 3 h there, 2026-10-30). The RENDER_RUNNER repository variable
+# (a JSON label, e.g. '["self-hosted", "light"]') moves every job to another machine without a code change.
+# The jobs work on either: the render runs in Playwright's image, so the machine needs only Docker.
 jobs:
   # Checks, and which reels need rendering. Renders are named by content key (scripts/reel-keys.mjs: a sha256
   # of every file that can change the reel), so a reel needs rendering only when renders/<id>/<key> isn't on
   # the CDN yet: whatever commit, branch or cancelled run came before, the same content is never rendered
   # twice. Manual runs render the reels typed in (empty: all), even when already rendered.
   plan:
-    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '["self-hosted", "light"]') }}
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
     timeout-minutes: 20
     permissions:
       contents: read
@@ -69,8 +70,8 @@ jobs:
   render:
     needs: plan
     if: needs.plan.outputs.render == 'true'
-    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '["self-hosted", "light"]') }}
-    timeout-minutes: 300 # the longest reel (change-domain, 25,000 frames at 60 fps) takes about 3 h on the light runner
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 300 # the longest reel (change-domain, 25,000 frames at 60 fps): about 1.5 h on GitHub's runner, 3 h on our light one
     permissions:
       contents: read
       id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
@@ -170,7 +171,7 @@ jobs:
   latest:
     needs: [plan, render]
     if: always() && github.ref == 'refs/heads/main' && needs.plan.result == 'success' && (needs.render.result == 'success' || needs.render.result == 'skipped')
-    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '["self-hosted", "light"]') }}
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
     timeout-minutes: 30
     permissions:
       contents: read

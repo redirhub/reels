@@ -17,7 +17,7 @@ npm run render -- <id>   # when you changed a reel: render it, then
 python3 scripts/qa/check_reel.py out/<id>.mp4 --qr <sec>=<url>   # format, loudness, QR, contact sheet
 ```
 
-CI (`.github/workflows/render.yml`) runs on our self-hosted runners (`[self-hosted, light]`, or the JSON label list in the `RENDER_RUNNER` repository variable; renders run in Playwright's Docker image, since the machine lacks Chromium's libraries). It runs typecheck and build on every push, then renders every reel whose content (its key, `scripts/reel-keys.mjs`) has no render yet, one job per reel (newest first) that publishes as soon as it finishes; on `main` a last job points the public `latest` links at every reel's current key.
+CI (`.github/workflows/render.yml`) runs on GitHub's own runners (free for this public repo; the `RENDER_RUNNER` repository variable, a JSON label such as `["self-hosted", "light"]`, moves it to another machine; renders run in Playwright's Docker image, so any machine with Docker works). It runs typecheck and build on every push, then renders every reel whose content (its key, `scripts/reel-keys.mjs`) has no render yet, one job per reel (newest first) that publishes as soon as it finishes; on `main` a last job points the public `latest` links at every reel's current key.
 
 ## Layout
 
