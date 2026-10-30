@@ -36,3 +36,10 @@ Mix target: -14 LUFS integrated, -1 dBTP, voiceover on top. Measured on each ren
 
 Before a Pixabay sound goes into a cue: keep the original in `sfx/` or `music/` under its Pixabay file
 name, add its page URL to `docs/audio-licenses.md`, note any Content ID claim, and list it here.
+
+## Music beds
+
+| File | Source | License | Used in |
+|---|---|---|---|
+| `music/mixkit-1167-close-up.mp3` | Mixkit #1167 "Close Up" | Mixkit Stock Music Free License | `ezmarketing-story` |
+| `music/mixkit-744-house-02.mp3` | Mixkit #744 "House 02" (123 BPM tech-house, instrumental) | Mixkit Stock Music Free License (YouTube and social allowed; not CDs/DVDs/games/broadcast) | W44 `change-domain` bed (loops 46.86-93.69 s on its downbeat) |

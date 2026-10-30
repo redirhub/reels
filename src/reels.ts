@@ -16,6 +16,8 @@ import { TOTAL as EZMARKETING_SECONDS } from './remotion/reels/ezmarketing-story
 import { redirectDomainDefaults } from './remotion/reels/redirect-domain/props';
 import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forward-domains/ForwardDomains';
 import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
+import { ChangeDomain, CHANGE_DOMAIN_SECONDS } from './remotion/reels/change-domain/ChangeDomain';
+import { changeDomainDefaults } from './remotion/reels/change-domain/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -86,5 +88,15 @@ export const reels: Reel[] = [
         durationInSeconds: FORWARD_DOMAINS_SECONDS,
         ...LANDSCAPE,
         fps: 60, // YouTube plays 1080p60: motion graphics move in half the step, so slides and pops stay smooth
+    },
+    {
+        id: 'change-domain',
+        title: 'How to change your domain name without losing SEO (YouTube, W44)',
+        description: 'A 16:9 story-led tutorial with voiceover: an ice cream shop, Frosty Fusion, renames itself Frosty Bites without losing its spot on Google. Google ranks pages, the shortcut that melts a ranking, one-to-one 301s with a RedirHub Website Migration, telling Google, the test, the wobble and the two rules.',
+        component: ChangeDomain,
+        defaultProps: changeDomainDefaults,
+        durationInSeconds: CHANGE_DOMAIN_SECONDS,
+        ...LANDSCAPE,
+        fps: 60,
     },
 ];

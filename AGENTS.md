@@ -17,7 +17,7 @@ npm run render -- <id>   # when you changed a reel: render it, then
 python3 scripts/qa/check_reel.py out/<id>.mp4 --qr <sec>=<url>   # format, loudness, QR, contact sheet
 ```
 
-CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on every PR.
+CI (`.github/workflows/render.yml`) runs on GitHub's own runners (free for this public repo; the `RENDER_RUNNER` repository variable, a JSON label such as `["self-hosted", "light"]`, moves it to another machine; renders run in Playwright's Docker image, so any machine with Docker works). It runs typecheck and build on every push, then renders every reel whose content (its key, `scripts/reel-keys.mjs`) has no render yet, one job per reel (newest first) that publishes as soon as it finishes; on `main` a last job points the public `latest` links at every reel's current key.
 
 ## Layout
 
@@ -30,7 +30,7 @@ CI (`.github/workflows/render.yml`) runs typecheck, build and a full render on e
 | `src/remotion/lib/anim.ts` | Time helpers (`useTime`, `prog`, easings, `rise`, `fx`). |
 | `app/` | Next.js gallery on Vercel (https://reels-redirhub.vercel.app). Plays the published MP4 by default in production and the live Remotion Player on branch previews. |
 | `scripts/render.mjs` | Batch render to `out/<id>.mp4` + `out/<id>.jpg`. |
-| `scripts/changed-reels.mjs` | CI: which reels a push affects (reel folder, its `public/audio/<id>…` files, a `youtube/` file it imports, its registry entry → that reel; production sources and tooling → none; shared code → all). Keep a reel's files inside `src/remotion/reels/<id>/` so this stays accurate. |
+| `scripts/reel-keys.mjs` | Each reel's content key: a sha256 of every file that can change it (its folder, its `public/audio/<id>…` files, a `youtube/` file it imports, its registry entry, a `public/fonts/` file only it loads; plus shared code, render settings and dependencies). Renders are stored as `renders/<id>/<key>.mp4`; CI (`scripts/reels-to-render.mjs`) renders only the reels whose key isn't published yet, and branch previews compute the same key. Keep a reel's files inside `src/remotion/reels/<id>/` so this stays accurate. |
 | `scripts/publish-s3.sh` | CI-only: upload `out/` to S3 and invalidate CloudFront. Setup in `docs/aws/SETUP.md`. |
 | `scripts/audio/` | `npm run audio`: generates each reel's beat from its `music.json` (`beat.py`) and the shared SFX (`sfx.py`) into `public/audio/`. |
 
