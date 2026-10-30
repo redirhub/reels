@@ -7,7 +7,8 @@
 //
 // Prints key=value lines for $GITHUB_OUTPUT:
 //   render=true|false  at least one reel to render
-//   reels=<ids>        the reels to render, space-separated (never empty when render=true)
+//   reels=<ids>        the reels to render, newest first, space-separated (never empty when render=true)
+//   matrix=<json>      the same as a JSON array, for a job matrix (one job per reel)
 //   registered=<ids>   every reel, newest first (publish orders and prunes index.json with it)
 //   keys=<id=key …>    every reel's content key (publish names the files with it)
 import { reelKeys } from './reel-keys.mjs';
@@ -44,6 +45,9 @@ for (const id of ids) {
     if (wanted) todo.push(id);
 }
 console.log(`render=${todo.length > 0}`);
+// newest first: the reel someone is working on is usually the newest, so its render lands first
+todo.reverse();
 console.log(`reels=${todo.join(' ')}`);
+console.log(`matrix=${JSON.stringify(todo)}`);
 console.log(`registered=${[...ids].reverse().join(' ')}`);
 console.log(`keys=${ids.map((id) => `${id}=${keys[id]}`).join(' ')}`);
