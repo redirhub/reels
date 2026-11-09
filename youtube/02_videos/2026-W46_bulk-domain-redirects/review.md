@@ -21,8 +21,8 @@ the right half, a second amber object (a halo), cramped recap marks.
 
 - **A** (Notebook → Glomvo → Title): an empty name, *therefore* a team that holds names, *therefore* the promise.
   The wall flows into the title's sheet.
-- **B** (Renewals → Parking → Weight): it costs every year, *but* the ads that helped went away, *therefore* each
-  visitor matters. Calm, no numbers.
+- **B** (Renewals → Parking → Weight): it costs every year, *but* one ad surface that helped closed this year
+  (after the 2026-11-09 fact check, Δ-0), *therefore* each visitor matters. Calm, no numbers.
 - **C** (TwoResults → Warning → Silence): it worked, *but* not on https; the founder leaves; *and* nobody knows.
   Quietest act: one room, no cues, one low tone and a held silence.
 - **D** (Door → Honest → Once): the model; *but* if you have a few names you're done; *but* Glomvo has three

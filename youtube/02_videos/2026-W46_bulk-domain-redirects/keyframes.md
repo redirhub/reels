@@ -48,6 +48,7 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 | Product (extend `Product.tsx`) | Create chooser with Import CSV; the import's fix step; the review step; Hostnames with Connect DNS (Automatic/Manual); analytics Domains card; bulk Change destination. Labels from the live dashboard (`redirhub/lviv`), see open-questions.md Q-3. |
 | Dialog dock | dialogs come forward over the dimmed dashboard at 1.45× so their words read at 1080p. |
 
+
 ## The world · cast, props and the door-and-knock motif (every frame reuses them)
 
 ### `w46-World` · The story world
@@ -109,17 +110,17 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 - **Note:** No dollar figures, on purpose.
 - **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** 2·2·2·2·2·2.
 
-### `w46-Parking` · Parking ads went away
+### `w46-Parking` · A parking ad surface closes
 
 - **Beats:** 6 · **Room:** Charcoal
-- **The one idea:** The parking ads that helped pay renewals mostly went away this year.
-- **Props:** a generic parked page on olzik.com, its sponsored-listing blocks; two plain dated lines
-- **In:** The ad blocks fade from the top down while “Parking ads used to pay part of that” is spoken; “January · Bodis closed.” lands on “Bodis”, “February · Google pulled its ads from parked domains.” on “February”.
+- **The one idea:** One of the ad surfaces that paid parked names closed this year.
+- **Props:** a generic parked page on olzik.com, its sponsored-listing blocks; one plain dated line with its source
+- **In:** The ad blocks fade from the top down while “Parking ads used to pay part of that” is spoken; “February 10, 2026” lands on “February tenth”, the line under it with the voice, the source line last.
 - **Out:** Cut.
 - **Voice:** [matter-of-fact] · **Sound:** None.
-- **The viewer should feel:** Matter-of-fact. Old income, gone.
-- **Note:** ⚠️ Both parking facts are still unconfirmed in guide.md: plain text only, no logos, flagged in open-questions.md (Q-4) before the voice is recorded.
-- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** 2·2·2·2·2·2. Honesty depends on Q-4 (both facts still ⚠️). Gate 4: the consequence caption is gone (the voice carries it), so the frame holds only the two dated lines.
+- **The viewer should feel:** Matter-of-fact: a dated change, not alarm.
+- **Note:** Worded as Google’s help page words it (support.google.com/google-ads/answer/50002): parked domains stopped being an ad surface on the Search Partner Network on February 10, 2026. Bodis is left out (only secondary reports of a customer email); no claim about parking revenue overall. See script-deltas.md Δ-0 and open-questions.md C-1.
+- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** 2·2·2·2·2·2. Fact check (Kris, 2026-11-09): narrowed to the one fact Google’s own page states, with its source on screen; Bodis and the industry-wide line removed. Gate 4: the consequence caption is gone (the voice carries it), so the frame holds only the two dated lines.
 
 ### `w46-Weight` · Each visitor carries weight
 

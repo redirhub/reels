@@ -70,9 +70,19 @@ they say:
 | Change the destination of many links at once, by tag | product facts; bulk edit (lviv) |
 | Free Redirect Checker | redirhub.com navigation, “Free tools → Redirect Checker” |
 
-- **C-1 · The two parking facts are still ⚠️** ("Bodis closed in January", "Google pulled its ads from parked
-  domains in February"). They are plain dated text with no logos (Parking frame). Please confirm both before the
-  voice is recorded.
+- **C-1 · The parking facts: resolved by narrowing (Kris's fact check, 2026-11-09).** See script-deltas.md Δ-0.
+  - **Google, kept and narrowed.** Google Ads Help, "Parked domain site"
+    (https://support.google.com/google-ads/answer/50002): "Parked Domains (AFD) will cease to be an ad surface within
+    the Search Partner Network effective February 10, 2026." Checked 2026-11-09. Proposed VO: "since February tenth,
+    parked domains are no longer eligible as ad placements on Google's Search Partner Network." It says nothing about
+    Google ending all domain advertising or monetization, and neither do the frames.
+  - **Bodis, left out.** The only evidence is secondary: DomainInvesting.com (2026-01-28; the author quotes "an email
+    I received from Bodis": services cease "effective January 31, 2026") and a DNForum repost of the same email
+    (https://www.dnforum.com/threads/bodis-is-shutting-down.628336/). No first-party Bodis notice was found: bodis.com
+    returned 503 and an archived copy couldn't be read from this session. **Question for Kris and Leo:** if either of
+    you has the original Bodis email, the optional line in Δ-0 can come back, worded as what Bodis told customers.
+  - **"Most of that went away", removed.** No independent evidence for an industry-wide revenue claim. Beat 7 is
+    softened to match ("the surest way a name pays for itself").
 - No dollar figures, prices, plan names or free-plan wording appear anywhere. Numbers that aren't facts (63, 9,
   214, 12, 128, 226 rows, the quiet names' zeros) carry an Example label in their frame.
 

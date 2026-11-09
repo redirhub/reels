@@ -4,6 +4,28 @@ Every change the frames propose to script v3, with the reason. `script.md` is un
 this list before the voice is recorded. Nothing here touches the fixed parts (facts, the twist, the honest exit,
 the three steps in order, the real walkthrough, the aside, the closing question).
 
+## Δ-0 · Beats 6–7: the parking facts, narrowed (fact check, Kris, 2026-11-09). Required before recording.
+
+v3's beat 6 makes three claims; only one has a first-party source.
+
+| v3 claim | Evidence found | Decision |
+|---|---|---|
+| "in February Google pulled its ads from parked domains" | Google Ads Help, "Parked domain site" (support.google.com/google-ads/answer/50002): "Parked Domains (AFD) will cease to be an ad surface within the Search Partner Network effective February 10, 2026." Nothing about Google's other products or about domain monetization in general. | **Keep, narrowed** to exactly that. |
+| "Bodis closed in January" | Two trade reports of the same customer email, dated 2026-01-28: DomainInvesting.com (Elliot Silver: "an email I received from Bodis this afternoon": "cease operating our services effective January 31, 2026") and a DNForum repost. No first-party Bodis page or announcement found: bodis.com answered 503 when checked; no archived notice could be read from this session. | **Leave out**, unless someone has the original Bodis email (see C-1). |
+| "This year, most of that went away" | No independent source for an industry-wide revenue claim. | **Remove.** |
+
+- **v3, 6:** [matter-of-fact] Parking ads used to pay part of that. This year, most of that went away: Bodis closed in January, and in February Google pulled its ads from parked domains.
+- **Proposed 6:** [matter-of-fact] Parking ads used to pay part of that. But since February tenth, parked domains are no longer eligible as ad placements on Google's Search Partner Network.
+
+Beat 7 leaned on "most of that went away". Without it, "one way" is stronger than the evidence, so soften it too:
+
+- **v3, 7:** So a name pays for itself one way: someone buys it. That's rare, so each person who comes looking carries a lot of weight.
+- **Proposed 7:** So the surest way a name pays for itself is when someone buys it. That's rare, so each person who comes looking carries a lot of weight.
+
+If the original Bodis email turns up, this optional line can follow the Google sentence: "And Bodis told its customers it would stop its parking service on January 31." (It states what the email says, not that the company closed.)
+
+On screen (`w46-Parking`): one dated line, "February 10, 2026 · Parked domains are no longer ad placements on Google's Search Partner Network.", with "Source: Google Ads Help, “Parked domain site”" under it. Bodis no longer appears anywhere in the frames. Beat 7’s on-screen line ("Each person who comes looking carries a lot of weight.") is unchanged.
+
 ## Δ-1 · Beats 20–21: put the fix before the review (the product's real order)
 
 The real import checks every row first (the fix step: "9 rows need a fix…", "Add https:// to all 9") and only
@@ -44,7 +66,7 @@ repeated the title. The VO is unchanged. Alternative kept in open-questions.md Q
 ## On-screen text that differs from the VO (by design, no script change)
 
 - Beat 7: the screen shows only "Each person who comes looking carries a lot of weight." (hold rule: 10 words).
-- Beat 6: the consequence line is voice only; the screen holds the two dated facts.
+- Beat 6: the screen holds the one dated fact and its source (Δ-0); the first sentence is voice only.
 - Beat 10: the last clause ("their own check worked only because they typed the plain address") is drawn in the
   previous frame (Glomvo typed the plain address) and spoken over the Silence frame.
 - Beat 16–17: the headline compresses both beats: "A 302, because it will sell. A tag, for the group."

@@ -144,7 +144,7 @@ def _world():
 
     rules = ('<ul style="margin: 0; padding-left: 28px; display: flex; flex-direction: column; gap: 14px; font-size: 24px; line-height: 1.45; color: #344054">'
              '<li>No face or realistic person. The founder is never drawn: a notebook and a browser stand in.</li>'
-             '<li>No real logo, colour or copy for any registrar, marketplace, browser, Google, Bodis or Cloudflare. “Cloudflare” appears once, as a plain word, in Connect DNS.</li>'
+             '<li>No real logo, colour or copy for any registrar, marketplace, browser, Google or Cloudflare. “Cloudflare” appears once, as a plain word, in Connect DNS.</li>'
              '<li>No dollar figure, price, plan name or free-plan wording. A price is a bar.</li>'
              '<li>Glomvo’s stone palette and Instrument Serif stay on Glomvo’s own things. Teal means fixed; Signal Red lives only on the warning page; amber at most once a frame; product blue only in product UI.</li>'
              '<li>Nothing tilts, spins or bounces.</li></ul>')
@@ -210,18 +210,19 @@ def _renewals():
     return frame('light', inner)
 
 
-@F('w46-Parking', 'Parking ads went away')
+@F('w46-Parking', 'A parking ad surface closes')
 def _parking():
     def ad(w, h, op):
         return f'<div style="width: {w}px; height: {h}px; border-radius: 12px; background: {G200}; opacity: {op}"></div>'
     parked = (f'<div style="height: 476px; box-sizing: border-box; padding: 34px; display: flex; flex-direction: column; gap: 18px; background: #FFFFFF">'
               f'<span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: {G400}">SPONSORED LISTINGS</span>'
               + ''.join(ad(w, 70, op) for w, op in ((640, 0.9), (600, 0.6), (620, 0.35), (560, 0.15))) + '</div>')
-    lines = ''.join(f'<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 24px; font-weight: 700; letter-spacing: 0.12em; color: {INK_SOFT}">{m}</span>'
-                    f'<span style="font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15">{t}</span></div>'
-                    for m, t in (('JANUARY', 'Bodis closed.'), ('FEBRUARY', 'Google pulled its ads from parked domains.')))
+    # One dated fact, worded as Google's own help page words it (Kris, 2026-11-09): no industry-wide claim, no Bodis.
+    fact = (f'<div style="display: flex; flex-direction: column; gap: 14px"><span style="font-size: 24px; font-weight: 700; letter-spacing: 0.12em; color: {INK_SOFT}">FEBRUARY 10, 2026</span>'
+            f'<span style="font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.18">Parked domains are no longer ad placements on Google’s Search Partner Network.</span>'
+            f'<span style="font-size: 20px; font-weight: 600; color: {INK_MUTE}">Source: Google Ads Help, “Parked domain site”</span></div>')
     inner = (browser2(lock_url('https://olzik.com'), parked, 120, 230, 720, 540)
-             + f'<div style="position: absolute; left: 960px; top: 330px; width: 820px; display: flex; flex-direction: column; gap: 56px">{lines}</div>')
+             + f'<div style="position: absolute; left: 960px; top: 330px; width: 840px">{fact}</div>')
     return frame('charcoal', inner)
 
 
