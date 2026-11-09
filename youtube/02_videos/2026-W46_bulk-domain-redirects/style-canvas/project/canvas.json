@@ -604,7 +604,7 @@
     "w46-Parking.dc.html": {
       "h": 1080,
       "page": "w46",
-      "title": "Parking ads went away",
+      "title": "A parking ad surface closes",
       "w": 1920,
       "x": 2000,
       "y": 8280
@@ -1467,7 +1467,7 @@
       "maxH": 640,
       "page": "w46",
       "size": 24,
-      "text": "Beats 6. The parking ads that helped pay renewals mostly went away this year.\nIN: The ad blocks fade from the top down while “Parking ads used to pay part of that” is spoken; “January · Bodis closed.” lands on “Bodis”, “February · Google pulled its ads from parked domains.” on “February”.\nOUT: Cut.\nVOICE: [matter-of-fact] · SOUND: None.\nFEEL: Matter-of-fact. Old income, gone. · ROOM: Charcoal\n⚠️ Both parking facts are still unconfirmed in guide.md: plain text only, no logos, flagged in open-questions.md (Q-4) before the voice is recorded.",
+      "text": "Beats 6. One of the ad surfaces that paid parked names closed this year.\nIN: The ad blocks fade from the top down while “Parking ads used to pay part of that” is spoken; “February 10, 2026” lands on “February tenth”, the line under it with the voice, the source line last.\nOUT: Cut.\nVOICE: [matter-of-fact] · SOUND: None.\nFEEL: Matter-of-fact: a dated change, not alarm. · ROOM: Charcoal\nWorded as Google’s help page words it (support.google.com/google-ads/answer/50002): parked domains stopped being an ad surface on the Search Partner Network on February 10, 2026. Bodis is left out (only secondary reports of a customer email); no claim about parking revenue overall. See script-deltas.md Δ-0 and open-questions.md C-1.",
       "w": 1180,
       "x": 2000,
       "y": 9400
