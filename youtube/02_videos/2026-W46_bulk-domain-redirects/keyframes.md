@@ -24,9 +24,9 @@ door that has to open properly, padlock included, and a visit is a knock Glomvo 
   Mono. It is on Glomvo's wall (A), the founder's address bar and notebook (C), the sheet's first row (E),
   the 63-visit tile with the crossed-out "drop list?" sticky, then a priced lander (F), and the stepped-back
   door in the closing question (G). It appears in 22 of 26 frames.
-- **The door and the knock** (`door()`): an arched doorway whose padlock is its keystone. Closed = navy leaf,
-  unlit lock. Open = the leaf slides aside, teal light fills the gap and spills on the floor, the lock lights
-  teal. Knock = three arcs leave the door's edge. Broken (red, shackle sprung) exists on the World board for
+- **The door and the knock** (`door()`), kept minimal after Review 2: one arched doorway with a small padlock at
+  its centre. Closed = a thin outline, the padlock in outline. Open = the arch fills with teal light (a soft glow
+  around it) and the padlock turns solid white. Knock = three arcs leave the door's edge. Broken (red, shackle sprung) exists on the World board for
   completeness but is not used in any frame: the warning page carries that moment. The motif hides in every
   tile as the small slot from frame 2, is born at beat 11 (Door), opens on every name at 24 (Padlocks), knocks
   in F and asks its question in G. New move on `w46-System`: **knock = someone came looking**.
@@ -38,7 +38,7 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 
 | Piece | Notes |
 |---|---|
-| `Door` | SVG, props `state` (closed, ajar, open, broken), `knock` (0–3), `label`. The knock arcs and the slide of the leaf are the only animated parts. |
+| `Door` | SVG, props `state` (closed, open, broken), `knock` (0–3), `label`. The fill (outline to teal light, top down) and the knock arcs are the only animated parts. |
 | `NameTile` | slot + mono name; options: tag chip, visit count, ring, dim, strike. |
 | `GlomvoLogo`, `GlomvoLander` | Instrument Serif in the wordmark only; lander in Inter (it is a website). `price` adds Buy now (a PRICE chip, never a figure) and Make an offer. |
 | `Notebook` | paper tokens from W41; the circled name line (empty, kipzoo.com, struck + next name). |
@@ -49,12 +49,13 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 | Dialog dock | dialogs come forward over the dimmed dashboard at 1.45× so their words read at 1080p. |
 
 
+
 ## The world · cast, props and the door-and-knock motif (every frame reuses them)
 
 ### `w46-World` · The story world
 
 - **Note:** Glomvo (Instrument Serif wordmark, stone palette), its for-sale lander, the portfolio wall (every name DNS-checked), the kipzoo.com thread in its five states, the door-and-knock motif (closed, opening with the padlock lit, a knock, and the broken state used once), the founder (a notebook and a browser, never a person), the generic warning page, three unbranded registrars, the spreadsheet with the real import columns, and the analytics Domains card. World rules at the bottom right.
-- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** Gate 1: round 1 the door read as a battery (rounded slab under a lock): redrawn as an arched doorway, padlock keystone, light spill on the floor. Panels that clipped their notes were resized; the F tile was shown twice and is now one.
+- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** Gate 1: round 1 the door read as a battery (rounded slab under a lock): redrawn as an arched doorway, padlock keystone, light spill on the floor. Review 2 (Leo): simplified to one arch and one padlock at its centre (outline when closed, teal light and a solid lock when open, thin arcs for a knock); no floor, leaf or keystone. Glomvo’s logo is the wordmark alone. Panels that clipped their notes were resized; the F tile was shown twice and is now one.
 
 
 ## A · Imagine
@@ -180,8 +181,8 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 
 - **Beats:** 11 · **Room:** Charcoal
 - **The one idea:** Every name needs a door that opens, and a way to hear the knock.
-- **Props:** the motif, born: kipzoo.com as an arched door, padlock keystone lit, light spilling; three knock arcs
-- **In:** Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the leaf slides, light spills and the padlock lights teal; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.
+- **Props:** the motif, born: kipzoo.com as an arched door, filled with teal light, the padlock solid at its centre, a soft glow; three knock arcs
+- **In:** Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the outline fills with teal light from the top down and the padlock turns solid; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.
 - **Out:** Register change into the honest note.
 - **Voice:** [thoughtful] · **Sound:** Knock (new cue): a soft two-tap on “knocks”.
 - **The viewer should feel:** “That’s the whole problem, in one picture.”
@@ -291,7 +292,7 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 
 - **Beats:** 24 · **Room:** Glow, teal
 - **The one idea:** As each name connects, its padlock is set up and renewed.
-- **Props:** the wall again, as twelve doors, every padlock lit, light spilling
+- **Props:** the wall again, as twelve doors, every one filled with teal light, every padlock solid
 - **In:** The doors open one after another on “as each name connects”, each padlock lighting teal; the headline lands on “renewed for it”.
 - **Out:** Hold, then cut to Act F.
 - **Voice:** calm, satisfied · **Sound:** Fixed chime, the film’s only one, as the last padlock lights.

@@ -81,7 +81,7 @@ def _world():
               + f'<div data-shop style="display: flex; gap: 14px">' + ''.join(f'<span style="width: 56px; height: 56px; border-radius: 14px; background: {c}; box-shadow: inset 0 0 0 1px rgba(16,24,40,0.12)"></span>' for c in g.values()) + '</div>'
               + f'<span style="{MONO}; font-size: 18px; color: {G600}">ink #2B2722 · stone #F4F0E8 · linen #E7E0D4 · pebble #A79F92</span></div>'
               f'<div style="display: flex; flex-direction: column; gap: 18px">{lander_browser(820, 520)}'
-              f'<span style="font-size: 22px; font-weight: 600; color: {G600}">The for-sale page: the same page for every name. Act F adds Buy now (price shown as a bar, never a figure).</span></div></div>')
+              f'<span style="font-size: 22px; font-weight: 600; color: {G600}">The for-sale page: the same page for every name. Act F adds Buy now (a PRICE chip, never a figure).</span></div></div>')
 
     # 2 · the portfolio wall
     wall = ''.join(name_tile(n, 430, tagc=None) for n in WALL)
@@ -90,7 +90,7 @@ def _world():
 
     # 3 · the thread
     stick = (f'<div style="position: relative; width: 470px; height: 190px">{place(0, 60, name_tile(KIP, 440, visits=63))}'
-             f'{place(310, 0, sticky("drop?", 140, strike=True))}</div>')
+             f'{place(310, 0, sticky("drop list?", 190, strike=True))}</div>')
     thread_items = [
         ('A', 'One of the names', name_tile(KIP, 440)),
         ('C', 'The founder types it', typing_browser(560, 150, body=f'<div style="height: 86px; background: #FFFFFF"></div>')),
@@ -104,11 +104,11 @@ def _world():
               + f'<span style="display: block; margin-top: 34px; width: 2900px">' + note(f'One object, always the same: a white tile, a slot, <span style="{MONO}">kipzoo.com</span> in JetBrains Mono. The narrator says “kipzoo”; the screen always shows the full address. It is one of Glomvo’s names (A), the name the founder types and leaves (C), a row in the spreadsheet (E), the name with 63 visits that had been on last year’s drop list (F), and the door in the closing question (G).') + '</span>')
 
     # 4 · the motif (dark panel)
-    st = [('closed', 0, '1 · Closed', 'A name with nowhere safe to go. Dark slab, quiet outline, padlock unlit.'),
-          ('open', 0, '2 · Opening, padlock lit', 'The fix: teal light from its edge, the padlock lit teal. Opens properly.'),
+    st = [('closed', 0, '1 · Closed', 'A name with nowhere safe to go: a thin outline, the padlock unlit.'),
+          ('open', 0, '2 · Open, padlock lit', 'The fix: the arch fills with teal light, the padlock solid. Opens properly.'),
           ('open', 3, '3 · A knock', 'Someone came looking: three arcs leave the door. Glomvo hears it.'),
-          ('broken', 0, 'Only once · Broken', 'The warning page in Act C: red light, the shackle sprung. Never elsewhere.')]
-    motif = (f'<div style="display: flex; gap: 70px; align-items: flex-end">'
+          ('broken', 0, 'Reference only · Broken', 'Red, the shackle sprung. Not used in any frame: the warning page carries that moment.')]
+    motif = (f'<div style="display: flex; gap: 70px; align-items: flex-start">'
              + ''.join(f'<div style="display: flex; flex-direction: column; gap: 22px; width: {440 if k else 300}px">{door(200, s, knock=k)}'
                        f'<span style="font-size: 26px; font-weight: 800; color: {INK}">{t}</span><span style="font-size: 21px; line-height: 1.45; color: {INK_SOFT}">{d}</span></div>' for s, k, t, d in st)
              + '</div>'
@@ -283,7 +283,7 @@ def _door():
     items = ''.join(f'<div style="display: flex; gap: 22px; align-items: baseline"><span style="font-size: 40px; font-weight: 800; color: {TEAL}">{n}</span>'
                     f'<span style="font-size: 46px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15">{t}</span></div>'
                     for n, t in (('1', 'A door that opens properly, padlock included.'), ('2', 'A way to hear when someone knocks.')))
-    inner = (place(190, 170, door(320, 'open', knock=3, label=KIP))
+    inner = (place(210, 190, door(390, 'open', knock=3, label=KIP))
              + headline('Every name needed two things.', x=880, y=260, size=58, w=920)
              + f'<div style="position: absolute; left: 880px; top: 440px; width: 900px; display: flex; flex-direction: column; gap: 40px">{items}</div>')
     return frame('charcoal', inner)
@@ -492,7 +492,7 @@ def _point():
 @F('w46-Padlocks', 'Every door opens, padlock included')
 def _padlocks():
     names = WALL
-    doors = ''.join(place(150 + (k % 6) * 290, 260 + (k // 6) * 330, door(120, 'open', label=n, uid=str(k))) for k, n in enumerate(names))
+    doors = ''.join(place(140 + (k % 6) * 280, 250 + (k // 6) * 320, door(150, 'open', label=n, uid=str(k))) for k, n in enumerate(names))
     inner = headline('Each padlock set up, and renewed for it.', y=130, size=60, w=1600) + doors
     return frame('glow-teal', inner)
 
@@ -504,7 +504,7 @@ def _knocks():
              + f'<div style="position: absolute; left: 120px; top: 520px; display: flex; align-items: center; gap: 16px">{ex_label(light=False)}'
              f'<span style="font-size: 24px; color: {INK_SOFT}">Channel: Direct</span></div>'
              + caption('Nobody sent those people. They typed it in.', x=120, y=640, w=740, size=44)
-             + place(1150, 190, door(300, 'open', knock=3, label=KIP)))
+             + place(1170, 200, door(370, 'open', knock=3, label=KIP)))
     return frame('charcoal', inner)
 
 
@@ -551,8 +551,8 @@ def _bytag():
 def _recap():
     icons = [scaled(sheet(420, rows=sheet_rows()[:3], show_more=False, row_h=40), 0.62, 476, 260),
              f'<div style="width: 296px; height: 200px; display: flex; align-items: center; justify-content: center"><span style="{BTN_P}; height: 64px; font-size: 26px; padding: 0 30px">Import CSV</span></div>',
-             f'<div style="width: 238px; height: 130px; display: flex; align-items: center; justify-content: center">{door(110, "open", uid="r")}</div>',
-             f'<div style="width: 238px; height: 130px; display: flex; align-items: center; justify-content: center">{door(110, "open", knock=2, uid="r2")}</div>']
+             f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", uid="r")}</div>',
+             f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", knock=2, uid="r2")}</div>']
     steps = ''.join(f'<div style="display: flex; flex-direction: column; align-items: center; gap: 28px; width: 360px"><div data-ui="icon" style="height: 240px; display: flex; align-items: center">{ic}</div>'
                     f'<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em">{t}</span></div>' for ic, t in zip(icons, ('List', 'Import', 'Point', 'Listen')))
     inner = f'<div style="position: absolute; left: 120px; top: 300px; width: 1680px; display: flex; justify-content: space-between">{steps}</div>'
@@ -561,8 +561,8 @@ def _recap():
 
 @F('w46-YourNames', 'Would the door open?')
 def _yours():
-    doors = f'<div style="position: absolute; left: 160px; top: 170px; opacity: 0.45">{door(170, "open", label=KIP, uid="y")}</div>'
-    doors += ''.join(place(620 + k * 280, 170, door(190, 'closed', uid=f'y{k}')) for k in range(4))
+    doors = f'<div style="position: absolute; left: 140px; top: 200px; opacity: 0.45">{door(210, "open", label=KIP, uid="y")}</div>'
+    doors += ''.join(place(560 + k * 300, 200, door(210, 'closed', uid=f'y{k}')) for k in range(4))
     inner = (f'<span style="position: absolute; left: 120px; top: 92px; display: inline-flex; align-items: center; height: 52px; padding: 0 24px; border-radius: 26px; background: rgba(255,255,255,0.10); '
              f'font-size: 25px; font-weight: 600; color: {INK_SOFT}">An aside: Glomvo isn’t a real company.</span>'
              + doors
@@ -609,7 +609,7 @@ def _system():
     roles = ''.join(f'<div style="display: flex; align-items: center; gap: 12px"><span style="width: 40px; height: 40px; flex: none; border-radius: 11px; background: {c}; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span>'
                     f'<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 700">{n}</span><span style="font-size: 15px; color: {INK_SOFT}">{r}</span></div></div>'
                     for c, n, r in ((TEAL, 'Teal', 'fixed: a lit door, the fix'), (RED, 'Signal red', 'the warning page only'), (AMBER, 'Amber', 'twice in the film: one visitor, the quiet names'),
-                                    (BLUE, 'Blue', 'inside product UI only'), ('#FBF7EF', 'Paper', 'the founder’s notebook'), ('#1E2A44', 'Door navy', 'the closed leaf, every slot')))
+                                    (BLUE, 'Blue', 'inside product UI only'), ('#FBF7EF', 'Paper', 'the founder’s notebook'), ('#1E2A44', 'Door navy', 'every name tile’s slot')))
     grammar = (('Cut on the beat', 'every act break'), ('Shared-element morph', 'the wall becomes the sheet (Title); the tile becomes a door (Door)'),
                ('Dock', 'dialogs come forward over the dimmed dashboard'), ('Draw', 'three registrar lines merge into one sheet (Once)'),
                ('Focus rack', 'plain address vs https (Two results)'), ('Register change', 'the honest note; “isn’t a real company”'),

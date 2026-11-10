@@ -5,6 +5,8 @@
 - **Motif.** Round 1 drew the door as a rounded slab with the padlock on top: at thumbnail size it read as a
   battery. Redrawn as an arched doorway, the padlock as its keystone, light spilling onto a floor line when it
   opens. Reads as a door at 140 px, and stays drawn rather than cartoon (no handle, hinges or wood).
+- **Review 2 (Leo):** the door simplified further to one arch and one centred padlock (outline closed, teal light
+  and a solid lock open, thin arcs for a knock), and Glomvo's logo became the wordmark alone.
 - **Names.** Every name is invented and DNS-checked (open-questions.md, D). kipzoo.com is the one exception: no
   DNS, but registered (D-1, with fallbacks).
 - **Glomvo.** Serif wordmark, stone and ink, "names, held with care": a serious small team, no startup gloss.

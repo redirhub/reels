@@ -1,7 +1,7 @@
 from w46_base import *
 
 # ================================================================ W46 cast and props (defined once, reused by every frame)
-# Glomvo: a small, serious team that holds names. Its own palette and its one prop typeface (Instrument Serif) live only
+# Glomvo: a small, serious team that holds names. Its logo is the wordmark alone (Leo, Review 2: no icon). Its own palette and its one prop typeface (Instrument Serif) live only
 # inside its own things ([data-shop] / [data-logo]); around them the film stays RedirHub.
 GLOMVO = dict(ink='#2B2722', stone='#F4F0E8', linen='#E7E0D4', pebble='#A79F92')
 SHOP_HEX = ' '.join(v[1:] for v in GLOMVO.values())
@@ -28,20 +28,12 @@ def ex_label(text='Example', light=True):
 
 
 # ---------------------------------------------------------------- Glomvo: mark, wordmark, lander
-def glomvo_mark(size=56, dark=False):
-    g = GLOMVO
-    fg, bg = (g['stone'], g['ink']) if not dark else (g['ink'], g['stone'])
-    return (f'<svg data-logo width="{size}" height="{size}" viewBox="0 0 64 64" role="img" aria-label="Glomvo mark" style="display: block; flex: none">'
-            f'<circle cx="32" cy="32" r="30" fill="{bg}"></circle><circle cx="32" cy="32" r="24.5" fill="none" stroke="{fg}" stroke-opacity="0.35" stroke-width="1.2"></circle>'
-            f'<text x="32" y="41.5" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="34" fill="{fg}">g</text></svg>')
-
-
 def glomvo_logo(size=40, dark=False, note=True):
     g = GLOMVO
     c = g['stone'] if dark else g['ink']
     sub = (f'<span style="{SERIF}; font-style: italic; font-size: {size * 0.36:.0f}px; color: {c}; opacity: 0.72; white-space: nowrap">names, held with care</span>' if note else '')
-    return (f'<div data-logo data-shop style="display: inline-flex; align-items: center; gap: {size * 0.32:.0f}px">{glomvo_mark(size * 1.3, dark)}'
-            f'<div style="display: flex; flex-direction: column; gap: 2px"><span style="{SERIF}; font-size: {size}px; line-height: 1; letter-spacing: 0.01em; color: {c}">Glomvo</span>{sub}</div></div>')
+    return (f'<div data-logo data-shop style="display: inline-flex; flex-direction: column; gap: {size * 0.12:.0f}px">'
+            f'<span style="{SERIF}; font-size: {size}px; line-height: 1; letter-spacing: 0.01em; color: {c}">Glomvo</span>{sub}</div>')
 
 
 def lander(name=KIP, w=980, h=560, price=False, sold=False):
@@ -68,74 +60,74 @@ def lander(name=KIP, w=980, h=560, price=False, sold=False):
 # A name is a door: a tall slab with a padlock as its keystone. Closed: dark, outlined. Open: a teal light spills from its
 # edge (the padlock is teal). Broken: the light is signal red and the padlock's shackle hangs open. A visit is a knock:
 # three arcs leaving the door's edge. The same glyph, small, is the slot on every name tile, so it is there from frame one.
-def door(w=200, state='closed', dark=True, knock=0, label=None, floor=True, uid=''):
-    """The motif. A name is an arched doorway with its padlock as the keystone. closed: dark leaf, unlit lock.
-    ajar / open: the leaf slides aside and teal light fills the gap and spills onto the floor; the lock is lit
-    teal. broken (Act C only): the same, in signal red, with the shackle sprung. knock=n: n arcs leave the
-    door's edge (someone came looking). Flat drawing: no perspective, no handle, hinges or wood."""
-    line = 'rgba(255,255,255,0.55)' if dark else G400
-    leaf = '#1A2A55' if dark else '#1E2A44'
-    x0, dw = w * 0.11, w * 0.78
+def door(w=200, state='closed', dark=True, knock=0, label=None, uid=''):
+    """The motif, kept minimal (Leo, Review 2). A name is an arched doorway with a small padlock at its centre.
+    closed: a thin outline, the padlock drawn in outline (unlit). open: the arch fills with teal light, a soft glow
+    around it, the padlock solid white (the door opens properly, padlock included). broken (unused in frames): the
+    same in signal red, shackle sprung. knock=n: n thin arcs leave the door's right edge (someone came looking).
+    No floor, no leaf, no handle: one shape, one lock, one gesture."""
+    dw = w * 0.8
+    dh = dw * 1.6
+    pad = w * 0.12
+    x0, y0 = (w - dw) / 2, pad
     r = dw / 2
-    ya = w * 0.26
-    y1, yb = ya + r, ya + w * 1.5
-    sw = max(2, w * 0.018)
-    lit = state in ('open', 'ajar', 'broken')
+    yb = y0 + dh
+    sw = max(1.5, w * 0.012)
+    lit = state in ('open', 'broken')
     c = RED if state == 'broken' else TEAL
+    c2 = '#E5484D' if state == 'broken' else '#5FD1BE'
+    line = 'rgba(255,255,255,0.42)' if dark else G400
     gid = f'd{state}{int(w)}{knock}{uid}'
-    arch = f'M{x0:.1f} {yb:.1f}V{y1:.1f}A{r:.1f} {r:.1f} 0 0 1 {x0 + dw:.1f} {y1:.1f}V{yb:.1f}Z'
-    out = f'<defs><clipPath id="c{gid}"><path d="{arch}"></path></clipPath>'
+    arch = f'M{x0:.1f} {yb:.1f}V{y0 + r:.1f}A{r:.1f} {r:.1f} 0 0 1 {x0 + dw:.1f} {y0 + r:.1f}V{yb:.1f}Z'
+    out = ''
     if lit:
-        out += (f'<linearGradient id="g{gid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="{c}" stop-opacity="1"></stop><stop offset="1" stop-color="{c}" stop-opacity="0.75"></stop></linearGradient>'
-                f'<linearGradient id="s{gid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="{c}" stop-opacity="0.45"></stop><stop offset="1" stop-color="{c}" stop-opacity="0"></stop></linearGradient>')
-    out += '</defs>'
-    if lit:
-        gap = x0 + dw * (0.80 if state == 'ajar' else 0.50)
-        out += (f'<g clip-path="url(#c{gid})"><rect x="{x0:.1f}" y="{ya:.1f}" width="{dw:.1f}" height="{yb - ya:.1f}" fill="url(#g{gid})"></rect>'
-                f'<rect x="{x0:.1f}" y="{ya:.1f}" width="{gap - x0:.1f}" height="{yb - ya:.1f}" fill="{leaf}"></rect></g>'
-                f'<path d="M{gap:.1f} {y1 - r * 0.2:.1f}V{yb:.1f}" stroke="{c}" stroke-width="{sw:.1f}"></path>')
-        if floor:
-            out += f'<path d="M{gap:.1f} {yb:.1f}H{x0 + dw:.1f}L{x0 + dw + w * 0.30:.1f} {yb + w * 0.30:.1f}H{gap + w * 0.02:.1f}Z" fill="url(#s{gid})"></path>'
+        out += (f'<defs><linearGradient id="g{gid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="{c2}"></stop><stop offset="1" stop-color="{c}"></stop></linearGradient>'
+                f'<radialGradient id="h{gid}" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="{c}" stop-opacity="0.32"></stop><stop offset="1" stop-color="{c}" stop-opacity="0"></stop></radialGradient></defs>'
+                f'<ellipse cx="{w / 2:.1f}" cy="{y0 + dh * 0.55:.1f}" rx="{dw * 0.95:.1f}" ry="{dh * 0.72:.1f}" fill="url(#h{gid})"></ellipse>'
+                f'<path d="{arch}" fill="url(#g{gid})"></path>')
     else:
-        out += f'<path d="{arch}" fill="{leaf}"></path>'
-    out += f'<path d="{arch}" fill="none" stroke="{line if not lit else c}" stroke-opacity="{1 if not lit else 0.9}" stroke-width="{sw:.1f}" stroke-linejoin="round"></path>'
-    if floor:
-        out += f'<path d="M{x0 - w * 0.10:.1f} {yb:.1f}H{x0 + dw + w * 0.10:.1f}" stroke="{line}" stroke-width="{sw:.1f}" stroke-linecap="round"></path>'
-    # keystone padlock, on the apex
-    lc = c if lit else line
-    cx, lw, lh = x0 + dw / 2, w * 0.20, w * 0.15
-    ly = ya - lh * 0.15
-    bk = NIGHT if dark else '#FFFFFF'
-    sh_t = f' transform="translate({w * 0.06:.1f} {-w * 0.05:.1f})"' if state == 'broken' else ''
-    shackle = (f'<path d="M{cx - lw * 0.28:.1f} {ly:.1f}V{ly - lh * 0.35:.1f}a{lw * 0.28:.1f} {lw * 0.28:.1f} 0 0 1 {lw * 0.56:.1f} 0' + ('' if state == 'broken' else f'V{ly:.1f}') + '"'
-               f' fill="none" stroke="{lc}" stroke-width="{max(2, w * 0.026):.1f}" stroke-linecap="round"{sh_t}></path>')
-    out += (f'<rect x="{cx - lw / 2 - sw * 2:.1f}" y="{ly - sw * 2:.1f}" width="{lw + sw * 4:.1f}" height="{lh + sw * 4:.1f}" rx="{w * 0.05:.1f}" fill="{bk}"></rect>'
-            f'{shackle}<rect x="{cx - lw / 2:.1f}" y="{ly:.1f}" width="{lw:.1f}" height="{lh:.1f}" rx="{w * 0.035:.1f}" fill="{lc}"></rect>')
+        fill = 'rgba(255,255,255,0.04)' if dark else 'rgba(30,42,68,0.04)'
+        out += f'<path d="{arch}" fill="{fill}" stroke="{line}" stroke-width="{sw:.1f}" stroke-linejoin="round"></path>'
+    # the padlock, at the door's centre
+    lw = dw * 0.24
+    lh = lw * 0.76
+    cx, ly = w / 2, y0 + dh * 0.52
+    ls = max(1.5, w * 0.014)
+    shr = lw * 0.28
+    sprung = state == 'broken'
+    sh_path = (f'M{cx - shr:.1f} {ly:.1f}V{ly - shr * 0.9:.1f}a{shr:.1f} {shr:.1f} 0 0 1 {2 * shr:.1f} 0' + ('' if sprung else f'V{ly:.1f}'))
+    sh_tf = f' transform="translate({shr * 0.9:.1f} {-shr * 0.7:.1f})"' if sprung else ''
+    if lit:
+        out += (f'<path d="{sh_path}" fill="none" stroke="#FFFFFF" stroke-width="{ls * 1.3:.1f}" stroke-linecap="round"{sh_tf}></path>'
+                f'<rect x="{cx - lw / 2:.1f}" y="{ly:.1f}" width="{lw:.1f}" height="{lh:.1f}" rx="{lw * 0.16:.1f}" fill="#FFFFFF"></rect>')
+    else:
+        out += (f'<path d="{sh_path}" fill="none" stroke="{line}" stroke-width="{ls:.1f}" stroke-linecap="round"></path>'
+                f'<rect x="{cx - lw / 2:.1f}" y="{ly:.1f}" width="{lw:.1f}" height="{lh:.1f}" rx="{lw * 0.16:.1f}" fill="none" stroke="{line}" stroke-width="{ls:.1f}"></rect>')
+    # the knock: thin arcs from the right edge, centred on the lock's height
+    kx, ky = x0 + dw + w * 0.02, ly + lh / 2
     for k in range(knock):
-        rr = w * (0.30 + 0.22 * k)
-        kx, ky = x0 + dw + w * 0.04, (y1 + yb) / 2
-        out += (f'<path d="M{kx + rr * 0.5:.1f} {ky - rr * 0.866:.1f}A{rr:.1f} {rr:.1f} 0 0 1 {kx + rr * 0.5:.1f} {ky + rr * 0.866:.1f}" fill="none" stroke="{TEAL}" '
-                f'stroke-opacity="{1 - k * 0.25:.2f}" stroke-width="{max(2, w * 0.026):.1f}" stroke-linecap="round"></path>')
-    vbw = w * (1.9 if knock else 1.25)
-    vbh = yb + w * 0.32
+        rr = w * (0.16 + 0.15 * k)
+        a = 0.62  # half-angle, radians (about 35 degrees)
+        import math
+        dx, dy = rr * math.cos(a), rr * math.sin(a)
+        out += (f'<path d="M{kx + dx:.1f} {ky - dy:.1f}A{rr:.1f} {rr:.1f} 0 0 1 {kx + dx:.1f} {ky + dy:.1f}" fill="none" stroke="{TEAL}" '
+                f'stroke-opacity="{1 - k * 0.3:.2f}" stroke-width="{max(1.5, w * 0.016):.1f}" stroke-linecap="round"></path>')
+    vbw = w + (w * (0.16 + 0.15 * (knock - 1)) + w * 0.06 if knock else 0)
+    vbh = yb + pad
     svg = (f'<svg width="{vbw:.0f}" height="{vbh:.0f}" viewBox="0 0 {vbw:.1f} {vbh:.1f}" aria-hidden="true" style="display: block; flex: none; overflow: visible">{out}</svg>')
     if label:
-        return (f'<div style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 8px">{svg}'
-                f'<span style="{MONO}; font-size: {max(18, w * 0.13):.0f}px; font-weight: 600; color: {INK if dark else CHAR}">{label}</span></div>')
+        return (f'<div style="display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: {w:.0f}px">{svg}'
+                f'<span style="{MONO}; font-size: {max(18, w * 0.11):.0f}px; font-weight: 600; color: {INK if dark else CHAR}; white-space: nowrap">{label}</span></div>')
     return svg
 
 
 def slot(state='closed', h=44, dark_tile=False):
-    """The small arched door on every name tile: closed (navy), open (a teal gap), broken (red gap)."""
-    w = h * 0.66
+    """The small door on every name tile: the same arch, filled. closed navy, open teal, broken red."""
+    w = h * 0.62
     r = w / 2
-    arch = f'M0 {h:.1f}V{r:.1f}A{r:.1f} {r:.1f} 0 0 1 {w:.1f} {r:.1f}V{h:.1f}Z'
-    inner = ''
-    if state in ('open', 'broken'):
-        c = TEAL if state == 'open' else RED
-        inner = f'<rect x="{w * 0.56:.1f}" y="{h * 0.18:.1f}" width="{w * 0.44:.1f}" height="{h:.1f}" fill="{c}"></rect>'
+    c = {'closed': '#1E2A44', 'open': TEAL, 'broken': RED}.get(state, '#1E2A44')
     return (f'<svg width="{w:.0f}" height="{h:.0f}" viewBox="0 0 {w:.1f} {h:.1f}" aria-hidden="true" style="display: block; flex: none">'
-            f'<clipPath id="sl{state}{int(h)}"><path d="{arch}"></path></clipPath><g clip-path="url(#sl{state}{int(h)})"><path d="{arch}" fill="#1E2A44"></path>{inner}</g></svg>')
+            f'<path d="M0 {h:.1f}V{r:.1f}A{r:.1f} {r:.1f} 0 0 1 {w:.1f} {r:.1f}V{h:.1f}Z" fill="{c}"></path></svg>')
 
 
 def name_tile(name=KIP, w=440, state='closed', dark=False, extra='', note=None, tagc=None, visits=None, ring=None, dim=False, strike=False):

@@ -59,8 +59,8 @@ META = {
                     'Nothing moves but the rings: they spread and fade before reaching the tile (a knock nobody hears, foreshadowing the motif). The line holds on “never finds out”.',
                     'Silence (done): 1.5 s of nothing, then the cut. The VO’s last clause (“their own check worked only because they typed the plain address”) plays over the hold.',
                     '[quiet]', 'Silence: pad out for 1.5 s.', 'The low point. Restraint.', 'Evening', 'No email, no offer, no notification: the absence is the picture.'),
-    'w46-Door': ('A door, and a knock', '11', 'Every name needs a door that opens, and a way to hear the knock.', 'the motif, born: kipzoo.com as an arched door, padlock keystone lit, light spilling; three knock arcs',
-                 'Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the leaf slides, light spills and the padlock lights teal; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.',
+    'w46-Door': ('A door, and a knock', '11', 'Every name needs a door that opens, and a way to hear the knock.', 'the motif, born: kipzoo.com as an arched door, filled with teal light, the padlock solid at its centre, a soft glow; three knock arcs',
+                 'Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the outline fills with teal light from the top down and the padlock turns solid; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.',
                  'Register change into the honest note.', '[thoughtful]', 'Knock (new cue): a soft two-tap on “knocks”.', '“That’s the whole problem, in one picture.”', 'Charcoal',
                  'The motif’s first full appearance. Before this it hid in every tile as the small slot.'),
     'w46-Honest': ('One honest note', '12', 'A handful of names with a working padlock: you’re done.', 'an aside card; the Redirect Checker on https://bazlio.com: 302, then 200 on Glomvo’s page',
@@ -89,7 +89,7 @@ META = {
     'w46-PointDNS': ('Step three: point the names', '22–23', 'Point the names; Cloudflare connects automatically, elsewhere add records.', 'Hostnames with Waiting for DNS and Connected; Connect DNS for kipzoo.com, Automatic (Cloudflare) ringed, Manual beside it',
                      'Cut on “Step three”; progress takes its third segment. The panel docks in on “DNS is the setting…”; the Cloudflare row rings on “On Cloudflare”; the Manual tab lifts on “Elsewhere”. Rows flip to Connected one at a time on “In batches, if you like”.',
                      'Cut to the padlocks.', 'calm', 'None.', '“I can do these a few at a time.”', 'Light', '“Cloudflare” as a plain word only, as the real UI names it. Caption is the approved fact: a waiting domain doesn’t hold up the others.'),
-    'w46-Padlocks': ('Every door opens, padlock included', '24', 'As each name connects, its padlock is set up and renewed.', 'the wall again, as twelve doors, every padlock lit, light spilling',
+    'w46-Padlocks': ('Every door opens, padlock included', '24', 'As each name connects, its padlock is set up and renewed.', 'the wall again, as twelve doors, every one filled with teal light, every padlock solid',
                      'The doors open one after another on “as each name connects”, each padlock lighting teal; the headline lands on “renewed for it”.',
                      'Hold, then cut to Act F.', 'calm, satisfied', 'Fixed chime, the film’s only one, as the last padlock lights.', 'Done properly.', 'Glow, teal', 'One combined result (“all names connected”): the allowed exception to one idea per frame.'),
     'w46-Knocks': ('Sixty-three knocks', '25–26', 'kipzoo had 63 visits, typed in, and it was on the drop list.', 'the kipzoo.com tile with 63 visits; last year’s “drop list?” sticky, crossed out; Channel: Direct; the kipzoo door knocking, on the right (mirrored from the Door frame)',
@@ -121,7 +121,7 @@ META = {
 
 # Gate 2: Idea · Story · Clarity · Craft · Honesty · Fresh (0–2), with what was reworked to reach 2.
 AUDIT = {
-    'w46-World': 'Gate 1: round 1 the door read as a battery (rounded slab under a lock): redrawn as an arched doorway, padlock keystone, light spill on the floor. Panels that clipped their notes were resized; the F tile was shown twice and is now one.',
+    'w46-World': 'Gate 1: round 1 the door read as a battery (rounded slab under a lock): redrawn as an arched doorway, padlock keystone, light spill on the floor. Review 2 (Leo): simplified to one arch and one padlock at its centre (outline when closed, teal light and a solid lock when open, thin arcs for a knock); no floor, leaf or keystone. Glomvo’s logo is the wordmark alone. Panels that clipped their notes were resized; the F tile was shown twice and is now one.',
     'w46-Notebook': '2·2·2·2·2·2. Round 1 Craft 1: the empty name line was a timid “?”; now a dashed blank line inside the circle, and “the name” no longer wraps.',
     'w46-Glomvo': '2·2·2·2·2·2. Round 1 Craft 1: tiles ran into the right gutter and the group sat high; tiles narrowed and the composition centred.',
     'w46-Title': '2·2·2·2·2·2. Round 1 Craft 1: the sheet was too small to read as a sheet and crossed the gutter; now narrower and larger.',
@@ -181,7 +181,7 @@ def build(live_path, out_path):
             c['notes']['w46-World-note'] = {'maxH': 700, 'page': 'w46', 'size': 24, 'text': META['w46-World'][10], 'w': 1180, 'x': 3400, 'y': 1300}
             y = 5980
             continue
-        c['notes'][rid] = {'kind': 'title1', 'maxW': min(14000, max(3920, 2000 * len(files) - 80)), 'page': 'w46', 'text': text, 'w': 240, 'x': 0, 'y': y - 260}
+        c['notes'][rid] = {'kind': 'title1', 'maxW': min(8000, max(3920, 2000 * len(files) - 80)), 'page': 'w46', 'text': text, 'w': 240, 'x': 0, 'y': y - 260}
         for k, f in enumerate(files):
             c['boards'][f + '.dc.html'] = {'h': 1080, 'page': 'w46', 'title': META[f][0], 'w': 1920, 'x': 2000 * k, 'y': y}
             c['notes'][f + '-note'] = {'maxH': 640, 'page': 'w46', 'size': 24, 'text': sticky(f), 'w': 1180, 'x': 2000 * k, 'y': y + 1120}

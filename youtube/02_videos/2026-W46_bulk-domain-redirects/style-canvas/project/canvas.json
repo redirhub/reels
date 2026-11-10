@@ -1368,7 +1368,7 @@
       "maxH": 640,
       "page": "w46",
       "size": 24,
-      "text": "Beats 11. Every name needs a door that opens, and a way to hear the knock.\nIN: Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the leaf slides, light spills and the padlock lights teal; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.\nOUT: Register change into the honest note.\nVOICE: [thoughtful] · SOUND: Knock (new cue): a soft two-tap on “knocks”.\nFEEL: “That’s the whole problem, in one picture.” · ROOM: Charcoal\nThe motif’s first full appearance. Before this it hid in every tile as the small slot.",
+      "text": "Beats 11. Every name needs a door that opens, and a way to hear the knock.\nIN: Shared-element morph: the kipzoo tile’s small slot grows into the door (same thing, new understanding). On “a door that opens properly” the outline fills with teal light from the top down and the padlock turns solid; on “a way to hear when someone knocks” the knock (new move) sends three arcs from the door’s edge. The two lines land with the words.\nOUT: Register change into the honest note.\nVOICE: [thoughtful] · SOUND: Knock (new cue): a soft two-tap on “knocks”.\nFEEL: “That’s the whole problem, in one picture.” · ROOM: Charcoal\nThe motif’s first full appearance. Before this it hid in every tile as the small slot.",
       "w": 1180,
       "x": 0,
       "y": 14000
@@ -1655,7 +1655,7 @@
     },
     "w46rowE": {
       "kind": "title1",
-      "maxW": 13920,
+      "maxW": 8000,
       "page": "w46",
       "text": "E · One spreadsheet: list, import, point",
       "w": 240,
