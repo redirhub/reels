@@ -111,10 +111,10 @@ META = {
                       'The aside pill fades in on “Glomvo isn’t a real company” (register change), and kipzoo’s door steps back. On “Picture your own names” four closed doors rise beside it, unlit, unlabelled; the question lands in two parts on its two sentences. The frame asks; it doesn’t answer.',
                       'Silence, then the end card.', '[lightly] then [thoughtful]', 'Pad thins out.', 'A question that stays with you tonight.', 'Evening',
                       'Calls back to the opening (the evening room, the founder typing tonight). Merges the aside and the final question.'),
-    'w46-EndCard': ('End card', '33', 'Every door. Open.', 'the end line; the RedirHub logo; the QR slot “Dynamic QR · link pending”; the right half clear for YouTube’s end screen (W43, W41)',
-                    'Cut on “If this helped”. The line holds; logo and QR slot are there from the cut.',
+    'w46-EndCard': ('End card', '33', 'Every door. Open.', 'the end line; the RedirHub logo; the right half clear for YouTube’s end screen (W43, W41). No QR (Leo, 2026-11-10)',
+                    'Cut on “If this helped”. The line holds; the logo is there from the cut.',
                     'Silence (done).', '[warm]', 'Pad out. Silence.', 'Warm, finished.', 'Glow, teal',
-                    'QR: a RedirHub dynamic QR to the domain-parking page with utm_medium=qr, made later. Never a drawn code.'),
+                    'No QR on this end card (Leo, 2026-11-10): the description carries the links.'),
     'w46-System': ('System: rooms, colour, type, motion', '—', 'Rooms, colour roles, type, motion grammar, and what changed from W44.', '—', '—', '—', '—', '—', '—', 'board', 'The knock is the one new move.'),
     'w46-Sound': ('Sound, voice and timing', '—', 'Cues, voice tags and timing.', '—', '—', '—', '—', '—', '—', 'board', 'Two whooshes, one fixed chime, two knocks, one low tone, one silence.'),
 }
@@ -147,7 +147,7 @@ AUDIT = {
     'w46-ByTag': '2·2·2·2·2·2. Same dock fix as Import.',
     'w46-Recap': '2·2·2·2·2·2. Round 1 Clarity 1: the marks were too small; enlarged.',
     'w46-YourNames': '2·2·2·2·2·2. Door floors aligned. Gate 4 (fresh eyes): kipzoo, lit and knocking, answered the question; it now steps back and the viewer’s four doors stay closed. The aside is a larger chip (not a separate frame, to hold the budget).',
-    'w46-EndCard': '2·2·2·2·2·2. Round 1: the line ran into the right half; set on three lines. Gate 4 (fresh eyes): “Hundreds of domains. One file.” repeated the title; now “Every door. Open.”, which closes the motif. The QR stays a labelled slot, as the brief requires.',
+    'w46-EndCard': '2·2·2·2·2·2. Round 1: the line ran into the right half; set on three lines. Gate 4 (fresh eyes): “Hundreds of domains. One file.” repeated the title; now “Every door. Open.”, which closes the motif. The QR slot was later removed (Leo, 2026-11-10).',
     'w46-System': 'Board.',
     'w46-Sound': 'Board.',
 }

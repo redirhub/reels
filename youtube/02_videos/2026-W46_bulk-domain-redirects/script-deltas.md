@@ -1,5 +1,9 @@
 # W46 script deltas (from the key frames, 2026-11-06)
 
+**Outcome (2026-11-10):** the script is predetermined. Only **Δ-0** (the parking facts, a factual correction) is taken,
+and `script.md` is now v4 with it. Δ-1 to Δ-5 are **not taken**: the voice reads v3 for every other beat, and the
+build fits the picture to those words (notes under each). The end card has no QR (Leo, 2026-11-10).
+
 Every change the frames propose to script v3, with the reason. `script.md` is unchanged; Leo updates it from
 this list before the voice is recorded. Nothing here touches the fixed parts (facts, the twist, the honest exit,
 the three steps in order, the real walkthrough, the aside, the closing question).
@@ -37,6 +41,10 @@ then shows the review ("Adds … domains and … links", the www line). v3 says 
 - **Proposed 21:** Then it shows what the file will do: every domain it adds. And each name covers its www version too.
 
 Frames: `w46-Fix` (20), `w46-Review` (21). Same words, same facts, reordered.
+
+**Not taken.** Build: beat 20 plays over the review ("what the file will do… any row that needs a fix", with the
+fix count showing), beat 21's first sentence over the fix step and its one-click button, and "each name covers its
+www" back on the review's www row.
 
 ## Δ-2 · Beat 25: "visits" against the dashboard's "Clicks"
 

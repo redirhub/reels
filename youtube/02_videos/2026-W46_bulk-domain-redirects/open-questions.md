@@ -90,8 +90,8 @@ they say:
 
 - **E-1 · The line.** Shown: **Every door. Open.** Alternative: "Hundreds of domains. One file." (rejected by the
   fresh-eyes review as a repeat of the title).
-- **E-2 · The QR.** A labelled slot, "Dynamic QR · link pending". It needs a RedirHub dynamic QR to the
-  domain-parking page with UTMs (`utm_medium=qr`), made by Kris, with its branded link printed under it.
+- **E-2 · The QR: removed** (Leo, 2026-11-10). The end card carries the line and the RedirHub logo; the links are in
+  the description.
 - The right half stays clear for YouTube's end screen (W43, W41).
 
 ## Other

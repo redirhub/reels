@@ -580,10 +580,7 @@ def _end():
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em">Every door.</span>'
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em; color: {TEAL}">Open.</span></div>'
              f'<span style="position: absolute; left: 140px; top: 480px; font-size: 32px; color: {INK_SOFT}">Links are in the description.</span>'
-             f'<div style="position: absolute; left: 140px; top: 820px; width: 300px">{RH_WORDMARK}</div>'
-             f'<div style="position: absolute; left: 560px; top: 800px; width: 230px; height: 100px; box-sizing: border-box; border-radius: 16px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.22); background: rgba(255,255,255,0.10); '
-             f'display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 16px">{QR_SLOT}'
-             f'<span style="font-size: 17px; font-weight: 700; color: {INK_SOFT}; line-height: 1.25">Dynamic QR · link pending</span></div>')
+             f'<div style="position: absolute; left: 140px; top: 820px; width: 300px">{RH_WORDMARK}</div>')
     return frame('glow-teal', inner, extra=' data-endcard')
 
 # ================================================================ system and sound boards

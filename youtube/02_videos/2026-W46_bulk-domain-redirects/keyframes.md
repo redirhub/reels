@@ -50,6 +50,7 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 
 
 
+
 ## The world · cast, props and the door-and-knock motif (every frame reuses them)
 
 ### `w46-World` · The story world
@@ -382,13 +383,13 @@ Everything uses `tokens.ts` colours and the yt fonts. New pieces the build will 
 
 - **Beats:** 33 · **Room:** Glow, teal
 - **The one idea:** Every door. Open.
-- **Props:** the end line; the RedirHub logo; the QR slot “Dynamic QR · link pending”; the right half clear for YouTube’s end screen (W43, W41)
-- **In:** Cut on “If this helped”. The line holds; logo and QR slot are there from the cut.
+- **Props:** the end line; the RedirHub logo; the right half clear for YouTube’s end screen (W43, W41). No QR (Leo, 2026-11-10)
+- **In:** Cut on “If this helped”. The line holds; the logo is there from the cut.
 - **Out:** Silence (done).
 - **Voice:** [warm] · **Sound:** Pad out. Silence.
 - **The viewer should feel:** Warm, finished.
-- **Note:** QR: a RedirHub dynamic QR to the domain-parking page with utm_medium=qr, made later. Never a drawn code.
-- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** 2·2·2·2·2·2. Round 1: the line ran into the right half; set on three lines. Gate 4 (fresh eyes): “Hundreds of domains. One file.” repeated the title; now “Every door. Open.”, which closes the motif. The QR stays a labelled slot, as the brief requires.
+- **Note:** No QR on this end card (Leo, 2026-11-10): the description carries the links.
+- **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** 2·2·2·2·2·2. Round 1: the line ran into the right half; set on three lines. Gate 4 (fresh eyes): “Hundreds of domains. One file.” repeated the title; now “Every door. Open.”, which closes the motif. The QR slot was later removed (Leo, 2026-11-10).
 
 
 ## The system behind every frame: rooms, colour, type, motion, sound and voice

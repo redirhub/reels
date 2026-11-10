@@ -1,6 +1,7 @@
 # How to Redirect Hundreds of Domains at Once (One Spreadsheet)
 
-Script v3, 2026-11-06, as given in the W46 key-frame brief (§8). Changes proposed by the key frames are in `script-deltas.md`, not here.
+Script **v4, 2026-11-10: the recording script.** v3 (2026-11-06, the W46 brief §8) with one change: beats 6 and 7, the parking facts
+narrowed after Kris's fact check (`script-deltas.md` Δ-0). Every other line is v3 word for word; the other deltas were not taken.
 
 Words in [brackets] are ElevenLabs v3 delivery tags. They're performed, not spoken.
 
@@ -12,8 +13,8 @@ Words in [brackets] are ElevenLabs v3 delivery tags. They're performed, not spok
 
 ## B · What waiting costs
 5. Holding a name isn't free. Every year, each one asks for its renewal.
-6. [matter-of-fact] Parking ads used to pay part of that. This year, most of that went away: Bodis closed in January, and in February Google pulled its ads from parked domains.
-7. So a name pays for itself one way: someone buys it. That's rare, so each person who comes looking carries a lot of weight.
+6. [matter-of-fact] Parking ads used to pay part of that. But since February tenth, parked domains are no longer eligible as ad placements on Google's Search Partner Network.
+7. So the surest way a name pays for itself is when someone buys it. That's rare, so each person who comes looking carries a lot of weight.
 
 ## C · The founder who came
 8. One evening, the founder types kipzoo dot com. Glomvo had forwarded it to a for-sale page with the registrar's free forwarding, and checked that it worked.
