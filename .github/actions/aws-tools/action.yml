@@ -1,0 +1,25 @@
+name: AWS CLI and jq
+description: >
+  publish-s3.sh needs the AWS CLI and jq. Uses the machine's own when it has them; otherwise jq's static
+  binary, and the AWS CLI from its official image (credentials from configure-aws-credentials go in by env).
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        bin="$RUNNER_TEMP/bin"; mkdir -p "$bin"
+        if ! command -v jq >/dev/null; then
+          curl -sSfL -o "$bin/jq" https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+          chmod +x "$bin/jq"
+        fi
+        if ! command -v aws >/dev/null; then
+          cat > "$bin/aws" <<'SH'
+        #!/usr/bin/env bash
+        exec docker run --rm -i --user "$(id -u):$(id -g)" -e HOME=/tmp \
+          -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e AWS_REGION -e AWS_DEFAULT_REGION \
+          -v "$PWD:$PWD" -w "$PWD" amazon/aws-cli:2.22.35 "$@"
+        SH
+          chmod +x "$bin/aws"
+        fi
+        echo "$bin" >> "$GITHUB_PATH"
+        PATH="$bin:$PATH"; jq --version; aws --version
