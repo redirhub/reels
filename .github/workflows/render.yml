@@ -12,93 +12,128 @@ on:
         required: false
         default: ''
 
-# A newer push replaces a running push render (the next run diffs from the last finished one, so
-# nothing is lost). Manual runs get their own group, so a push never cancels a render someone started.
+# A newer push replaces a running push render (nothing is lost: every reel finished so far is already
+# published, and the next run renders the reels whose content has no render yet). Manual runs get their
+# own group, so a push never cancels a render someone started.
 concurrency:
   group: render-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' && 'manual' || 'push' }}
   cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
 
+# GitHub's own runners: free for this public repo, and about twice as fast as our shared self-hosted machine
+# (change-domain: 73-90 min here against about 3 h there, 2026-10-30). The RENDER_RUNNER repository variable
+# (a JSON label, e.g. '["self-hosted", "light"]') moves every job to another machine without a code change.
+# The jobs work on either: the render runs in Playwright's image, so the machine needs only Docker.
 jobs:
-  render:
-    runs-on: ubuntu-latest
-    timeout-minutes: 240 # the YouTube videos (5 min of 1080p each; forward-domains at 60 fps, lossless frames) take most of it
+  # Checks, and which reels need rendering. Renders are named by content key (scripts/reel-keys.mjs: a sha256
+  # of every file that can change the reel), so a reel needs rendering only when renders/<id>/<key> isn't on
+  # the CDN yet: whatever commit, branch or cancelled run came before, the same content is never rendered
+  # twice. Manual runs render the reels typed in (empty: all), even when already rendered.
+  plan:
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 20
     permissions:
       contents: read
-      actions: read # find this branch's last finished run (the diff base below)
-      id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
+    outputs:
+      render: ${{ steps.changes.outputs.render }}
+      matrix: ${{ steps.changes.outputs.matrix }}
+      registered: ${{ steps.changes.outputs.registered }}
+      keys: ${{ steps.changes.outputs.keys }}
     steps:
+      # Something that ran as root on this machine (a job container, a `docker run` without --user) can
+      # leave root-owned files in the workspace, and checkout then fails. Hand them back first (as lviv does).
+      - name: Reclaim the workspace
+        run: docker run --rm -v "$GITHUB_WORKSPACE:/w" alpine:3.20 chown -R "$(id -u):$(id -g)" /w
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0 # needed to diff against the base commit below
-
-      # Render only the reels this push affects (scripts/changed-reels.mjs has the rules):
-      # a reel's own files → that reel; shared code → all; gallery/CI/docs → none.
-      # The diff starts at this branch's last run that finished, not at the previous push: a run
-      # cancelled by a newer push rendered nothing, so its changes still need rendering here.
-      # Manual runs render the reels typed in (empty: all); first pushes of a branch render everything.
-      - name: Which reels does this change affect?
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Which reels need rendering?
         id: changes
         env:
-          GH_TOKEN: ${{ github.token }}
-          BEFORE: ${{ github.event_name == 'push' && github.event.before || '' }}
           MANUAL: ${{ github.event_name == 'workflow_dispatch' && 'true' || '' }}
           MANUAL_REELS: ${{ inputs.reels }}
         run: |
           if [ -n "$MANUAL" ]; then
-            OUT=$(node scripts/changed-reels.mjs "")
-            # Keep only registered ids: the list lands in a shell command below.
-            REELS=$(for id in $MANUAL_REELS; do printf '%s\n' "$OUT" | grep '^registered=' | tr ' =' '\n\n' | grep -qx -- "$id" && printf '%s ' "$id" || true; done)
-            if [ -n "$MANUAL_REELS" ] && [ -z "$REELS" ]; then echo "::error::No registered reel in: $MANUAL_REELS"; exit 1; fi
-            printf '%s\n' "$OUT" | grep -v '^reels=' | tee -a "$GITHUB_OUTPUT"
-            echo "reels=${REELS% }" | tee -a "$GITHUB_OUTPUT"
-            exit 0
+            # word-split on purpose: ids only (the script rejects anything that isn't a registered id)
+            node scripts/reels-to-render.mjs --force $MANUAL_REELS | tee -a "$GITHUB_OUTPUT"
+          else
+            node scripts/reels-to-render.mjs | tee -a "$GITHUB_OUTPUT"
           fi
-          BASE="$BEFORE"
-          if [ -n "$BEFORE" ]; then
-            LAST=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow render.yml --branch "$GITHUB_REF_NAME" --event push --status success --limit 1 --json headSha --jq '.[0].headSha // empty' 2>/dev/null || true)
-            if [ -n "$LAST" ] && git merge-base --is-ancestor "$LAST" HEAD; then BASE="$LAST"; fi
-          fi
-          echo "diff base: ${BASE:-none}" >&2
-          node scripts/changed-reels.mjs "$BASE" | tee -a "$GITHUB_OUTPUT"
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
 
+  # One job per reel, newest first, one at a time: each publishes the moment it's rendered, so a runner restart
+  # or a cancelled run costs only the reel in progress (2026-10-30: a restart 1 h 45 min into a single job lost
+  # five finished renders). Each job takes fresh AWS credentials after its render, however long it took.
+  render:
+    needs: plan
+    if: needs.plan.outputs.render == 'true'
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 300 # the longest reel (change-domain, 25,000 frames at 60 fps): about 1.5 h on GitHub's runner, 3 h on our light one
+    permissions:
+      contents: read
+      id-token: write # GitHub OIDC → AWS roles (see docs/aws/SETUP.md)
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        reel: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    name: render ${{ matrix.reel }}
+    steps:
+      - name: Reclaim the workspace
+        run: docker run --rm -v "$GITHUB_WORKSPACE:/w" alpine:3.20 chown -R "$(id -u):$(id -g)" /w
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        if: steps.changes.outputs.code == 'true'
         with:
           node-version-file: .nvmrc
           cache: npm
-
       - run: npm ci
-        if: steps.changes.outputs.code == 'true'
-      - run: npm run typecheck
-        if: steps.changes.outputs.code == 'true'
-      - run: npm run build
-        if: steps.changes.outputs.code == 'true'
 
-      - name: Render MP4s and covers
-        if: steps.changes.outputs.render == 'true'
-        run: npm run render -- ${{ steps.changes.outputs.reels }}
+      # The machine lacks the system libraries Chromium needs, so the render runs in Playwright's image
+      # (which has them, and a chrome-headless-shell Remotion can use) as the runner's user: files written
+      # as root would break the next checkout. node_modules comes from `npm ci` above.
+      # In 900-frame segments (scripts/render.mjs): with too little free memory Remotion keeps every frame
+      # on disk as a PNG until the end, and a whole YouTube video's frames filled this machine's disk
+      # (2026-10-29). A segment's frames are about 3 GB at most.
+      - name: Render ${{ matrix.reel }}
+        env:
+          REEL: ${{ matrix.reel }}
+          RENDER_SEGMENT_FRAMES: 900
+        run: |
+          df -h "$GITHUB_WORKSPACE" /tmp
+          docker run --rm --init --ipc=host \
+            --user "$(id -u):$(id -g)" \
+            -e CI=true -e HOME=/tmp/home -e REEL -e RENDER_SEGMENT_FRAMES \
+            -v "$GITHUB_WORKSPACE:/w" -w /w \
+            mcr.microsoft.com/playwright:v1.61.1-noble \
+            bash -c 'set -e
+              node --version
+              shell=$(ls /ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell /ms-playwright/chromium_headless_shell-*/chrome-linux/headless_shell 2>/dev/null | head -1 || true)
+              if [ -n "$shell" ]; then export CHROME_PATH="$shell"; echo "Chrome: $shell"; fi
+              npm run render -- "$REEL"'
 
       # Also kept as a private artifact, e.g. while publishing isn't configured.
       - uses: actions/upload-artifact@v4
-        if: steps.changes.outputs.render == 'true'
         with:
-          name: reels-${{ github.sha }}
+          name: reel-${{ matrix.reel }}-${{ github.sha }}
           path: out/
           retention-days: 7
 
-      # Every branch push uploads renders/<id>/<commit>.mp4 (its Vercel preview plays it);
-      # main additionally updates the public latest links. Strict on main, best-effort on
-      # branches: a missing branch render must never block a branch (the gallery falls
-      # back to the live Player).
+      # renders/<id>/<key>.mp4 (a Vercel preview with the same content plays it) and the branch's copy.
+      # Strict on main, best-effort on branches: a missing branch render must never block a branch.
       - name: Configure AWS credentials
         id: aws
-        if: steps.changes.outputs.render == 'true' && vars.AWS_ROLE_ARN != ''
+        if: vars.AWS_ROLE_ARN != ''
         continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-
+      - uses: ./.github/actions/aws-tools
+        if: steps.aws.outcome == 'success'
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
       - name: Publish to S3 + CloudFront
         id: publish
         if: steps.aws.outcome == 'success'
@@ -106,14 +141,12 @@ jobs:
         env:
           REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
           CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-          REELS_PUBLISH_LATEST: ${{ github.ref == 'refs/heads/main' && '1' || '' }}
-          REELS_REGISTERED: ${{ steps.changes.outputs.registered }}
+          REELS_KEYS: ${{ needs.plan.outputs.keys }}
         run: scripts/publish-s3.sh | tee "$RUNNER_TEMP/published.txt"
 
       - name: Branch render not published
         if: github.ref != 'refs/heads/main' && (steps.aws.outcome == 'failure' || steps.publish.outcome == 'failure')
         run: echo "::warning::This branch's render wasn't uploaded (is the role's trust policy updated for ref:refs/heads/*? See docs/aws/SETUP.md). It's still in this run's artifact."
-
       - name: Publishing not configured
         if: vars.AWS_ROLE_ARN == ''
         run: echo "::warning::AWS_ROLE_ARN is not set, so renders were not published. See docs/aws/SETUP.md."
@@ -122,22 +155,50 @@ jobs:
         if: always()
         run: |
           {
-            echo "### Rendered reels"
+            echo "### ${{ matrix.reel }}"
             echo
-            if [ "${{ steps.changes.outputs.render }}" != true ]; then
-              echo "No reel affected by this change: nothing rendered or published."
-              exit 0
-            fi
-            echo "Rendered: ${{ steps.changes.outputs.reels || 'all reels' }}"
-            echo
-            echo "Artifact: **reels-${{ github.sha }}** (this run)."
+            echo "Artifact: **reel-${{ matrix.reel }}-${{ github.sha }}** (this run)."
             if [ -s "$RUNNER_TEMP/published.txt" ]; then
               echo
-              echo "Published:"
-              sed -E 's/^(render|latest) /- \1: /' "$RUNNER_TEMP/published.txt" | grep '^- ' || true
+              sed -E 's/^(render|branch) /- \1: /' "$RUNNER_TEMP/published.txt" | grep '^- ' || true
             fi
-            echo
-            echo '| File | Size |'
-            echo '|---|---|'
-            for f in out/*; do echo "| $(basename "$f") | $(du -h "$f" | cut -f1) |"; done
+            for f in out/*.mp4; do [ -e "$f" ] && echo && echo "$(basename "$f"): $(du -h "$f" | cut -f1)"; done
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # main only (after a merge): point the public latest links and index.json at every reel's current key, copying
+  # renders a branch already made (publish-s3.sh with REELS_PUBLISH_LATEST=1 and nothing in out/). Runs when
+  # nothing needed rendering too; not when a render failed, so latest never points at a key with no render.
+  latest:
+    needs: [plan, render]
+    if: always() && github.ref == 'refs/heads/main' && needs.plan.result == 'success' && (needs.render.result == 'success' || needs.render.result == 'skipped')
+    runs-on: ${{ fromJSON(vars.RENDER_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Reclaim the workspace
+        run: docker run --rm -v "$GITHUB_WORKSPACE:/w" alpine:3.20 chown -R "$(id -u):$(id -g)" /w
+      - uses: actions/checkout@v4
+      - name: Publishing not configured
+        if: vars.AWS_ROLE_ARN == ''
+        run: echo "::warning::AWS_ROLE_ARN is not set, so the latest links were not updated. See docs/aws/SETUP.md."
+      - uses: aws-actions/configure-aws-credentials@v4
+        if: vars.AWS_ROLE_ARN != ''
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - uses: ./.github/actions/aws-tools
+        if: vars.AWS_ROLE_ARN != ''
+      - name: Update the latest links and index.json
+        if: vars.AWS_ROLE_ARN != ''
+        env:
+          REELS_S3_BUCKET: ${{ vars.REELS_S3_BUCKET }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+          REELS_PUBLISH_LATEST: '1'
+          REELS_REGISTERED: ${{ needs.plan.outputs.registered }}
+          REELS_KEYS: ${{ needs.plan.outputs.keys }}
+        run: |
+          rm -rf out
+          scripts/publish-s3.sh | tee "$RUNNER_TEMP/published.txt"
+          { echo "### Latest links"; echo; sed -E 's/^latest /- /' "$RUNNER_TEMP/published.txt" | grep '^- ' || echo "Every reel's latest link was already current."; } >> "$GITHUB_STEP_SUMMARY"
