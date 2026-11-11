@@ -1,0 +1,111 @@
+[
+  {
+    "id": "c01",
+    "beats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "text": "Imagine owning the perfect name for a company that doesn't exist yet. Short, easy to say, the kind a founder falls for on sight. Right now, they might be filling a notebook with ideas. When one is ready, the first thing they'll look for is the name. That's the bet behind Glomvo, which is a small team that buys names like that, and holds them until the right person comes looking. Here's how they got ready for that day, and how to redirect hundreds of domains at once, with one spreadsheet.",
+    "words": 91
+  },
+  {
+    "id": "c02",
+    "beats": [
+      5,
+      6,
+      7
+    ],
+    "text": "Holding a name isn't free. Every year, each one asks for its renewal. Parking ads used to pay part of that. But since February tenth, parked domains are no longer eligible as ad placements on Google's Search Partner Network. So the surest way a name pays for itself is when someone buys it. That's rare, so each person who comes looking carries a lot of weight.",
+    "words": 66
+  },
+  {
+    "id": "c03",
+    "beats": [
+      8,
+      9,
+      10
+    ],
+    "text": "One evening, the founder types kipzoo dot com. Glomvo had forwarded it to a for-sale page with the registrar's free forwarding, and checked that it worked. But the founder's browser asks for the secure version first, the one with the padlock. Some registrars' forwarding includes one. Others don't. So the founder sees a warning page, and picks another name. Glomvo never finds out. Their own check worked only because they typed the plain address.",
+    "words": 74
+  },
+  {
+    "id": "c04",
+    "beats": [
+      11,
+      12,
+      13
+    ],
+    "text": "Glomvo didn't need more names. Every name they had needed two things: a door that opens properly, padlock included, and a way to hear when someone knocks. One honest note. If you hold a handful of names, and your registrar's forwarding shows the padlock, you're done. Check one in our free Redirect Checker. But Glomvo's names sat across three registrars. So they fixed them once, for all of them.",
+    "words": 69
+  },
+  {
+    "id": "c05",
+    "beats": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "text": "Step one: the list. One row per name. The name. Where it should go: the for-sale page, on their own site or a marketplace listing. The redirect type: a three-oh-two, the temporary kind. Because the day a name sells, its destination changes. And a tag, a label for a group. Brandables. Short names. Premium.",
+    "words": 54,
+    "spoken": {
+      "16": "The redirect type: a three oh two, the temporary kind. Because the day a name sells, its destination changes."
+    }
+  },
+  {
+    "id": "c06",
+    "beats": [
+      18,
+      19,
+      20,
+      21
+    ],
+    "text": "Step two: the import. Here's what that looks like in RedirHub. Links. Create. Import CSV. That's the plain spreadsheet file Excel or Google Sheets can save. Before anything is saved, it shows what the file will do. Every domain it adds, and any row that needs a fix. A destination missing its H T T P S? One click fixes them all. And each name covers its double-u double-u double-u version too.",
+    "words": 72,
+    "spoken": {
+      "21": "A destination missing its H T T P S? One click fixes them all. And each name covers its double u double u double u version too."
+    }
+  },
+  {
+    "id": "c07",
+    "beats": [
+      22,
+      23,
+      24
+    ],
+    "text": "Step three: point the names. DNS is the setting that tells the internet where a name goes. On Cloudflare, it can connect automatically. Elsewhere, you add the records it shows you. In batches, if you like. And as each name connects, its padlock is set up, and renewed for it.",
+    "words": 50
+  },
+  {
+    "id": "c08",
+    "beats": [
+      25,
+      26,
+      27
+    ],
+    "text": "Then, for the first time, Glomvo could hear the knocks. A few weeks in, kipzoo had sixty-three visits. Nobody sent those people. They typed it in. It had been on last year's drop list. That's demand, showing itself. So kipzoo got a real price and a make-offer button.",
+    "words": 48
+  },
+  {
+    "id": "c09",
+    "beats": [
+      28,
+      29
+    ],
+    "text": "The names that stayed quiet all season? At renewal time, Glomvo now knows where to look first. And the tags pay off. Moving every brandable to a new marketplace? Filter by the tag. Change it once.",
+    "words": 36
+  },
+  {
+    "id": "c10",
+    "beats": [
+      30,
+      31,
+      32,
+      33
+    ],
+    "text": "So. One list. One import. Point the names. That's how to redirect hundreds of domains at once. And one thing to know: Glomvo isn't a real company. But this story started with \"imagine\" for a reason. Picture your own names instead. Which one would a founder type in tonight? And would the door open for them? If this helped, subscribe. Links are in the description. And if you're new to redirects, our earlier videos are right here on screen.",
+    "words": 79
+  }
+]

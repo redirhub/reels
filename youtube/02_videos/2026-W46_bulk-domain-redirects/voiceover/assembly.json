@@ -1,0 +1,37 @@
+{
+  "_doc": "How the VO takes are cut into beats and laid on the timeline. Seconds. Read by scripts/yt/vo-build.py.",
+  "leadIn": 0.4,
+  "join": 0.2,
+  "tempo": 1.0,
+  "match": true,
+  "studio": "clean",
+  "master": {
+    "lufs": -17.0,
+    "ceiling": -1.0,
+    "comp": "acompressor=threshold=-20dB:ratio=2:attack=25:release=250:knee=6"
+  },
+  "extraAfter": {
+    "2": 0.2,
+    "4": 0.6,
+    "7": 0.3,
+    "9": 0.3,
+    "10": 1.3,
+    "13": 0.5,
+    "17": 0.4,
+    "21": 0.3,
+    "24": 0.7,
+    "26": 0.35,
+    "29": 0.4,
+    "30": 0.4,
+    "32": 0.9,
+    "33": 4.0
+  },
+  "silentBeats": {},
+  "_notes": {
+    "narrator": "Sarah (ElevenLabs GkP5h0UAcZQ2i4aDPipF, studio quality, full band), eleven_v4, stability 0.5, similarity 0.75, seed 42, mp3_44100_128, the paid account (Leo picked her 2026-11-11 over Megan, Katie and Mandi; Emily was rejected as robotic). No delivery tags: '[softly]' was performed as a whisper.",
+    "tempo": "1.0: her natural pace. No stretch (W44's stretch was the first robotic source).",
+    "tighten": "Off: her longest pause between words is 0.51 s, so nothing needs cutting and no room tone switches on and off.",
+    "master": "Gentle: -17 LUFS, 2:1 compressor with a 25 ms attack, -1 dBTP ceiling. The W44 defaults clamped a dynamic take hard enough to sound robotic (Leo, 2026-11-11).",
+    "extraAfter": "Air only where the picture needs it. 4: the title and its whoosh. 10: the silence after 'Glomvo never finds out' (silence = done). 13: the turn from story to tutorial. 17: into the product (whoosh 2). 24: the padlocks and the fixed chime. 26: the dry drop-list beat lands. 32: the closing question hangs. 33: the end card holds for YouTube's end screen (W43, W41)."
+  }
+}

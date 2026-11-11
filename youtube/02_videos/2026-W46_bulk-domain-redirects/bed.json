@@ -1,0 +1,9 @@
+{
+  "_doc": "Music bed for this video, built by scripts/yt/bed-build.py. Leo picked Mixkit 'Moon Walk' (#609, Eugenio Mininni, 98 BPM electronica) on 2026-11-11 from three previews (Hazy After Hours, Moon Walk, Deep Techno Ambience), all measured for low speech-band energy, steady level and no vocals. Its 24-bar section 81.13-139.91 s repeats once on its downbeat (the best-matching bar pair long enough to cover the film), and the film ends on the track's own outro. Levels as the approved preview: about 13 LU under the voice while she speaks.",
+  "source": "youtube/01_library/audio/music/mixkit-609-moon-walk.mp3",
+  "loop": {"from": 81.127, "to": 139.907, "beat": 0.61228, "first": 0.3061},
+  "speech": -29.8,
+  "gaps": -25.8,
+  "fadeIn": 0.4,
+  "fadeOut": 2.5
+}
