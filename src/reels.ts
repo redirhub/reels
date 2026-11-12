@@ -18,6 +18,8 @@ import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forwar
 import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
 import { ChangeDomain, CHANGE_DOMAIN_SECONDS } from './remotion/reels/change-domain/ChangeDomain';
 import { changeDomainDefaults } from './remotion/reels/change-domain/props';
+import { BulkRedirects, BULK_REDIRECTS_SECONDS } from './remotion/reels/bulk-redirects/BulkRedirects';
+import { bulkRedirectsDefaults } from './remotion/reels/bulk-redirects/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -96,6 +98,16 @@ export const reels: Reel[] = [
         component: ChangeDomain,
         defaultProps: changeDomainDefaults,
         durationInSeconds: CHANGE_DOMAIN_SECONDS,
+        ...LANDSCAPE,
+        fps: 60,
+    },
+    {
+        id: 'bulk-redirects',
+        title: 'How to redirect hundreds of domains at once (YouTube, W46)',
+        description: 'A 16:9 story-led tutorial with voiceover for domain investors: Glomvo holds names; a founder types kipzoo.com, meets a warning page and leaves. One spreadsheet gives every name a door that opens properly, padlock included, and a way to hear the knock: the list, the import in RedirHub, pointing the names, then visits.',
+        component: BulkRedirects,
+        defaultProps: bulkRedirectsDefaults,
+        durationInSeconds: BULK_REDIRECTS_SECONDS,
         ...LANDSCAPE,
         fps: 60,
     },

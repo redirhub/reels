@@ -175,7 +175,7 @@ def _notebook():
 @F('w46-Glomvo', 'Meet Glomvo')
 def _glomvo():
     g = GLOMVO
-    tiles = ''.join(name_tile(n, 310) for n in WALL)
+    tiles = ''.join(name_tile(n, 310, extra=f' data-o="t{i}"') for i, n in enumerate(WALL))
     inner = (f'<div data-shop style="position: absolute; left: 120px; top: 300px; padding: 56px 52px; border-radius: 28px; background: {g["stone"]}">{glomvo_logo(78)}</div>'
              + caption('A small team that buys names like these, and holds them until the right person comes looking.', y=620, x=120, w=640, size=40, color=CHAR)
              + f'<div style="position: absolute; left: 820px; top: 330px; display: grid; grid-template-columns: repeat(3, 310px); gap: 20px">{tiles}</div>')
@@ -212,11 +212,11 @@ def _renewals():
 
 @F('w46-Parking', 'A parking ad surface closes')
 def _parking():
-    def ad(w, h, op):
-        return f'<div style="width: {w}px; height: {h}px; border-radius: 12px; background: {G200}; opacity: {op}"></div>'
+    def ad(w, h, op, i=0):
+        return f'<div data-o="ad{i}" style="width: {w}px; height: {h}px; border-radius: 12px; background: {G200}; opacity: {op}"></div>'
     parked = (f'<div style="height: 476px; box-sizing: border-box; padding: 34px; display: flex; flex-direction: column; gap: 18px; background: #FFFFFF">'
               f'<span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: {G400}">SPONSORED LISTINGS</span>'
-              + ''.join(ad(w, 70, op) for w, op in ((640, 0.9), (600, 0.6), (620, 0.35), (560, 0.15))) + '</div>')
+              + ''.join(ad(w, 70, op, i) for i, (w, op) in enumerate(((640, 0.9), (600, 0.6), (620, 0.35), (560, 0.15)))) + '</div>')
     # One dated fact, worded as Google's own help page words it (Kris, 2026-11-09): no industry-wide claim, no Bodis.
     fact = (f'<div style="display: flex; flex-direction: column; gap: 14px"><span style="font-size: 24px; font-weight: 700; letter-spacing: 0.12em; color: {INK_SOFT}">FEBRUARY 10, 2026</span>'
             f'<span style="font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.18">Parked domains are no longer ad placements on Google’s Search Partner Network.</span>'
@@ -280,7 +280,7 @@ def _silence():
 # ================================================================ ACT D · The way out
 @F('w46-Door', 'A door, and a knock')
 def _door():
-    items = ''.join(f'<div style="display: flex; gap: 22px; align-items: baseline"><span style="font-size: 40px; font-weight: 800; color: {TEAL}">{n}</span>'
+    items = ''.join(f'<div data-o="item{n}" style="display: flex; gap: 22px; align-items: baseline"><span style="font-size: 40px; font-weight: 800; color: {TEAL}">{n}</span>'
                     f'<span style="font-size: 46px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15">{t}</span></div>'
                     for n, t in (('1', 'A door that opens properly, padlock included.'), ('2', 'A way to hear when someone knocks.')))
     inner = (place(210, 190, door(390, 'open', knock=3, label=KIP))
@@ -290,7 +290,7 @@ def _door():
 
 
 def checker_card(url='https://bazlio.com', w=820):
-    hop = lambda k, u, code, ok: (f'<div style="display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 22px; border-top: 1px solid #EAECF0">'
+    hop = lambda k, u, code, ok: (f'<div data-o="hop{k}" style="display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 22px; border-top: 1px solid #EAECF0">'
                                    f'<span style="width: 30px; height: 30px; border-radius: 50%; background: #F2F4F7; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #475467">{k}</span>'
                                    f'{LOCK}<span style="{MONO}; font-size: 18px; color: #181D27">{u}</span><span style="flex: 1"></span>'
                                    f'<span style="font-size: 14px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: {"#ECFDF3" if ok else "#E8F0F8"}; color: {"#067647" if ok else "#1C6DB6"}">{code}</span></div>')
@@ -313,7 +313,8 @@ def _once():
             + registrar('b', ['zentvy.com', 'gozvu.com', 'savvlo.com'], 120, 450, 470, 'Registrar B')
             + registrar('c', ['yobzi.com', 'grolvi.com', 'zinnobi.com'], 120, 670, 470, 'Registrar C'))
     arrow = (f'<svg style="position: absolute; left: 640px; top: 300px" width="200" height="520" viewBox="0 0 200 520" aria-hidden="true" fill="none" stroke="{G400}" stroke-width="3" stroke-linecap="round">'
-             '<path d="M0 30C90 30 100 260 180 260M0 260H180M0 490C90 490 100 260 180 260"></path><path d="M164 246l18 14-18 14"></path></svg>')
+             '<path data-draw="l1" d="M0 30C90 30 100 260 180 260"></path><path data-draw="l2" d="M0 260H180"></path><path data-draw="l3" d="M0 490C90 490 100 260 180 260"></path>'
+             '<path data-o="head" d="M164 246l18 14-18 14"></path></svg>')
     empty = [('', '', '', '')] * 6
     inner = (regs + arrow + scaled(sheet(960, rows=empty, show_more=False), 0.9, 1016, 560, x=880, y=300)
              + caption('Three registrars. Fixed once, for all of them.', x=880, y=200, w=920, size=44, color=CHAR))

@@ -60,7 +60,7 @@ def lander(name=KIP, w=980, h=560, price=False, sold=False):
 # A name is a door: a tall slab with a padlock as its keystone. Closed: dark, outlined. Open: a teal light spills from its
 # edge (the padlock is teal). Broken: the light is signal red and the padlock's shackle hangs open. A visit is a knock:
 # three arcs leaving the door's edge. The same glyph, small, is the slot on every name tile, so it is there from frame one.
-def door(w=200, state='closed', dark=True, knock=0, label=None, uid=''):
+def door(w=200, state='closed', dark=True, knock=0, label=None, uid='', show_knock=True):
     """The motif, kept minimal (Leo, Review 2). A name is an arched doorway with a small padlock at its centre.
     closed: a thin outline, the padlock drawn in outline (unlit). open: the arch fills with teal light, a soft glow
     around it, the padlock solid white (the door opens properly, padlock included). broken (unused in frames): the
@@ -110,8 +110,10 @@ def door(w=200, state='closed', dark=True, knock=0, label=None, uid=''):
         a = 0.62  # half-angle, radians (about 35 degrees)
         import math
         dx, dy = rr * math.cos(a), rr * math.sin(a)
-        out += (f'<path d="M{kx + dx:.1f} {ky - dy:.1f}A{rr:.1f} {rr:.1f} 0 0 1 {kx + dx:.1f} {ky + dy:.1f}" fill="none" stroke="{TEAL}" '
-                f'stroke-opacity="{1 - k * 0.3:.2f}" stroke-width="{max(1.5, w * 0.016):.1f}" stroke-linecap="round"></path>')
+        # data-o="knock{k}": each arc is its own motion hook (export_scenes.py), so a scene can sound the knock arc by arc
+        hook = f' data-o="knock{k}"' if show_knock else ''
+        out += (f'<path{hook} d="M{kx + dx:.1f} {ky - dy:.1f}A{rr:.1f} {rr:.1f} 0 0 1 {kx + dx:.1f} {ky + dy:.1f}" fill="none" stroke="{TEAL}" '
+                f'stroke-opacity="{(1 - k * 0.3) if show_knock else 0:.2f}" stroke-width="{max(1.5, w * 0.016):.1f}" stroke-linecap="round"></path>')
     vbw = w + (w * (0.16 + 0.15 * (knock - 1)) + w * 0.06 if knock else 0)
     vbh = yb + pad
     svg = (f'<svg width="{vbw:.0f}" height="{vbh:.0f}" viewBox="0 0 {vbw:.1f} {vbh:.1f}" aria-hidden="true" style="display: block; flex: none; overflow: visible">{out}</svg>')
@@ -158,10 +160,11 @@ def sticky(text, w=220, strike=False):
 
 
 # ---------------------------------------------------------------- the founder: a notebook and a browser (never a face)
-def circle_mark(w, h, color=PEN, sw=4):
-    """A hand-drawn circle: an ellipse that doesn't quite close."""
+def circle_mark(w, h, color=PEN, sw=4, hook=''):
+    """A hand-drawn circle: an ellipse that doesn't quite close. `hook` names it for the scene's draw-on."""
+    hk = f' data-draw="{hook}"' if hook else ''
     return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" aria-hidden="true" style="position: absolute; left: 0; top: 0; overflow: visible">'
-            f'<path d="M{w * 0.55:.0f} {h * 0.04:.0f}C{w * 0.95:.0f} {h * 0.02:.0f} {w * 1.02:.0f} {h * 0.62:.0f} {w * 0.6:.0f} {h * 0.94:.0f}C{w * 0.25:.0f} {h * 1.08:.0f} {-w * 0.04:.0f} {h * 0.72:.0f} {w * 0.05:.0f} {h * 0.38:.0f}'
+            f'<path{hk} d="M{w * 0.55:.0f} {h * 0.04:.0f}C{w * 0.95:.0f} {h * 0.02:.0f} {w * 1.02:.0f} {h * 0.62:.0f} {w * 0.6:.0f} {h * 0.94:.0f}C{w * 0.25:.0f} {h * 1.08:.0f} {-w * 0.04:.0f} {h * 0.72:.0f} {w * 0.05:.0f} {h * 0.38:.0f}'
             f'C{w * 0.12:.0f} {h * 0.1:.0f} {w * 0.4:.0f} {h * 0.0:.0f} {w * 0.7:.0f} {h * 0.12:.0f}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linecap="round"></path></svg>')
 
 
@@ -186,8 +189,8 @@ def notebook(w=1400, h=760, name=None, gone=False, next_name=None):
     circ_w, circ_h = 420, 104
     name_line = (f'<div style="position: relative; width: {circ_w}px; height: {circ_h}px; display: flex; align-items: center; justify-content: center">'
                  + (f'<span style="{MONO}; font-size: 40px; font-weight: 600; color: {PEN}; {"text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: " + PEN2 if gone else ""}">{nm}</span>' if nm else
-                    f'<span style="width: 260px; height: 0; border-bottom: 3px dashed {PEN3}; margin-top: 20px"></span>')
-                 + circle_mark(circ_w, circ_h, PEN if not gone else PEN3, 4) + '</div>')
+                    f'<span data-o="blank" style="width: 260px; height: 0; border-bottom: 3px dashed {PEN3}; margin-top: 20px"></span>')
+                 + circle_mark(circ_w, circ_h, PEN if not gone else PEN3, 4, hook='circle') + '</div>')
     nxt = ''
     if next_name:
         nxt = (f'<div style="display: flex; align-items: center; gap: 16px; margin-left: 30px">{pen("try:", 26, f"color: {PEN3}")}'
