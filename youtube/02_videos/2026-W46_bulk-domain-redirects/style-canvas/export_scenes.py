@@ -140,7 +140,7 @@ def _bytag_dash(tag):
     """w46-ByTag's dashboard without its dialog: all links (tag None), or filtered to a tag and selected."""
     if tag:
         top = (f'<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"><span style="{P_.BTN_S}; height: 34px; font-size: 13px">Tags: {P_.tag_chip(tag, 12)}</span>'
-               f'<span style="font-size: 14px; font-weight: 600; color: #181D27">128 links selected</span><span style="{P_.BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
+               f'<span style="font-size: 14px; font-weight: 600; color: #181D27">46 links selected</span><span style="{P_.BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
         rows = P_.links_rows(8, sel=True, tagf=tag)
     else:
         top = f'<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"><span style="{P_.BTN_S}; height: 34px; font-size: 13px">Tags</span></div>'
@@ -152,17 +152,15 @@ def _bytag_dash(tag):
 
 VARIANTS = {
     # Act A
-    # Act C: the founder's browser while they type the plain address (before it asks for https), and the notebook
-    # before kipzoo.com is crossed out.
-    'TwoPlain': lambda: P_.browser2('<span data-clipx="kip" style="color: #181D27; display: inline-block">kipzoo.com</span>'
+    # Act C: the customer's browser while they type the plain address (before it asks for https).
+    'TwoPlain': lambda: P_.browser2(f'<span data-clipx="kip" style="color: #181D27; display: inline-block">{P_.RETIRED}</span>'
                                     '<span data-o="caret" style="width: 2px; height: 26px; background: #181D27"></span>',
                                     '<div style="height: 394px; background: #FFFFFF"></div>', 960, 300, 840, 470, shadow=P_.DARK_SHADOW, bar=76, size=26),
-    'WarnNamed': lambda: P_.scaled(P_.notebook(1400, 760, name=P_.KIP), 0.56, 1400, 760, x=1010, y=520),
     # Act D: the door before it opens (the frame's own layer is the open door; its knock arcs are hooks knock0-2).
-    'DoorClosed': lambda: P_.place(210, 190, P_.door(390, 'closed', knock=3, label=P_.KIP, uid='c', show_knock=False)),
+    'DoorClosed': lambda: P_.place(210, 190, P_.door(390, 'closed', knock=3, label=P_.RETIRED, uid='c', show_knock=False)),
     # Act F: the Links page before the filter, and filtered and selected before the dialog (no scrim yet).
     'ByTagAll': lambda: _bytag_dash(None),
-    'ByTagPicked': lambda: _bytag_dash('Brandables'),
+    'ByTagPicked': lambda: _bytag_dash('Product'),
     # Act E: the padlock wall before its doors open, each closed door its own hook (--o-pc{k}), placed like w46-Padlocks.
     'PadClosed': lambda: ''.join(P_.place(140 + (k % 6) * 280, 250 + (k // 6) * 320, P_.door(150, 'closed', label=n, uid=f'c{k}'), extra=f' data-o="pc{k}"')
                                  for k, n in enumerate(P_.WALL)),

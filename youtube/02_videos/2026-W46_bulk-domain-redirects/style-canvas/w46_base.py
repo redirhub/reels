@@ -1,8 +1,8 @@
 """W46 house system: tokens, rooms, frame helpers and the RedirHub dashboard shell.
 
 Started from W44's build_frames.py (tokens, page(), rooms, browser, pill/tag/tip/headline/caption, shell).
-Changed for W46: Fredoka and the shop palette are gone (Glomvo brings Instrument Serif and its own stone
-palette, in w46_props.py); the dashboard workspace is Glomvo; a new 'evening' room for Act C.
+Changed for W46: Fredoka and the shop palette are gone (Northway brings Instrument Serif and its own quiet
+palette, in w46_props.py); the dashboard workspace is Northway; a new 'evening' room for Act C.
 """
 import os
 
@@ -65,7 +65,7 @@ ROOMS = {
     'sweep': ('linear-gradient(163deg, #1C6DB6 0%, #20A795 86%)', INK, ''),
     'radial': ('radial-gradient(111.83% 100% at 50% 100%, #20A795 0%, #1C6DB6 100%)', INK, ''),
     'charcoal': ('linear-gradient(#181D27 0%, #101828 100%)', INK, ''),
-    # Evening (new in W46): Act C, the founder at night. Navy to night, no glow: the quietest room.
+    # Evening (new in W46): Act C, the customer at night. Navy to night, no glow: the quietest room.
     'evening': ('linear-gradient(170deg, #1A2A55 0%, #0B1426 70%)', INK, ''),
 }
 
@@ -199,8 +199,8 @@ def shell(active, crumbs, right, body, w=1400, h=633):
                  f'<span style="display: inline-flex; color: #717680">{ico(d)}</span>{label}</span>' for label, d in WSNAV)
     aside = (f'<aside style="width: 236px; height: {h}px; flex-shrink: 0; background: #F2F4F7; display: flex; flex-direction: column; gap: 14px; padding: 14px 12px; box-sizing: border-box">'
              f'<div style="display: flex; align-items: center; gap: 8px; padding-left: 6px; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: #181D27">{RH_MARK}RedirHub</div>'
-             f'<div style="display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 10px; background: #FFFFFF; border: 1px solid #EAECF0"><span style="width: 28px; height: 28px; border-radius: 8px; background: #E8F0F8; color: #1962A4; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">G</span>'
-             f'<span style="flex-grow: 1; font-size: 14px; font-weight: 600; color: #181D27">Glomvo</span><span style="display: inline-flex; color: #98A2B3">{ico("M7 15l5 5 5-5M7 9l5-5 5 5", 15)}</span></div>'
+             f'<div style="display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 10px; background: #FFFFFF; border: 1px solid #EAECF0"><span style="width: 28px; height: 28px; border-radius: 8px; background: #E8F0F8; color: #1962A4; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">N</span>'
+             f'<span style="flex-grow: 1; font-size: 14px; font-weight: 600; color: #181D27">Northway</span><span style="display: inline-flex; color: #98A2B3">{ico("M7 15l5 5 5-5M7 9l5-5 5 5", 15)}</span></div>'
              f'<div style="display: flex; flex-direction: column; gap: 2px">{nav}</div>'
              f'<div style="display: flex; flex-direction: column; gap: 2px"><span style="padding: 8px 10px 4px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; color: #98A2B3">WORKSPACE</span>{ws}</div></aside>')
     crumb = '<span style="margin: 0 8px; color: #D5D7DA">/</span>'.join(

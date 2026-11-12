@@ -1,22 +1,24 @@
 from w46_base import *
 
 # ================================================================ W46 cast and props (defined once, reused by every frame)
-# Glomvo: a small, serious team that holds names. Its logo is the wordmark alone (Leo, Review 2: no icon). Its own palette and its one prop typeface (Instrument Serif) live only
-# inside its own things ([data-shop] / [data-logo]); around them the film stays RedirHub.
-GLOMVO = dict(ink='#2B2722', stone='#F4F0E8', linen='#E7E0D4', pebble='#A79F92')
-SHOP_HEX = ' '.join(v[1:] for v in GLOMVO.values())
+# Northway (v6, Leo 2026-11-13): a small software company whose domains piled up over the years. Its logo is a wordmark
+# alone (no icon, no mascot), set in the one prop typeface (Instrument Serif), with "software" in small tracked capitals.
+# Its own quiet palette lives only inside its own things ([data-shop] / [data-logo]); around them the film stays RedirHub.
+NORTHWAY = dict(ink='#1B2333', paper='#F6F5F1', line='#E4E2DC', slate='#7C8596')
+SHOP_HEX = ' '.join(v[1:] for v in NORTHWAY.values())
 SERIF = "font-family: 'Instrument Serif', Georgia, serif"
 PAPER, PAPER2, NOTE, PINK_INK, PEN, PEN2, PEN3, COVER = '#FBF7EF', '#F4EFE6', '#FFF4D6', '#3B3A36', '#3B3A36', '#6B675F', '#8A8478', '#1E2A44'
 
-KIP = 'kipzoo.com'
-LANDER = 'glomvo.com/kipzoo'
-MARKET = 'marketplace.example'
-# Every name below was checked on 2026-11-06 (open-questions.md, D-1): NXDOMAIN, and unregistered at the registry,
-# except kipzoo.com, which the brief fixes: NXDOMAIN, but registered and on hold (flagged, fallbacks listed).
-BRANDABLES = ['tumbrik.com', 'zentvy.com', 'savvlo.com', 'grolvi.com', 'zinnobi.com', 'quellox.com', 'mobvra.com', 'bazlio.com', 'rimboa.com', 'jubrik.com']
-SHORTS = ['olzik.com', 'gozvu.com', 'yobzi.com']
-WALL = ['tumbrik.com', 'olzik.com', 'zentvy.com', 'savvlo.com', 'gozvu.com', 'grolvi.com', KIP, 'zinnobi.com', 'quellox.com', 'yobzi.com', 'mobvra.com', 'bazlio.com']
-TAGOF = {KIP: 'Brandables', 'olzik.com': 'Short', 'gozvu.com': 'Short', 'yobzi.com': 'Premium'}
+# Every domain below is invented and was DNS-checked on 2026-11-12 (open-questions.md, D): NXDOMAIN, and the .com
+# names unregistered at the registry. northway.com and nortway.com are live, so the main site is northwaysoft.com.
+MAIN = 'northwaysoft.com'      # Northway's one website (the destination of every move)
+RETIRED = 'rotawick.com'       # a product Northway retired years ago: the twist (beats 8-13)
+TYPO = 'nortwaysoft.com'       # "Northway without the h": the knocks (beats 26-29)
+OLD = 'fernvalesoft.com'       # the old name, from before the rebrand
+PRODUCTS = ['clinvane.com', 'rostavia.com', 'notevane.com', 'slotbrae.com', 'dockwen.com']
+COUNTRIES = ['northwaysoft.de', 'northwaysoft.fr', 'northwaysoft.co.uk']
+TYPOS = [TYPO, 'northwaysft.com']
+WALL = PRODUCTS + [RETIRED] + COUNTRIES + TYPOS + [OLD]
 
 
 def ex_label(text='Example', light=True):
@@ -27,35 +29,28 @@ def ex_label(text='Example', light=True):
             f'letter-spacing: 0.08em; color: {fg}; white-space: nowrap">{text.upper()}</span>')
 
 
-# ---------------------------------------------------------------- Glomvo: mark, wordmark, lander
-def glomvo_logo(size=40, dark=False, note=True):
-    g = GLOMVO
-    c = g['stone'] if dark else g['ink']
-    sub = (f'<span style="{SERIF}; font-style: italic; font-size: {size * 0.36:.0f}px; color: {c}; opacity: 0.72; white-space: nowrap">names, held with care</span>' if note else '')
-    return (f'<div data-logo data-shop style="display: inline-flex; flex-direction: column; gap: {size * 0.12:.0f}px">'
-            f'<span style="{SERIF}; font-size: {size}px; line-height: 1; letter-spacing: 0.01em; color: {c}">Glomvo</span>{sub}</div>')
+# ---------------------------------------------------------------- Northway: wordmark and homepage
+def northway_logo(size=40, dark=False, note=True):
+    """The wordmark: "Northway" in Instrument Serif, and at most "software" in small tracked capitals under it."""
+    g = NORTHWAY
+    c = g['paper'] if dark else g['ink']
+    sub = (f'<span style="font-size: {max(10, size * 0.2):.0f}px; font-weight: 600; letter-spacing: 0.34em; color: {g["slate"]}; white-space: nowrap">SOFTWARE</span>' if note else '')
+    return (f'<div data-logo data-shop style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: {size * 0.14:.0f}px">'
+            f'<span style="{SERIF}; font-size: {size}px; line-height: 1; letter-spacing: 0.005em; color: {c}">Northway</span>{sub}</div>')
 
 
-def lander(name=KIP, w=980, h=560, price=False, sold=False):
-    """Glomvo's for-sale page: the same component every time (the name, a price or make-offer area, a contact line)."""
-    g = GLOMVO
-    if price:
-        # "Write to us" shares the buttons' cell, hidden (--o-write, 0 unset), so a scene can morph one into the other;
-        # the buttons are hooks buy and offer
-        offer = (f'<div style="display: grid; align-items: center"><span style="grid-area: 1 / 1; font-size: 22px; color: {g["ink"]}; opacity: calc(0.8 * var(--o-write, 0))">Interested? Write to us.</span>'
-                 f'<div style="grid-area: 1 / 1; display: flex; align-items: center; gap: 18px">'
-                 f'<span data-o="buy" style="display: inline-flex; align-items: center; gap: 12px; height: 64px; padding: 0 28px; border-radius: 32px; background: {g["ink"]}; color: {g["stone"]}; font-size: 22px; font-weight: 600">Buy now'
-                 f'<span style="display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 17px; background: {g["pebble"]}; color: {g["ink"]}; font-size: 15px; font-weight: 600; letter-spacing: 0.04em">PRICE</span></span>'
-                 f'<span data-o="offer" style="display: inline-flex; align-items: center; height: 64px; padding: 0 28px; border-radius: 32px; box-shadow: inset 0 0 0 2px {g["ink"]}; color: {g["ink"]}; font-size: 22px; font-weight: 600">Make an offer</span></div></div>')
-    else:
-        offer = (f'<span style="font-size: 22px; color: {g["ink"]}; opacity: 0.8">Interested? Write to us.</span>')
-    inner = (f'<div data-shop style="position: absolute; inset: 0; background: {g["stone"]}; {UI}; display: flex; flex-direction: column; padding: {h * 0.09:.0f}px {w * 0.08:.0f}px; box-sizing: border-box">'
-             f'<div style="display: flex; align-items: center; justify-content: space-between">{glomvo_logo(26, note=False)}'
-             f'<span style="font-size: 15px; font-weight: 600; letter-spacing: 0.14em; color: {g["ink"]}; opacity: 0.7">PORTFOLIO</span></div>'
-             f'<div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 22px">'
-             f'<span style="font-size: 26px; font-weight: 500; letter-spacing: 0.02em; color: {g["ink"]}; opacity: 0.8">This name is available</span>'
-             f'<span style="{MONO}; font-size: {w * 0.072:.0f}px; font-weight: 600; letter-spacing: -0.02em; color: {g["ink"]}">{name}</span>{offer}</div>'
-             f'<span style="font-size: 17px; color: {g["ink"]}; opacity: 0.75">Questions? <span style="{MONO}">hello@glomvo.com</span></span></div>')
+def homepage(w=980, h=560):
+    """Northway's one website: the wordmark, a quiet nav, one line, and its products as plain cards (no prices, no claims)."""
+    g = NORTHWAY
+    cards = ''.join(f'<div style="flex: 1; display: flex; flex-direction: column; gap: 8px; padding: {h * 0.035:.0f}px {w * 0.02:.0f}px; border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px {g["line"]}">'
+                    f'<span style="font-size: {w * 0.017:.0f}px; font-weight: 600; color: {g["ink"]}">{n.split(".")[0].capitalize()}</span>'
+                    f'<span style="width: 70%; height: 7px; border-radius: 4px; background: {g["line"]}"></span></div>' for n in PRODUCTS[:4])
+    nav = ''.join(f'<span style="font-size: {w * 0.015:.0f}px; color: {g["slate"]}">{t}</span>' for t in ('Products', 'Pricing', 'Support'))
+    inner = (f'<div data-shop style="position: absolute; inset: 0; background: {g["paper"]}; {UI}; display: flex; flex-direction: column; padding: {h * 0.07:.0f}px {w * 0.07:.0f}px; box-sizing: border-box; gap: {h * 0.07:.0f}px">'
+             f'<div style="display: flex; align-items: center; gap: {w * 0.03:.0f}px">{northway_logo(w * 0.03, note=False)}<span style="flex: 1"></span>{nav}</div>'
+             f'<div style="display: flex; flex-direction: column; gap: {h * 0.03:.0f}px; margin-top: {h * 0.02:.0f}px"><span style="font-size: {w * 0.046:.0f}px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; color: {g["ink"]}">Everything Northway makes,<br /> in one place.</span>'
+             f'<span style="font-size: {w * 0.018:.0f}px; color: {g["slate"]}">Scheduling, rosters and notes for small clinics.</span></div>'
+             f'<div style="display: flex; gap: {w * 0.018:.0f}px; margin-top: auto">{cards}</div></div>')
     return f'<div style="position: relative; width: {w}px; height: {h - 64}px">{inner}</div>'
 
 
@@ -135,9 +130,9 @@ def slot(state='closed', h=44, dark_tile=False):
             f'<path d="M0 {h:.1f}V{r:.1f}A{r:.1f} {r:.1f} 0 0 1 {w:.1f} {r:.1f}V{h:.1f}Z" fill="{c}"></path></svg>')
 
 
-def name_tile(name=KIP, w=440, state='closed', dark=False, extra='', note=None, tagc=None, visits=None, ring=None, dim=False, strike=False):
+def name_tile(name=RETIRED, w=440, state='closed', dark=False, extra='', note=None, tagc=None, visits=None, ring=None, dim=False, strike=False, h=None):
     """The name tile: identical everywhere it appears (slot, mono name). Options add a tag chip, a sticky note or a visit count."""
-    h = w * 0.27
+    h = h or w * 0.27  # h: a wider tile for a long name keeps the type size of a standard one
     bg = '#FFFFFF'
     sh = f'0 0 0 4px {ring}, ' if ring else ''
     op = 'opacity: 0.38; ' if dim else ''
@@ -163,7 +158,7 @@ def sticky(text, w=220, strike=False):
             f'font-size: 26px; font-weight: 700; color: {PINK_INK}"><span style="position: relative; display: inline-block">{text}{line}</span></div>')
 
 
-# ---------------------------------------------------------------- the founder: a notebook and a browser (never a face)
+# ---------------------------------------------------------------- the product notebook (never a face)
 def circle_mark(w, h, color=PEN, sw=4, hook=''):
     """A hand-drawn circle: an ellipse that doesn't quite close. `hook` names it for the scene's draw-on."""
     hk = f' data-draw="{hook}"' if hook else ''
@@ -172,43 +167,39 @@ def circle_mark(w, h, color=PEN, sw=4, hook=''):
             f'C{w * 0.12:.0f} {h * 0.1:.0f} {w * 0.4:.0f} {h * 0.0:.0f} {w * 0.7:.0f} {h * 0.12:.0f}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linecap="round"></path></svg>')
 
 
-def notebook(w=1400, h=760, name=None, gone=False, next_name=None):
-    """The founder's idea notebook, open: sketches and crossed-out words on the left, the plan on the right. The name line is
-    circled: empty in Act A, kipzoo in Act C (crossed out when the founder leaves)."""
+def notebook(w=1400, h=760):
+    """A product notebook, open: the idea on the left (a scheduling app for clinics, one idea crossed out), the plan on
+    the right. Its first line is "the domain", circled round an empty line (beat 2: "buy the domain first"); the next
+    lines are the rest of the habit, each a hook (p2-p4) so a scene can write them on their words."""
     pw = w / 2
     ln = f'repeating-linear-gradient(transparent 0, transparent 47px, rgba(30,42,68,0.10) 47px, rgba(30,42,68,0.10) 48px)'
     pen = lambda t, size=30, extra='': f'<span style="font-size: {size}px; font-weight: 600; color: {PEN}; {extra}">{t}</span>'
-    # left page: the idea, sketched
-    sketch = (f'<svg width="300" height="200" viewBox="0 0 300 200" aria-hidden="true"><rect x="8" y="10" width="140" height="180" rx="22" fill="none" stroke="{PEN2}" stroke-width="3"></rect>'
-              f'<circle cx="78" cy="70" r="28" fill="none" stroke="{PEN2}" stroke-width="3"></circle><path d="M40 130h76M40 150h52" stroke="{PEN2}" stroke-width="3" stroke-linecap="round"></path>'
-              f'<path d="M190 40q40 -10 70 20M190 90q50 0 80 30M190 140q30 10 60 0" fill="none" stroke="{PEN3}" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"></path></svg>')
+    # left page: the idea, sketched (a phone with a calendar)
+    sketch = (f'<svg width="300" height="200" viewBox="0 0 300 200" aria-hidden="true"><rect x="8" y="10" width="120" height="180" rx="20" fill="none" stroke="{PEN2}" stroke-width="3"></rect>'
+              f'<path d="M30 52h76M30 84h76M30 116h76M56 40v100M82 40v100" stroke="{PEN2}" stroke-width="3" stroke-linecap="round"></path>'
+              f'<circle cx="69" cy="100" r="9" fill="none" stroke="{PEN2}" stroke-width="3"></circle>'
+              f'<path d="M170 40q40 -10 70 20M170 90q50 0 80 30M170 140q30 10 60 0" fill="none" stroke="{PEN3}" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"></path></svg>')
     left = (f'<div style="position: absolute; left: 0; top: 0; width: {pw:.0f}px; height: {h}px; box-sizing: border-box; padding: 60px 70px; background: {PAPER}; background-image: {ln}">'
             f'<div style="display: flex; flex-direction: column; gap: 18px">{pen("the idea", 26, f"letter-spacing: 0.12em; text-transform: uppercase; color: {PEN3}")}'
-            f'{pen("Snacks for kids who love animals", 36)}'
-            f'{pen("subscription box?", 30, "text-decoration: line-through; text-decoration-thickness: 3px; color: " + PEN3)}'
-            f'{pen("a little app that comes with it", 30)}'
+            f'{pen("A scheduling app for clinics", 36)}'
+            f'{pen("booking by phone?", 30, "text-decoration: line-through; text-decoration-thickness: 3px; color: " + PEN3)}'
+            f'{pen("reminders by text", 30)}'
             f'<div style="margin-top: 14px">{sketch}</div></div></div>')
-    # right page: the plan; the first line is the name
-    nm = name or ''
-    circ_w, circ_h = 420, 104
+    # right page: the plan; its first line is the domain
+    circ_w, circ_h = 360, 104
     name_line = (f'<div style="position: relative; width: {circ_w}px; height: {circ_h}px; display: flex; align-items: center; justify-content: center">'
-                 + (f'<span style="{MONO}; font-size: 40px; font-weight: 600; color: {PEN}; {"text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: " + PEN2 if gone else ""}">{nm}</span>' if nm else
-                    f'<span data-o="blank" style="width: 260px; height: 0; border-bottom: 3px dashed {PEN3}; margin-top: 20px"></span>')
-                 + circle_mark(circ_w, circ_h, PEN if not gone else PEN3, 4, hook='circle') + '</div>')
-    nxt = ''
-    if next_name:
-        nxt = (f'<div style="display: flex; align-items: center; gap: 16px; margin-left: 30px">{pen("try:", 26, f"color: {PEN3}")}'
-               f'<span style="{MONO}; font-size: 30px; font-weight: 600; color: {PEN}">{next_name}</span></div>')
-    plan = ''.join(f'<div style="display: flex; align-items: baseline; gap: 18px">{pen(str(i + 2) + ".", 28, f"color: {PEN3}")}{pen(t, 30)}</div>'
-                   for i, t in enumerate(['logo', 'first 100 customers', 'launch in spring']))
+                 f'<span data-o="blank" style="width: 230px; height: 0; border-bottom: 3px dashed {PEN3}; margin-top: 20px"></span>'
+                 + circle_mark(circ_w, circ_h, PEN, 4, hook='circle') + '</div>')
+    plan = ''.join(f'<div data-o="p{i + 2}" style="display: flex; align-items: baseline; gap: 18px">{pen(str(i + 2) + ".", 28, f"color: {PEN3}")}{pen(t, 30)}</div>'
+                   for i, t in enumerate(['one for each country', 'a few misspellings', 'and the old name, too']))
     right = (f'<div style="position: absolute; left: {pw:.0f}px; top: 0; width: {pw:.0f}px; height: {h}px; box-sizing: border-box; padding: 60px 70px; background: {PAPER}; background-image: {ln}; '
              f'box-shadow: inset 18px 0 30px -18px rgba(30,42,68,0.25)">'
              f'<div style="display: flex; flex-direction: column; gap: 22px">{pen("the plan", 26, f"letter-spacing: 0.12em; text-transform: uppercase; color: {PEN3}")}'
-             f'<div style="display: flex; align-items: center; gap: 22px">{pen("1.", 28, f"color: {PEN3}")}{pen("the name", 34, "white-space: nowrap")}{name_line}</div>{nxt}{plan}</div></div>')
+             f'<div style="display: flex; align-items: center; gap: 22px">{pen("1.", 28, f"color: {PEN3}")}{pen("the domain", 34, "white-space: nowrap")}{name_line}</div>{plan}</div></div>')
     return (f'<div style="position: relative; width: {w}px; height: {h}px; border-radius: 10px; box-shadow: 0 0 0 10px {COVER}, 0 50px 110px rgba(0,0,0,0.45)">{left}{right}</div>')
 
 
-def warning_page(w, h, name=KIP):
+def warning_page(w, h, name=RETIRED):
     """A generic 'this connection isn't private' page: no browser's wording, colours or icon."""
     return (f'<div style="width: {w}px; height: {h - 64}px; background: #F9FAFB; display: flex; align-items: center; justify-content: center">'
             f'<div style="width: {w * 0.62:.0f}px; display: flex; flex-direction: column; gap: 22px">'
@@ -253,7 +244,7 @@ def registrar(style, names, x=None, y=None, w=500, label='Registrar A', status=N
                 st = (f'<span style="margin-left: auto; font-size: 13px; font-weight: 700; color: {"#067647" if ok else "#B42318"}">{"Saved" if ok else "No HTTPS"}</span>')
         rows += (f'<div style="display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 14px; border-top: 1px solid #EAECF0; font-size: 14px; color: #344054">'
                  f'<span style="{MONO}; font-size: 14px; color: #181D27">{n}</span><span style="color: #98A2B3">forwards to</span>'
-                 f'<span style="{MONO}; font-size: 13px; color: #475467; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">glomvo.com/…</span>{st}</div>')
+                 f'<span style="{MONO}; font-size: 13px; color: #475467; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">northwaysoft.com/…</span>{st}</div>')
     head = {
         'a': (f'<div style="display: flex; align-items: center; gap: 10px; padding: 16px 16px 12px"><span style="width: 26px; height: 26px; border-radius: 7px; background: #D0D5DD"></span>'
               f'<span style="font-size: 16px; font-weight: 700; color: #181D27">{label}</span><span style="margin-left: auto; font-size: 13px; color: #667085">Domain forwarding</span></div>', '#FFFFFF', '16px'),
@@ -271,18 +262,19 @@ COLS = ['source_url', 'destination', 'type', 'tags']
 
 
 def sheet_rows():
-    rows = [(KIP, f'https://{LANDER}', '302', 'Brandables'),
-            ('tumbrik.com', 'https://glomvo.com/tumbrik', '302', 'Brandables'),
-            ('olzik.com', 'https://glomvo.com/olzik', '302', 'Short'),
-            ('zentvy.com', 'https://glomvo.com/zentvy', '302', 'Brandables'),
-            ('yobzi.com', f'https://{MARKET}/yobzi', '302', 'Premium'),
-            ('gozvu.com', 'https://glomvo.com/gozvu', '302', 'Short'),
-            ('savvlo.com', 'https://glomvo.com/savvlo', '302', 'Brandables'),
-            ('grolvi.com', 'https://glomvo.com/grolvi', '302', 'Brandables')]
+    # beat 16: the old product name to its new page, each country to its own pages, the misspellings to the homepage
+    rows = [(RETIRED, f'https://{MAIN}/rotawick', '301', 'Product'),
+            ('clinvane.com', f'https://{MAIN}/clinvane', '301', 'Product'),
+            ('northwaysoft.de', f'https://{MAIN}/de', '301', 'Country'),
+            ('northwaysoft.fr', f'https://{MAIN}/fr', '301', 'Country'),
+            (TYPO, f'https://{MAIN}', '301', 'Typo'),
+            ('northwaysft.com', f'https://{MAIN}', '301', 'Typo'),
+            ('rostavia.com', f'https://{MAIN}/rostavia', '301', 'Product'),
+            ('northwaysoft.co.uk', f'https://{MAIN}/uk', '301', 'Country')]
     return rows
 
 
-TAG_COL = {'Brandables': ('#E8F0F8', '#1962A4'), 'Short': ('#ECFDF3', '#067647'), 'Premium': ('#F2F4F7', '#344054')}
+TAG_COL = {'Product': ('#E8F0F8', '#1962A4'), 'Country': ('#ECFDF3', '#067647'), 'Typo': ('#F2F4F7', '#344054')}
 
 
 def tag_chip(t, size=15):
@@ -291,7 +283,7 @@ def tag_chip(t, size=15):
             f'color: {fg}; font-size: {size}px; font-weight: 600; white-space: nowrap">{t}</span>')
 
 
-def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='glomvo-portfolio.csv', show_more=True, row_h=56, fix_col=None, hooks=False):
+def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='northway-domains.csv', show_more=True, row_h=56, fix_col=None, hooks=False):
     """A generic spreadsheet: column letters, a header row in mono (the real import columns), rows in mono.
     hooks: each column's tint follows --tint-k (0 none … 1 tinted; unset = as hi_col) and each body row is data-o="row{i}",
     so a scene can move the tint between columns and bring the rows in (export_scenes.py)."""

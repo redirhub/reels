@@ -4,10 +4,10 @@
     python3 youtube/02_videos/2026-W46_bulk-domain-redirects/style-canvas/build_frames.py [names...]
 
 Every frame is literal .dc.html markup (no {{holes}}), so it renders in plain Chromium and in the canvas.
-w46_base.py holds the house system (from W44), w46_props.py the cast: Glomvo, the kipzoo tile, the door and
-knock, the founder's notebook, the registrars, the warning page and the spreadsheet. Every frame builds from
-them, so kipzoo.com is the same object everywhere it appears. After Review 2 the canvas is the source: sync
-Leo's edits back by hand before regenerating.
+w46_base.py holds the house system (from W44), w46_props.py the cast (v6, 2026-11-13): Northway's wordmark and
+homepage, its domains (the retired product rotawick.com and the misspelling nortwaysoft.com are the two threads),
+the door and knock, the product notebook, the registrars, the warning page and the spreadsheet. Every frame builds
+from them, so a domain is the same object everywhere it appears. The canvas page w46 shows these frames.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,7 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'project')
 
 
 # ================================================================ product UI pieces (labels from the live dashboard, redirhub/lviv)
-def visits_card(rows, w=760, hi=KIP, title='Domains', metric='Clicks', tabs=('Domains', 'Tags'), on=0, row_h=58, hooks=False):
+def visits_card(rows, w=760, hi=TYPO, title='Domains', metric='Clicks', tabs=('Domains', 'Tags'), on=0, row_h=58, hooks=False):
     """The analytics breakdown card: tabs Domains / Tags, one row per domain with a bar and its count. hooks: each row
     is data-o="vr{i}" (a scene can sort them)."""
     top = max(v for _, v in rows) or 1
@@ -57,12 +57,13 @@ def lock_url(text, size=19):
     return f'{LOCK}<span>{text}</span>'
 
 
-def lander_browser(w=980, h=600, price=False, shadow=SOFT_SHADOW, name=KIP):
-    return browser2(lock_url(f'https://{LANDER}' if name == KIP else f'https://glomvo.com/{name.split(".")[0]}'), lander(name, w, h, price=price), None, None, w, h, shadow=shadow)
+def home_browser(w=980, h=600, shadow=SOFT_SHADOW, url=MAIN, extra_bar=''):
+    """Northway's homepage in a browser, padlock and all."""
+    return browser2(lock_url(f'https://{url}') + extra_bar, homepage(w, h), None, None, w, h, shadow=shadow)
 
 
-def typing_browser(w=900, h=420, text=KIP, caret=True, shadow=SOFT_SHADOW, body=''):
-    """The founder's browser: nothing but the address bar being typed into (a generic browser, no brand)."""
+def typing_browser(w=900, h=420, text=RETIRED, caret=True, shadow=SOFT_SHADOW, body=''):
+    """The customer's browser: nothing but the address bar being typed into (a generic browser, no brand)."""
     car = f'<span style="width: 2px; height: 22px; background: {CHAR}"></span>' if caret else ''
     inner = body or f'<div style="height: {h - 64}px; background: #FFFFFF"></div>'
     return browser2(f'<span style="color: #181D27">{text}</span>{car}', inner, None, None, w, h, shadow=shadow)
@@ -71,116 +72,133 @@ def typing_browser(w=900, h=420, text=KIP, caret=True, shadow=SOFT_SHADOW, body=
 # ================================================================ the world board
 @F('w46-World', 'The story world')
 def _world():
-    g = GLOMVO
+    g = NORTHWAY
     W = 3280
     note = lambda t, c=G700: f'<span style="font-size: 24px; line-height: 1.5; color: {c}">{t}</span>'
     dnote = lambda t: note(t, INK_SOFT)
+    mono = lambda t: f'<span style="{MONO}">{t}</span>'
 
-    # 1 · Glomvo
-    glomvo = (f'<div style="display: flex; gap: 60px; align-items: flex-start"><div style="display: flex; flex-direction: column; gap: 34px; width: 520px">'
-              f'<div data-shop style="padding: 44px 40px; border-radius: 24px; background: {g["stone"]}">{glomvo_logo(64)}</div>'
-              + note('A small team that buys short, sayable names and holds them until the right founder comes looking. Quiet, careful, a little old-fashioned: a serif wordmark, stone and ink, no colour.')
-              + f'<div data-shop style="display: flex; gap: 14px">' + ''.join(f'<span style="width: 56px; height: 56px; border-radius: 14px; background: {c}; box-shadow: inset 0 0 0 1px rgba(16,24,40,0.12)"></span>' for c in g.values()) + '</div>'
-              + f'<span style="{MONO}; font-size: 18px; color: {G600}">ink #2B2722 · stone #F4F0E8 · linen #E7E0D4 · pebble #A79F92</span></div>'
-              f'<div style="display: flex; flex-direction: column; gap: 18px">{lander_browser(820, 520)}'
-              f'<span style="font-size: 22px; font-weight: 600; color: {G600}">The for-sale page: the same page for every name. Act F adds Buy now (a PRICE chip, never a figure).</span></div></div>')
+    # 1 · Northway
+    team = (f'<div style="display: flex; gap: 60px; align-items: flex-start"><div style="display: flex; flex-direction: column; gap: 34px; width: 520px">'
+            f'<div data-shop style="padding: 48px 44px; border-radius: 24px; background: {g["paper"]}; box-shadow: inset 0 0 0 1px {g["line"]}">{northway_logo(72)}</div>'
+            + note('A small software company: scheduling, rosters and notes for clinics. You are its owner. The wordmark is type only (Instrument Serif, “software” in small tracked capitals): premium, quiet, never louder than RedirHub around it.')
+            + f'<div data-shop style="display: flex; gap: 14px">' + ''.join(f'<span style="width: 56px; height: 56px; border-radius: 14px; background: {c}; box-shadow: inset 0 0 0 1px rgba(16,24,40,0.12)"></span>' for c in g.values()) + '</div>'
+            + f'<span style="{MONO}; font-size: 18px; color: {G600}">ink #1B2333 · paper #F6F5F1 · line #E4E2DC · slate #7C8596</span></div>'
+            f'<div style="display: flex; flex-direction: column; gap: 18px">{home_browser(820, 520)}'
+            f'<span style="font-size: 22px; font-weight: 600; color: {G600}">The one website, {mono(MAIN)}: where every domain goes after the move.</span></div></div>')
 
-    # 2 · the portfolio wall
-    wall = ''.join(name_tile(n, 430, tagc=None) for n in WALL)
+    # 2 · the domains
+    wall = ''.join(name_tile(n, 430) for n in WALL)
     wall = (f'<div style="display: grid; grid-template-columns: repeat(3, 430px); gap: 22px">{wall}</div>'
-            f'<span style="display: block; margin-top: 30px">' + note('Every name is invented and was DNS-checked on 6 Nov 2026 (open-questions.md, D-1). Each tile carries a slot: the small door it will become in Act D. kipzoo is the only one we follow.') + '</span>')
+            f'<span style="display: block; margin-top: 30px">' + note(f'Products, countries, misspellings and the old name, from before the rebrand. Every domain is invented and DNS-checked on 12 Nov 2026 (open-questions.md, D); {mono("northway.com")} is live, so the site is {mono(MAIN)}.') + '</span>')
 
-    # 3 · the thread
-    stick = (f'<div style="position: relative; width: 470px; height: 190px">{place(0, 60, name_tile(KIP, 440, visits=63))}'
-             f'{place(310, 0, sticky("drop list?", 190, strike=True))}</div>')
+    # 3 · the two threads
+    stick = (f'<div style="position: relative; width: 470px; height: 190px">{place(0, 60, name_tile(TYPO, 440, visits=63))}'
+             f'{place(270, 0, sticky("drop at renewal?", 230, strike=True))}</div>')
     thread_items = [
-        ('A', 'One of the names', name_tile(KIP, 440)),
-        ('C', 'The founder types it', typing_browser(560, 150, body=f'<div style="height: 86px; background: #FFFFFF"></div>')),
-        ('E', 'A row in the sheet', sheet(560, rows=sheet_rows()[:1], show_more=False, row_h=52)),
-        ('F', '63 visits · last year’s drop list', f'<div style="display: flex; flex-direction: column; gap: 14px">{stick}{ex_label()}</div>'),
-        ('G', 'The door in the question', door(140, 'open', dark=False, knock=2, label=KIP)),
+        ('B', 'A product retired years ago', name_tile(RETIRED, 440)),
+        ('C', 'A customer types it', typing_browser(560, 150, body=f'<div style="height: 86px; background: #FFFFFF"></div>')),
+        ('E', 'A row in the file', sheet(560, rows=sheet_rows()[:1], show_more=False, row_h=52)),
+        ('F', 'Northway without the h: 63 visits', f'<div style="display: flex; flex-direction: column; gap: 14px">{stick}{ex_label()}</div>'),
+        ('G', 'The door in the question', door(140, 'open', dark=False, knock=2, label=RETIRED)),
     ]
     thread = (f'<div style="display: flex; gap: 46px; align-items: flex-start">'
               + ''.join(f'<div style="display: flex; flex-direction: column; gap: 18px"><span style="font-size: 22px; font-weight: 800; color: {TEAL}">{a}</span>'
                         f'<span style="font-size: 24px; font-weight: 700; color: {CHAR}">{b}</span>{c}</div>' for a, b, c in thread_items) + '</div>'
-              + f'<span style="display: block; margin-top: 34px; width: 2900px">' + note(f'One object, always the same: a white tile, a slot, <span style="{MONO}">kipzoo.com</span> in JetBrains Mono. The narrator says “kipzoo”; the screen always shows the full address. It is one of Glomvo’s names (A), the name the founder types and leaves (C), a row in the spreadsheet (E), the name with 63 visits that had been on last year’s drop list (F), and the door in the closing question (G).') + '</span>')
+              + f'<span style="display: block; margin-top: 34px; width: 2900px">' + note(f'Two domains carry the story, each always the same white tile in JetBrains Mono. {mono(RETIRED)}, a retired product, is the one people still type (B), the customer who meets a warning page (C), a row in the file (E) and the door in the closing question (G). {mono(TYPO)}, “Northway without the h”, is the misspelling with 63 visits that had nearly been dropped (F). The narrator never reads a domain aloud.') + '</span>')
 
     # 4 · the motif (dark panel)
-    st = [('closed', 0, '1 · Closed', 'A name with nowhere safe to go: a thin outline, the padlock unlit.'),
+    st = [('closed', 0, '1 · Closed', 'A domain with nowhere safe to go: a thin outline, the padlock unlit.'),
           ('open', 0, '2 · Open, padlock lit', 'The fix: the arch fills with teal light, the padlock solid. Opens properly.'),
-          ('open', 3, '3 · A knock', 'Someone came looking: three arcs leave the door. Glomvo hears it.'),
+          ('open', 3, '3 · A knock', 'Someone came looking: three arcs leave the door. Northway hears it.'),
           ('broken', 0, 'Reference only · Broken', 'Red, the shackle sprung. Not used in any frame: the warning page carries that moment.')]
     motif = (f'<div style="display: flex; gap: 70px; align-items: flex-start">'
-             + ''.join(f'<div style="display: flex; flex-direction: column; gap: 22px; width: {440 if k else 300}px">{door(200, s, knock=k)}'
-                       f'<span style="font-size: 26px; font-weight: 800; color: {INK}">{t}</span><span style="font-size: 21px; line-height: 1.45; color: {INK_SOFT}">{d}</span></div>' for s, k, t, d in st)
+             + ''.join(f'<div style="display: flex; flex-direction: column; gap: 22px; width: {440 if k else 300}px">{door(200, s_, knock=k)}'
+                       f'<span style="font-size: 26px; font-weight: 800; color: {INK}">{t}</span><span style="font-size: 21px; line-height: 1.45; color: {INK_SOFT}">{d}</span></div>' for s_, k, t, d in st)
              + '</div>'
-             + f'<span style="display: block; margin-top: 34px; width: 2900px">' + dnote('Every name is a door that has to open properly, padlock included; a visit is a knock Glomvo needs to hear. Born on beat 11 (Act D), paid off in Act F (the knocks) and in the closing question (G). Drawn, never cartoon: no handle, hinges or wood. The new move, “knock”, means only one thing: someone came looking.') + '</span>')
+             + f'<span style="display: block; margin-top: 34px; width: 2900px">' + dnote('Every domain is a door that has to open properly, padlock included; a visit is a knock Northway needs to hear. Born at “Every domain needed two things” (beat 13), paid off in “Hearing the knock” and in the closing question. Drawn, never cartoon: no handle, hinges or wood. The move “knock” means only one thing: someone came looking.') + '</span>')
 
-    # 5 · the founder
-    founder = (f'<div style="display: flex; gap: 50px; align-items: flex-start">'
-               f'<div style="padding: 10px">{scaled(notebook(1400, 760), 0.62, 1400, 760)}</div>'
-               f'<div style="display: flex; flex-direction: column; gap: 26px; width: 560px">{typing_browser(560, 300)}'
-               + note(f'Never a face or a person: the founder is a notebook and a browser. Sketches, a crossed-out idea, and one circled line, “the name”, empty in Act A. In Act C it holds <span style="{MONO}">kipzoo.com</span>, then a strike and another name.')
-               + '</div></div>')
+    # 5 · the notebook and the customer
+    people = (f'<div style="display: flex; gap: 50px; align-items: flex-start">'
+              f'<div style="padding: 10px">{scaled(notebook(1400, 760), 0.62, 1400, 760)}</div>'
+              f'<div style="display: flex; flex-direction: column; gap: 26px; width: 560px">{typing_browser(560, 300)}'
+              + note('Never a face or a person. The habit is a product notebook (the plan starts with “the domain”); the customer is a browser and an address bar.')
+              + '</div></div>')
 
     # 6 · the warning page
-    warn = (f'<div style="display: flex; flex-direction: column; gap: 24px">{browser2(bar_url(f"https://{KIP}", broken=True), warning_page(900, 500), None, None, 900, 500, shadow=SOFT_SHADOW)}'
+    warn = (f'<div style="display: flex; flex-direction: column; gap: 24px">{browser2(bar_url(f"https://{RETIRED}", broken=True), warning_page(900, 500), None, None, 900, 500, shadow=SOFT_SHADOW)}'
             + note('Generic wording, no browser’s colours, icon or layout. The only place Signal Red appears in the film.') + '</div>')
 
-    # 7 · three registrars
+    # 7 · three registrar accounts
     regs = (f'<div style="display: flex; gap: 26px; align-items: flex-start">'
-            f'{registrar("a", ["kipzoo.com", "tumbrik.com", "olzik.com"], w=420, label="Registrar A")}'
-            f'{registrar("b", ["zentvy.com", "gozvu.com", "savvlo.com"], w=420, label="Registrar B")}'
-            f'{registrar("c", ["yobzi.com", "grolvi.com", "zinnobi.com"], w=420, label="Registrar C")}</div>'
-            + f'<span style="display: block; margin-top: 30px">' + note('Three unbranded forwarding forms, three neutral styles (card, dark header, dense table). No logo, colour or copy from any real registrar, and nobody is said to “not be able to”.') + '</span>')
+            f'{registrar("a", [RETIRED, "clinvane.com", "northwaysoft.de"], w=420, label="Registrar A")}'
+            f'{registrar("b", ["rostavia.com", "northwaysoft.fr", TYPO], w=420, label="Registrar B")}'
+            f'{registrar("c", ["notevane.com", "northwaysft.com", OLD], w=420, label="Registrar C")}</div>'
+            + f'<span style="display: block; margin-top: 30px">' + note('Three unbranded forwarding forms, three neutral styles (card, dark header, dense table): the accounts the domains were bought in. No logo, colour or copy from any real registrar.') + '</span>')
 
     # 8 · the spreadsheet
-    chips = ''.join(tag_chip(t, 22) for t in ('Brandables', 'Short', 'Premium'))
+    chips = ''.join(tag_chip(t, 22) for t in ('Product', 'Country', 'Typo'))
     sheet_b = (f'{sheet(1340, rows=sheet_rows()[:5])}<div style="display: flex; align-items: center; gap: 18px; margin-top: 30px">{chips}'
-               f'<span style="margin-left: 20px">' + note('The real import columns: source_url, destination, type, tags. Generic grid, no spreadsheet app’s look.') + '</span></div>')
+               f'<span style="margin-left: 20px">' + note('The real import columns: source_url, destination, type (301), tags. Generic grid, no spreadsheet app’s look.') + '</span></div>')
 
     # 9 · visits
-    vis_rows = [(KIP, 63), ('tumbrik.com', 21), ('olzik.com', 9), ('zentvy.com', 4), ('gozvu.com', 0)]
+    vis_rows = [(TYPO, 63), ('clinvane.com', 21), ('northwaysoft.de', 9), ('rostavia.com', 4), (OLD, 0)]
     visits = (f'<div style="display: flex; gap: 40px; align-items: flex-start"><div style="display: flex; flex-direction: column; gap: 16px">{visits_card(vis_rows, 640)}{ex_label()}</div>'
               f'<div style="width: 340px">' + note('The analytics Domains card, as in the dashboard (Inter, product blue reserved). Counts labelled Example. The VO says “visits”; the card’s real label is Clicks (open-questions.md).') + '</div></div>')
 
     rules = ('<ul style="margin: 0; padding-left: 28px; display: flex; flex-direction: column; gap: 14px; font-size: 24px; line-height: 1.45; color: #344054">'
-             '<li>No face or realistic person. The founder is never drawn: a notebook and a browser stand in.</li>'
-             '<li>No real logo, colour or copy for any registrar, marketplace, browser, Google or Cloudflare. “Cloudflare” appears once, as a plain word, in Connect DNS.</li>'
-             '<li>No dollar figure, price, plan name or free-plan wording. A price is a bar.</li>'
-             '<li>Glomvo’s stone palette and Instrument Serif stay on Glomvo’s own things. Teal means fixed; Signal Red lives only on the warning page; amber at most once a frame; product blue only in product UI.</li>'
+             '<li>No face or realistic person: a notebook and a browser stand in.</li>'
+             '<li>No real company’s domain, logo, colour or copy for any registrar, browser or Cloudflare. “Cloudflare” appears once, as a plain word, in Connect DNS.</li>'
+             '<li>No dollar figure, price, plan name or free-plan wording. No step labels or numbered steps: the how-to grows out of the story.</li>'
+             '<li>Northway’s palette and Instrument Serif stay on Northway’s own things. Teal means fixed; Signal Red lives only on the warning page; amber at most once a frame; product blue only in product UI.</li>'
              '<li>Nothing tilts, spins or bounces.</li></ul>')
     inner = (f'<div style="position: absolute; left: 120px; top: 100px; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 22px; font-weight: 700; letter-spacing: 0.14em; color: {G500}">W46 · CAST, PROPS AND MOTIF</span>'
              f'<span style="font-size: 88px; font-weight: 800; letter-spacing: -0.04em; color: {CHAR}">The story world.</span></div>'
-             + world_panel(120, 340, 1560, 820, 'THE TEAM', 'Glomvo', glomvo)
-             + world_panel(1760, 340, 1400, 820, 'THE PORTFOLIO', 'Names, held', wall)
-             + world_panel(120, 1240, 3040, 820, 'THE THREAD', f'<span style="{MONO}; font-weight: 600; letter-spacing: -0.02em">{KIP}</span>, the same object everywhere', thread)
+             + world_panel(120, 340, 1560, 820, 'YOUR COMPANY', 'Northway', team)
+             + world_panel(1760, 340, 1400, 820, 'THE DOMAINS', 'Over two hundred, piled up', wall)
+             + world_panel(120, 1240, 3040, 820, 'THE THREADS', 'Two domains, the same objects everywhere', thread)
              + world_panel(120, 2140, 3040, 900, 'THE MOTIF', 'A door, and a knock', motif, dark=True)
-             + world_panel(120, 3120, 1560, 760, 'THE FOUNDER', 'A notebook and a browser', founder)
-             + world_panel(1760, 3120, 1400, 760, 'THE WARNING', 'What the founder saw', warn)
-             + world_panel(120, 3960, 1440, 800, 'BEFORE', 'Three registrars', regs)
-             + world_panel(1640, 3960, 1520, 800, 'THE LIST', 'One row per name', sheet_b)
+             + world_panel(120, 3120, 1560, 760, 'THE PEOPLE', 'A notebook and a browser', people)
+             + world_panel(1760, 3120, 1400, 760, 'THE WARNING', 'What the customer saw', warn)
+             + world_panel(120, 3960, 1440, 800, 'BEFORE', 'Three registrar accounts', regs)
+             + world_panel(1640, 3960, 1520, 800, 'THE LIST', 'One row per domain', sheet_b)
              + world_panel(120, 4840, 1560, 640, 'HEARING THE KNOCK', 'Visits, by domain', visits)
              + world_panel(1760, 4840, 1400, 640, 'WORLD RULES', 'What never appears', rules))
     H = 5600
     return (f'<div style="width: {W}px; height: {H}px; box-sizing: border-box; position: relative; overflow: hidden; background: linear-gradient(160deg, #F2F7FC 0%, #EEF8F6 100%); {JAK}; color: {CHAR}">{inner}</div>', W, H)
 
 
-# ================================================================ ACT A · Imagine
-@F('w46-Notebook', 'A name that comes first')
+# ================================================================ ACT A · Your company
+@F('w46-Notebook', 'Buy the domain first')
 def _notebook():
     nb = scaled(notebook(1400, 760), 1.0, 1400, 760)
     inner = (f'<div style="position: absolute; left: 260px; top: 150px">{nb}</div>')
     return frame('evening', inner)
 
 
-@F('w46-Glomvo', 'Meet Glomvo')
-def _glomvo():
-    g = GLOMVO
+@F('w46-Northway', 'Meet Northway')
+def _northway():
+    g = NORTHWAY
     tiles = ''.join(name_tile(n, 310, extra=f' data-o="t{i}"') for i, n in enumerate(WALL))
-    inner = (f'<div data-shop style="position: absolute; left: 120px; top: 300px; padding: 56px 52px; border-radius: 28px; background: {g["stone"]}">{glomvo_logo(78)}</div>'
-             + caption('A small team that buys names like these, and holds them until the right person comes looking.', y=620, x=120, w=640, size=40, color=CHAR)
-             + f'<div style="position: absolute; left: 820px; top: 330px; display: grid; grid-template-columns: repeat(3, 310px); gap: 20px">{tiles}</div>')
+    inner = (f'<div data-shop style="position: absolute; left: 120px; top: 300px; padding: 56px 52px; border-radius: 28px; background: {g["paper"]}; box-shadow: inset 0 0 0 1px {g["line"]}">{northway_logo(78)}</div>'
+             + caption('Over two hundred domains, and counting.', y=600, x=120, w=600, size=44, color=CHAR)
+             + f'<div style="position: absolute; left: 820px; top: 250px; display: grid; grid-template-columns: repeat(3, 310px); gap: 20px">{tiles}</div>')
+    return frame('light', inner)
+
+
+ONE_SITE = [PRODUCTS[0], PRODUCTS[1], COUNTRIES[0], COUNTRIES[1], TYPO, OLD]
+
+
+@F('w46-OneSite', 'One website, every product')
+def _onesite():
+    """New in v6 (beat 4): six of the domains each draw a line into Northway's one website."""
+    tiles = ''.join(place(120, 230 + i * 104, name_tile(n, 330, extra=f' data-o="s{i}"')) for i, n in enumerate(ONE_SITE))
+    ends = [230 + i * 104 + 44 for i in range(6)]
+    lines = ''.join(f'<path data-draw="w{i}" d="M0 {y - 200}C160 {y - 200} 200 360 360 360"></path>' for i, y in enumerate(ends))
+    svg = (f'<svg style="position: absolute; left: 470px; top: 200px" width="380" height="720" viewBox="0 0 380 720" aria-hidden="true" fill="none" stroke="{G400}" stroke-width="3" stroke-linecap="round">'
+           f'{lines}<path data-o="whead" d="M344 346l18 14-18 14"></path></svg>')
+    inner = (tiles + svg + f'<div style="position: absolute; left: 860px; top: 270px">{home_browser(940, 560)}</div>'
+             + caption('One website, every product.', x=860, y=150, w=940, size=48, color=CHAR))
     return frame('light', inner)
 
 
@@ -193,90 +211,80 @@ def _title():
     return frame('sweep', inner)
 
 
-# ================================================================ ACT B · What waiting costs
-@F('w46-Renewals', 'Every name asks every year')
+# ================================================================ ACT B · The quiet pile
+@F('w46-Renewals', 'Every domain renews')
 def _renewals():
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    names = [('tumbrik.com', 2), ('olzik.com', 4), ('zentvy.com', 0), (KIP, 8), ('savvlo.com', 5), ('gozvu.com', 10), ('grolvi.com', 7), ('yobzi.com', 1)]
-    x0, cw, y0, rh = 470, 110, 360, 62
+    names = [('clinvane.com', 2), (RETIRED, 4), ('northwaysoft.de', 0), (TYPO, 8), ('rostavia.com', 5), ('northwaysoft.fr', 10), (OLD, 7), ('notevane.com', 1)]
+    x0, cw, y0, rh = 520, 106, 360, 62
     head = ''.join(f'<span style="position: absolute; left: {x0 + i * cw}px; top: {y0 - 50}px; width: {cw}px; text-align: center; font-size: 20px; font-weight: 700; color: {G500}">{m}</span>' for i, m in enumerate(months))
     rows = ''
     for k, (n, m) in enumerate(names):
         y = y0 + k * rh
         rows += (f'<span style="position: absolute; left: 120px; top: {y + 14}px; {MONO}; font-size: 24px; font-weight: 600; color: {CHAR}">{n}</span>'
                  f'<span style="position: absolute; left: {x0}px; top: {y + rh // 2}px; width: {12 * cw}px; height: 2px; background: {G200}"></span>'
-                 f'<span style="position: absolute; left: {x0 + m * cw + 18}px; top: {y + 10}px; height: 40px; padding: 0 14px; border-radius: 20px; background: #1E2A44; color: #FFFFFF; '
+                 f'<span style="position: absolute; left: {x0 + m * cw + 16}px; top: {y + 10}px; height: 40px; padding: 0 14px; border-radius: 20px; background: #1E2A44; color: #FFFFFF; '
                  f'display: inline-flex; align-items: center; font-size: 17px; font-weight: 700; white-space: nowrap">Renews</span>')
-    rows += f'<span style="position: absolute; left: 120px; top: {y0 + len(names) * rh + 12}px; font-size: 22px; font-weight: 600; color: {G500}">… and every other name, every year</span>'
-    inner = headline('Holding a name isn’t free.', y=150, size=72) + head + rows
+    rows += f'<span style="position: absolute; left: 120px; top: {y0 + len(names) * rh + 12}px; font-size: 22px; font-weight: 600; color: {G500}">… and every other domain, every year</span>'
+    inner = headline('Every domain renews.', y=150, size=72) + head + rows
     return frame('light', inner)
 
 
-@F('w46-Parking', 'A parking ad surface closes')
-def _parking():
-    def ad(w, h, op, i=0):
-        return f'<div data-o="ad{i}" style="width: {w}px; height: {h}px; border-radius: 12px; background: {G200}; opacity: {op}"></div>'
-    parked = (f'<div style="height: 476px; box-sizing: border-box; padding: 34px; display: flex; flex-direction: column; gap: 18px; background: #FFFFFF">'
-              f'<span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: {G400}">SPONSORED LISTINGS</span>'
-              + ''.join(ad(w, 70, op, i) for i, (w, op) in enumerate(((640, 0.9), (600, 0.6), (620, 0.35), (560, 0.15)))) + '</div>')
-    # One dated fact, worded as Google's own help page words it (Kris, 2026-11-09): no industry-wide claim, no Bodis.
-    fact = (f'<div style="display: flex; flex-direction: column; gap: 14px"><span style="font-size: 24px; font-weight: 700; letter-spacing: 0.12em; color: {INK_SOFT}">FEBRUARY 10, 2026</span>'
-            f'<span style="font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.18">Parked domains are no longer ad placements on Google’s Search Partner Network.</span>'
-            f'<span style="font-size: 20px; font-weight: 600; color: {INK_MUTE}">Source: Google Ads Help, “Parked domain site”</span></div>')
-    inner = (browser2(lock_url('https://olzik.com'), parked, 120, 230, 720, 540)
-             + f'<div style="position: absolute; left: 960px; top: 330px; width: 840px">{fact}</div>')
+@F('w46-Accounts', 'Three registrar accounts')
+def _accounts():
+    """Was w46-Parking (v4). A generic registrar forwarding settings card, and one line: where the forwards live."""
+    card = scaled(registrar('b', [RETIRED, 'clinvane.com', 'northwaysoft.de', TYPO, OLD], w=520, label='Registrar B'), 1.45, 520, 262, x=120, y=330)
+    line = (f'<div style="display: flex; flex-direction: column; gap: 18px"><span style="font-size: 24px; font-weight: 700; letter-spacing: 0.12em; color: {INK_SOFT}">FORWARDING</span>'
+            f'<span style="font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.12">Three registrar accounts. Set up years ago.</span></div>')
+    inner = card + f'<div style="position: absolute; left: 960px; top: 330px; width: 840px">{line}</div>'
     return frame('charcoal', inner)
 
 
-@F('w46-Weight', 'Each visitor carries weight')
+@F('w46-Weight', 'Which ones do people still type?')
 def _weight():
-    import itertools
-    names = ['tumbrik.com', 'olzik.com', 'zentvy.com', 'savvlo.com', 'gozvu.com', 'grolvi.com', 'zinnobi.com', 'quellox.com', 'yobzi.com', 'mobvra.com',
-             'bazlio.com', 'jubrik.com', 'bvoko.com', 'ubvex.com']
-    cyc = iter(names)
+    others = [n for n in WALL if n != RETIRED] + ['northwaysoft.es', 'northwaysoft.nl', 'nrthwaysoft.com']
+    cyc = iter(others)
     tiles = ''
     for r in range(3):
         for c in range(5):
             x, y = 120 + c * 340, 230 + r * 120
-            tiles += place(x, y, name_tile(KIP, 310) if (r, c) == (1, 2) else name_tile(next(cyc), 310, dim=True))
+            tiles += place(x, y, name_tile(RETIRED, 310) if (r, c) == (1, 2) else name_tile(next(cyc), 310, dim=True))
     dx, dy = 120 + 2 * 340 + 290, 230 + 120 - 30
     dot = (f'<div style="position: absolute; left: {dx - 40}px; top: {dy - 40}px; width: 136px; height: 136px; border-radius: 50%; background: radial-gradient(closest-side, rgba(229,148,38,0.35), rgba(229,148,38,0))"></div>'
            f'<div style="position: absolute; left: {dx}px; top: {dy}px; width: 56px; height: 56px; border-radius: 50%; background: {AMBER}"></div>')
-    inner = tiles + dot + caption('Each person who comes looking carries a lot of weight.', y=700, size=48, x=120, w=1500)
+    inner = tiles + dot + caption('Which ones do people still type?', y=700, size=48, x=120, w=1500)
     return frame('evening', inner)
 
 
-# ================================================================ ACT C · The founder who came
+# ================================================================ ACT C · The visitor nobody sees
 @F('w46-TwoResults', 'Two addresses, two results')
 def _two():
-    big = 'font-size: 26px'
     pad = (f'<div style="height: 406px; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px">'
            f'<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="{G400}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>'
            f'<span style="font-size: 22px; font-weight: 600; color: {G500}">Secure version first…</span></div>')
     left = (f'<div style="position: absolute; left: 120px; top: 220px; display: flex; align-items: center; gap: 14px; font-size: 28px; font-weight: 700; color: {INK_SOFT}">'
-            f'{check(36, fill="rgba(255,255,255,0.18)")}Glomvo typed the plain address</div>'
-            f'<div style="position: absolute; left: 120px; top: 300px; opacity: 0.82">{browser2(f"<span style=\"color: #181D27\">{KIP}</span>", lander(KIP, 760, 470), None, None, 760, 470, shadow=DARK_SHADOW, bar=76, size=26)}</div>')
-    https = f'<span style="color: #181D27; font-weight: 700">https://</span><span style="color: #181D27">{KIP}</span>'
-    right = (f'<div style="position: absolute; left: 960px; top: 220px; font-size: 28px; font-weight: 700; color: {INK}">The founder’s browser asks for the padlock</div>'
+            f'{check(36, fill="rgba(255,255,255,0.18)")}Northway checked the plain address</div>'
+            f'<div style="position: absolute; left: 120px; top: 300px; opacity: 0.82">{browser2(f"<span style=\"color: #181D27\">{RETIRED}</span>", homepage(760, 470), None, None, 760, 470, shadow=DARK_SHADOW, bar=76, size=26)}</div>')
+    https = f'<span style="color: #181D27; font-weight: 700">https://</span><span style="color: #181D27">{RETIRED}</span>'
+    right = (f'<div style="position: absolute; left: 960px; top: 220px; font-size: 28px; font-weight: 700; color: {INK}">The customer’s browser asks for the padlock</div>'
              + browser2(https, pad, 960, 300, 840, 470, shadow=DARK_SHADOW, bar=76, size=26))
     inner = left + right + caption('Some registrars include a padlock with forwarding. Others don’t.', y=840, size=38)
     return frame('evening', inner)
 
 
-@F('w46-Warning', 'The founder leaves')
+@F('w46-Warning', 'The customer leaves')
 def _warning():
-    inner = (browser2(bar_url(f'https://{KIP}', broken=True), warning_page(1040, 640), None, None, 1040, 640)
-             .replace('position: relative; width: 1040px', 'position: absolute; left: 120px; top: 180px; width: 1040px')
-             + scaled(notebook(1400, 760, name=KIP, gone=True, next_name='rimboa.com'), 0.56, 1400, 760, x=1010, y=520))
+    inner = (browser2(bar_url(f'https://{RETIRED}', broken=True), warning_page(1200, 680), None, None, 1200, 680)
+             .replace('position: relative; width: 1200px', 'position: absolute; left: 360px; top: 190px; width: 1200px'))
     return frame('evening', inner)
 
 
-@F('w46-Silence', 'Glomvo never finds out')
+@F('w46-Silence', 'Northway never finds out')
 def _silence():
     arc = ''.join(f'<span style="position: absolute; left: {960 - r}px; top: {470 - r}px; width: {2 * r}px; height: {2 * r}px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(255,255,255,{op})"></span>'
                   for r, op in ((300, 0.09), (420, 0.05)))
-    inner = (arc + place(700, 425, name_tile(KIP, 520))
-             + caption('Glomvo never finds out.', y=760, size=44, color=INK_SOFT))
+    inner = (arc + place(700, 425, name_tile(RETIRED, 520))
+             + caption('Northway never finds out.', y=760, size=44, color=INK_SOFT))
     return frame('evening', inner)
 
 # ================================================================ ACT D · The way out
@@ -285,13 +293,13 @@ def _door():
     items = ''.join(f'<div data-o="item{n}" style="display: flex; gap: 22px; align-items: baseline"><span style="font-size: 40px; font-weight: 800; color: {TEAL}">{n}</span>'
                     f'<span style="font-size: 46px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15">{t}</span></div>'
                     for n, t in (('1', 'A door that opens properly, padlock included.'), ('2', 'A way to hear when someone knocks.')))
-    inner = (place(210, 190, door(390, 'open', knock=3, label=KIP))
-             + headline('Every name needed two things.', x=880, y=260, size=58, w=920)
+    inner = (place(210, 190, door(390, 'open', knock=3, label=RETIRED))
+             + headline('Every domain needed two things.', x=880, y=260, size=58, w=920)
              + f'<div style="position: absolute; left: 880px; top: 440px; width: 900px; display: flex; flex-direction: column; gap: 40px">{items}</div>')
     return frame('charcoal', inner)
 
 
-def checker_card(url='https://bazlio.com', w=820):
+def checker_card(url='https://clinvane.com', w=820):
     hop = lambda k, u, code, ok: (f'<div data-o="hop{k}" style="display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 22px; border-top: 1px solid #EAECF0">'
                                    f'<span style="width: 30px; height: 30px; border-radius: 50%; background: #F2F4F7; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #475467">{k}</span>'
                                    f'{LOCK}<span style="{MONO}; font-size: 18px; color: #181D27">{u}</span><span style="flex: 1"></span>'
@@ -299,27 +307,27 @@ def checker_card(url='https://bazlio.com', w=820):
     return (f'<div data-ui="checker" style="width: {w}px; border-radius: 20px; background: #FFFFFF; box-shadow: {SOFT_SHADOW}; overflow: hidden; {UI}; color: #181D27">'
             f'<div style="padding: 24px 22px 18px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 18px; font-weight: 600">Redirect Checker</span>'
             f'<div style="display: flex; gap: 10px"><div style="{INP}; flex: 1; {MONO}; font-size: 17px">{url}</div><span style="{BTN_P}; height: 42px">Check</span></div></div>'
-            + hop(1, url, '302', False) + hop(2, f'https://glomvo.com/{url.split("//")[1].split(".")[0]}', '200', True) + '</div>')
+            + hop(1, url, '301', False) + hop(2, f'https://{MAIN}/{url.split("//")[1].split(".")[0]}', '200', True) + '</div>')
 
 
 @F('w46-Honest', 'One honest note')
 def _honest():
-    inner = (tip('ONE HONEST NOTE', 'A handful of names, and the padlock shows? You’re done.', 'Check one in our free Redirect Checker.', 120, 360, w=660)
+    inner = (tip('ONE HONEST NOTE', 'A handful of domains, and the padlock shows? You’re done.', 'Check one in our free Redirect Checker.', 120, 360, w=660)
              + f'<div style="position: absolute; left: 900px; top: 380px; display: flex; flex-direction: column; gap: 18px">{checker_card(w=880)}{ex_label()}</div>')
     return frame('light', inner)
 
 
-@F('w46-Once', 'Three registrars, fixed once')
+@F('w46-Once', 'Two hundred domains, one file')
 def _once():
-    regs = (registrar('a', ['kipzoo.com', 'tumbrik.com', 'olzik.com'], 120, 230, 470, 'Registrar A')
-            + registrar('b', ['zentvy.com', 'gozvu.com', 'savvlo.com'], 120, 450, 470, 'Registrar B')
-            + registrar('c', ['yobzi.com', 'grolvi.com', 'zinnobi.com'], 120, 670, 470, 'Registrar C'))
+    regs = (registrar('a', [RETIRED, 'clinvane.com', 'northwaysoft.de'], 120, 230, 470, 'Registrar A')
+            + registrar('b', ['rostavia.com', 'northwaysoft.fr', TYPO], 120, 450, 470, 'Registrar B')
+            + registrar('c', ['notevane.com', 'northwaysft.com', OLD], 120, 670, 470, 'Registrar C'))
     arrow = (f'<svg style="position: absolute; left: 640px; top: 300px" width="200" height="520" viewBox="0 0 200 520" aria-hidden="true" fill="none" stroke="{G400}" stroke-width="3" stroke-linecap="round">'
              '<path data-draw="l1" d="M0 30C90 30 100 260 180 260"></path><path data-draw="l2" d="M0 260H180"></path><path data-draw="l3" d="M0 490C90 490 100 260 180 260"></path>'
              '<path data-o="head" d="M164 246l18 14-18 14"></path></svg>')
     empty = [('', '', '', '')] * 6
     inner = (regs + arrow + scaled(sheet(960, rows=empty, show_more=False), 0.9, 1016, 560, x=880, y=300)
-             + caption('Three registrars. Fixed once, for all of them.', x=880, y=200, w=920, size=44, color=CHAR))
+             + caption('Two hundred domains. One file.', x=880, y=200, w=920, size=44, color=CHAR))
     return frame('light', inner)
 
 
@@ -333,7 +341,7 @@ def col_label(text, x, y, w, sub=None):
 SW = 1560
 
 
-def big_sheet(hi_col, hi_row=0):
+def big_sheet(hi_col, hi_row=None):
     return place(122, 360, sheet(SW, rows=sheet_rows()[:6], hi_col=hi_col, hi_row=hi_row, row_h=56, hooks=True))
 
 
@@ -342,23 +350,21 @@ def col_x(k):
     return 122 + 56 + sum(SW * p for p in widths[:k]), SW * widths[k]
 
 
-@F('w46-List', 'Step one: the list')
+@F('w46-List', 'One row per domain')
 def _list():
     (ax, aw), (bx, bw) = col_x(0), col_x(1)
-    inner = (eyebrow('STEP 1 · THE LIST', dark=True) + progress(1)
-             + headline('One row per name.', y=150, size=64)
-             + col_label('The name', ax, 280, aw - 20) + col_label('Where it should go', bx, 280, bw - 20)
+    inner = (headline('One row per domain.', y=150, size=64)
+             + col_label('The domain', ax, 280, aw - 20) + col_label('Where it should go', bx, 280, bw - 20)
              + big_sheet([0, 1]) + place(1680, 900, ex_label()))
     return frame('light', inner)
 
 
-@F('w46-Columns', 'A 302 and a tag')
+@F('w46-Columns', 'A 301 and a tag')
 def _columns():
     (cx, cw), (dx, dw) = col_x(2), col_x(3)
-    chips = ''.join(f'<span data-o="chip{i}" style="display: inline-flex">{tag_chip(t, 17)}</span>' for i, t in enumerate(('Brandables', 'Short', 'Premium')))
-    inner = (eyebrow('STEP 1 · THE LIST', dark=True) + progress(1)
-             + headline('<span data-o="h1" style="display: inline-block">A 302, because it will sell.</span> <span data-o="h2" style="display: inline-block">A tag, for the group.</span>', y=150, size=56, w=1680)
-             + col_label('302', cx, 280, cw - 10) + f'<div style="position: absolute; left: {dx:.0f}px; top: 278px; display: flex; gap: 10px">{chips}</div>'
+    chips = ''.join(f'<span data-o="chip{i}" style="display: inline-flex">{tag_chip(t, 17)}</span>' for i, t in enumerate(('Product', 'Country', 'Typo')))
+    inner = (headline('<span data-o="h1" style="display: inline-block">A 301, because these moves are for good.</span> <span data-o="h2" style="display: inline-block">A tag, for the group.</span>', y=150, size=48, w=1680)
+             + col_label('301', cx, 280, cw - 10) + f'<div style="position: absolute; left: {dx:.0f}px; top: 278px; display: flex; gap: 10px">{chips}</div>'
              + f'<span data-o="uline" style="position: absolute; left: {dx:.0f}px; top: 334px; width: {dw - 20:.0f}px; height: 3px; background: {TEAL}"></span>'
              + big_sheet([2, 3]) + place(1680, 900, ex_label()))
     return frame('light', inner)
@@ -410,11 +416,10 @@ def chooser():
             f'<span style="font-weight: 600; color: #1C6DB6; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-csv, 1)); border-radius: 6px; padding: 3px 6px">Import CSV</span></div>')
 
 
-@F('w46-Import', 'Step two: Import CSV')
+@F('w46-Import', 'Import CSV')
 def _import():
     m = modal(chooser(), 640, 70)
-    inner = (eyebrow('STEP 2 · THE IMPORT', dark=True) + progress(2)
-             + dash_with_modal('Links', ['Links'], links_page(), m)
+    inner = (dash_with_modal('Links', ['Links'], links_page(), m)
              + caption('CSV: the plain spreadsheet file Excel or Google Sheets can save.', y=910, size=28, color=G600))
     return frame('light', inner)
 
@@ -424,7 +429,7 @@ def errors_step():
             f'<span style="font-size: 14px; color: #535862">The other 217 rows are fine. Row numbers match your spreadsheet.</span></div>'
             f'<div data-clip="errs" data-o="errs" style="margin: 4px 24px 0; padding: 16px 18px; border-radius: 12px; box-shadow: inset 0 0 0 1px #FECDCA; background: #FEF3F2; display: flex; flex-direction: column; gap: 12px">'
             f'<span style="font-size: 15px; font-weight: 600; color: #B42318">Destination must start with https:// or http://.</span>'
-            f'<span style="font-size: 13px; color: #535862">e.g. <span style="{MONO}; color: #181D27">glomvo.com/olzik</span></span>'
+            f'<span style="font-size: 13px; color: #535862">e.g. <span style="{MONO}; color: #181D27">northwaysoft.com/fr</span></span>'
             f'<span data-o="btn" style="{BTN_P}; align-self: flex-start; box-shadow: 0 0 0 4px rgba(32,167,149,var(--ring-fix, 1))">Add https:// to all 9</span></div>'
             f'<div style="margin-top: 18px; padding: 14px 24px; border-top: 1px solid #EAECF0; display: flex; gap: 10px; align-items: center; font-size: 13px">'
             f'<span style="{BTN_S}; height: 34px; font-size: 13px">Download the rows with a note on each</span><span style="{BTN_S}; height: 34px; font-size: 13px">Upload fixed file</span>'
@@ -434,8 +439,7 @@ def errors_step():
 @F('w46-Fix', 'One click fixes them all')
 def _fix():
     m = modal(errors_step(), 660, 110)
-    inner = (eyebrow('STEP 2 · THE IMPORT', dark=True) + progress(2)
-             + dash_with_modal('Links', ['Links', 'Import CSV'], links_page(), m)
+    inner = (dash_with_modal('Links', ['Links', 'Import CSV'], links_page(), m)
              + place(1680, 910, ex_label()))
     return frame('light', inner)
 
@@ -448,7 +452,7 @@ def review_step():
             + row('Whole-domain links', '226', '214 · 0') + row('Path links', '0', '0 · 0') + '</div>'
             f'<div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-www, 1))"><span style="width: 18px; height: 18px; flex: none; margin-top: 2px; border-radius: 5px; background: #1C6DB6"></span>'
             f'<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px; font-weight: 600; color: #181D27">Leave out 12 www rows their root already covers</span>'
-            f'<span style="font-size: 13px; color: #535862; line-height: 1.45"><span style="{MONO}">kipzoo.com</span> covers <span style="{MONO}">www.kipzoo.com</span> automatically, so rows going to the same place add nothing.</span></div></div>'
+            f'<span style="font-size: 13px; color: #535862; line-height: 1.45"><span style="{MONO}">{RETIRED}</span> covers <span style="{MONO}">www.{RETIRED}</span> automatically, so rows going to the same place add nothing.</span></div></div>'
             f'<div style="display: flex; justify-content: space-between; font-size: 14px; color: #344054"><span style="font-weight: 600">Where the links are</span><span>214 domains, 214 new</span></div>'
             f'<span style="font-size: 13px; color: #535862">214 new domains need a DNS record before their links work. They are added to Hostnames on import, so you can set DNS right after.</span></div>'
             f'<div style="padding: 12px 24px; border-top: 1px solid #EAECF0; display: flex; justify-content: flex-end; gap: 10px"><span style="{BTN_S}">Cancel</span><span style="{BTN_P}">Import 214 changes</span></div>')
@@ -457,15 +461,14 @@ def review_step():
 @F('w46-Review', 'It shows what the file will do')
 def _review():
     m = modal(review_step(), 640, 20)
-    inner = (eyebrow('STEP 2 · THE IMPORT', dark=True) + progress(2)
-             + dash_with_modal('Links', ['Links', 'Import CSV'], links_page(), m)
+    inner = (dash_with_modal('Links', ['Links', 'Import CSV'], links_page(), m)
              + place(1680, 910, ex_label()))
     return frame('light', inner)
 
 
 def hostnames_body():
-    hosts = [(KIP, 'Waiting for DNS'), ('tumbrik.com', 'Connected'), ('olzik.com', 'Connected'), ('zentvy.com', 'Waiting for DNS'), ('yobzi.com', 'Waiting for DNS'),
-             ('gozvu.com', 'Connected'), ('savvlo.com', 'Waiting for DNS'), ('grolvi.com', 'Waiting for DNS')]
+    hosts = [(RETIRED, 'Waiting for DNS'), ('clinvane.com', 'Connected'), ('northwaysoft.de', 'Connected'), ('rostavia.com', 'Waiting for DNS'), ('northwaysoft.fr', 'Waiting for DNS'),
+             (TYPO, 'Connected'), ('notevane.com', 'Waiting for DNS'), (OLD, 'Waiting for DNS')]
     badge = lambda s: (f'<span style="font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; '
                        + ('background: #ECFDF3; color: #067647' if s == 'Connected' else 'background: #F2F4F7; color: #475467') + f'">{s}</span>')
     waiting = [n for n, s in hosts if s != 'Connected']
@@ -479,7 +482,7 @@ def hostnames_body():
         return (f'<span style="display: inline-grid"><span style="grid-area: 1 / 1; display: flex; opacity: calc(1 - var(--conn-{i}, 0))">{badge(s)}</span>'
                 f'<span style="grid-area: 1 / 1; display: flex; justify-self: start; opacity: var(--conn-{i}, 0)">{badge("Connected")}</span></span><span style="flex: 1"></span>'
                 f'<span style="{BTN_S}; height: 32px; font-size: 13px; opacity: calc(1 - var(--conn-{i}, 0))">Connect DNS</span>')
-    rows = ''.join(f'<div style="display: flex; align-items: center; gap: 14px; height: 54px; padding: 0 20px; border-bottom: 1px solid #EAECF0; background: {"#F5F9FC" if n == KIP else "#FFFFFF"}">'
+    rows = ''.join(f'<div style="display: flex; align-items: center; gap: 14px; height: 54px; padding: 0 20px; border-bottom: 1px solid #EAECF0; background: {"#F5F9FC" if n == RETIRED else "#FFFFFF"}">'
                    f'<span style="{MONO}; font-size: 15px; width: 230px; color: #181D27">{n}</span>{status(n, s)}</div>' for n, s in hosts)
 
     def tab(t, on):
@@ -489,7 +492,7 @@ def hostnames_body():
                 f'background: rgba(255,255,255,{v}); color: color-mix(in srgb, #181D27 calc({v} * 100%), #717680); '
                 f'box-shadow: 0 1px 2px rgba(16,24,40,calc(0.06 * {v})), 0 0 0 1px rgba(234,236,240,{v})">{t}</span>')
     panel = (f'<div data-o="panel" style="width: 420px; flex: none; border-left: 1px solid #EAECF0; background: #FFFFFF; padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">'
-             f'<span style="font-size: 16px; font-weight: 600; color: #181D27">Connect DNS · <span style="{MONO}">{KIP}</span></span>'
+             f'<span style="font-size: 16px; font-weight: 600; color: #181D27">Connect DNS · <span style="{MONO}">{RETIRED}</span></span>'
              f'<div style="display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: #F2F4F7">{tab("Automatic", True)}{tab("Manual", False)}</div>'
              f'<div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-cf, 1))">'
              f'<span style="width: 34px; height: 34px; border-radius: 8px; background: #F2F4F7"></span><span style="font-size: 15px; font-weight: 600; color: #181D27">Cloudflare</span>'
@@ -498,11 +501,10 @@ def hostnames_body():
     return f'<div style="flex: 1; display: flex"><div style="flex: 1; padding: 18px 24px"><div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #EAECF0">{rows}</div></div>{panel}</div>'
 
 
-@F('w46-PointDNS', 'Step three: point the names')
+@F('w46-PointDNS', 'Point the domains')
 def _point():
     sh = shell('Hostnames', ['Hostnames'], '', hostnames_body())
-    inner = (eyebrow('STEP 3 · POINT THE NAMES', dark=True) + progress(3)
-             + dashboard(sh, 120, 170, 1.15, 1400, 633)
+    inner = (dashboard(sh, 120, 170, 1.15, 1400, 633)
              + caption('A domain that is still waiting doesn’t hold up the others.', y=910, size=28, color=G600))
     return frame('light', inner)
 
@@ -518,29 +520,34 @@ def _padlocks():
 # ================================================================ ACT F · Hearing the knock
 @F('w46-Knocks', 'Sixty-three knocks')
 def _knocks():
-    inner = (f'<div style="position: absolute; left: 120px; top: 260px; width: 640px; height: 230px">{place(0, 70, name_tile(KIP, 600, visits=63))}{place(400, 0, sticky("drop list?", 200, strike=True), extra=' data-o="sticky"')}</div>'
+    inner = (f'<div style="position: absolute; left: 120px; top: 260px; width: 760px; height: 230px">{place(0, 70, name_tile(TYPO, 720, visits=63, h=150))}{place(440, 0, sticky("drop at renewal?", 260, strike=True), extra=' data-o="sticky"')}</div>'
              + f'<div style="position: absolute; left: 120px; top: 520px; display: flex; align-items: center; gap: 16px">{ex_label(light=False)}'
              f'<span style="font-size: 24px; color: {INK_SOFT}">Channel: Direct</span></div>'
-             + caption('Nobody sent those people. They typed it in.', x=120, y=640, w=740, size=44)
-             + place(1170, 200, door(370, 'open', knock=3, label=KIP)))
+             + caption('Customers, typing the name a little wrong.', x=120, y=640, w=740, size=44)
+             + place(1170, 200, door(370, 'open', knock=3, label=TYPO)))
     return frame('charcoal', inner)
 
 
-@F('w46-Price', 'A real price')
+@F('w46-Price', 'They land on the homepage')
 def _price():
-    inner = (headline('So kipzoo got a real price.', y=150, size=60)
-             + f'<div style="position: absolute; left: 360px; top: 270px">{lander_browser(1200, 640, price=True, shadow="0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)")}</div>')
+    """Was "a real price" (v4). The misspelling now lands on Northway's homepage, padlock and all: the address bar
+    shows what was typed (--o-typed, hidden unset) and what it became (the hook url)."""
+    bar = (f'<span style="display: inline-grid; align-items: center"><span style="grid-area: 1 / 1; opacity: var(--o-typed, 0)">{TYPO}</span>'
+           f'<span data-o="url" style="grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 10px">{lock_url(f"https://{MAIN}")}</span></span>')
+    site = browser2(bar, homepage(1200, 640), None, None, 1200, 640, shadow="0 40px 100px rgba(16,24,40,0.16), 0 0 0 1px rgba(16,24,40,0.06)")
+    inner = (headline('Now they land on the homepage.', y=150, size=60)
+             + f'<div style="position: absolute; left: 360px; top: 270px">{site}</div>')
     return frame('light', inner)
 
 
 @F('w46-Quiet', 'Where to look first')
 def _quiet():
-    rows = [(KIP, 63), ('tumbrik.com', 21), ('olzik.com', 9), ('zentvy.com', 4), ('savvlo.com', 2), ('gozvu.com', 0), ('grolvi.com', 0), ('yobzi.com', 0)]
+    rows = [(TYPO, 63), ('clinvane.com', 21), ('northwaysoft.de', 9), ('rostavia.com', 4), ('northwaysoft.fr', 2), ('northwaysft.com', 0), ('notevane.com', 0), (OLD, 0)]
     card = visits_card(rows, 820, row_h=60, hooks=True)
     bracket = f'<div style="position: absolute; left: 126px; top: {200 + 60 + 44 + 5 * 60 + 6}px; width: 808px; height: 172px; border-radius: 14px; box-shadow: 0 0 0 3px {AMBER}"></div>'
     inner = (place(120, 200, card) + bracket + place(120, 900, ex_label())
              + headline('Quiet all season?', x=1060, y=520, size=56, w=740)
-             + caption('At renewal time, Glomvo knows where to look first.', x=1060, y=610, w=740, size=36, color=G600))
+             + caption('At renewal time, Northway knows where to look first.', x=1060, y=610, w=740, size=36, color=G600))
     return frame('light', inner)
 
 
@@ -548,17 +555,17 @@ def bulk_modal():
     return (f'<div style="padding: 22px 24px 8px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 18px; font-weight: 600; color: #181D27">Change destination</span>'
             f'<div style="display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: #F2F4F7"><span style="flex: 1; text-align: center; padding: 7px 0; border-radius: 8px; font-size: 14px; font-weight: 600; background: #FFFFFF; color: #181D27; box-shadow: 0 0 0 1px #EAECF0">Replace URL</span>'
             f'<span style="flex: 1; text-align: center; padding: 7px 0; font-size: 14px; font-weight: 600; color: #717680">Find and replace</span></div>'
-            f'<span style="{LBL}">New destination URL</span><div style="{INP}; {MONO}; font-size: 15px">https://{MARKET}/glomvo</div>'
+            f'<span style="{LBL}">New destination URL</span><div style="{INP}; {MONO}; font-size: 15px">https://{MAIN}/products</div>'
             f'<span style="font-size: 13px; color: #535862; line-height: 1.45">Domain redirects keep their path and query forwarding. Only the target changes.</span></div>'
-            f'<div style="padding: 14px 24px; display: flex; justify-content: flex-end; gap: 10px"><span style="{BTN_S}">Cancel</span><span style="{BTN_P}; box-shadow: 0 0 0 4px rgba(32,167,149,var(--ring-upd, 1))">Update 128 links</span></div>')
+            f'<div style="padding: 14px 24px; display: flex; justify-content: flex-end; gap: 10px"><span style="{BTN_S}">Cancel</span><span style="{BTN_P}; box-shadow: 0 0 0 4px rgba(32,167,149,var(--ring-upd, 1))">Update 46 links</span></div>')
 
 
 @F('w46-ByTag', 'Filter by the tag, change it once')
 def _bytag():
-    top = (f'<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"><span style="{BTN_S}; height: 34px; font-size: 13px">Tags: {tag_chip("Brandables", 12)}</span>'
-           f'<span style="font-size: 14px; font-weight: 600; color: #181D27">128 links selected</span><span style="{BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
-    body = f'<div style="flex: 1; display: flex; flex-direction: column; padding: 18px 24px">{top}<div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #EAECF0">{links_rows(8, sel=True, tagf="Brandables")}</div></div>'
-    inner = (headline('Filter by the tag. Change it once.', y=100, size=52, w=1500)
+    top = (f'<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"><span style="{BTN_S}; height: 34px; font-size: 13px">Tags: {tag_chip("Product", 12)}</span>'
+           f'<span style="font-size: 14px; font-weight: 600; color: #181D27">46 links selected</span><span style="{BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
+    body = f'<div style="flex: 1; display: flex; flex-direction: column; padding: 18px 24px">{top}<div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #EAECF0">{links_rows(8, sel=True, tagf="Product")}</div></div>'
+    inner = (headline('Filter by its tag. Change it once.', y=100, size=52, w=1500)
              + dash_with_modal('Links', ['Links'], body, modal(bulk_modal(), 560, 90), s=1.12, y=200)
              + place(1680, 910, ex_label()))
     return frame('light', inner)
@@ -579,12 +586,12 @@ def _recap():
 
 @F('w46-YourNames', 'Would the door open?')
 def _yours():
-    doors = f'<div style="position: absolute; left: 140px; top: 200px; opacity: 0.45">{door(210, "open", label=KIP, uid="y")}</div>'
+    doors = f'<div style="position: absolute; left: 140px; top: 200px; opacity: 0.45">{door(210, "open", label=RETIRED, uid="y")}</div>'
     doors += ''.join(place(560 + k * 300, 200, door(210, 'closed', uid=f'y{k}')) for k in range(4))
     inner = (f'<span style="position: absolute; left: 120px; top: 92px; display: inline-flex; align-items: center; height: 52px; padding: 0 24px; border-radius: 26px; background: rgba(255,255,255,0.10); '
-             f'font-size: 25px; font-weight: 600; color: {INK_SOFT}">An aside: Glomvo isn’t a real company.</span>'
+             f'font-size: 25px; font-weight: 600; color: {INK_SOFT}">An aside: Northway isn’t a real company.</span>'
              + doors
-             + headline('<span data-o="q1">Your names. Which one would a founder type in tonight?</span> <span data-o="q2">And would the door open?</span>', x=120, y=680, size=56, w=1560))
+             + headline('<span data-o="q1">Your domains. Which one would a customer type tonight?</span> <span data-o="q2">And would the door open?</span>', x=120, y=680, size=56, w=1560))
     return frame('evening', inner)
 
 
@@ -598,6 +605,10 @@ def _end():
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em">Every door.</span>'
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em; color: {TEAL}">Open.</span></div>'
              f'<span style="position: absolute; left: 140px; top: 480px; font-size: 32px; color: {INK_SOFT}">Links are in the description.</span>'
+             # the QR slot (v6 brief): a placeholder until the dynamic QR's link exists; never a drawn code
+             f'<div data-o="qr" style="position: absolute; left: 140px; top: 580px; display: flex; align-items: center; gap: 22px">'
+             f'<div style="width: 150px; height: 150px; border-radius: 18px; box-shadow: inset 0 0 0 2px rgba(185,198,216,0.45); display: flex; align-items: center; justify-content: center">{QR_SLOT}</div>'
+             f'<span style="font-size: 24px; font-weight: 600; color: {INK_MUTE}">Dynamic QR · link pending</span></div>'
              f'<div style="position: absolute; left: 140px; top: 820px; width: 300px">{RH_WORDMARK}</div>')
     return frame('glow-teal', inner, extra=' data-endcard')
 
@@ -615,25 +626,25 @@ def room_tile(room, name, use):
 @F('w46-System', 'System: rooms, colour, type, motion')
 def _system():
     tiles = ''.join(room_tile(*t) for t in (
-        ('light', 'Light', 'Glomvo, renewals, the honest note, the steps, price, quiet'),
+        ('light', 'Light', 'Northway, one website, renewals, the honest note, the spreadsheet and product, the homepage, quiet'),
         ('evening', 'Evening (new)', 'The notebook, the weight, all of Act C, your names'),
-        ('charcoal', 'Charcoal', 'Parking, the door is born, the knocks'),
+        ('charcoal', 'Charcoal', 'Three registrar accounts, the door is born, the knocks'),
         ('glow-teal', 'Glow, teal', 'Every padlock lit, end card'),
         ('sweep', 'Brand sweep', 'Title'),
         ('radial', 'Brand radial', 'The recap')))
     roles = ''.join(f'<div style="display: flex; align-items: center; gap: 12px"><span style="width: 40px; height: 40px; flex: none; border-radius: 11px; background: {c}; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span>'
                     f'<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 700">{n}</span><span style="font-size: 15px; color: {INK_SOFT}">{r}</span></div></div>'
                     for c, n, r in ((TEAL, 'Teal', 'fixed: a lit door, the fix'), (RED, 'Signal red', 'the warning page only'), (AMBER, 'Amber', 'twice in the film: one visitor, the quiet names'),
-                                    (BLUE, 'Blue', 'inside product UI only'), ('#FBF7EF', 'Paper', 'the founder’s notebook'), ('#1E2A44', 'Door navy', 'every name tile’s slot')))
+                                    (BLUE, 'Blue', 'inside product UI only'), ('#FBF7EF', 'Paper', 'the product notebook'), ('#1E2A44', 'Door navy', 'every domain tile’s slot')))
     grammar = (('Cut on the beat', 'every act break'), ('Shared-element morph', 'the wall becomes the sheet (Title); the tile becomes a door (Door)'),
-               ('Dock', 'dialogs come forward over the dimmed dashboard'), ('Draw', 'three registrar lines merge into one sheet (Once)'),
+               ('Dock', 'dialogs come forward over the dimmed dashboard'), ('Draw', 'domains into one website; registrars into one file'),
                ('Focus rack', 'plain address vs https (Two results)'), ('Register change', 'the honest note; “isn’t a real company”'),
-               ('Silence', 'after “Glomvo never finds out”; the end card'), ('Knock (new)', 'three arcs leave a door’s edge: someone came looking. Never decoration.'))
+               ('Silence', 'after “Northway never finds out”; the end card'), ('Knock (new)', 'three arcs leave a door’s edge: someone came looking. Never decoration.'))
     grows = ''.join(f'<div style="display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 14px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.10)">'
                     f'<span style="font-size: 17px; font-weight: 700; color: {TEAL if "new" in a else INK}">{a}</span><span style="font-size: 16px; line-height: 1.35; color: {INK_SOFT}">{b}</span></div>' for a, b in grammar)
-    g = ''.join(f'<span style="width: 40px; height: 40px; border-radius: 11px; background: {c}; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span>' for c in GLOMVO.values())
+    g = ''.join(f'<span style="width: 40px; height: 40px; border-radius: 11px; background: {c}; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span>' for c in NORTHWAY.values())
     inner = (f'<div style="position: absolute; left: 120px; top: 70px; font-size: 22px; font-weight: 700; letter-spacing: 0.14em; color: {INK_SOFT}">SYSTEM · W46</div>'
-             f'<span style="position: absolute; left: 120px; top: 112px; font-size: 52px; font-weight: 800; letter-spacing: -0.03em">A quiet portfolio inside the RedirHub frame.</span>'
+             f'<span style="position: absolute; left: 120px; top: 112px; font-size: 52px; font-weight: 800; letter-spacing: -0.03em">A quiet software company inside the RedirHub frame.</span>'
              f'<div style="position: absolute; left: 120px; top: 210px; width: 1680px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">{tiles}</div>'
              f'<div style="position: absolute; left: 120px; top: 440px; width: 1680px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.12)">{roles}</div>'
              f'<div style="position: absolute; left: 120px; top: 550px; width: 1680px; display: grid; grid-template-columns: 0.9fr 1.35fr 0.9fr; gap: 44px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.12)">'
@@ -641,25 +652,25 @@ def _system():
              f'<span style="font-size: 23px; font-weight: 800; letter-spacing: -0.02em">Plus Jakarta Sans: the film’s words</span>'
              f'<span style="{MONO}; font-size: 18px">JetBrains Mono: every domain, in full</span>'
              f'<span data-ui="sample" style="{UI}; font-size: 19px; color: {INK_SOFT}">Inter: product and recreated web UI</span>'
-             f'<span data-logo style="{SERIF}; font-size: 26px; color: {INK_SOFT}">Instrument Serif: Glomvo’s wordmark only</span>'
-             f'<span style="font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: {TEAL}; margin-top: 12px">GLOMVO ONLY</span><div data-shop style="display: flex; gap: 10px">{g}</div></div>'
+             f'<span data-logo style="{SERIF}; font-size: 26px; color: {INK_SOFT}">Instrument Serif: Northway’s wordmark only</span>'
+             f'<span style="font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: {TEAL}; margin-top: 12px">NORTHWAY ONLY</span><div data-shop style="display: flex; gap: 10px">{g}</div></div>'
              f'<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: {TEAL}">MOTION GRAMMAR</span>{grows}</div>'
              f'<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: {TEAL}">CHANGED FROM W44</span>'
-             f'<span style="font-size: 17px; line-height: 1.5; color: {INK_SOFT}">Quieter: Glow red is gone (no melt here); an Evening room carries Act C. Browsers lose their coloured dots. Fredoka and the pink-and-blue shop palette give way to Glomvo’s serif and stone. One new move, the knock. Dialogs dock forward at 1.45× so their words read. Nothing tilts.</span></div></div>')
+             f'<span style="font-size: 17px; line-height: 1.5; color: {INK_SOFT}">Quieter: Glow red is gone (no melt here); an Evening room carries Act C. Browsers lose their coloured dots. Fredoka and the pink-and-blue shop palette give way to Northway’s serif wordmark and quiet ink. One new move, the knock. No step labels (v6). Dialogs dock forward at 1.45× so their words read. Nothing tilts.</span></div></div>')
     return board(inner)
 
 
 @F('w46-Sound', 'Sound, voice and timing')
 def _sound():
-    rows = (('Whoosh', 'Twice only: into the title (beat 4), into the dashboard (beat 18).'),
-            ('Low tone', 'One soft tone as the warning page lands (beat 10).'),
-            ('Silence', '1.5 s after “Glomvo never finds out.” No pad, no cue.'),
-            ('Knock (new)', 'A soft two-tap, felt more than heard: on “hear when someone knocks” (beat 11) and on the 63 visits (beat 25).'),
-            ('Fixed chime', 'Once: the padlocks lighting (beat 24), the first and only fix the film celebrates.'),
-            ('Music', 'A generated pad (kind “pad”), about 16 LU under the voice. Out for the end card.'))
+    rows = (('Whoosh', 'Twice only: into the title (beat 5), into the dashboard (beat 20).'),
+            ('Low tone', 'One soft tone as the warning page lands (beat 11).'),
+            ('Silence', 'After “Northway never finds out.” No cue.'),
+            ('Knock', 'Three soft raps: after “hear when someone knocks” (beat 13) and “could hear the knocks” (beat 26).'),
+            ('Fixed chime', 'Once: the padlocks lighting (beat 25), the fix the film celebrates.'),
+            ('Music', 'Moon Walk (Mixkit), at least 11 LU under every word.'))
     srows = ''.join(f'<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.12)">'
                     f'<span style="font-size: 23px; font-weight: 700">{a}</span><span style="font-size: 18px; line-height: 1.4; color: {INK_SOFT}">{b}</span></div>' for a, b in rows)
-    voice = (('A · Imagine', 'softly · warm · thoughtful'), ('B · Waiting', 'plain · matter-of-fact'), ('C · Founder', 'plain · curious · quiet'),
+    voice = (('A · Company', 'warm · thoughtful · plain'), ('B · The pile', 'plain · matter-of-fact'), ('C · Visitor', 'plain · curious · quiet'),
              ('D · Way out', 'thoughtful, then plain (the honest note)'), ('E · Sheet', 'calm, teaching'), ('F · Knock', 'warm · lightly · thoughtful'),
              ('G · Close', 'plain · lightly · thoughtful · warm'))
     vrows = ''.join(f'<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 16px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.10)">'
