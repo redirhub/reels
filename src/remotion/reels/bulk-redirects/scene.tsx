@@ -42,3 +42,13 @@ export function hookIn(t: number, name: string, a: number, d = 0.5, dy = 14): Re
     const k = ease(t, a, d);
     return { [`--o-${name}`]: smooth(k * 1.4), [`--y-${name}`]: `${((1 - k) * dy).toFixed(2)}px` };
 }
+
+/** Light filling an element from the top down: a soft-edged mask over its own box (composition px, `top` to
+    `bottom`), so the fill moves evenly over the element itself; k 0 hidden … 1 whole. (A clip-path inset in % of
+    the 1080 px layer crossed a door in a fifth of its time: stutter_check jumps on the padlock wall.) */
+export function fillDown(top: number, bottom: number, k: number, soft = 48): CSSProperties {
+    if (k >= 1) return {};
+    const y = top + (bottom - top + soft) * k;
+    const m = `linear-gradient(to bottom, #000 ${(y - soft).toFixed(1)}px, transparent ${y.toFixed(1)}px)`;
+    return { maskImage: m, WebkitMaskImage: m };
+}

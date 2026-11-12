@@ -33,7 +33,9 @@ def hooks(jsx):
             n = d.group(1)
             t = t.replace(d.group(0), f'{d.group(0)} pathLength={{1}} strokeDasharray="1 1"', 1)
             t = t[:-2] + f" style={{{{strokeDashoffset: 'var(--draw-{n}, 0)'}}}} />" if t.endswith('/>') else t[:-1] + f" style={{{{strokeDashoffset: 'var(--draw-{n}, 0)'}}}}>"
-        for kind, css in (('o', lambda n: f"opacity: 'var(--o-{n}, 1)', translate: '0 var(--y-{n}, 0px)', "),
+        # o: a layer of its own (will-change), so a slow lift moves by sub-pixels instead of snapping text a pixel at a
+        # time at the end of its ease (stutter_check holds/jumps on the Door items and Columns headline)
+        for kind, css in (('o', lambda n: f"opacity: 'var(--o-{n}, 1)', translate: '0 var(--y-{n}, 0px)', willChange: 'opacity, translate', "),
                           ('clip', lambda n: f"clipPath: 'inset(0 0 var(--clip-{n}, 0%) 0)', "),
                           ('clipx', lambda n: f"clipPath: 'inset(0 var(--clipx-{n}, 0%) 0 0)', ")):
             h = re.search(rf'data-{kind}="(\w+)"', t)
@@ -84,8 +86,14 @@ def counts(jsx):
                   lambda m: f"<span data-count=\"{m.group(1)}\" className=\"w46-count\" style={{{{counterReset: 'w46n var(--count-{m.group(1)}, {m.group(2)})'}}}} />", jsx)
 
 
+SPACE = 'W46SPACEW46'
+
+
 def to_jsx(html):
-    p = P(); p.feed(html); j = ''.join(p.out).strip()
+    # html2jsx drops a whitespace-only gap after a tag; between two inline spans that space is text ("sell. A tag"),
+    # so it is kept as {' '}
+    html = html.replace('</span> <span', f'</span>{SPACE}<span')
+    p = P(); p.feed(html); j = ''.join(p.out).strip().replace(SPACE, "{' '}")
     for a, b in SVG_TAGS.items():
         j = j.replace(f'<{a}', f'<{b}').replace(f'</{a}>', f'</{b}>')
     return counts(hooks(dedupe_styles(j)))

@@ -6,7 +6,7 @@ import type { CSSProperties } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { prog, useTime } from '../../lib/anim';
 import { X } from './frames.gen';
-import { FrameScene, Layers, hookIn } from './scene';
+import { FrameScene, Layers, fillDown, hookIn } from './scene';
 import { ease, outK, popIn, slideIn, smooth } from './kit';
 import { local, padlocksLit } from './timeline';
 
@@ -75,11 +75,13 @@ export function ProductScene() {
     const create = L.word(19, 'create'), before = L.word(20, 'before') - 0.35;
     const chooserOut = outK(t, before, 0.35);
     const chooser: CSSProperties = { ...popIn(t, create - 0.15, 0.5, 0.94), transformOrigin: '960px 560px' };
+    // it docks back (a touch smaller) and is gone before the check docks in: two half-transparent dialogs read as a mess
+    if (t > before) chooser.transform = `scale(${0.97 + 0.03 * chooserOut}) rotate(0.02deg)`;
     const anyRow = L.word(20, 'any') - 0.1;
     const click = L.word(21, 'click');
     const press = Math.sin(Math.PI * prog(t, click, click + 0.22));
     const clears = click + 0.35, turn = L.word(21, 'all') - 0.05;
-    const fixIn: CSSProperties = { ...popIn(t, before + 0.1, 0.5, 0.95), transformOrigin: '960px 560px' };
+    const fixIn: CSSProperties = { ...popIn(t, before + 0.3, 0.5, 0.95), transformOrigin: '960px 560px' };
     const reviewIn = smooth(prog(t, turn, turn + 0.35));
     const fixOut = outK(t, turn + 0.25, 0.3);
     return (
@@ -130,7 +132,8 @@ export function PadlocksScene() {
     const closed: Record<string, number> = {};
     for (let k = 0; k < 12; k++) {
         const s = a + k * step;
-        doors[1 + k] = { clipPath: `inset(0 0 ${((1 - ease(t, s, 0.5)) * 100).toFixed(2)}% 0)` };
+        // each door's own light box: its glow (y 235–512 in row 0) and label, 320 px a row
+        doors[1 + k] = fillDown(235 + Math.floor(k / 6) * 320, 520 + Math.floor(k / 6) * 320, ease(t, s, 0.55), 30);
         closed[`--o-pc${k}`] = 1 - smooth(prog(t, s + 0.4, s + 0.7));
     }
     return (

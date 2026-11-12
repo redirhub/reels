@@ -5,12 +5,14 @@ import type { CSSProperties } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { prog, useTime } from '../../lib/anim';
 import { X } from './frames.gen';
-import { FrameScene } from './scene';
+import { FrameScene, fillDown } from './scene';
 import { ease, slideIn, smooth } from './kit';
 import { knockAt, local } from './timeline';
 
 /** Where kipzoo.com sat alone at the end of the Silence (w46-Silence), and the door's centre in w46-Door. */
 const SLOT = { x: 960, y: 470 }, DOOR = { x: 405, y: 487 };
+/** The open door's light, top to bottom: its glow (w46_props.door: cy 0.55 dh, ry 0.72 dh) and the label under it. */
+const DOOR_BOX = { top: 150, bottom: 880 };
 /** The knock's three raps, seconds after its cue (public/audio/bulk-redirects/knock.wav). */
 const RAPS = [0, 0.101, 0.203];
 
@@ -36,7 +38,7 @@ export function DoorScene() {
     return (
         <FrameScene k="Door" moves={{
             // the open door, revealed top-down over the closed one: the light fills it
-            0: { ...born, clipPath: `inset(0 0 ${((1 - light) * 100).toFixed(2)}% 0)` },
+            0: { ...born, ...fillDown(DOOR_BOX.top, DOOR_BOX.bottom, light) },
             1: slideIn(t, L.word(11, 'every') - 0.2, 0.6, 0, 22),
         }} vars={{ ...item(1, L.word(11, 'door') - 0.2), ...item(2, L.word(11, 'and') - 0.15), ...arcs }}
             extra={<AbsoluteFill style={{ ...born, opacity: 1 - smooth(prog(t, L.word(11, 'opens') + 0.6, L.word(11, 'opens') + 1.0)) }}>{X.DoorClosed()}</AbsoluteFill>}
