@@ -80,3 +80,29 @@ Their other notes:
   "a domain that is still waiting doesn't hold up the others"; Padlocks' headline says "set up, and renewed".
 - *Spreadsheet shown in several frames*: **kept on purpose**. It is the film's tool and the same object (Title
   promise, Once empty, List/Columns built, Recap mark); each time it moves the story.
+
+## Production · Animation (2026-11-12)
+
+The composition is `src/remotion/reels/bulk-redirects/` (acts in `ActA.tsx` … `ActG.tsx`). Every scene starts from the
+approved frame's own markup (`style-canvas/export_scenes.py` → `frames.gen.tsx`) and only adds motion, through hooks
+in the frame (`data-o`, `data-draw`, `data-clip`, `data-clipx`, `data-count`, `--tint-k`, `--ring-*`, `--prog`,
+`--conn-i`, `--tab-*`). Unset, a hook leaves the frame as approved: the frames rebuilt with every hook in place
+re-render pixel-identical to the approved stills, except two sub-pixel glyph shifts (Columns, Once) and the
+drop-list strike, now a drawn line (9 px off).
+
+Self-checks, act by act and on the whole film:
+
+- **Stills:** a settled frame of every scene against its approved still: mean difference 1–2 grey levels (encoding).
+- **Word cues:** all 86 cue words exist in `timings.json` (a missing word fails the build, not the timing).
+- **stutter_check / flash_check:** found and fixed: the opening's fade-stop-rise (one continuous move now); text
+  snapping a pixel at a time at the end of slow lifts (hooked elements get their own layer); door light that
+  crossed each door in a fifth of its time (a soft mask over the door's own box); half-and-half crossfades that
+  dipped a window grey (Two results, the notebook strike, the By-tag states: each state stays opaque under the
+  next); kipzoo.com landing on the warning page's text; the two import dialogs overlapping; a dark-to-light room
+  change at 50 grey levels a frame (the cover now spans the whole 0.3 s lap, peak 15). What remains is 8-bit
+  rounding of slow fades (about one grey level) and intended pulses (the silent rings, the knock arcs).
+- **Sound:** two whooshes (title, product), one low tone (warning), two knocks (Mixkit #1523, after "someone
+  knocks" and "hear the knocks"; beat 11 got 0.8 s so the knock lands before the aside), one chime (the last
+  padlock), silence after "Glomvo never finds out". Bed at least 11 LU under the voice; voice and bed rebuilt.
+- **Loudness:** -17.4 LUFS integrated (gentle master chosen to keep Sarah natural); YouTube normalises down only,
+  so it plays about 3 dB quieter than louder uploads.
