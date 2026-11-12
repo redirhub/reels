@@ -14,10 +14,12 @@ import { GlomvoScene, NotebookScene, TitleScene } from './ActA';
 import { ParkingScene, RenewalsScene, WeightScene } from './ActB';
 import { TwoScene, WarningScene } from './ActC';
 import { DoorScene, HonestScene, OnceScene } from './ActD';
+import { ColumnsScene, DnsScene, ListScene, PadlocksScene, ProductScene } from './ActE';
+import { ByTagScene, KnocksScene, PriceScene, QuietScene } from './ActF';
+import { EndScene, RecapScene, YoursScene } from './ActG';
 import type { BulkRedirectsProps } from './props';
-import { StaticScene } from './scene';
 import { SOUND, type Role } from './sound';
-import { TOTAL, at, knockAt, sceneWindow, word, type SceneKey } from './timeline';
+import { TOTAL, at, knockAt, padlocksLit, sceneWindow, word, type SceneKey } from './timeline';
 
 // Instrument Serif (OFL, public/fonts/OFL-instrument-serif.txt): Glomvo's wordmark only.
 if (typeof document !== 'undefined') loadFont({ family: 'Instrument Serif', url: staticFile('fonts/instrument-serif-latin-400.woff2'), weight: '400', format: 'woff2' });
@@ -30,6 +32,9 @@ const CUES: readonly SfxCue[] = [
     S(at(4) - 0.3, 'transition', 0.34), // into the title (1 of 2)
     S(word(10, 'warning') - 0.05, 'problem', 0.3), // the warning page lands (the one low tone)
     S(knockAt(1), 'knock', 0.5), // "a way to hear when someone knocks" (knock 1 of 2)
+    S(at(18) - 0.3, 'transition', 0.34), // into the product, Step 2 (2 of 2)
+    S(padlocksLit(), 'fixed', 0.45), // every padlock lit (the signature chime, once)
+    S(knockAt(2), 'knock', 0.5), // "Glomvo could hear the knocks" (knock 2 of 2)
 ];
 
 const SCENES: readonly [SceneKey, string, (p: BulkRedirectsProps) => ReactNode][] = [
@@ -44,18 +49,18 @@ const SCENES: readonly [SceneKey, string, (p: BulkRedirectsProps) => ReactNode][
     ['door', 'D · Door', () => <DoorScene />],
     ['honest', 'D · Honest', () => <HonestScene />],
     ['once', 'D · Once', () => <OnceScene />],
-    ['list', 'E · List', () => <StaticScene k="List" />],
-    ['columns', 'E · Columns', () => <StaticScene k="Columns" />],
-    ['product', 'E · Import → Fix → Review', () => <StaticScene k="Import" />],
-    ['dns', 'E · Point DNS', () => <StaticScene k="PointDNS" />],
-    ['padlocks', 'E · Padlocks', () => <StaticScene k="Padlocks" />],
-    ['knocks', 'F · Knocks', () => <StaticScene k="Knocks" />],
-    ['price', 'F · Price', () => <StaticScene k="Price" />],
-    ['quiet', 'F · Quiet', () => <StaticScene k="Quiet" />],
-    ['bytag', 'F · By tag', () => <StaticScene k="ByTag" />],
-    ['recap', 'G · Recap', () => <StaticScene k="Recap" />],
-    ['yours', 'G · Your names', () => <StaticScene k="YourNames" />],
-    ['end', 'End card', () => <StaticScene k="EndCard" />],
+    ['list', 'E · List', () => <ListScene />],
+    ['columns', 'E · Columns', () => <ColumnsScene />],
+    ['product', 'E · Import → Fix → Review', () => <ProductScene />],
+    ['dns', 'E · Point DNS', () => <DnsScene />],
+    ['padlocks', 'E · Padlocks', () => <PadlocksScene />],
+    ['knocks', 'F · Knocks', (p) => <KnocksScene {...p} />],
+    ['price', 'F · Price', () => <PriceScene />],
+    ['quiet', 'F · Quiet', () => <QuietScene />],
+    ['bytag', 'F · By tag', () => <ByTagScene />],
+    ['recap', 'G · Recap', () => <RecapScene />],
+    ['yours', 'G · Your names', () => <YoursScene />],
+    ['end', 'End card', () => <EndScene />],
 ];
 
 export function BulkRedirects(props: BulkRedirectsProps) {
@@ -69,6 +74,8 @@ export function BulkRedirects(props: BulkRedirectsProps) {
             <Html5Audio src={staticFile('audio/bulk-redirects-vo.mp3')} />
             {/* Moon Walk, already fitted, ducked under every word and level-checked (scripts/yt/bed-build.py). */}
             <Html5Audio src={staticFile('audio/bulk-redirects-bed.mp3')} />
+            {/* a number a scene rolls (frames.gen.tsx data-count): drawn from its CSS counter */}
+            <style>{'.w46-count::after { content: counter(w46n); }'}</style>
             <Sfx cues={CUES} />
             {SCENES.map(([key, name, render]) => <Sequence key={key} {...seq(key)} name={name}>{render(props)}</Sequence>)}
         </AbsoluteFill>

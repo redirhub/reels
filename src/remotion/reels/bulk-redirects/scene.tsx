@@ -5,8 +5,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill } from 'remotion';
 import { useTime } from '../../lib/anim';
 import { F, ROOM, type Layer } from './frames.gen';
-import { SceneFade, type Room } from './kit';
-import type { Local } from './timeline';
+import { SceneFade, ease, smooth, type Room } from './kit';
 
 export type FrameKey = keyof typeof F;
 
@@ -38,7 +37,8 @@ export function FrameScene({ k, room, moves, vars, hide, extra, blend, children 
     );
 }
 
-/** An approved frame that is not animated yet: shown as it is over its scene window. */
-export function StaticScene({ k }: { k: FrameKey; L?: Local }) {
-    return <FrameScene k={k} />;
+/** A `data-o` hook arriving: --o-<name> fades in and --y-<name> lifts by `dy` px over [a, a + d]. */
+export function hookIn(t: number, name: string, a: number, d = 0.5, dy = 14): Record<string, number | string> {
+    const k = ease(t, a, d);
+    return { [`--o-${name}`]: smooth(k * 1.4), [`--y-${name}`]: `${((1 - k) * dy).toFixed(2)}px` };
 }

@@ -40,10 +40,13 @@ def lander(name=KIP, w=980, h=560, price=False, sold=False):
     """Glomvo's for-sale page: the same component every time (the name, a price or make-offer area, a contact line)."""
     g = GLOMVO
     if price:
-        offer = (f'<div style="display: flex; align-items: center; gap: 18px">'
-                 f'<span style="display: inline-flex; align-items: center; gap: 12px; height: 64px; padding: 0 28px; border-radius: 32px; background: {g["ink"]}; color: {g["stone"]}; font-size: 22px; font-weight: 600">Buy now'
+        # "Write to us" shares the buttons' cell, hidden (--o-write, 0 unset), so a scene can morph one into the other;
+        # the buttons are hooks buy and offer
+        offer = (f'<div style="display: grid; align-items: center"><span style="grid-area: 1 / 1; font-size: 22px; color: {g["ink"]}; opacity: calc(0.8 * var(--o-write, 0))">Interested? Write to us.</span>'
+                 f'<div style="grid-area: 1 / 1; display: flex; align-items: center; gap: 18px">'
+                 f'<span data-o="buy" style="display: inline-flex; align-items: center; gap: 12px; height: 64px; padding: 0 28px; border-radius: 32px; background: {g["ink"]}; color: {g["stone"]}; font-size: 22px; font-weight: 600">Buy now'
                  f'<span style="display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 17px; background: {g["pebble"]}; color: {g["ink"]}; font-size: 15px; font-weight: 600; letter-spacing: 0.04em">PRICE</span></span>'
-                 f'<span style="display: inline-flex; align-items: center; height: 64px; padding: 0 28px; border-radius: 32px; box-shadow: inset 0 0 0 2px {g["ink"]}; color: {g["ink"]}; font-size: 22px; font-weight: 600">Make an offer</span></div>')
+                 f'<span data-o="offer" style="display: inline-flex; align-items: center; height: 64px; padding: 0 28px; border-radius: 32px; box-shadow: inset 0 0 0 2px {g["ink"]}; color: {g["ink"]}; font-size: 22px; font-weight: 600">Make an offer</span></div></div>')
     else:
         offer = (f'<span style="font-size: 22px; color: {g["ink"]}; opacity: 0.8">Interested? Write to us.</span>')
     inner = (f'<div data-shop style="position: absolute; inset: 0; background: {g["stone"]}; {UI}; display: flex; flex-direction: column; padding: {h * 0.09:.0f}px {w * 0.08:.0f}px; box-sizing: border-box">'
@@ -145,7 +148,7 @@ def name_tile(name=KIP, w=440, state='closed', dark=False, extra='', note=None, 
                 f'background: {G100}; font-size: {h * 0.15:.0f}px; font-weight: 700; color: {G600}; white-space: nowrap">{tagc}</span>')
     vis = ''
     if visits is not None:
-        vis = (f'<span style="margin-left: auto; display: inline-flex; align-items: baseline; gap: 6px; {MONO}; font-size: {h * 0.3:.0f}px; font-weight: 600; color: {TEAL}">{visits}'
+        vis = (f'<span style="margin-left: auto; display: inline-flex; align-items: baseline; gap: 6px; {MONO}; font-size: {h * 0.3:.0f}px; font-weight: 600; color: {TEAL}"><span data-count="visits">{visits}</span>'
                f'<span style="{JAK}; font-size: {h * 0.14:.0f}px; font-weight: 700; color: {G500}">visits</span></span>')
     tile = (f'<div{extra} style="position: relative; {op}width: {w}px; height: {h:.0f}px; box-sizing: border-box; display: flex; align-items: center; gap: {h * 0.22:.0f}px; '
             f'padding: 0 {h * 0.26:.0f}px; border-radius: {h * 0.2:.0f}px; background: {bg}; box-shadow: {sh}{SOFT_SHADOW}">'
@@ -154,9 +157,10 @@ def name_tile(name=KIP, w=440, state='closed', dark=False, extra='', note=None, 
 
 
 def sticky(text, w=220, strike=False):
-    st = 'text-decoration: line-through; text-decoration-thickness: 3px; ' if strike else ''
+    # strike: a pen line through the text (data-clipx="strike", so a scene can draw it left to right)
+    line = (f'<span data-clipx="strike" style="position: absolute; left: -1px; right: -1px; top: calc(54% - 1px); height: 3px; background: {PINK_INK}"></span>' if strike else '')
     return (f'<div style="width: {w}px; box-sizing: border-box; padding: 18px 20px; background: {NOTE}; box-shadow: 0 14px 30px rgba(16,24,40,0.18); '
-            f'font-size: 26px; font-weight: 700; color: {PINK_INK}; {st}">{text}</div>')
+            f'font-size: 26px; font-weight: 700; color: {PINK_INK}"><span style="position: relative; display: inline-block">{text}{line}</span></div>')
 
 
 # ---------------------------------------------------------------- the founder: a notebook and a browser (never a face)
@@ -287,8 +291,10 @@ def tag_chip(t, size=15):
             f'color: {fg}; font-size: {size}px; font-weight: 600; white-space: nowrap">{t}</span>')
 
 
-def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='glomvo-portfolio.csv', show_more=True, row_h=56, fix_col=None):
-    """A generic spreadsheet: column letters, a header row in mono (the real import columns), rows in mono."""
+def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='glomvo-portfolio.csv', show_more=True, row_h=56, fix_col=None, hooks=False):
+    """A generic spreadsheet: column letters, a header row in mono (the real import columns), rows in mono.
+    hooks: each column's tint follows --tint-k (0 none … 1 tinted; unset = as hi_col) and each body row is data-o="row{i}",
+    so a scene can move the tint between columns and bring the rows in (export_scenes.py)."""
     rows = rows or sheet_rows()
     widths = [0.24, 0.42, 0.11, 0.23]
     cw = [w * p for p in widths]
@@ -297,6 +303,9 @@ def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='glomvo-port
     def cell(text, k, head=False, faded=False):
         on = hi_col is not None and k in (hi_col if isinstance(hi_col, (list, tuple)) else [hi_col])
         bg = 'rgba(32,167,149,0.10)' if on else ('#F9FAFB' if head else 'transparent')
+        if hooks:  # the same colours, mixed by the column's tint variable (default: as approved)
+            v = f'var(--tint-{k}, {1 if on else 0})'
+            bg = (f'color-mix(in srgb, rgba(32,167,149,0.10) calc({v} * 100%), {"#F9FAFB" if head else "transparent"})')
         op = 'opacity: 0.25; ' if (k >= upto) else ''
         if k == 3 and not head and text in TAG_COL:
             body = tag_chip(text, 14)
@@ -310,7 +319,8 @@ def sheet(w=1440, rows=None, upto=4, hi_col=None, hi_row=None, file='glomvo-port
     body = ''
     for i, r in enumerate(rows):
         ring = hi_row is not None and i == hi_row
-        body += (f'<div style="position: relative; display: flex; border-top: 1px solid #EAECF0{"; box-shadow: inset 0 0 0 3px " + TEAL if ring else ""}">'
+        rh = f' data-o="row{i}"' if hooks else ''
+        body += (f'<div{rh} style="position: relative; display: flex; border-top: 1px solid #EAECF0{"; box-shadow: inset 0 0 0 3px " + TEAL if ring else ""}">'
                  f'<span style="width: {num_w}px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #98A2B3; background: #F9FAFB">{i + 2}</span>'
                  + ''.join(cell(v, k) for k, v in enumerate(r)) + '</div>')
     more = (f'<div style="display: flex; align-items: center; height: 46px; border-top: 1px solid #EAECF0; padding-left: {num_w + 16}px; font-size: 15px; color: #667085">'

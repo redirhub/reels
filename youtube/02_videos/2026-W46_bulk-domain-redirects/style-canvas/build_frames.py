@@ -17,16 +17,18 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'project')
 
 
 # ================================================================ product UI pieces (labels from the live dashboard, redirhub/lviv)
-def visits_card(rows, w=760, hi=KIP, title='Domains', metric='Clicks', tabs=('Domains', 'Tags'), on=0, row_h=58):
-    """The analytics breakdown card: tabs Domains / Tags, one row per domain with a bar and its count."""
+def visits_card(rows, w=760, hi=KIP, title='Domains', metric='Clicks', tabs=('Domains', 'Tags'), on=0, row_h=58, hooks=False):
+    """The analytics breakdown card: tabs Domains / Tags, one row per domain with a bar and its count. hooks: each row
+    is data-o="vr{i}" (a scene can sort them)."""
     top = max(v for _, v in rows) or 1
     tab = ''.join(f'<span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 14px; font-weight: 600; '
                   f'{"background: #FFFFFF; color: #181D27; box-shadow: 0 1px 2px rgba(16,24,40,0.06), 0 0 0 1px #EAECF0" if k == on else "color: #717680"}">{t}</span>'
                   for k, t in enumerate(tabs))
     body = ''
-    for n, v in rows:
+    for i, (n, v) in enumerate(rows):
         ring = n == hi
-        body += (f'<div style="position: relative; display: flex; align-items: center; gap: 14px; height: {row_h}px; padding: 0 20px; border-top: 1px solid #EAECF0; '
+        rh = f' data-o="vr{i}"' if hooks else ''
+        body += (f'<div{rh} style="position: relative; display: flex; align-items: center; gap: 14px; height: {row_h}px; padding: 0 20px; border-top: 1px solid #EAECF0; '
                  f'{"box-shadow: inset 0 0 0 2px " + TEAL + "; border-radius: 10px; background: rgba(32,167,149,0.06)" if ring else ""}">'
                  f'<span style="position: absolute; left: 0; top: 10px; bottom: 10px; width: {max(4, (w - 40) * v / top * 0.62):.0f}px; border-radius: 0 8px 8px 0; background: {"rgba(32,167,149,0.16)" if ring else "#F2F4F7"}"></span>'
                  f'<span style="position: relative; {MONO}; font-size: 17px; font-weight: {600 if ring else 500}; color: #181D27">{n}</span><span style="flex: 1"></span>'
@@ -332,7 +334,7 @@ SW = 1560
 
 
 def big_sheet(hi_col, hi_row=0):
-    return place(122, 360, sheet(SW, rows=sheet_rows()[:6], hi_col=hi_col, hi_row=hi_row, row_h=56))
+    return place(122, 360, sheet(SW, rows=sheet_rows()[:6], hi_col=hi_col, hi_row=hi_row, row_h=56, hooks=True))
 
 
 def col_x(k):
@@ -353,11 +355,11 @@ def _list():
 @F('w46-Columns', 'A 302 and a tag')
 def _columns():
     (cx, cw), (dx, dw) = col_x(2), col_x(3)
-    chips = ''.join(tag_chip(t, 17) for t in ('Brandables', 'Short', 'Premium'))
+    chips = ''.join(f'<span data-o="chip{i}" style="display: inline-flex">{tag_chip(t, 17)}</span>' for i, t in enumerate(('Brandables', 'Short', 'Premium')))
     inner = (eyebrow('STEP 1 · THE LIST', dark=True) + progress(1)
-             + headline('A 302, because it will sell. A tag, for the group.', y=150, size=56, w=1680)
+             + headline('<span data-o="h1" style="display: inline-block">A 302, because it will sell.</span> <span data-o="h2" style="display: inline-block">A tag, for the group.</span>', y=150, size=56, w=1680)
              + col_label('302', cx, 280, cw - 10) + f'<div style="position: absolute; left: {dx:.0f}px; top: 278px; display: flex; gap: 10px">{chips}</div>'
-             + f'<span style="position: absolute; left: {dx:.0f}px; top: 334px; width: {dw - 20:.0f}px; height: 3px; background: {TEAL}"></span>'
+             + f'<span data-o="uline" style="position: absolute; left: {dx:.0f}px; top: 334px; width: {dw - 20:.0f}px; height: 3px; background: {TEAL}"></span>'
              + big_sheet([2, 3]) + place(1680, 900, ex_label()))
     return frame('light', inner)
 
@@ -405,7 +407,7 @@ def chooser():
     return (f'<div style="padding: 22px 24px 16px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 600; color: #181D27">What do you want to create?</span>'
             f'<span style="font-size: 14px; color: #535862">Pick the job. Everything you create here is managed together in Links.</span></div>{grid}'
             f'<div style="margin-top: 18px; padding: 16px 24px; border-top: 1px solid #EAECF0; background: #F9FAFB; font-size: 14px; color: #535862">Already have a spreadsheet of links? '
-            f'<span style="font-weight: 600; color: #1C6DB6; box-shadow: 0 0 0 3px {TEAL}; border-radius: 6px; padding: 3px 6px">Import CSV</span></div>')
+            f'<span style="font-weight: 600; color: #1C6DB6; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-csv, 1)); border-radius: 6px; padding: 3px 6px">Import CSV</span></div>')
 
 
 @F('w46-Import', 'Step two: Import CSV')
@@ -420,10 +422,10 @@ def _import():
 def errors_step():
     return (f'<div style="padding: 22px 24px 14px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 600; color: #181D27">9 rows need a fix before they can import</span>'
             f'<span style="font-size: 14px; color: #535862">The other 217 rows are fine. Row numbers match your spreadsheet.</span></div>'
-            f'<div style="margin: 4px 24px 0; padding: 16px 18px; border-radius: 12px; box-shadow: inset 0 0 0 1px #FECDCA; background: #FEF3F2; display: flex; flex-direction: column; gap: 12px">'
+            f'<div data-clip="errs" data-o="errs" style="margin: 4px 24px 0; padding: 16px 18px; border-radius: 12px; box-shadow: inset 0 0 0 1px #FECDCA; background: #FEF3F2; display: flex; flex-direction: column; gap: 12px">'
             f'<span style="font-size: 15px; font-weight: 600; color: #B42318">Destination must start with https:// or http://.</span>'
             f'<span style="font-size: 13px; color: #535862">e.g. <span style="{MONO}; color: #181D27">glomvo.com/olzik</span></span>'
-            f'<span style="{BTN_P}; align-self: flex-start; box-shadow: 0 0 0 4px {TEAL}">Add https:// to all 9</span></div>'
+            f'<span data-o="btn" style="{BTN_P}; align-self: flex-start; box-shadow: 0 0 0 4px rgba(32,167,149,var(--ring-fix, 1))">Add https:// to all 9</span></div>'
             f'<div style="margin-top: 18px; padding: 14px 24px; border-top: 1px solid #EAECF0; display: flex; gap: 10px; align-items: center; font-size: 13px">'
             f'<span style="{BTN_S}; height: 34px; font-size: 13px">Download the rows with a note on each</span><span style="{BTN_S}; height: 34px; font-size: 13px">Upload fixed file</span>'
             f'<span style="flex: 1"></span><span style="font-weight: 600; color: #535862">Skip 9 rows and review</span></div>')
@@ -444,7 +446,7 @@ def review_step():
     return (f'<div style="padding: 20px 24px 10px; display: flex; flex-direction: column; gap: 12px"><span style="font-size: 18px; font-weight: 600; color: #181D27">Adds 214 domains and 214 links, updates 0 links</span>'
             f'<div><div style="display: grid; grid-template-columns: 1fr 80px 120px; padding-bottom: 6px; font-size: 12px; font-weight: 500; color: #717680"><span>In this file</span><span style="text-align: right">Rows</span><span style="text-align: right">New · updated</span></div>'
             + row('Whole-domain links', '226', '214 · 0') + row('Path links', '0', '0 · 0') + '</div>'
-            f'<div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 12px; box-shadow: 0 0 0 3px {TEAL}"><span style="width: 18px; height: 18px; flex: none; margin-top: 2px; border-radius: 5px; background: #1C6DB6"></span>'
+            f'<div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-www, 1))"><span style="width: 18px; height: 18px; flex: none; margin-top: 2px; border-radius: 5px; background: #1C6DB6"></span>'
             f'<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px; font-weight: 600; color: #181D27">Leave out 12 www rows their root already covers</span>'
             f'<span style="font-size: 13px; color: #535862; line-height: 1.45"><span style="{MONO}">kipzoo.com</span> covers <span style="{MONO}">www.kipzoo.com</span> automatically, so rows going to the same place add nothing.</span></div></div>'
             f'<div style="display: flex; justify-content: space-between; font-size: 14px; color: #344054"><span style="font-weight: 600">Where the links are</span><span>214 domains, 214 new</span></div>'
@@ -466,15 +468,30 @@ def hostnames_body():
              ('gozvu.com', 'Connected'), ('savvlo.com', 'Waiting for DNS'), ('grolvi.com', 'Waiting for DNS')]
     badge = lambda s: (f'<span style="font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; '
                        + ('background: #ECFDF3; color: #067647' if s == 'Connected' else 'background: #F2F4F7; color: #475467') + f'">{s}</span>')
+    waiting = [n for n, s in hosts if s != 'Connected']
+
+    def status(n, s):
+        """A waiting row can turn Connected: both badges share one grid cell (the wider one sets the layout), the
+        Connected one through --conn-i (0 unset), the waiting one and its button through 1 - it."""
+        if s == 'Connected':
+            return badge(s) + '<span style="flex: 1"></span>'
+        i = waiting.index(n)
+        return (f'<span style="display: inline-grid"><span style="grid-area: 1 / 1; display: flex; opacity: calc(1 - var(--conn-{i}, 0))">{badge(s)}</span>'
+                f'<span style="grid-area: 1 / 1; display: flex; justify-self: start; opacity: var(--conn-{i}, 0)">{badge("Connected")}</span></span><span style="flex: 1"></span>'
+                f'<span style="{BTN_S}; height: 32px; font-size: 13px; opacity: calc(1 - var(--conn-{i}, 0))">Connect DNS</span>')
     rows = ''.join(f'<div style="display: flex; align-items: center; gap: 14px; height: 54px; padding: 0 20px; border-bottom: 1px solid #EAECF0; background: {"#F5F9FC" if n == KIP else "#FFFFFF"}">'
-                   f'<span style="{MONO}; font-size: 15px; width: 230px; color: #181D27">{n}</span>{badge(s)}<span style="flex: 1"></span>'
-                   + (f'<span style="{BTN_S}; height: 32px; font-size: 13px">Connect DNS</span>' if s != 'Connected' else '') + '</div>' for n, s in hosts)
-    tab = lambda t, on: (f'<span style="flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; font-size: 14px; font-weight: 600; '
-                         + ('background: #FFFFFF; color: #181D27; box-shadow: 0 1px 2px rgba(16,24,40,0.06), 0 0 0 1px #EAECF0' if on else 'color: #717680') + f'">{t}</span>')
-    panel = (f'<div style="width: 420px; flex: none; border-left: 1px solid #EAECF0; background: #FFFFFF; padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">'
+                   f'<span style="{MONO}; font-size: 15px; width: 230px; color: #181D27">{n}</span>{status(n, s)}</div>' for n, s in hosts)
+
+    def tab(t, on):
+        """The selected tab is lifted (white, a hairline, dark text); --tab-<name> moves it (unset = as drawn)."""
+        v = f'var(--tab-{t.lower()}, {1 if on else 0})'
+        return (f'<span style="flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; font-size: 14px; font-weight: 600; '
+                f'background: rgba(255,255,255,{v}); color: color-mix(in srgb, #181D27 calc({v} * 100%), #717680); '
+                f'box-shadow: 0 1px 2px rgba(16,24,40,calc(0.06 * {v})), 0 0 0 1px rgba(234,236,240,{v})">{t}</span>')
+    panel = (f'<div data-o="panel" style="width: 420px; flex: none; border-left: 1px solid #EAECF0; background: #FFFFFF; padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">'
              f'<span style="font-size: 16px; font-weight: 600; color: #181D27">Connect DNS · <span style="{MONO}">{KIP}</span></span>'
              f'<div style="display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: #F2F4F7">{tab("Automatic", True)}{tab("Manual", False)}</div>'
-             f'<div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; box-shadow: 0 0 0 3px {TEAL}">'
+             f'<div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-cf, 1))">'
              f'<span style="width: 34px; height: 34px; border-radius: 8px; background: #F2F4F7"></span><span style="font-size: 15px; font-weight: 600; color: #181D27">Cloudflare</span>'
              f'<span style="flex: 1"></span><span style="{BTN_P}; height: 34px">Connect</span></div>'
              f'<span style="font-size: 13px; color: #535862; line-height: 1.5">Elsewhere: Manual shows the record to add at your DNS host.</span></div>')
@@ -501,7 +518,7 @@ def _padlocks():
 # ================================================================ ACT F · Hearing the knock
 @F('w46-Knocks', 'Sixty-three knocks')
 def _knocks():
-    inner = (f'<div style="position: absolute; left: 120px; top: 260px; width: 640px; height: 230px">{place(0, 70, name_tile(KIP, 600, visits=63))}{place(400, 0, sticky("drop list?", 200, strike=True))}</div>'
+    inner = (f'<div style="position: absolute; left: 120px; top: 260px; width: 640px; height: 230px">{place(0, 70, name_tile(KIP, 600, visits=63))}{place(400, 0, sticky("drop list?", 200, strike=True), extra=' data-o="sticky"')}</div>'
              + f'<div style="position: absolute; left: 120px; top: 520px; display: flex; align-items: center; gap: 16px">{ex_label(light=False)}'
              f'<span style="font-size: 24px; color: {INK_SOFT}">Channel: Direct</span></div>'
              + caption('Nobody sent those people. They typed it in.', x=120, y=640, w=740, size=44)
@@ -519,7 +536,7 @@ def _price():
 @F('w46-Quiet', 'Where to look first')
 def _quiet():
     rows = [(KIP, 63), ('tumbrik.com', 21), ('olzik.com', 9), ('zentvy.com', 4), ('savvlo.com', 2), ('gozvu.com', 0), ('grolvi.com', 0), ('yobzi.com', 0)]
-    card = visits_card(rows, 820, row_h=60)
+    card = visits_card(rows, 820, row_h=60, hooks=True)
     bracket = f'<div style="position: absolute; left: 126px; top: {200 + 60 + 44 + 5 * 60 + 6}px; width: 808px; height: 172px; border-radius: 14px; box-shadow: 0 0 0 3px {AMBER}"></div>'
     inner = (place(120, 200, card) + bracket + place(120, 900, ex_label())
              + headline('Quiet all season?', x=1060, y=520, size=56, w=740)
@@ -533,7 +550,7 @@ def bulk_modal():
             f'<span style="flex: 1; text-align: center; padding: 7px 0; font-size: 14px; font-weight: 600; color: #717680">Find and replace</span></div>'
             f'<span style="{LBL}">New destination URL</span><div style="{INP}; {MONO}; font-size: 15px">https://{MARKET}/glomvo</div>'
             f'<span style="font-size: 13px; color: #535862; line-height: 1.45">Domain redirects keep their path and query forwarding. Only the target changes.</span></div>'
-            f'<div style="padding: 14px 24px; display: flex; justify-content: flex-end; gap: 10px"><span style="{BTN_S}">Cancel</span><span style="{BTN_P}; box-shadow: 0 0 0 4px {TEAL}">Update 128 links</span></div>')
+            f'<div style="padding: 14px 24px; display: flex; justify-content: flex-end; gap: 10px"><span style="{BTN_S}">Cancel</span><span style="{BTN_P}; box-shadow: 0 0 0 4px rgba(32,167,149,var(--ring-upd, 1))">Update 128 links</span></div>')
 
 
 @F('w46-ByTag', 'Filter by the tag, change it once')
@@ -554,8 +571,8 @@ def _recap():
              f'<div style="width: 296px; height: 200px; display: flex; align-items: center; justify-content: center"><span style="{BTN_P}; height: 64px; font-size: 26px; padding: 0 30px">Import CSV</span></div>',
              f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", uid="r")}</div>',
              f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", knock=2, uid="r2")}</div>']
-    steps = ''.join(f'<div style="display: flex; flex-direction: column; align-items: center; gap: 28px; width: 360px"><div data-ui="icon" style="height: 240px; display: flex; align-items: center">{ic}</div>'
-                    f'<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em">{t}</span></div>' for ic, t in zip(icons, ('List', 'Import', 'Point', 'Listen')))
+    steps = ''.join(f'<div data-o="step{k}" style="display: flex; flex-direction: column; align-items: center; gap: 28px; width: 360px"><div data-ui="icon" style="height: 240px; display: flex; align-items: center">{ic}</div>'
+                    f'<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em">{t}</span></div>' for k, (ic, t) in enumerate(zip(icons, ('List', 'Import', 'Point', 'Listen'))))
     inner = f'<div style="position: absolute; left: 120px; top: 300px; width: 1680px; display: flex; justify-content: space-between">{steps}</div>'
     return frame('radial', inner)
 
@@ -567,7 +584,7 @@ def _yours():
     inner = (f'<span style="position: absolute; left: 120px; top: 92px; display: inline-flex; align-items: center; height: 52px; padding: 0 24px; border-radius: 26px; background: rgba(255,255,255,0.10); '
              f'font-size: 25px; font-weight: 600; color: {INK_SOFT}">An aside: Glomvo isn’t a real company.</span>'
              + doors
-             + headline('Your names. Which one would a founder type in tonight? And would the door open?', x=120, y=680, size=56, w=1560))
+             + headline('<span data-o="q1">Your names. Which one would a founder type in tonight?</span> <span data-o="q2">And would the door open?</span>', x=120, y=680, size=56, w=1560))
     return frame('evening', inner)
 
 

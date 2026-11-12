@@ -83,7 +83,9 @@ def eyebrow(text, dark=False):
 
 def progress(n, light=True):
     off = G300 if light else 'rgba(255,255,255,0.25)'
-    bars = ''.join(f'<span style="width: 64px; height: 6px; border-radius: 3px; background: {TEAL if i < n else off}"></span>' for i in range(3))
+    # the newest segment (n) fills through --prog (0 off … 1 lit; unset = lit), so a step can take its segment
+    fill = lambda i: (f'color-mix(in srgb, {TEAL} calc(var(--prog, 1) * 100%), {off})' if i == n - 1 else TEAL if i < n else off)
+    bars = ''.join(f'<span style="width: 64px; height: 6px; border-radius: 3px; background: {fill(i)}"></span>' for i in range(3))
     return f'<div style="position: absolute; left: 1560px; top: 110px; width: 240px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; height: 30px">{bars}</div>'
 
 

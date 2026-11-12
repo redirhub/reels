@@ -40,6 +40,8 @@ export const voEnd = (n: number) => BEATS[n - 1].voEnd ?? end(n);
 /** The knock's cue (its first rap; the sound and the arcs both read it), twice: just after "when someone knocks"
     (beat 11, w46-Door) and "could hear the knocks" (beat 25, w46-Knocks). */
 export const knockAt = (i: 1 | 2) => (i === 1 ? wordEnd(11, 'knocks') : wordEnd(25, 'knocks')) + 0.06;
+/** The last padlock of the wall lit (w46-Padlocks), with the fixed chime: on "set up" (beat 24). */
+export const padlocksLit = () => word(24, 'up') + 0.1;
 
 /** Scene windows: [first beat, last beat], one scene per approved key frame (keyframes.md). Beats 10, 20-21 and
     31-32 are shared by two frames; those scenes split their beat on a word (see the scene). */
