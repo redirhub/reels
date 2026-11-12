@@ -88,7 +88,9 @@ export function SceneFade({ t, room, inD = 0.32, outAt, outD = 0.3, blend, carry
     const out = outAt === undefined ? 1 : 1 - easeOut(prog(t, outAt, outAt + outD));
     const ph = easeInOut(prog(t, 0, inD));
     // Both curves start and end at rest: a clamped linear cover stopped dead mid-dissolve (measured, W44 cut 1).
-    const cover = smooth(ph / 0.6);
+    // The room covers over the whole 0.3 s lap (the outgoing scene is unmounted at its end): a cover done in 0.19 s
+    // swept a dark room to a light one at 50 grey levels a frame (flash_check, Door -> Honest, W46).
+    const cover = smooth(prog(t, 0, 0.29));
     const o = smooth((ph - 0.25) / 0.75) * out;
     return (
         <AbsoluteFill style={{ fontFamily: DISPLAY, color: DARK_ROOM[room] ? C.ink : C.char, WebkitFontSmoothing: 'antialiased' }}>

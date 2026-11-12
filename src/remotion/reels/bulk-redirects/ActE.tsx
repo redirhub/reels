@@ -81,7 +81,7 @@ export function ProductScene() {
     const click = L.word(21, 'click');
     const press = Math.sin(Math.PI * prog(t, click, click + 0.22));
     const clears = click + 0.35, turn = L.word(21, 'all') - 0.05;
-    const fixIn: CSSProperties = { ...popIn(t, before + 0.3, 0.5, 0.95), transformOrigin: '960px 560px' };
+    const fixIn: CSSProperties = { ...popIn(t, before + 0.22, 0.5, 0.95), transformOrigin: '960px 560px' };
     const reviewIn = smooth(prog(t, turn, turn + 0.35));
     const fixOut = outK(t, turn + 0.25, 0.3);
     return (
