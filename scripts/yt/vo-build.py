@@ -19,7 +19,8 @@ import json, os, re, subprocess, sys, difflib
 video, script_ts, out_mp3 = sys.argv[1], sys.argv[2], sys.argv[3]
 out_wav = sys.argv[sys.argv.index('--wav') + 1] if '--wav' in sys.argv else None
 vo_dir = os.path.join(video, 'voiceover')
-chunks = json.load(open(os.path.join(vo_dir, 'chunks.json')))
+# a take marked unused stays on disk (an alternative, e.g. a pronunciation option) but is not built
+chunks = [c for c in json.load(open(os.path.join(vo_dir, 'chunks.json'))) if not c.get('unused')]
 cfg = json.load(open(os.path.join(vo_dir, 'assembly.json')))
 beats = json.loads(re.search(r'SCRIPT_BEATS: readonly Beat\[\] = (\[.*?\]);', open(script_ts).read(), re.S).group(1))
 by_n = {b['n']: b for b in beats}

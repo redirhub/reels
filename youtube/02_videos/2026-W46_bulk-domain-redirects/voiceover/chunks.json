@@ -2,110 +2,303 @@
   {
     "id": "c01",
     "beats": [
-      1,
-      2,
-      3,
-      4
+      1
     ],
-    "text": "Imagine owning the perfect name for a company that doesn't exist yet. Short, easy to say, the kind a founder falls for on sight. Right now, they might be filling a notebook with ideas. When one is ready, the first thing they'll look for is the name. That's the bet behind Glomvo, which is a small team that buys names like that, and holds them until the right person comes looking. Here's how they got ready for that day, and how to redirect hundreds of domains at once, with one spreadsheet.",
-    "words": 91
+    "text": "Imagine your company. Let's call it Northway, a small software company.",
+    "words": 11
   },
   {
     "id": "c02",
     "beats": [
-      5,
-      6,
-      7
+      2
     ],
-    "text": "Holding a name isn't free. Every year, each one asks for its renewal. Parking ads used to pay part of that. But since February tenth, parked domains are no longer eligible as ad placements on Google's Search Partner Network. So the surest way a name pays for itself is when someone buys it. That's rare, so each person who comes looking carries a lot of weight.",
-    "words": 66
+    "text": "Every product it launched started the same way: buy the domain first. Then one for each country. A few misspellings, so nobody else grabs your visitors. And the old name, from before the rebrand.",
+    "words": 34
   },
   {
     "id": "c03",
     "beats": [
-      8,
-      9,
-      10
+      3
     ],
-    "text": "One evening, the founder types kipzoo dot com. Glomvo had forwarded it to a for-sale page with the registrar's free forwarding, and checked that it worked. But the founder's browser asks for the secure version first, the one with the padlock. Some registrars' forwarding includes one. Others don't. So the founder sees a warning page, and picks another name. Glomvo never finds out. Their own check worked only because they typed the plain address.",
-    "words": 74
+    "text": "Today, Northway owns over two hundred domains. Whatever your business is, your list probably grew the same way.",
+    "words": 18
   },
   {
     "id": "c04",
     "beats": [
-      11,
-      12,
-      13
+      4
     ],
-    "text": "Glomvo didn't need more names. Every name they had needed two things: a door that opens properly, padlock included, and a way to hear when someone knocks. One honest note. If you hold a handful of names, and your registrar's forwarding shows the padlock, you're done. Check one in our free Redirect Checker. But Glomvo's names sat across three registrars. So they fixed them once, for all of them.",
-    "words": 69
+    "text": "Now you're bringing all your products together on one website, so customers find everything in one place. That means every one of those two hundred domains needs a new destination.",
+    "words": 30
   },
   {
     "id": "c05",
     "beats": [
-      14,
-      15,
-      16,
-      17
+      5
     ],
-    "text": "Step one: the list. One row per name. The name. Where it should go: the for-sale page, on their own site or a marketplace listing. The redirect type: a three-oh-two, the temporary kind. Because the day a name sells, its destination changes. And a tag, a label for a group. Brandables. Short names. Premium.",
-    "words": 54,
-    "spoken": {
-      "16": "The redirect type: a three oh two, the temporary kind. Because the day a name sells, its destination changes."
-    }
+    "text": "But the real question is, how do you move hundreds of domains at once, with one spreadsheet, without losing the people who use them?",
+    "words": 24
   },
   {
     "id": "c06",
     "beats": [
-      18,
-      19,
-      20,
-      21
+      6
     ],
-    "text": "Step two: the import. Here's what that looks like in RedirHub. Links. Create. Import CSV. That's the plain spreadsheet file Excel or Google Sheets can save. Before anything is saved, it shows what the file will do. Every domain it adds, and any row that needs a fix. A destination missing its H T T P S? One click fixes them all. And each name covers its double-u double-u double-u version too.",
-    "words": 72,
-    "spoken": {
-      "21": "A destination missing its H T T P S? One click fixes them all. And each name covers its double u double u double u version too."
-    }
+    "text": "Each domain renews every year, whether anyone uses it or not.",
+    "words": 11
   },
   {
     "id": "c07",
     "beats": [
-      22,
-      23,
-      24
+      7
     ],
-    "text": "Step three: point the names. DNS is the setting that tells the internet where a name goes. On Cloudflare, it can connect automatically. Elsewhere, you add the records it shows you. In batches, if you like. And as each name connects, its padlock is set up, and renewed for it.",
-    "words": 50
+    "text": "Most of them forward somewhere. Set up years ago, in whichever registrar account they were bought in. For Northway, that's three accounts.",
+    "words": 22
   },
   {
     "id": "c08",
     "beats": [
-      25,
-      26,
-      27
+      8
     ],
-    "text": "Then, for the first time, Glomvo could hear the knocks. A few weeks in, kipzoo had sixty-three visits. Nobody sent those people. They typed it in. It had been on last year's drop list. That's demand, showing itself. So kipzoo got a real price and a make-offer button.",
-    "words": 48
+    "text": "Nobody has the full list. And nobody knows which ones people still type, like the name of a product you retired years ago.",
+    "words": 23
   },
   {
     "id": "c09",
     "beats": [
-      28,
-      29
+      9
     ],
-    "text": "The names that stayed quiet all season? At renewal time, Glomvo now knows where to look first. And the tags pay off. Moving every brandable to a new marketplace? Filter by the tag. Change it once.",
-    "words": 36
+    "text": "One evening, a customer types that old product domain. It forwards to Northway's site. Someone checked that once, years ago. It worked.",
+    "words": 22
   },
   {
     "id": "c10",
     "beats": [
-      30,
-      31,
-      32,
+      10
+    ],
+    "text": "But the customer's browser asks for the secure version first, the one with the padlock. Some registrars' forwarding includes one. Others don't.",
+    "words": 22
+  },
+  {
+    "id": "c11",
+    "beats": [
+      11
+    ],
+    "text": "So the customer sees a warning page. To them, it looks like Northway is broken. They leave.",
+    "words": 17
+  },
+  {
+    "id": "c12",
+    "beats": [
+      12
+    ],
+    "text": "Northway never finds out. Their own check worked only because they typed the plain address.",
+    "words": 15
+  },
+  {
+    "id": "c13",
+    "beats": [
+      13
+    ],
+    "text": "The fix wasn't fewer domains. Every domain needed two things: a door that opens properly, padlock included, and a way to hear when someone knocks.",
+    "words": 25
+  },
+  {
+    "id": "c14",
+    "beats": [
+      14
+    ],
+    "text": "One honest note. If you have a handful of domains, and your registrar's forwarding shows the padlock, you're done. Check one in our free Redirect Checker.",
+    "words": 26
+  },
+  {
+    "id": "c15",
+    "beats": [
+      15
+    ],
+    "text": "But two hundred domains, in three accounts, one form at a time? That's how domains get missed. So instead, you write down once where every domain should go. In a spreadsheet.",
+    "words": 31
+  },
+  {
+    "id": "c16",
+    "beats": [
+      16
+    ],
+    "text": "Each row is one domain. Next to it, where it should go. The old product name to its new page. Each country to its own pages. The misspellings to the homepage.",
+    "words": 31
+  },
+  {
+    "id": "c17",
+    "beats": [
+      17
+    ],
+    "text": "Then the kind of redirect. A three-oh-one, the permanent kind, because these moves are for good.",
+    "words": 16,
+    "spoken": {
+      "17": "Then the kind of redirect. A three oh one, the permanent kind, because these moves are for good."
+    }
+  },
+  {
+    "id": "c18",
+    "beats": [
+      18
+    ],
+    "text": "And a tag, a short label for the group. Product. Country. Typo. It pays off later.",
+    "words": 16
+  },
+  {
+    "id": "c19",
+    "beats": [
+      19
+    ],
+    "text": "That one file is the whole plan, and anyone on the team can check it.",
+    "words": 15
+  },
+  {
+    "id": "c20",
+    "beats": [
+      20
+    ],
+    "text": "In RedirHub, it goes in through Links, Create, Import CSV. That's the plain spreadsheet file Excel or Google Sheets can save.",
+    "words": 21,
+    "unused": true
+  },
+  {
+    "id": "c20b",
+    "beats": [
+      20
+    ],
+    "text": "In Redirect Hub, it goes in through Links, Create, Import CSV. That's the plain spreadsheet file Excel or Google Sheets can save.",
+    "words": 21,
+    "alias": "RedirHub -> Redirect Hub",
+    "spoken": {
+      "20": "In Redirect Hub, it goes in through Links, Create, Import CSV. That's the plain spreadsheet file Excel or Google Sheets can save."
+    }
+  },
+  {
+    "id": "c21",
+    "beats": [
+      21
+    ],
+    "text": "Before anything is saved, it shows what will happen. Every domain it adds, and any row that needs a second look.",
+    "words": 21
+  },
+  {
+    "id": "c22",
+    "beats": [
+      22
+    ],
+    "text": "A destination missing its H T T P S? One click fixes all of them. And each domain's double-u double-u double-u version comes along too.",
+    "words": 25,
+    "spoken": {
+      "22": "A destination missing its H T T P S? One click fixes all of them. And each domain's double u double u double u version comes along too."
+    }
+  },
+  {
+    "id": "c23",
+    "beats": [
+      23
+    ],
+    "text": "One thing a spreadsheet can't do is tell the internet where each domain lives. That's DNS, the setting that points a domain somewhere.",
+    "words": 23
+  },
+  {
+    "id": "c24",
+    "beats": [
+      24
+    ],
+    "text": "On Cloudflare, it can connect automatically. Elsewhere, you add the records it shows you. In batches, if you like.",
+    "words": 19
+  },
+  {
+    "id": "c25",
+    "beats": [
+      25
+    ],
+    "text": "And as each domain connects, its padlock is set up, and renewed for it.",
+    "words": 14
+  },
+  {
+    "id": "c26",
+    "beats": [
+      26
+    ],
+    "text": "Then, for the first time, Northway could hear the knocks. Visits, domain by domain.",
+    "words": 14
+  },
+  {
+    "id": "c27",
+    "beats": [
+      27
+    ],
+    "text": "A few weeks in, one stood out. A misspelling. Northway without the H. Sixty-three visits already.",
+    "words": 16,
+    "spoken": {
+      "27": "A few weeks in, one stood out. A misspelling. Northway without the H. Sixty-three visits already."
+    }
+  },
+  {
+    "id": "c28",
+    "beats": [
+      28
+    ],
+    "text": "It had nearly been dropped at the last renewal.",
+    "words": 9
+  },
+  {
+    "id": "c29",
+    "beats": [
+      29
+    ],
+    "text": "Those were customers, typing the name a little wrong. Now they land on the homepage, padlock and all.",
+    "words": 18
+  },
+  {
+    "id": "c30",
+    "beats": [
+      30
+    ],
+    "text": "The domains that stayed quiet all season? At renewal time, Northway knows where to look first.",
+    "words": 16
+  },
+  {
+    "id": "c31",
+    "beats": [
+      31
+    ],
+    "text": "And the tags pay off. Retiring a product? Filter by its tag. Change it once.",
+    "words": 15
+  },
+  {
+    "id": "c32",
+    "beats": [
+      32
+    ],
+    "text": "So. One list. One import. Point the domains. And listen for the knock. That's how to move hundreds of domains at once.",
+    "words": 22
+  },
+  {
+    "id": "c33",
+    "beats": [
       33
     ],
-    "text": "So. One list. One import. Point the names. That's how to redirect hundreds of domains at once. And one thing to know: Glomvo isn't a real company. But this story started with \"imagine\" for a reason. Picture your own names instead. Which one would a founder type in tonight? And would the door open for them? If this helped, subscribe. Links are in the description. And if you're new to redirects, our earlier videos are right here on screen.",
-    "words": 79
+    "text": "Northway isn't a real company, by the way. But this story started with \"imagine\" for a reason.",
+    "words": 17
+  },
+  {
+    "id": "c34",
+    "beats": [
+      34
+    ],
+    "text": "Picture your own list. Which domain would a customer type tonight? And would the door open for them?",
+    "words": 18
+  },
+  {
+    "id": "c35",
+    "beats": [
+      35
+    ],
+    "text": "If this helped, subscribe. Links are in the description. And if you're new to redirects, our earlier videos are right here on screen.",
+    "words": 23
   }
 ]
