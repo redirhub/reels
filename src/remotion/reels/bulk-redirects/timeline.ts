@@ -38,28 +38,33 @@ export function wordEnd(n: number, w: string, k = 0): number {
 /** End of the last spoken word of beat n. */
 export const voEnd = (n: number) => BEATS[n - 1].voEnd ?? end(n);
 /** The knock's cue (its first rap; the sound and the arcs both read it), twice: just after "when someone knocks"
-    (beat 11, w46-Door) and "could hear the knocks" (beat 25, w46-Knocks). */
-export const knockAt = (i: 1 | 2) => (i === 1 ? wordEnd(11, 'knocks') : wordEnd(25, 'knocks')) + 0.06;
-/** The last padlock of the wall lit (w46-Padlocks), with the fixed chime: on "set up" (beat 24). */
-export const padlocksLit = () => word(24, 'up') + 0.1;
+    (beat 13, w46-Door) and "could hear the knocks" (beat 26, w46-Knocks). */
+export const knockAt = (i: 1 | 2) => (i === 1 ? wordEnd(13, 'knocks') : wordEnd(26, 'knocks')) + 0.06;
+/** The last padlock of the wall lit (w46-Padlocks), with the fixed chime: on "set up" (beat 25). */
+export const padlocksLit = () => word(25, 'up') + 0.1;
 
-/** Scene windows: [first beat, last beat], one scene per approved key frame (keyframes.md). Beats 10, 20-21 and
-    31-32 are shared by two frames; those scenes split their beat on a word (see the scene). */
+/** Scene windows: [first beat, last beat], one scene per key frame (keyframes.md, v6). Beat 29 is shared: the
+    knocks hold through "Those were customers, typing the name a little wrong" and the homepage comes in on "Now"
+    (SPLIT). Beats 9-10 and 11-12 are each one scene that changes on a word inside it (see the scene). */
 export const SCENES = {
-    notebook: [1, 2], glomvo: [3, 3], title: [4, 4],
-    renewals: [5, 5], parking: [6, 6], weight: [7, 7],
-    two: [8, 9], warning: [10, 10],
-    door: [11, 11], honest: [12, 12], once: [13, 13],
-    list: [14, 15], columns: [16, 17], product: [18, 21], dns: [22, 23], padlocks: [24, 24],
-    knocks: [25, 26], price: [27, 27], quiet: [28, 28], bytag: [29, 29],
-    recap: [30, 30], yours: [31, 32], end: [33, 33],
+    notebook: [1, 2], northway: [3, 3], onesite: [4, 4], title: [5, 5],
+    renewals: [6, 6], accounts: [7, 7], weight: [8, 8],
+    two: [9, 10], warning: [11, 12],
+    door: [13, 13], honest: [14, 14], once: [15, 15],
+    list: [16, 16], columns: [17, 19], product: [20, 22], dns: [23, 24], padlocks: [25, 25],
+    knocks: [26, 29], price: [29, 29], quiet: [30, 30], bytag: [31, 31],
+    recap: [32, 32], yours: [33, 34], end: [35, 35],
 } as const;
 export type SceneKey = keyof typeof SCENES;
 /** Each scene starts `LAP` s before its first beat so it can fade in over the outgoing one. */
 export const LAP = 0.3;
+/** A cut inside a beat: the knocks end and the homepage begins on beat 29's "Now". */
+const SPLIT = () => word(29, 'now') - 0.15;
 
 export function sceneWindow(k: SceneKey): readonly [number, number] {
     const [a, b] = SCENES[k];
+    if (k === 'knocks') return [at(a) - LAP, SPLIT() + LAP];
+    if (k === 'price') return [SPLIT(), end(b)];
     const start = k === 'notebook' ? 0 : Math.max(0, at(a) - LAP);
     return [start, k === 'end' ? TOTAL : end(b)];
 }

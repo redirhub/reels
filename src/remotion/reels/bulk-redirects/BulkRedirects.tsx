@@ -1,6 +1,7 @@
-/* "How to Redirect Hundreds of Domains at Once (One Spreadsheet)" — 16:9, YouTube W46. A calm story first, a
-   tutorial second: Glomvo holds names; a founder types kipzoo.com, meets a warning page and leaves; one spreadsheet
-   gives every name a door that opens properly and a way to hear the knock. Scenes are <Sequence>s over beat windows
+/* "How to Redirect Hundreds of Domains at Once (One Spreadsheet)" — 16:9, YouTube W46 (v6). A calm story first, a
+   tutorial second: Northway, a small software company, has two hundred domains to move to one website; a customer
+   types a retired product's domain, meets a warning page and leaves; one spreadsheet gives every domain a door that
+   opens properly and a way to hear the knock. Scenes are <Sequence>s over beat windows
    from timeline.ts, built from the approved key frames (frames.gen.tsx); every visual is a function of time.
    Sound: Sarah's voiceover (public/audio/bulk-redirects-vo.mp3, scripts/yt/vo-build.py: eleven_v4 takes, tone-matched,
    gently mastered), Moon Walk under it (public/audio/bulk-redirects-bed.mp3, scripts/yt/bed-build.py: looped once,
@@ -10,8 +11,8 @@ import { loadFont } from '@remotion/fonts';
 import { AbsoluteFill, Html5Audio, Sequence, staticFile, useVideoConfig } from 'remotion';
 import { font } from '../../brand/tokens';
 import { Sfx, type SfxCue } from '../../components/Sfx';
-import { GlomvoScene, NotebookScene, TitleScene } from './ActA';
-import { ParkingScene, RenewalsScene, WeightScene } from './ActB';
+import { NorthwayScene, NotebookScene, OneSiteScene, TitleScene } from './ActA';
+import { AccountsScene, RenewalsScene, WeightScene } from './ActB';
 import { TwoScene, WarningScene } from './ActC';
 import { DoorScene, HonestScene, OnceScene } from './ActD';
 import { ColumnsScene, DnsScene, ListScene, PadlocksScene, ProductScene } from './ActE';
@@ -21,7 +22,7 @@ import type { BulkRedirectsProps } from './props';
 import { SOUND, type Role } from './sound';
 import { TOTAL, at, knockAt, padlocksLit, sceneWindow, word, type SceneKey } from './timeline';
 
-// Instrument Serif (OFL, public/fonts/OFL-instrument-serif.txt): Glomvo's wordmark only.
+// Instrument Serif (OFL, public/fonts/OFL-instrument-serif.txt): Northway's wordmark only.
 if (typeof document !== 'undefined') loadFont({ family: 'Instrument Serif', url: staticFile('fonts/instrument-serif-latin-400.woff2'), weight: '400', format: 'woff2' });
 
 export const BULK_REDIRECTS_SECONDS = TOTAL;
@@ -29,37 +30,38 @@ export const BULK_REDIRECTS_SECONDS = TOTAL;
 const S = (t: number, role: Role, volume: number): SfxCue => [t, SOUND[role], volume];
 /** Effects on story beats only (w46-Sound). No clicks, typing or ticks. */
 const CUES: readonly SfxCue[] = [
-    S(at(4) - 0.3, 'transition', 0.34), // into the title (1 of 2)
-    S(word(10, 'warning') - 0.05, 'problem', 0.3), // the warning page lands (the one low tone)
+    S(at(5) - 0.3, 'transition', 0.34), // into the title (1 of 2)
+    S(word(11, 'warning') - 0.05, 'problem', 0.3), // the warning page lands (the one low tone)
     S(knockAt(1), 'knock', 0.5), // "a way to hear when someone knocks" (knock 1 of 2)
-    S(at(18) - 0.3, 'transition', 0.34), // into the product, Step 2 (2 of 2)
-    S(padlocksLit(), 'fixed', 0.45), // every padlock lit (the signature chime, once)
-    S(knockAt(2), 'knock', 0.5), // "Glomvo could hear the knocks" (knock 2 of 2)
+    S(at(20) - 0.3, 'transition', 0.34), // into the product (2 of 2)
+    S(padlocksLit(), 'fixed', 0.45), // every padlock lit (the signature chime, once: a fix moment)
+    S(knockAt(2), 'knock', 0.5), // "Northway could hear the knocks" (knock 2 of 2)
 ];
 
 const SCENES: readonly [SceneKey, string, (p: BulkRedirectsProps) => ReactNode][] = [
     ['notebook', 'A · Notebook', () => <NotebookScene />],
-    ['glomvo', 'A · Glomvo', () => <GlomvoScene />],
+    ['northway', 'A · Northway', () => <NorthwayScene />],
+    ['onesite', 'A · One website', () => <OneSiteScene />],
     ['title', 'A · Title', () => <TitleScene />],
     ['renewals', 'B · Renewals', () => <RenewalsScene />],
-    ['parking', 'B · Parking', () => <ParkingScene />],
-    ['weight', 'B · Weight', () => <WeightScene />],
+    ['accounts', 'B · Three accounts', () => <AccountsScene />],
+    ['weight', 'B · Which ones people type', () => <WeightScene />],
     ['two', 'C · Two results', () => <TwoScene />],
     ['warning', 'C · Warning → Silence', () => <WarningScene />],
     ['door', 'D · Door', () => <DoorScene />],
     ['honest', 'D · Honest', () => <HonestScene />],
-    ['once', 'D · Once', () => <OnceScene />],
+    ['once', 'D · One file', () => <OnceScene />],
     ['list', 'E · List', () => <ListScene />],
     ['columns', 'E · Columns', () => <ColumnsScene />],
     ['product', 'E · Import → Fix → Review', () => <ProductScene />],
     ['dns', 'E · Point DNS', () => <DnsScene />],
     ['padlocks', 'E · Padlocks', () => <PadlocksScene />],
     ['knocks', 'F · Knocks', (p) => <KnocksScene {...p} />],
-    ['price', 'F · Price', () => <PriceScene />],
+    ['price', 'F · Homepage', () => <PriceScene />],
     ['quiet', 'F · Quiet', () => <QuietScene />],
     ['bytag', 'F · By tag', () => <ByTagScene />],
     ['recap', 'G · Recap', () => <RecapScene />],
-    ['yours', 'G · Your names', () => <YoursScene />],
+    ['yours', 'G · Your list', () => <YoursScene />],
     ['end', 'End card', () => <EndScene />],
 ];
 

@@ -104,7 +104,7 @@ export const reels: Reel[] = [
     {
         id: 'bulk-redirects',
         title: 'How to redirect hundreds of domains at once (YouTube, W46)',
-        description: 'A 16:9 story-led tutorial with voiceover for domain investors: Glomvo holds names; a founder types kipzoo.com, meets a warning page and leaves. One spreadsheet gives every name a door that opens properly, padlock included, and a way to hear the knock: the list, the import in RedirHub, pointing the names, then visits.',
+        description: 'A 16:9 story-led tutorial with voiceover: Northway, a small software company, has two hundred domains to move to one website. A customer types a retired product\'s domain, meets a warning page and leaves. One spreadsheet gives every domain a door that opens properly, padlock included, and a way to hear the knock: the file, the import in RedirHub, pointing the domains, then visits.',
         component: BulkRedirects,
         defaultProps: bulkRedirectsDefaults,
         durationInSeconds: BULK_REDIRECTS_SECONDS,

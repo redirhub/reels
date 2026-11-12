@@ -1,14 +1,8 @@
-/* Scenario data for "How to Redirect Hundreds of Domains at Once (One Spreadsheet)" (YouTube W46). The approved
-   frames (frames.gen.tsx) carry the layouts; the names and copy a scene adds or animates live here. */
-export const NAMES = {
-    team: 'Glomvo',
-    /** The thread. NXDOMAIN, but registered (open-questions.md D-1); Leo kept it (2026-11-10). */
-    kip: 'kipzoo.com',
-    next: 'rimboa.com',
-} as const;
-
+/* Scenario data for "How to Redirect Hundreds of Domains at Once (One Spreadsheet)" (YouTube W46, v6). The frames
+   (frames.gen.tsx, from style-canvas/w46_props.py) carry the layouts and Northway's domains; what a scene animates
+   lives here. */
 export type BulkRedirectsProps = {
-    /** Visits on kipzoo.com in Act F (an Example number, labelled on screen). */
+    /** Visits on the misspelling nortwaysoft.com in Act F (an Example number, labelled on screen). */
     visits: number;
 };
 export const bulkRedirectsDefaults: BulkRedirectsProps = { visits: 63 };

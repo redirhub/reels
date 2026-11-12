@@ -683,7 +683,7 @@ def _sound():
              + '</div></div>'
              f'<div style="display: flex; flex-direction: column; gap: 12px"><span style="font-weight: 700; font-size: 22px; letter-spacing: 0.16em; color: {TEAL}">VOICE · CALMER THAN W44</span><div>{vrows}</div>'
              f'<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px; padding: 14px 20px; border-radius: 14px; background: rgba(255,255,255,0.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14)">'
-             f'<span style="font-weight: 700; font-size: 19px; color: {TEAL}">Changed from W44</span><span style="font-size: 17px; line-height: 1.45; color: {INK_SOFT}">No shimmer, rewind, snap or sparkle. One new cue, the knock. The chime keeps its meaning (fixed). The narrator says “kipzoo”, never https, www or a path. No audio made in this pass.</span></div></div></div>')
+             f'<span style="font-weight: 700; font-size: 19px; color: {TEAL}">Changed from W44</span><span style="font-size: 17px; line-height: 1.45; color: {INK_SOFT}">No shimmer, rewind, snap or sparkle. One new cue, the knock. The chime keeps its meaning (fixed). The narrator never reads a domain aloud (“that old product domain”, “Northway without the h”).</span></div></div></div>')
     return board(inner)
 
 
