@@ -27,10 +27,8 @@ export const C = {
     g700: '#344054', g600: '#475467', g500: '#667085', g400: '#98A2B3', g300: '#D0D5DD', g200: '#EAECF0', g100: '#F2F4F7', g50: '#F9FAFB',
     paper: '#FBF7EF', paper2: '#F4EFE6', paperHi: '#FFF4D6', ink3: '#3B3A36', ink6: '#6B675F', ink8: '#8A8478',
 } as const;
-/** Glomvo's palette: only on Glomvo's own things (its wordmark, lander and cards). */
-export const GLOMVO = { ink: '#2B2722', stone: '#F4F0E8', linen: '#E7E0D4', pebble: '#A79F92' } as const;
 export const MONO = font.mono, DISPLAY = font.display, UI = font.sans;
-/** Instrument Serif (OFL): Glomvo's wordmark only. Loaded by BulkRedirects.tsx. */
+/** Instrument Serif (OFL): Northway's wordmark only. Loaded by BulkRedirects.tsx. */
 export const SERIF = "'Instrument Serif', Georgia, serif";
 
 export const SOFT_SHADOW = '0 30px 70px rgba(16,24,40,0.14), 0 0 0 1px rgba(16,24,40,0.06)';
@@ -46,7 +44,7 @@ const ROOM_BG: Record<Room, string> = {
     sweep: 'linear-gradient(163deg, #1C6DB6 0%, #20A795 86%)',
     radial: 'radial-gradient(111.83% 100% at 50% 100%, #20A795 0%, #1C6DB6 100%)',
     charcoal: 'linear-gradient(#181D27 0%, #101828 100%)',
-    // W46's Evening: navy to night, no glow. Act C (the founder at night), the weight, your names.
+    // W46's Evening: navy to night, no glow. Act C (the customer at night), the weight, your domains.
     evening: 'linear-gradient(170deg, #1A2A55 0%, #0B1426 70%)',
 };
 export const DARK_ROOM: Record<Room, boolean> = { light: false, glow: true, glowTeal: true, sweep: true, radial: true, charcoal: true, evening: true };
