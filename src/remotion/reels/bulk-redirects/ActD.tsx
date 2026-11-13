@@ -68,7 +68,8 @@ export function HonestScene() {
     line lands on "once" and holds. */
 export function OnceScene() {
     const t = useTime(); const L = local('once');
-    const sat = L.word(15, 'three') - 0.2, fixed = L.word(15, 'write');
+    // the forms are there from the cut ("two hundred domains, in three accounts"): the room was empty for 2 s
+    const sat = 0.1, fixed = L.word(15, 'write');
     const moves: Record<number, CSSProperties> = {};
     [0, 1, 2].forEach((i) => { moves[i] = slideIn(t, sat + i * 0.22, 0.55, -36, 0); });
     moves[4] = slideIn(t, L.word(15, 'so') - 0.2, 0.6, 36, 0);

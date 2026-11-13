@@ -40,6 +40,8 @@ export const voEnd = (n: number) => BEATS[n - 1].voEnd ?? end(n);
 /** The knock's cue (its first rap; the sound and the arcs both read it), twice: just after "when someone knocks"
     (beat 13, w46-Door) and "could hear the knocks" (beat 26, w46-Knocks). */
 export const knockAt = (i: 1 | 2) => (i === 1 ? wordEnd(13, 'knocks') : wordEnd(26, 'knocks')) + 0.06;
+/** The warning page lands with the low tone, on "the customer sees" (beat 11). */
+export const warningPageAt = () => word(11, 'customer') - 0.15;
 /** The last padlock of the wall lit (w46-Padlocks), with the fixed chime: on "set up" (beat 25). */
 export const padlocksLit = () => word(25, 'up') + 0.1;
 

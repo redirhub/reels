@@ -39,7 +39,7 @@ export function NorthwayScene() {
     }
     return (
         <FrameScene k="Northway" vars={tiles} moves={{
-            0: slideIn(t, L.word(3, 'northway') - 0.3, 0.6, 0, 18),
+            0: slideIn(t, 0.15, 0.6, 0, 18), // with the cut: waiting for "Northway" left the room empty for 0.7 s
             1: slideIn(t, L.word(3, 'over') - 0.15, 0.55, 0, 22),
         }} />
     );

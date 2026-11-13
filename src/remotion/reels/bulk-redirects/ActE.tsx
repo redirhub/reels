@@ -99,7 +99,7 @@ export function ProductScene() {
     const chooserOut = outK(t, before, 0.25);
     const fixIn = smooth(prog(t, before + 0.2, before + 0.5)), fixOut = outK(t, turn, 0.2);
     const reviewIn = smooth(prog(t, turn + 0.15, turn + 0.45));
-    const csv = slideIn(t, L.word(20, 'plain') - 0.2, 0.5, 0, 14);
+    const csv = slideIn(t, L.word(20, 'csv') - 0.1, 0.5, 0, 14); // holds words ÷ 3 + 1 s before the check docks in
     return (
         <FrameScene k="Import" hide={[1, 2]}
             extra={<>
@@ -130,7 +130,7 @@ export function DnsScene() {
     const conn: Record<string, number> = {};
     [0, 1, 2, 3].forEach((i) => { conn[`--conn-${i}`] = ease(t, batch + i * 0.3, 0.35); });
     return (
-        <FrameScene k="PointDNS" moves={{ 1: slideIn(t, batch + 0.9, 0.55, 0, 14) }} vars={{
+        <FrameScene k="PointDNS" moves={{ 1: slideIn(t, L.word(24, 'elsewhere') - 0.1, 0.55, 0, 14) }} vars={{
             ...hookIn(t, 'panel', L.word(23, 'dns') - 0.2, 0.55, 18),
             '--ring-cf': ring(t, L.word(24, 'cloudflare') - 0.1), '--tab-manual': manual, '--tab-automatic': 1 - manual, ...conn,
         }} />
@@ -153,7 +153,7 @@ export function PadlocksScene() {
         closed[`--o-pc${k}`] = 1 - smooth(prog(t, s + 0.4, s + 0.7));
     }
     return (
-        <FrameScene k="Padlocks" hide={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]} moves={{ 0: slideIn(t, L.word(25, 'renewed') - 0.25, 0.6, 0, 22) }}
+        <FrameScene k="Padlocks" hide={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]} moves={{ 0: slideIn(t, L.word(25, 'padlock') - 0.2, 0.6, 0, 22) }}
             extra={<>
                 {/* the closed wall under the opening doors */}
                 <AbsoluteFill style={closed as CSSProperties}>{X.PadClosed()}</AbsoluteFill>

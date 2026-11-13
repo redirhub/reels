@@ -20,7 +20,7 @@ import { ByTagScene, KnocksScene, PriceScene, QuietScene } from './ActF';
 import { EndScene, RecapScene, YoursScene } from './ActG';
 import type { BulkRedirectsProps } from './props';
 import { SOUND, type Role } from './sound';
-import { TOTAL, at, knockAt, padlocksLit, sceneWindow, word, type SceneKey } from './timeline';
+import { TOTAL, at, knockAt, padlocksLit, sceneWindow, warningPageAt, type SceneKey } from './timeline';
 
 // Instrument Serif (OFL, public/fonts/OFL-instrument-serif.txt): Northway's wordmark only.
 if (typeof document !== 'undefined') loadFont({ family: 'Instrument Serif', url: staticFile('fonts/instrument-serif-latin-400.woff2'), weight: '400', format: 'woff2' });
@@ -31,7 +31,7 @@ const S = (t: number, role: Role, volume: number): SfxCue => [t, SOUND[role], vo
 /** Effects on story beats only (w46-Sound). No clicks, typing or ticks. */
 const CUES: readonly SfxCue[] = [
     S(at(5) - 0.3, 'transition', 0.34), // into the title (1 of 2)
-    S(word(11, 'warning') - 0.05, 'problem', 0.3), // the warning page lands (the one low tone)
+    S(warningPageAt(), 'problem', 0.3), // the warning page lands (the one low tone)
     S(knockAt(1), 'knock', 0.5), // "a way to hear when someone knocks" (knock 1 of 2)
     S(at(20) - 0.3, 'transition', 0.34), // into the product (2 of 2)
     S(padlocksLit(), 'fixed', 0.45), // every padlock lit (the signature chime, once: a fix moment)

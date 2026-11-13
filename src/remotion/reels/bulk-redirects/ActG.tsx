@@ -11,7 +11,10 @@ import { local } from './timeline';
 export function RecapScene() {
     const t = useTime(); const L = local('recap');
     const at = [L.word(32, 'list'), L.word(32, 'import'), L.word(32, 'point'), L.word(32, 'listen')];
-    return <FrameScene k="Recap" vars={Object.assign({}, ...at.map((a, k) => hookIn(t, `step${k}`, a - 0.3, 0.55, 26)))} />;
+    // the four marks wait, dimmed, from the cut and light up one at a time (an empty room for 1 s before "One list")
+    const vars: Record<string, number | string> = {};
+    at.forEach((a, k) => { const q = ease(t, a - 0.3, 0.55); vars[`--o-step${k}`] = 0.2 + 0.8 * q; vars[`--y-step${k}`] = `${((1 - q) * 14).toFixed(2)}px`; });
+    return <FrameScene k="Recap" vars={vars} />;
 }
 
 /** Beats 33–34. The aside pill fades in on "Northway isn't a real company" and the retired product's door steps

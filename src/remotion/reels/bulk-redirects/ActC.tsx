@@ -6,7 +6,7 @@ import { prog, useTime } from '../../lib/anim';
 import { X } from './frames.gen';
 import { FrameScene, Layers } from './scene';
 import { SMOOTH, ease, outK, slideIn, smooth } from './kit';
-import { local } from './timeline';
+import { local, warningPageAt } from './timeline';
 
 /** Beats 9–10. A customer types the retired product's domain (right). On "It forwards to Northway's site" Northway's
     own check comes in on the left, the plain address and the homepage ("it worked"), while the customer's side
@@ -54,7 +54,8 @@ export function WarningScene() {
         const a = leave + 0.6 + i * 0.6, k = prog(t, a, a + 2.6);
         return { opacity: Math.sin(Math.PI * k) * silence, transform: SMOOTH(0, 0, 1.22 - 0.22 * ease(t, a, 2.6)), transformOrigin: '960px 470px' };
     };
-    const page = slideIn(t, L.word(11, 'warning') - 0.35, 0.5, 0, 14);
+    // lands on "the customer sees" (with the low tone): waiting for "warning" left the room empty for 1 s
+    const page = slideIn(t, warningPageAt() - L.start - 0.05, 0.5, 0, 14);
     return (
         <FrameScene k="Warning" moves={{ 0: { ...page, opacity: (page.opacity as number) * away } }} extra={
             <AbsoluteFill style={{ opacity: silence }}>
