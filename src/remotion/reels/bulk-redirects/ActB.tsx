@@ -21,11 +21,12 @@ export function RenewalsScene() {
     return <FrameScene k="Renewals" moves={moves} />;
 }
 
-/** Beat 7. A registrar's forwarding settings arrive on "Most of them forward somewhere"; the line lands on "Set up
+/** Beat 7. A registrar's forwarding settings arrive with the cut ("Most of them forward somewhere"); the line lands on "Set up
     years ago" and holds through "For Northway, that's three accounts". */
 export function AccountsScene() {
     const t = useTime(); const L = local('accounts');
-    return <FrameScene k="Accounts" moves={{ 0: slideIn(t, L.word(7, 'forward') - 0.3, 0.6, -30, 0), 1: slideIn(t, L.word(7, 'set') - 0.2, 0.6, 0, 24) }} />;
+    // the card comes in with the cut (waiting for "forward" left the room empty for 0.3 s, v6 0:51)
+    return <FrameScene k="Accounts" moves={{ 0: slideIn(t, 0.18, 0.6, -30, 0), 1: slideIn(t, L.word(7, 'set') - 0.2, 0.6, 0, 24) }} />;
 }
 
 /** Beat 8. A quiet field of Northway's domains; the line lands on "which ones people still type"; on "a product you

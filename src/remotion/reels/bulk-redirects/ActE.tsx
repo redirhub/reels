@@ -17,6 +17,9 @@ const rows = (t: number, a: number, gap = 0.09) => Object.assign({}, ...[0, 1, 2
 
 /** Where Once's empty sheet sat (scaled 0.9 at 880, 300; 1016 px wide) against the List sheet (122, 360; 1616 px). */
 const ONCE_SHEET = { dx: 880 - 122, dy: 300 - 360, s: (1016 * 0.9) / 1616 };
+/** The three dialogs' boxes [left, top, right, bottom] in composition px (measured on the key-frame stills):
+    the Create chooser (w46-Import), the import's check (w46-Fix) and its review (w46-Review). */
+const DIALOG = [[461, 240, 1388, 733], [446, 280, 1402, 709], [461, 190, 1388, 754]] as const;
 /** The List sheet's body rows (composition px): the first starts under the header at y 501, 57 px a row. */
 const ROW = (i: number) => 501 + i * 57;
 
@@ -77,34 +80,42 @@ export function ColumnsScene() {
 export function ProductScene() {
     const t = useTime(); const L = local('product');
     const create = L.word(20, 'create'), before = L.word(21, 'before') - 0.35;
-    const chooserOut = outK(t, before, 0.35);
-    const chooser: CSSProperties = { ...popIn(t, create - 0.15, 0.5, 0.94), transformOrigin: '960px 560px' };
-    // it docks back (a touch smaller) and is gone before the check docks in: two half-transparent dialogs read as a mess
-    if (t > before) chooser.transform = `scale(${0.97 + 0.03 * chooserOut}) rotate(0.02deg)`;
+    const chooserIn: CSSProperties = { ...popIn(t, create - 0.15, 0.5, 0.94), transformOrigin: '960px 560px' };
     const anyRow = L.word(21, 'any') - 0.1;
     const click = L.word(22, 'click');
     const press = Math.sin(Math.PI * prog(t, click, click + 0.22));
     const clears = click + 0.35, turn = L.word(22, 'all') - 0.05;
-    const fixIn: CSSProperties = { ...popIn(t, before + 0.22, 0.5, 0.95), transformOrigin: '960px 560px' };
-    const reviewIn = smooth(prog(t, turn, turn + 0.35));
-    const fixOut = outK(t, turn + 0.25, 0.3);
+    // One card, three contents (shared element): a solid white card sits behind the dialogs and morphs from the
+    // chooser's box to the check's, then to the review's, while only the contents crossfade on it. Two half-
+    // transparent dialogs let the dashboard rows show through mid-change (flash_check, v6 2:52).
+    const m1 = ease(t, before, 0.45), m2 = ease(t, turn, 0.4);
+    const box = (k: 0 | 1 | 2 | 3) => DIALOG.map((b) => b[k]);
+    const at = (k: 0 | 1 | 2 | 3) => { const [a, b, c] = box(k); return a + (b - a) * m1 + (c - b) * m2; };
+    const card: CSSProperties = {
+        position: 'absolute', left: at(0), top: at(1), width: at(2) - at(0), height: at(3) - at(1), borderRadius: 23, background: '#FFFFFF',
+        boxShadow: '0 30px 80px rgba(16,24,40,0.35), 0 0 0 1px rgba(16,24,40,0.08)',
+        ...(t < before ? { opacity: chooserIn.opacity, transform: chooserIn.transform, transformOrigin: '960px 560px' } : {}),
+    };
+    const chooserOut = outK(t, before, 0.25);
+    const fixIn = smooth(prog(t, before + 0.2, before + 0.5)), fixOut = outK(t, turn, 0.2);
+    const reviewIn = smooth(prog(t, turn + 0.15, turn + 0.45));
     const csv = slideIn(t, L.word(20, 'plain') - 0.2, 0.5, 0, 14);
     return (
         <FrameScene k="Import" hide={[1, 2]}
             extra={<>
-                {/* the chooser, then its CSV caption, both leaving on "Before anything is saved" */}
-                <Layers k="Import" hide={[0]} vars={{ '--ring-csv': ring(t, L.word(20, 'import') - 0.1) }} moves={{
-                    1: { ...chooser, opacity: (chooser.opacity as number) * chooserOut },
-                    2: { ...csv, opacity: (csv.opacity as number) * chooserOut },
-                }} />
                 {/* the Import CSV breadcrumb arrives with the check: Fix's dashboard over Import's (same shell) */}
                 <Layers k="Fix" hide={[1, 2]} moves={{ 0: { opacity: smooth(prog(t, before, before + 0.35)) } }} />
+                <div style={card} />
+                {/* the chooser, then its CSV caption, both leaving on "Before anything is saved" */}
+                <Layers k="Import" hide={[0]} vars={{ '--ring-csv': ring(t, L.word(20, 'import') - 0.1) }} moves={{
+                    1: t < before ? chooserIn : { opacity: chooserOut },
+                    2: { ...csv, opacity: (csv.opacity as number) * outK(t, before, 0.35) },
+                }} />
                 <Layers k="Fix" hide={[0]} vars={{
                     '--clip-errs': `${((1 - ease(t, anyRow, 0.5)) * 100).toFixed(2)}%`, '--o-errs': smooth(prog(t, anyRow, anyRow + 0.25)) * outK(t, clears, 0.35),
                     '--y-btn': `${(press * 2).toFixed(2)}px`, '--ring-fix': 1 - 0.5 * press,
-                }} moves={{ 1: { ...fixIn, opacity: (fixIn.opacity as number) * fixOut }, 2: { opacity: smooth(prog(t, before + 0.3, before + 0.7)) } }} />
-                <Layers k="Review" hide={[0, 2]} vars={{ '--ring-www': ring(t, L.word(22, 'each') - 0.1) }}
-                    moves={{ 1: { opacity: reviewIn, transform: `translate3d(0, ${((1 - reviewIn) * 10).toFixed(2)}px, 0) rotate(0.02deg)` } }} />
+                }} moves={{ 1: { opacity: fixIn * fixOut }, 2: { opacity: smooth(prog(t, before + 0.3, before + 0.7)) } }} />
+                <Layers k="Review" hide={[0, 2]} vars={{ '--ring-www': ring(t, L.word(22, 'each') - 0.1) }} moves={{ 1: { opacity: reviewIn } }} />
             </>} />
     );
 }
