@@ -130,7 +130,7 @@ export function DnsScene() {
     const conn: Record<string, number> = {};
     [0, 1, 2, 3].forEach((i) => { conn[`--conn-${i}`] = ease(t, batch + i * 0.3, 0.35); });
     return (
-        <FrameScene k="PointDNS" moves={{ 1: slideIn(t, L.word(24, 'elsewhere') - 0.1, 0.55, 0, 14) }} vars={{
+        <FrameScene k="PointDNS" moves={{ 1: slideIn(t, L.readBy(L.word(24, 'elsewhere') - 0.1, 10), 0.55, 0, 14) }} vars={{
             ...hookIn(t, 'panel', L.word(23, 'dns') - 0.2, 0.55, 18),
             '--ring-cf': ring(t, L.word(24, 'cloudflare') - 0.1), '--tab-manual': manual, '--tab-automatic': 1 - manual, ...conn,
         }} />
@@ -153,7 +153,7 @@ export function PadlocksScene() {
         closed[`--o-pc${k}`] = 1 - smooth(prog(t, s + 0.4, s + 0.7));
     }
     return (
-        <FrameScene k="Padlocks" hide={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]} moves={{ 0: slideIn(t, L.word(25, 'padlock') - 0.2, 0.6, 0, 22) }}
+        <FrameScene k="Padlocks" hide={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]} moves={{ 0: slideIn(t, L.readBy(L.word(25, 'padlock') - 0.2, 7), 0.6, 0, 22) }}
             extra={<>
                 {/* the closed wall under the opening doors */}
                 <AbsoluteFill style={closed as CSSProperties}>{X.PadClosed()}</AbsoluteFill>

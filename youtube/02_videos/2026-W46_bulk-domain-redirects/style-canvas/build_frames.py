@@ -524,7 +524,7 @@ def _knocks():
              + f'<div style="position: absolute; left: 120px; top: 520px; display: flex; align-items: center; gap: 16px">{ex_label(light=False)}'
              f'<span style="font-size: 24px; color: {INK_SOFT}">Channel: Direct</span></div>'
              + caption('Customers, typing the name a little wrong.', x=120, y=640, w=740, size=44)
-             + place(1170, 200, door(370, 'open', knock=3, label=TYPO)))
+             + place(1170, 200, door(370, 'open', knock=3, label=TYPO, label_hook='dlabel')))
     return frame('charcoal', inner)
 
 

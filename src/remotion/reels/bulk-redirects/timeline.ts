@@ -78,6 +78,10 @@ export function local(k: SceneKey) {
         at: (n: number) => at(n) - s, end: (n: number) => end(n) - s, voEnd: (n: number) => voEnd(n) - s,
         word: (n: number, w: string, i = 0) => word(n, w, i) - s, wordEnd: (n: number, w: string, i = 0) => wordEnd(n, w, i) - s,
         start: s, len: e - s,
+        /** When an on-screen line of `words` words must land: on its word (`anchor`, scene-local), or earlier when
+            that would leave it less than the hold rule before the scene's cut (max(1 s, words ÷ 3 + 1 s), counted
+            from when it is readable, about 0.25 s into its rise, plus 0.1 s of margin). */
+        readBy: (anchor: number, words: number) => Math.min(anchor, e - s - LAP - Math.max(1, words / 3 + 1) - 0.35),
     };
 }
 export type Local = ReturnType<typeof local>;

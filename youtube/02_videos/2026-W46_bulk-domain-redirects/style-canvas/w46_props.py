@@ -58,7 +58,7 @@ def homepage(w=980, h=560):
 # A name is a door: a tall slab with a padlock as its keystone. Closed: dark, outlined. Open: a teal light spills from its
 # edge (the padlock is teal). Broken: the light is signal red and the padlock's shackle hangs open. A visit is a knock:
 # three arcs leaving the door's edge. The same glyph, small, is the slot on every name tile, so it is there from frame one.
-def door(w=200, state='closed', dark=True, knock=0, label=None, uid='', show_knock=True):
+def door(w=200, state='closed', dark=True, knock=0, label=None, uid='', show_knock=True, label_hook=None):
     """The motif, kept minimal (Leo, Review 2). A name is an arched doorway with a small padlock at its centre.
     closed: a thin outline, the padlock drawn in outline (unlit). open: the arch fills with teal light, a soft glow
     around it, the padlock solid white (the door opens properly, padlock included). broken (unused in frames): the
@@ -117,7 +117,7 @@ def door(w=200, state='closed', dark=True, knock=0, label=None, uid='', show_kno
     svg = (f'<svg width="{vbw:.0f}" height="{vbh:.0f}" viewBox="0 0 {vbw:.1f} {vbh:.1f}" aria-hidden="true" style="display: block; flex: none; overflow: visible">{out}</svg>')
     if label:
         return (f'<div style="display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: {w:.0f}px">{svg}'
-                f'<span style="{MONO}; font-size: {max(18, w * 0.11):.0f}px; font-weight: 600; color: {INK if dark else CHAR}; white-space: nowrap">{label}</span></div>')
+                f'<span{f" data-o=\"{label_hook}\"" if label_hook else ""} style="{MONO}; font-size: {max(18, w * 0.11):.0f}px; font-weight: 600; color: {INK if dark else CHAR}; white-space: nowrap">{label}</span></div>')
     return svg
 
 

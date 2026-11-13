@@ -28,10 +28,12 @@ export function KnocksScene({ visits }: BulkRedirectsProps) {
         <FrameScene k="Knocks" moves={{
             0: slideIn(t, L.word(27, 'few') - 0.25, 0.55, 0, 18),
             1: slideIn(t, L.word(29, 'customers') - 0.1, 0.5, 0, 10),
-            2: slideIn(t, L.word(29, 'those') - 0.2, 0.55, 0, 16),
+            2: slideIn(t, L.readBy(L.word(29, 'those') - 0.2, 7), 0.55, 0, 16),
         }} vars={{
             ...arcs, '--count-visits': Math.round(visits * roll),
             ...hookIn(t, 'sticky', L.word(28, 'nearly') - 0.3, 0.45, 12),
+            // the door is just a door until "A misspelling" names it (fresh-eyes review: it was on screen 9 s early)
+            ...hookIn(t, 'dlabel', L.word(27, 'misspelling') - 0.2, 0.5, 8),
             '--clipx-strike': `${((1 - ease(t, L.word(28, 'renewal') - 0.05, 0.4)) * 100).toFixed(2)}%`,
         }} />
     );
@@ -44,7 +46,7 @@ export function PriceScene() {
     const land = ease(t, L.word(29, 'land') - 0.1, 0.5);
     return (
         <FrameScene k="Price" moves={{
-            0: slideIn(t, L.word(29, 'now') - 0.05, 0.55, 0, 20),
+            0: slideIn(t, L.readBy(L.word(29, 'now') - 0.05, 6), 0.55, 0, 20),
             1: { ...popIn(t, 0.0, 0.6, 0.97), transformOrigin: '960px 590px' },
         }} vars={{ '--o-typed': 1 - land, '--o-url': land }} />
     );
@@ -71,7 +73,7 @@ export function QuietScene() {
             1: { clipPath: `inset(0 ${(1920 - 120 - 822 * look).toFixed(1)}px 0 0)`, opacity: look > 0 ? 1 : 0 },
             2: { opacity: smooth(prog(t, 0.2, 0.6)) },
             3: slideIn(t, L.word(30, 'quiet') - 0.2, 0.55, 0, 18),
-            4: slideIn(t, L.word(30, 'season') + 0.2, 0.55, 0, 14), // 9 words: holds 4 s before the cut
+            4: slideIn(t, L.readBy(L.word(30, 'season') + 0.2, 9), 0.55, 0, 14),
         }} vars={vars} />
     );
 }
@@ -83,7 +85,7 @@ export function ByTagScene() {
     const filter = L.word(31, 'filter') - 0.1, change = L.word(31, 'change') - 0.15;
     const dialog: CSSProperties = { ...popIn(t, change, 0.5, 0.94), transformOrigin: '960px 520px' };
     return (
-        <FrameScene k="ByTag" hide={[1, 2, 3]} moves={{ 0: slideIn(t, L.word(31, 'product') - 0.1, 0.55, 0, 18) }} extra={<>
+        <FrameScene k="ByTag" hide={[1, 2, 3]} moves={{ 0: slideIn(t, L.readBy(L.word(31, 'product') - 0.1, 7), 0.55, 0, 18) }} extra={<>
             {/* each state over the last, opaque (no half-and-half dip): all links, filtered and checked, then the dialog */}
             <AbsoluteFill>{X.ByTagAll()}</AbsoluteFill>
             <AbsoluteFill style={{ opacity: smooth(prog(t, filter, filter + 0.4)) }}>{X.ByTagPicked()}</AbsoluteFill>

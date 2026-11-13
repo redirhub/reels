@@ -40,7 +40,7 @@ export function DoorScene() {
             // the open door, revealed top-down over the closed one: the light fills it
             0: { ...born, ...fillDown(DOOR_BOX.top, DOOR_BOX.bottom, light) },
             1: slideIn(t, L.word(13, 'every') - 0.2, 0.6, 0, 22),
-        }} vars={{ ...item(1, L.word(13, 'door') - 0.2), ...item(2, L.word(13, 'and') - 0.15), ...arcs }}
+        }} vars={{ ...item(1, L.word(13, 'door') - 0.2), ...item(2, L.readBy(L.word(13, 'and') - 0.15, 7)), ...arcs }}
             extra={<AbsoluteFill style={{ ...born, opacity: 1 - smooth(prog(t, L.word(13, 'opens') + 0.6, L.word(13, 'opens') + 1.0)) }}>{X.DoorClosed()}</AbsoluteFill>}
         />
     );

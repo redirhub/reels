@@ -17,7 +17,7 @@ export function RenewalsScene() {
     const a = L.word(6, 'renews') - 0.1, sweep = Math.max(2.0, L.word(6, 'whether') - a);
     const moves: Record<number, CSSProperties> = { 0: slideIn(t, 0.05, 0.5, 0, 18) };
     MONTHS.forEach((m, k) => { moves[15 + 3 * k] = popIn(t, a + (m / 11) * sweep, 0.4, 0.8); });
-    moves[37] = slideIn(t, L.word(6, 'whether') - 0.1, 0.5, 0, 10);
+    moves[37] = slideIn(t, L.readBy(L.word(6, 'whether') - 0.1, 7), 0.5, 0, 10);
     return <FrameScene k="Renewals" moves={moves} />;
 }
 

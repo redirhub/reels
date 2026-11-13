@@ -26,10 +26,11 @@ export function TwoScene() {
     const right: CSSProperties = { opacity: smooth(prog(t, 0.0, 0.45)) * focus };
     return (
         <FrameScene k="TwoResults" hide={[3]} moves={{
-            0: slideIn(t, check, 0.5, -20, 0),
+            // the caption names the check on "Someone checked that once" (fresh-eyes review: it came 2 s early, on "forwards")
+            0: slideIn(t, L.word(9, 'someone') - 0.2, 0.5, -20, 0),
             1: slideIn(t, check + 0.1, 0.6, -40, 0),
             2: { ...slideIn(t, L.word(10, 'asks') - 0.2, 0.5, 20, 0) },
-            4: slideIn(t, L.word(10, 'some') - 0.2, 0.55, 0, 18),
+            4: slideIn(t, L.readBy(L.word(10, 'some') - 0.2, 10), 0.55, 0, 18),
         }} vars={{ '--clipx-kip': `${((1 - typed) * 100).toFixed(2)}%`, '--o-caret': caret * (1 - secure) }}
             extra={<>
                 {/* the plain address stays opaque underneath while the https:// state fades in over it: two half-transparent
