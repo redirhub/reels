@@ -13,8 +13,8 @@ import { knockAt, local } from './timeline';
 const SLOT = { x: 960, y: 470 }, DOOR = { x: 405, y: 487 };
 /** The open door's light, top to bottom: its glow (w46_props.door: cy 0.55 dh, ry 0.72 dh) and the label under it. */
 const DOOR_BOX = { top: 150, bottom: 880 };
-/** The knock's three raps, seconds after its cue (public/audio/bulk-redirects/knock.wav). */
-const RAPS = [0, 0.101, 0.203];
+/** The knock's three raps, seconds after its cue (public/audio/bulk-redirects/knock.wav, Mixkit 197). */
+const RAPS = [0, 0.176, 0.368];
 
 /** Beat 13. The retired product's domain, alone at the end of the Silence, grows into a closed door (shared element). On "a door that
     opens properly" teal light fills it from the top down and the padlock turns solid; the two lines land with
@@ -58,7 +58,8 @@ export function HonestScene() {
     return (
         <FrameScene k="Honest" moves={{
             0: slideIn(t, L.word(14, 'one') - 0.25, 0.6, -40, 0),
-            1: slideIn(t, check - 0.3, 0.55, 30, 0),
+            // the checker waits on the right from "shows the padlock" (the right half sat empty for 6 s) and runs on "Check one"
+            1: slideIn(t, L.word(14, 'padlock') - 0.3, 0.55, 30, 0),
         }} vars={{ ...hop(1, check + 0.35), ...hop(2, check + 0.8) }} />
     );
 }

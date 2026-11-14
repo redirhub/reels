@@ -116,8 +116,12 @@ def door(w=200, state='closed', dark=True, knock=0, label=None, uid='', show_kno
     vbh = yb + pad
     svg = (f'<svg width="{vbw:.0f}" height="{vbh:.0f}" viewBox="0 0 {vbw:.1f} {vbh:.1f}" aria-hidden="true" style="display: block; flex: none; overflow: visible">{out}</svg>')
     if label:
+        # the knock arcs make the drawing wider than the door, and centring that wider drawing moves the door left by
+        # half the extra; the label moves left with it (a margin, so a motion hook's transform stays free), so it sits
+        # centred under the door, not under door + arcs (Leo, 2026-11-14: "the url is not centered under the gate")
+        shift = f' margin-left: -{vbw - w:.0f}px;' if vbw > w else ''
         return (f'<div style="display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: {w:.0f}px">{svg}'
-                f'<span{f" data-o=\"{label_hook}\"" if label_hook else ""} style="{MONO}; font-size: {max(18, w * 0.11):.0f}px; font-weight: 600; color: {INK if dark else CHAR}; white-space: nowrap">{label}</span></div>')
+                f'<span{f" data-o=\"{label_hook}\"" if label_hook else ""} style="{MONO}; font-size: {max(18, w * 0.11):.0f}px; font-weight: 600; color: {INK if dark else CHAR}; white-space: nowrap;{shift}">{label}</span></div>')
     return svg
 
 
@@ -180,7 +184,10 @@ def notebook(w=1400, h=760):
               f'<circle cx="69" cy="100" r="9" fill="none" stroke="{PEN2}" stroke-width="3"></circle>'
               f'<path d="M170 40q40 -10 70 20M170 90q50 0 80 30M170 140q30 10 60 0" fill="none" stroke="{PEN3}" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"></path></svg>')
     left = (f'<div style="position: absolute; left: 0; top: 0; width: {pw:.0f}px; height: {h}px; box-sizing: border-box; padding: 60px 70px; background: {PAPER}; background-image: {ln}">'
-            f'<div style="display: flex; flex-direction: column; gap: 18px">{pen("the idea", 26, f"letter-spacing: 0.12em; text-transform: uppercase; color: {PEN3}")}'
+            # the company's name, written as the voice gives it ("Let's call it Northway"; hook nwname): before this the
+            # name was only heard until the wordmark at 0:19 (fresh-eyes review, R-1)
+            f'<div style="display: flex; flex-direction: column; gap: 18px"><div data-o="nwname" style="margin-bottom: 10px">{pen("Northway", 52, "font-weight: 700; letter-spacing: -0.01em")}</div>'
+            f'{pen("the idea", 26, f"letter-spacing: 0.12em; text-transform: uppercase; color: {PEN3}")}'
             f'{pen("A scheduling app for clinics", 36)}'
             f'{pen("booking by phone?", 30, "text-decoration: line-through; text-decoration-thickness: 3px; color: " + PEN3)}'
             f'{pen("reminders by text", 30)}'

@@ -8,7 +8,7 @@ Words in [brackets] are ElevenLabs v3 delivery tags. They're performed, not spok
 eleven_v4 without tags: `voiceover/make_chunks.py`.)
 
 ## A · Your company  ·  current video 0:00–0:31
-1. [warm] Imagine your company. Let's call it Northway, a small software company.
+1. [warm] Imagine you have a company. Let's call it Northway, a small software company.
 2. Every product it launched started the same way: buy the domain first. Then one for each country. A few misspellings, so nobody else grabs your visitors. And the old name, from before the rebrand.
 3. [thoughtful] Today, Northway owns over two hundred domains. Whatever your business is, your list probably grew the same way.
 4. [matter-of-fact] Now you're bringing all your products together on one website, so customers find everything in one place. That means every one of those two hundred domains needs a new destination.
@@ -51,7 +51,7 @@ eleven_v4 without tags: `voiceover/make_chunks.py`.)
 31. And the tags pay off. Retiring a product? Filter by its tag. Change it once.
 
 ## G · Your list  ·  current video 3:33–4:07
-32. So. One list. One import. Point the domains. And listen for the knock. That's how to move hundreds of domains at once.
+32. So. One list. One import. Point the domains. That's how to move hundreds of domains at once.
 33. [lightly] Northway isn't a real company, by the way. But this story started with "imagine" for a reason.
 34. [thoughtful] Picture your own list. Which domain would a customer type tonight? And would the door open for them?
 35. [warm] If this helped, subscribe. Links are in the description. And if you're new to redirects, our earlier videos are right here on screen.

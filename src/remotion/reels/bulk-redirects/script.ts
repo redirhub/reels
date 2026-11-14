@@ -4,7 +4,7 @@ export type Beat = { n: number; vo: string; visual: string };
 export const SCRIPT_BEATS: readonly Beat[] = [
     {
         "n": 1,
-        "vo": "Imagine your company. Let's call it Northway, a small software company.",
+        "vo": "Imagine you have a company. Let's call it Northway, a small software company.",
         "visual": "w46-Notebook"
     },
     {
@@ -159,7 +159,7 @@ export const SCRIPT_BEATS: readonly Beat[] = [
     },
     {
         "n": 32,
-        "vo": "So. One list. One import. Point the domains. And listen for the knock. That's how to move hundreds of domains at once.",
+        "vo": "So. One list. One import. Point the domains. That's how to move hundreds of domains at once.",
         "visual": "w46-Recap"
     },
     {

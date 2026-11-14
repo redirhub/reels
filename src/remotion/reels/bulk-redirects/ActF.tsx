@@ -11,7 +11,7 @@ import { knockAt, local } from './timeline';
 import type { BulkRedirectsProps } from './props';
 
 /** The knock's three raps, seconds after its cue (as ActD). */
-const RAPS = [0, 0.101, 0.203];
+const RAPS = [0, 0.176, 0.368];
 
 /** Beats 26–29 (to "Now"). The open door; on "could hear the knocks" the knock sounds and its arcs leave the door,
     one per rap. The misspelling's tile arrives on "A few weeks in, one stood out" and its count rolls to the visits

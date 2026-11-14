@@ -4,8 +4,8 @@
     "beats": [
       1
     ],
-    "text": "Imagine your company. Let's call it Northway, a small software company.",
-    "words": 11
+    "text": "Imagine you have a company. Let's call it Northway, a small software company.",
+    "words": 13
   },
   {
     "id": "c02",
@@ -274,8 +274,8 @@
     "beats": [
       32
     ],
-    "text": "So. One list. One import. Point the domains. And listen for the knock. That's how to move hundreds of domains at once.",
-    "words": 22
+    "text": "So. One list. One import. Point the domains. That's how to move hundreds of domains at once.",
+    "words": 17
   },
   {
     "id": "c33",

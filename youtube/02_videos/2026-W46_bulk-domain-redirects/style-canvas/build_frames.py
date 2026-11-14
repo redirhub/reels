@@ -100,12 +100,12 @@ def _world():
         ('C', 'A customer types it', typing_browser(560, 150, body=f'<div style="height: 86px; background: #FFFFFF"></div>')),
         ('E', 'A row in the file', sheet(560, rows=sheet_rows()[:1], show_more=False, row_h=52)),
         ('F', 'Northway without the h: 63 visits', f'<div style="display: flex; flex-direction: column; gap: 14px">{stick}{ex_label()}</div>'),
-        ('G', 'The door in the question', door(140, 'open', dark=False, knock=2, label=RETIRED)),
+        ('G', 'Connected at last', recap_hosts_row(RETIRED)),
     ]
     thread = (f'<div style="display: flex; gap: 46px; align-items: flex-start">'
               + ''.join(f'<div style="display: flex; flex-direction: column; gap: 18px"><span style="font-size: 22px; font-weight: 800; color: {TEAL}">{a}</span>'
                         f'<span style="font-size: 24px; font-weight: 700; color: {CHAR}">{b}</span>{c}</div>' for a, b, c in thread_items) + '</div>'
-              + f'<span style="display: block; margin-top: 34px; width: 2900px">' + note(f'Two domains carry the story, each always the same white tile in JetBrains Mono. {mono(RETIRED)}, a retired product, is the one people still type (B), the customer who meets a warning page (C), a row in the file (E) and the door in the closing question (G). {mono(TYPO)}, “Northway without the h”, is the misspelling with 63 visits that had nearly been dropped (F). The narrator never reads a domain aloud.') + '</span>')
+              + f'<span style="display: block; margin-top: 34px; width: 2900px">' + note(f'Two domains carry the story, each always the same white tile in JetBrains Mono. {mono(RETIRED)}, a retired product, is the one people still type (B), the customer who meets a warning page (C), a row in the file (E) and, in the summary, one of the hostnames connected at last (G). {mono(TYPO)}, “Northway without the h”, is the misspelling with 63 visits that had nearly been dropped (F). The narrator never reads a domain aloud.') + '</span>')
 
     # 4 · the motif (dark panel)
     st = [('closed', 0, '1 · Closed', 'A domain with nowhere safe to go: a thin outline, the padlock unlit.'),
@@ -116,7 +116,7 @@ def _world():
              + ''.join(f'<div style="display: flex; flex-direction: column; gap: 22px; width: {440 if k else 300}px">{door(200, s_, knock=k)}'
                        f'<span style="font-size: 26px; font-weight: 800; color: {INK}">{t}</span><span style="font-size: 21px; line-height: 1.45; color: {INK_SOFT}">{d}</span></div>' for s_, k, t, d in st)
              + '</div>'
-             + f'<span style="display: block; margin-top: 34px; width: 2900px">' + dnote('Every domain is a door that has to open properly, padlock included; a visit is a knock Northway needs to hear. Born at “Every domain needed two things” (beat 13), paid off in “Hearing the knock” and in the closing question. Drawn, never cartoon: no handle, hinges or wood. The move “knock” means only one thing: someone came looking.') + '</span>')
+             + f'<span style="display: block; margin-top: 34px; width: 2900px">' + dnote('Every domain is a door that has to open properly, padlock included; a visit is a knock Northway needs to hear. Born at “Every domain needed two things” (beat 13), paid off in “Hearing the knock” (F). The film then leaves it: the summary and the question are about the method and the viewer’s own list. Drawn, never cartoon: no handle, hinges or wood. The move “knock” means only one thing: someone came looking.') + '</span>')
 
     # 5 · the notebook and the customer
     people = (f'<div style="display: flex; gap: 50px; align-items: flex-start">'
@@ -572,44 +572,91 @@ def _bytag():
 
 
 # ================================================================ ACT G · Close
-@F('w46-Recap', 'List · Import · Point · Listen')
+RECAP_HOSTS = ['clinvane.com', 'rostavia.com', 'northwaysoft.de', TYPO, RETIRED]
+LOCK_T = ('<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#20A795" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+          '<rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>')
+
+
+def recap_hosts_row(name):
+    """One Hostnames row, Connected, with its padlock (the World board's thread, G)."""
+    return (f'<div data-ui="card" style="width: 460px; display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 22px; border-radius: 14px; background: #FFFFFF; box-shadow: {SOFT_SHADOW}; {UI}">'
+            f'{LOCK_T}<span style="{MONO}; font-size: 16px; flex: 1; color: #181D27">{name}</span>'
+            f'<span style="font-size: 13px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: #ECFDF3; color: #067647">Connected</span></div>')
+
+
+def recap_import():
+    """The import's review, small: the real strings ("Adds {d} domains and {l} links, updates {u} links", "Import {n}
+    changes"), the file it came from."""
+    return (f'<div data-ui="card" style="width: 410px; border-radius: 18px; background: #FFFFFF; box-shadow: {SOFT_SHADOW}; {UI}; color: #181D27; overflow: hidden">'
+            f'<div style="padding: 24px 26px 18px; display: flex; flex-direction: column; gap: 12px">'
+            f'<span style="font-size: 19px; font-weight: 600">Import CSV</span>'
+            f'<span style="align-self: flex-start; {MONO}; font-size: 14px; padding: 5px 10px; border-radius: 8px; background: #F2F4F7; color: #344054">northway-domains.csv</span>'
+            f'<span style="font-size: 22px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; margin-top: 6px">Adds 214 domains and 214 links, updates 0 links</span></div>'
+            f'<div style="padding: 16px 26px; border-top: 1px solid #EAECF0; background: #F9FAFB; display: flex; justify-content: flex-end">'
+            f'<span style="{BTN_P}; height: 42px; font-size: 15px">Import 214 changes</span></div></div>')
+
+
+def recap_hosts():
+    """Hostnames, small: every row Connected with its padlock. A row turns from Waiting for DNS to Connected through
+    --rc<i> (unset = Connected, the frame's settled state)."""
+    def badge(t, on):
+        return (f'<span style="font-size: 13px; font-weight: 700; padding: 4px 9px; border-radius: 6px; '
+                + ('background: #ECFDF3; color: #067647' if on else 'background: #F2F4F7; color: #475467') + f'">{t}</span>')
+    rows = ''.join(
+        f'<div style="display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 22px; border-top: 1px solid #EAECF0">'
+        f'<span style="display: flex; opacity: var(--rc{i}, 1)">{LOCK_T}</span>'
+        f'<span style="{MONO}; font-size: 16px; flex: 1; color: #181D27">{n}</span>'
+        f'<span style="display: inline-grid; justify-items: end"><span style="grid-area: 1 / 1; display: flex; opacity: calc(1 - var(--rc{i}, 1))">{badge("Waiting for DNS", False)}</span>'
+        f'<span style="grid-area: 1 / 1; display: flex; opacity: var(--rc{i}, 1)">{badge("Connected", True)}</span></span></div>'
+        for i, n in enumerate(RECAP_HOSTS))
+    return (f'<div data-ui="card" style="width: 500px; border-radius: 18px; background: #FFFFFF; box-shadow: {SOFT_SHADOW}; {UI}; overflow: hidden">'
+            f'<div style="padding: 22px 22px 18px; display: flex; align-items: center; justify-content: space-between">'
+            f'<span style="font-size: 19px; font-weight: 600; color: #181D27">Hostnames</span>'
+            f'<span style="font-size: 14px; color: #535862">214 domains</span></div>{rows}</div>')
+
+
+@F('w46-Recap', 'One list, one import, point the domains')
 def _recap():
-    icons = [scaled(sheet(420, rows=sheet_rows()[:3], show_more=False, row_h=40), 0.62, 476, 260),
-             f'<div style="width: 296px; height: 200px; display: flex; align-items: center; justify-content: center"><span style="{BTN_P}; height: 64px; font-size: 26px; padding: 0 30px">Import CSV</span></div>',
-             f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", uid="r")}</div>',
-             f'<div style="width: 238px; height: 240px; display: flex; align-items: center; justify-content: center">{door(140, "open", knock=2, uid="r2")}</div>']
-    steps = ''.join(f'<div data-o="step{k}" style="display: flex; flex-direction: column; align-items: center; gap: 28px; width: 360px"><div data-ui="icon" style="height: 240px; display: flex; align-items: center">{ic}</div>'
-                    f'<span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em">{t}</span></div>' for k, (ic, t) in enumerate(zip(icons, ('List', 'Import', 'Point', 'Listen'))))
-    inner = f'<div style="position: absolute; left: 120px; top: 300px; width: 1680px; display: flex; justify-content: space-between">{steps}</div>'
+    """v6.1 (Leo, 2026-11-14): the summary is the film's own three objects, not a row of icons, and no door. The list,
+    the import and the pointed domains, joined by the film's draw move (as w46-OneSite); the spoken summary builds
+    above them, phrase by phrase."""
+    head = headline('<span data-o="r0">One list.</span> <span data-o="r1">One import.</span> <span data-o="r2">Point the domains.</span>',
+                    x=120, y=180, size=64, w=1680)
+    lst = scaled(sheet(960, rows=sheet_rows()[:5], show_more=False, row_h=52), 0.62, 595, 332, x=120, y=420)
+    links = (f'<svg style="position: absolute; left: 712px; top: 446px" width="600" height="300" viewBox="0 0 600 300" aria-hidden="true" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="3" stroke-linecap="round">'
+             f'<path data-draw="k1" d="M8 140H88"></path><path data-o="kh1" d="M76 128l14 12-14 12"></path>'
+             f'<path data-draw="k2" d="M508 140H580"></path><path data-o="kh2" d="M568 128l14 12-14 12"></path></svg>')
+    inner = (head + lst + links + place(810, 470, recap_import()) + place(1300, 410, recap_hosts()))
     return frame('radial', inner)
 
 
-@F('w46-YourNames', 'Would the door open?')
+@F('w46-YourNames', 'Picture your own list')
 def _yours():
-    doors = f'<div style="position: absolute; left: 140px; top: 200px; opacity: 0.45">{door(210, "open", label=RETIRED, uid="y")}</div>'
-    doors += ''.join(place(560 + k * 300, 200, door(210, 'closed', uid=f'y{k}')) for k in range(4))
+    """v6.1 (Leo, 2026-11-14): no doors here. The aside shows Northway's wordmark (it isn't real); then the viewer's own
+    list, unnamed rows, one of them lit: the one a customer types tonight."""
+    g = NORTHWAY
+    card = (f'<div data-shop style="position: absolute; left: 660px; top: 300px; width: 600px; height: 300px; box-sizing: border-box; border-radius: 28px; '
+            f'background: {g["paper"]}; box-shadow: inset 0 0 0 1px {g["line"]}; display: flex; align-items: center; justify-content: center">{northway_logo(78)}</div>')
+    blank = [('', '', '', '')] * 5
+    yours = scaled(sheet(960, rows=blank, show_more=False, row_h=56, file='your-domains.csv'), 0.9, 864, 410, x=528, y=200)
+    # the row a customer types tonight: amber, the film's one colour for a visitor (once in this frame)
+    hot = f'<div data-o="hot" style="position: absolute; left: 528px; top: 380px; width: 864px; height: 51px; border-radius: 10px; box-shadow: 0 0 0 4px {AMBER}"></div>'
     inner = (f'<span style="position: absolute; left: 120px; top: 92px; display: inline-flex; align-items: center; height: 52px; padding: 0 24px; border-radius: 26px; background: rgba(255,255,255,0.10); '
              f'font-size: 25px; font-weight: 600; color: {INK_SOFT}">An aside: Northway isn’t a real company.</span>'
-             + doors
-             + headline('<span data-o="q1">Your domains. Which one would a customer type tonight?</span> <span data-o="q2">And would the door open?</span>', x=120, y=680, size=56, w=1560))
+             + card + yours + hot
+             + headline('<span data-o="q1">Your domains. Which one would a customer type tonight?</span><br /><span data-o="q2">And would the door open?</span>', x=120, y=700, size=56, w=1680))
     return frame('evening', inner)
-
-
-QR_SLOT = ('<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#6B7A90" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect>'
-           '<rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 14h3v3M21 14v.01M14 21h7v-4"></path></svg>')
 
 
 @F('w46-EndCard', 'End card')
 def _end():
-    inner = (f'<div style="position: absolute; left: 140px; top: 170px; display: flex; flex-direction: column">'
+    """v6.1 (Leo, 2026-11-14): no QR slot. The line, where the links are, and the RedirHub logo; the right half stays
+    clear for YouTube's end screen."""
+    inner = (f'<div style="position: absolute; left: 140px; top: 220px; display: flex; flex-direction: column">'
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em">Every door.</span>'
              f'<span style="font-size: 128px; font-weight: 800; line-height: 1.02; letter-spacing: -0.045em; color: {TEAL}">Open.</span></div>'
-             f'<span style="position: absolute; left: 140px; top: 480px; font-size: 32px; color: {INK_SOFT}">Links are in the description.</span>'
-             # the QR slot (v6 brief): a placeholder until the dynamic QR's link exists; never a drawn code
-             f'<div data-o="qr" style="position: absolute; left: 140px; top: 580px; display: flex; align-items: center; gap: 22px">'
-             f'<div style="width: 150px; height: 150px; border-radius: 18px; box-shadow: inset 0 0 0 2px rgba(185,198,216,0.45); display: flex; align-items: center; justify-content: center">{QR_SLOT}</div>'
-             f'<span style="font-size: 24px; font-weight: 600; color: {INK_MUTE}">Dynamic QR · link pending</span></div>'
-             f'<div style="position: absolute; left: 140px; top: 820px; width: 300px">{RH_WORDMARK}</div>')
+             f'<span style="position: absolute; left: 140px; top: 530px; font-size: 32px; color: {INK_SOFT}">Links are in the description.</span>'
+             f'<div style="position: absolute; left: 140px; top: 780px; width: 300px">{RH_WORDMARK}</div>')
     return frame('glow-teal', inner, extra=' data-endcard')
 
 # ================================================================ system and sound boards
@@ -665,7 +712,7 @@ def _sound():
     rows = (('Whoosh', 'Twice only: into the title (beat 5), into the dashboard (beat 20).'),
             ('Low tone', 'One soft tone as the warning page lands (beat 11).'),
             ('Silence', 'After “Northway never finds out.” No cue.'),
-            ('Knock', 'Three soft raps: after “hear when someone knocks” (beat 13) and “could hear the knocks” (beat 26).'),
+            ('Knock', 'Three knocks on a wooden door: after “hear when someone knocks” (beat 13) and “could hear the knocks” (beat 26).'),
             ('Fixed chime', 'Once: the padlocks lighting (beat 25), the fix the film celebrates.'),
             ('Music', 'Moon Walk (Mixkit), at least 11 LU under every word.'))
     srows = ''.join(f'<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.12)">'

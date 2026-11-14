@@ -19,6 +19,8 @@ export function NotebookScene() {
         <FrameScene k="Notebook" moves={{ 0: fx(smooth(open * 1.3), 0, (1 - open) * 26) }}
             vars={{
                 '--draw-circle': 1 - draw,
+                // the name is written as she gives it ("Let's call it Northway")
+                ...hookIn(t, 'nwname', L.word(1, 'northway') - 0.2, 0.55, 10),
                 ...hookIn(t, 'p2', L.word(2, 'country') - 0.35, 0.5, 10),
                 ...hookIn(t, 'p3', L.word(2, 'misspellings') - 0.3, 0.5, 10),
                 ...hookIn(t, 'p4', L.word(2, 'old') - 0.3, 0.5, 10),

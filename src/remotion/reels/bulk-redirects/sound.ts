@@ -11,5 +11,5 @@ export const SOUND: Record<Role, SfxSample> = {
     transition: own('transition', 1.0, 0.18), // a change of place: into the title, into the product (Leo, Pixabay)
     fixed: own('fixed', 0.98, 0.036),         // the signature chime, once: every padlock is lit (Mixkit 766)
     problem: own('denied', 0.48, 0.023),      // one soft low tone as the warning page lands (Leo, Pixabay)
-    knock: own('knock', 0.35, 0.024),         // three soft raps on wood, twice: someone knocks (Mixkit 1523)
+    knock: own('knock', 0.55, 0.018),         // three knocks on a wooden door, twice: someone knocks (Mixkit 197)
 };
