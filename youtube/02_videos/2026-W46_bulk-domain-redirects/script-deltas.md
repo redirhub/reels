@@ -1,9 +1,23 @@
-# W46 script deltas · v6 (2026-11-13)
+# W46 script deltas · v6 (2026-11-13), v6.1 (2026-11-14)
 
 The narration is `script.md` v6, word for word: no line was reworded. The order, the bridge (beat 15), the twist
 (beats 9–12), the honest note (beat 14) and the facts are untouched. What follows is every place where the
 recording or the screen says something in a different form than the script's text, and why. (The v3 → v4 deltas
 about the Glomvo story are in git history: `git log -- script-deltas.md`.)
+
+## v6.1 · Leo's review (2026-11-14)
+
+Two lines changed in `script.md`, at Leo's request; each beat was regenerated alone (same voice, model, seed and
+settings), so the rest of the recording is untouched.
+
+| Beat | v6 | v6.1 | Why |
+|---|---|---|---|
+| 1 | "Imagine your company." | "Imagine you have a company." | Leo. |
+| 32 | "So. One list. One import. Point the domains. And listen for the knock. That's how to move hundreds of domains at once." | "So. One list. One import. Point the domains. That's how to move hundreds of domains at once." | Leo: the summary drops the listen idea and the door picture ("over used"). The knock still pays off in Act F. |
+
+On screen, the question in beat 34 keeps the voice's words ("And would the door open?"), but no door is drawn after
+the knocks: the aside shows Northway's wordmark and the question plays over the viewer's own list. The end card keeps
+"Every door. Open." and loses the QR slot.
 
 ## Spoken forms (what the narrator is sent; `voiceover/make_chunks.py` SAY)
 

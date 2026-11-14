@@ -89,9 +89,8 @@ carry an Example label in their frame.
 ## E · The end card
 
 - **E-1 · The line:** "Every door. Open."
-- **E-2 · The QR slot is back** (v6 brief): "Dynamic QR · link pending", an empty frame with a QR icon, never a
-  drawn code. (v4 had removed it on 2026-11-10; the v6 brief keeps the slot.) It sits on the left; the right half
-  stays clear for YouTube's end screen.
+- **E-2 · No QR slot** (v6.1, Leo, 2026-11-14): the end card is the line, "Links are in the description" and the
+  RedirHub logo; the right half stays clear for YouTube's end screen.
 
 ## L · Length
 
@@ -108,12 +107,15 @@ carry an Example label in their frame.
 
 The reviewer (Gate 5, review.md) raised these. Each needs a script or frame decision beyond this pass's brief:
 
-- **R-1 · Northway on screen.** The voice names Northway at 0:02; the wordmark arrives at 0:19 (beat 3). The
-  notebook (§4: "everything else stays") carries no name. A small "Northway" on the notebook would close the gap.
+- **R-1 · Northway on screen.** Done in v6.1: "Northway" is written at the top of the notebook as she names it
+  (0:02), so the name is on screen 17 s before the wordmark.
 - **R-2 · The Links backdrop.** Behind the Import CSV dialog (2:43) the dimmed Links list already shows
   Northway's domains, which can read as "already imported". An empty or unrelated list would be cleaner.
 - **R-3 · Connectives.** "But the real question is…" (beat 5) follows a "therefore", and beat 6 opens on renewals
   without a bridge from the question. Script wording, so kept.
 - **R-4 · "You" mid-film.** From beat 6 to beat 12 and again in Act F, voice and screen speak only about Northway;
   "you" returns on screen at 4:26 ("Your domains"). Kept as scripted.
-- **L-2 · Length.** The final cut is 4:44 (beat 29 got 0.4 s more pause so both of its lines can be read).
+- **L-2 · Length.** The final cut is 4:43 (v6.1: beat 32 is 1.6 s shorter without the listen line; beat 29 keeps its
+  0.4 s more pause so both of its lines can be read).
+- **S-1 · The knock** (v6.1): a real knock, Mixkit #197. The v6 file was Mixkit #1523, "Heavy sliding door", picked
+  under the wrong title; Leo heard that it wasn't a knock. docs/audio-licenses.md has the record.

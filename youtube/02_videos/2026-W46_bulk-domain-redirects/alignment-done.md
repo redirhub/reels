@@ -27,10 +27,10 @@ the contact sheet `w46-contact-sheet.png` (one frame every 0.5 s). Wording notes
 | 29 | Northway's homepage with padlock; "Now they land on the homepage." | ✅ the address bar turns from the misspelling into https://northwaysoft.com on "they land on the homepage" | ![](style-canvas/stills/w46-Price.png) |
 | 30 | Northway's domains; "Northway knows where to look first" | ✅ | ![](style-canvas/stills/w46-Quiet.png) |
 | 31 | Filter by the tag Product; destination a Northway page | ✅ "Filter by its tag. Change it once." · https://northwaysoft.com/products · Update 46 links | ![](style-canvas/stills/w46-ByTag.png) |
-| 32 | Recap kept, matched by the voice | ✅ Listen lands on "And listen for the knock" | ![](style-canvas/stills/w46-Recap.png) |
-| 33 | "Northway isn't a real company." + one door | ✅ | ![](style-canvas/stills/w46-YourNames.png) |
-| 34 | "Your domains. Which one would a customer type tonight? And would the door open?" | ✅ in two parts, on their sentences | ![](style-canvas/stills/w46-YourNames.png) |
-| 35 | End card; QR slot "Dynamic QR · link pending"; right half clear | ✅ | ![](style-canvas/stills/w46-EndCard.png) |
+| 32 | Recap kept, matched by the voice | ✅ v6.1 (Leo, 2026-11-14): rebuilt without doors or "listen": the list, the import's review and Hostnames turning Connected, joined by the draw move, the spoken summary building above | ![](style-canvas/stills/w46-Recap.png) |
+| 33 | "Northway isn't a real company." + one door | ✅ v6.1: Northway's wordmark instead of the door (Leo) | ![](style-canvas/stills/w46-YourNames.png) |
+| 34 | "Your domains. Which one would a customer type tonight? And would the door open?" | ✅ in two parts, on their sentences; v6.1: over the viewer's own list (your-domains.csv, one row lit), no doors | ![](style-canvas/stills/w46-YourNames.png) |
+| 35 | End card; QR slot "Dynamic QR · link pending"; right half clear | ✅ right half clear; v6.1: QR slot removed (Leo) | ![](style-canvas/stills/w46-EndCard.png) |
 
 Also: every "STEP 1/2/3" label and progress bar removed; the World, System and Sound boards updated for
 Northway (![](style-canvas/stills/w46-World.png)).

@@ -16,26 +16,30 @@ canvas; the Remotion composition is `src/remotion/reels/bulk-redirects/`.
 
 ## The film in one paragraph
 
-Imagine your company, Northway. Every product got a domain, then one per country, a few misspellings and the old
+Imagine you have a company, Northway. Every product got a domain, then one per country, a few misspellings and the old
 name: over two hundred now, forwarding from three registrar accounts set up years ago. Now everything moves to one
 website, so every domain needs a new destination. One evening a customer types a retired product's domain; it
 forwards, but only on the plain address, so the browser shows a warning and they leave, and Northway never finds
 out. The fix: every domain needs a door that opens properly, padlock included, and a way to hear the knock. You
 write down once, in one spreadsheet, where every domain should go; RedirHub imports it, fixes what needs fixing,
-points the domains and lights every padlock. Then Northway hears the knocks: a misspelling with 63 visits.
+points the domains and lights every padlock. Then Northway hears the knocks: a misspelling with 63 visits. The
+summary shows the method in the product (one list, one import, the domains pointed), and the question turns to
+the viewer's own list.
 
 ## The threads and the motif
 
 - **rotawick.com**, a product Northway retired, is the twist: the lit tile people still type (B), the address the
-  customer types and the warning page (C), the tile that becomes the door (D), the file's first row (E) and the
-  stepped-back door in the closing question (G).
+  customer types and the warning page (C), the tile that becomes the door (D), the file's first row (E) and a
+  hostname connected at last in the summary (G).
 - **nortwaysoft.com**, "Northway without the h", is the knocks: 0 → 63 visits (an Example), the crossed-out
   "drop at renewal?" sticky, then the padlocked homepage it now lands on (F).
 - Both are the same component everywhere (`name_tile`): a white tile, a small arched slot, the address in
   JetBrains Mono. The narrator never reads a domain aloud.
 - **The door and the knock** (`door()`): an arched doorway with a small padlock. Closed = thin outline; open = teal
   light, the padlock solid; knock = three arcs. Born at "Every domain needed two things" (beat 13), every door
-  opens at beat 25, the knocks pay off in F, and the question in G asks "would the door open for them?".
+  opens at beat 25, and the knocks pay off in F. After that the film leaves the picture (v6.1, Leo: "over used"): the summary and the
+  question show the method and the viewer's own list; only the words "would the door open for them?" and the end
+  line keep it.
 
 ## Buildable from the kit
 
@@ -51,6 +55,7 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 | Product | Create chooser with Import CSV; the import's fix step; the review step; Hostnames with Connect DNS (Automatic/Manual); analytics Domains card; bulk Change destination. Labels from the live dashboard (`redirhub/lviv`). |
 | Dialog dock | dialogs come forward over the dimmed dashboard at 1.45× so their words read at 1080p. |
 
+
 ## The world · Northway, its domains, the two threads and the door-and-knock motif (every frame reuses them)
 
 ### `w46-World` · The story world
@@ -65,8 +70,8 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 
 - **Beats:** 1–2 · **Room:** Evening
 - **The one idea:** Every product Northway launched started the same way: the domain first.
-- **Props:** a product notebook: the idea (“A scheduling app for clinics”), a crossed-out idea, a sketch; the plan: “1. the domain” circled round an empty line, then 2–4
-- **In:** Cold open on the notebook. On “buy the domain first” the circle draws round the empty line (draw); “one for each country”, “a few misspellings” and “the old name, too” write in on their words.
+- **Props:** a product notebook: the idea (“A scheduling app for clinics”), a crossed-out idea, a sketch; the plan: “1. the domain” circled round an empty line, then 2–4; “Northway” written at the top of the page
+- **In:** Cold open on the notebook; “Northway” writes in as she names it. On “buy the domain first” the circle draws round the empty line (draw); “one for each country”, “a few misspellings” and “the old name, too” write in on their words.
 - **Out:** Cut on “Today, Northway owns…”.
 - **Voice:** warm, then plain · **Sound:** No cue.
 - **The viewer should feel:** “That’s how my list started too.”
@@ -207,7 +212,7 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 - **Beats:** 14 · **Room:** Light
 - **The one idea:** A handful of domains with a working padlock: you’re done.
 - **Props:** an aside card; the Redirect Checker on https://clinvane.com: 301, then 200 on Northway’s page
-- **In:** The card slides in on “One honest note”; the checker runs on “Check one”: the two hops appear in order.
+- **In:** The card slides in on “One honest note”; the checker comes in on “shows the padlock” and runs on “Check one”: the two hops appear in order.
 - **Out:** Cut back on “But”.
 - **Voice:** plain, generous · **Sound:** None.
 - **The viewer should feel:** Trust: they’re not selling me something I don’t need.
@@ -367,24 +372,24 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 
 ## G · Your list
 
-### `w46-Recap` · List · Import · Point · Listen
+### `w46-Recap` · One list, one import, point the domains
 
 - **Beats:** 32 · **Room:** Brand radial
-- **The one idea:** One list, one import, point the domains, listen for the knock.
-- **Props:** four marks: the file, Import CSV, a lit door, a knocking door
-- **In:** One at a time on their words: List, Import, Point, Listen (“And listen for the knock”); the keyword line holds.
+- **The one idea:** One list. One import. Point the domains. That’s how to move hundreds of domains at once.
+- **Props:** the film’s own three objects: northway-domains.csv, the import’s review (Adds 214 domains…), Hostnames with every row Connected
+- **In:** The list is there from the cut; on “One import” a line draws into the review; on “Point the domains” a second line draws into Hostnames and its rows turn Connected, one after another; the spoken summary builds above, phrase by phrase.
 - **Out:** Register change into the aside.
 - **Voice:** plain · **Sound:** None.
-- **The viewer should feel:** I can remember that.
-- **Note:** Now matched by the voice.
+- **The viewer should feel:** I can remember that, and I’ve seen each part.
+- **Note:** v6.1 (Leo, 2026-11-14): no door and no “listen”; the summary is the method, in the product.
 - **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** v6 reskin (2026-11-13): checked at its peak moment in the render (Gate 3) and by keyframes-check.
 
-### `w46-YourNames` · Would the door open?
+### `w46-YourNames` · Picture your own list
 
 - **Beats:** 33–34 · **Room:** Evening
 - **The one idea:** Picture your own list: which domain would a customer type tonight, and would the door open?
-- **Props:** the aside pill; rotawick.com’s door, dimmed; four closed doors; the question
-- **In:** The pill fades in on “Northway isn’t a real company” and the door steps back; on “Picture your own list” four closed doors rise; the question lands in two parts.
+- **Props:** the aside pill and Northway’s wordmark; then your-domains.csv, rows unnamed, one row lit amber; the question
+- **In:** Northway’s wordmark is there from the cut and the pill fades in on “Northway isn’t a real company”; on “Picture your own list” both leave and the viewer’s list arrives; on “Which domain…” one row lights amber and the question lands in two parts.
 - **Out:** Silence, then the end card.
 - **Voice:** lightly, thoughtful · **Sound:** None.
 - **The viewer should feel:** It’s about my own domains.
@@ -395,12 +400,12 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 
 - **Beats:** 35 · **Room:** Glow, teal
 - **The one idea:** Every door. Open.
-- **Props:** the end line; Links are in the description; the Dynamic QR · link pending slot; the RedirHub logo; the right half clear for YouTube’s end screen
+- **Props:** the end line; Links are in the description; the RedirHub logo; the right half clear for YouTube’s end screen
 - **In:** Cut on “If this helped”; the line and logo are there from the cut; the links line lands with its words.
 - **Out:** Hold (done).
 - **Voice:** warm · **Sound:** None.
 - **The viewer should feel:** Calm, complete.
-- **Note:** The QR slot never draws a code (v6 brief).
+- **Note:** v6.1 (Leo, 2026-11-14): no QR slot.
 - **Gate 2 (Idea·Story·Clarity·Craft·Honesty·Fresh):** v6 reskin (2026-11-13): checked at its peak moment in the render (Gate 3) and by keyframes-check.
 
 
