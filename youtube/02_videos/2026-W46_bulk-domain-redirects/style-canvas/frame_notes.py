@@ -89,7 +89,7 @@ META = {
                      'The doors open one after another on “as each domain connects”, light filling each; the last lands on “set up” with the fixed chime; the headline on “renewed for it”.',
                      'Hold, then cut to Act F.', 'warm', 'Fixed chime (the fix moment).', 'Done.', 'Glow, teal', 'The chime plays only here.'),
     'w46-Knocks': ('Sixty-three knocks', '26–29a', 'For the first time, Northway hears the knocks: a misspelling with 63 visits.', 'nortwaysoft.com, 0 → 63 visits (Example), “drop at renewal?” crossed out; the open door with arcs',
-                   'On “could hear the knocks” the knock sounds and the arcs leave; the tile arrives on “one stood out” and rolls to 63 on “Sixty-three visits”; the sticky arrives on “nearly been dropped” and a pen line crosses it; the line lands on “Those were customers…”.',
+                   'On “could hear the knocks” the knock sounds and the arcs leave; the tile arrives on “one stood out” and rolls to 63 on “Sixty-three visits”; the door is unlabelled until “A misspelling” names it; the sticky arrives on “nearly been dropped” and a pen line crosses it; the line lands on “Those were customers…”.',
                    'Cut on “Now”.', 'warm, lightly', 'Knock 2 of 2.', '“Real people typed that.”', 'Charcoal', 'The number is an example, labelled.'),
     'w46-Price': ('They land on the homepage', '29b', 'Now they land on the homepage, padlock and all.', 'Northway’s homepage; the address bar from nortwaysoft.com to https://northwaysoft.com',
                   'Cut on “Now”; the headline lands; on “they land on the homepage” the address becomes the padlocked homepage.', 'Cut.', 'thoughtful', 'None.', 'Fixed, and found.', 'Light', 'Was “a real price” (v4).'),

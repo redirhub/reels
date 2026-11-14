@@ -103,3 +103,17 @@ carry an Example label in their frame.
 
 - **O-1 · The warning page** is generic ("This connection isn't secure"), not any browser's wording or icon.
 - **O-2 · Door broken state.** Defined on the World board, unused in frames.
+
+## R · Raised by the fresh-eyes review, left for Leo
+
+The reviewer (Gate 5, review.md) raised these. Each needs a script or frame decision beyond this pass's brief:
+
+- **R-1 · Northway on screen.** The voice names Northway at 0:02; the wordmark arrives at 0:19 (beat 3). The
+  notebook (§4: "everything else stays") carries no name. A small "Northway" on the notebook would close the gap.
+- **R-2 · The Links backdrop.** Behind the Import CSV dialog (2:43) the dimmed Links list already shows
+  Northway's domains, which can read as "already imported". An empty or unrelated list would be cleaner.
+- **R-3 · Connectives.** "But the real question is…" (beat 5) follows a "therefore", and beat 6 opens on renewals
+  without a bridge from the question. Script wording, so kept.
+- **R-4 · "You" mid-film.** From beat 6 to beat 12 and again in Act F, voice and screen speak only about Northway;
+  "you" returns on screen at 4:26 ("Your domains"). Kept as scripted.
+- **L-2 · Length.** The final cut is 4:44 (beat 29 got 0.4 s more pause so both of its lines can be read).

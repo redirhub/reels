@@ -1,6 +1,86 @@
-# W46 review notes (Gates 1–4, 2026-11-06)
+# W46 review notes
 
-## Gate 1 · World
+## v6 · the Northway cut (2026-11-13)
+
+Leo's corrective pass: the story rebuilt around Northway, a small software company, re-voiced from script v6,
+every scene reskinned, one new scene (beat 4), no step labels or progress bars, re-timed to the new voice. The
+v4 notes (Glomvo) follow below, unchanged, as history.
+
+### Gate 1 · Identity and names
+
+- **Wordmark.** "Northway" in Instrument Serif with "SOFTWARE" in small tracked capitals (open-questions.md, T-1).
+  Checked at thumbnail size on the World board and in w46-Northway: reads as a quiet software brand, never
+  louder than the RedirHub logo (the only logo on the end card).
+- **Domains.** All 17 shown are invented and NXDOMAIN (2026-11-12 22:25 UTC; open-questions.md, D). northway.com
+  and nortway.com are live, so neither appears: the site is northwaysoft.com, the misspelling nortwaysoft.com.
+- **Leftovers.** grep over the W46 composition, frames and props for Glomvo, kipzoo, STEP 1/2/3, 302 (in this
+  film's CSV), Brandables, drop list and founder: no hits in anything rendered. The remaining hits are history
+  (this file's v4 notes, script-deltas.md's v4 log, the git history of the deleted takes).
+- **keyframes-check** (`PREFIX=w46-`, Instrument Serif as the prop font, Northway's palette, `NO_TILT=1`):
+  30 of 30 boards OK. The grep also caught a stale build of the Sound board (it still said the narrator reads
+  "kipzoo") and Glomvo's unused palette in kit.tsx: both fixed, the board republished on the canvas.
+
+### Gate 2 · The voice
+
+- Same voice, model and settings as v4 (Sarah, eleven_v4, stability 0.5, similarity 0.75, seed 42), one take per
+  beat; no tags. Domains are never read aloud.
+- **Whisper (faster-whisper small.en)** against script v6, beat by beat: takes 0.994, built track 0.996. The
+  misses are spelling only (registrars', home page).
+- **"RedirHub"** (beat 20): the plain take is heard as "Reader Hub"; the respelled take "Redirect Hub" is heard
+  as "Redirect Hub" and is the one used. Both takes kept (open-questions.md, P-1). **"Northway"** is heard as
+  Northway in every beat.
+- **Gaps:** longest mid-section pause 1.18 s (under 1.2 s). The 1:10–1:16 gap of v4 is gone: beats 9–10 run on.
+
+### Gate 3 · Each changed scene
+
+A still of every scene at its peak, against the §4 map (alignment-done.md, one row each). Fixed at this gate:
+the import dialogs showing the dashboard through mid-change (now one solid card that morphs), an empty first
+second on Accounts, the Knocks tile overflowing its card, a 2 px shift in the DNS badges, a stale frame export.
+
+### Gate 4 · The full render
+
+- `out/bulk-redirects.mp4`: 4:44 (284.05 s), 1920×1080, 60 fps, H.264 + AAC.
+- **Loudness:** −14.1 LUFS integrated, −3.2 dBTP true peak, LRA 2.9 LU; no clipping. The voice sits at least 11 LU over the bed.
+- **Contact sheet** every 0.5 s (`w46-contact-sheet.png`, 568 frames), every frame looked at. The first full
+  render showed four empty or near-empty openings (Northway, the warning page, Once, the recap) and five lines
+  that left too early; all fixed. The second showed seven lines still 0.1–0.6 s under the hold rule.
+- **Hold times.** Every on-screen line now holds at least max(1 s, words ÷ 3 + 1 s) before its cut: the rule is
+  in code (`timeline.ts`, `local().readBy`), so a line lands on its word unless that would leave it short, and
+  then lands earlier. Beat 29 needed both its lines ("Customers, typing the name a little wrong." and "Now they
+  land on the homepage.") to hold, which the beat's 6.5 s could not give: 0.4 s more pause after it, voice and
+  bed re-assembled from the same takes (no new generation).
+- **Sync.** Cuts on beat starts; the knock on "knocks" (twice), the low tone with the warning page, the fixed
+  chime on the last padlock, two whooshes (title, product). flash_check: only the cuts and the intended silence.
+  stutter_check: 8-bit rounding of slow fades (1.5–4.5 grey levels), no text stepping.
+- **Re-transcribed final MP4** against script v6: **0.994** word match (687/691). The misses are spelling (registrars', home page, "north way") and one "and" lost under the music in beat 31. Beat 20 is heard as "Redirect Hub".
+- **End card:** "Every door. Open." with the RedirHub logo; the "Dynamic QR · link pending" slot (no drawn code);
+  the right half clear for YouTube's end screen.
+
+### Gate 5 · Fresh eyes
+
+A reviewer sub-agent saw only the final contact sheet, the final transcript and §1 of the brief. Its verdict:
+"Mostly yes" on one viewing; the arc (many domains → one site → the broken padlock → the spreadsheet → listening)
+is clear and the door motif lands three times. What it raised, and what I did:
+
+| Point | Done |
+|---|---|
+| The misspelled domain sits on the knocking door 9 s before the voice explains it (211–220 s). | **Fixed.** The door is unlabelled until "A misspelling", then nortwaysoft.com fades in under it. |
+| "Northway checked the plain address" arrives 2 s before "Someone checked that once"; whose screen is whose is unclear. | **Fixed** the timing: the caption lands on "Someone checked". **Kept** the panes: the customer's browser is alone and full brightness while the voice says "a customer types", and is named on "the customer's browser". |
+| The visit counter reads 0 while the voice says "63 visits". | **Rejected.** The transcript's 2 s segments misled it: "Sixty-three" starts at 224.12 s and the count rolls from 224.0 to 225.0 s. |
+| The import preview shows "9 rows need a fix" before "Adds 214 domains", while the voice says the adds first (172–188 s). | **Rejected.** That is the product's order (the fix step comes before the review; v4 Δ-1). The error row lands on "any row that needs a second look". |
+| The Links list behind the import already holds Northway's domains (163–165 s). | **Rejected** for this pass: it is the dimmed backdrop of the approved frame (§4: "Reskin … keep 214"). Noted for Leo. |
+| The opening names Northway in voice at 2 s but on screen only at 19 s; the notebook is still until 9 s. | **Rejected.** §4 keeps the notebook ("Everything else stays"); the plan writes on its words ("buy the domain first" at 9 s). Noted for Leo. |
+| "But the real question…" (38 s), the jump to renewals (46 s), "The fix wasn't fewer domains" (99 s), and "you" fading in the middle. | **Rejected.** Script wording: the script is the spine, and its order, bridge and twist are to stay intact. Noted for Leo. |
+| "Three registrar accounts" over one registrar card (51–59 s). | **Rejected.** §4 sets exactly this card and line; the card is headed "Registrar B", one of the three. |
+| "Their own check worked only because they typed the plain address" plays over the lone domain (95–99 s). | **Rejected.** That is the twist's silence (w46-Silence): one domain, two faint rings, nobody hears. The two panes were on screen for 15 s just before. |
+| Numbered markers: the notebook plan (1–4) and "1 / 2" on "Every domain needed two things". | **Rejected.** §4 asks for both ("The plan line 1 becomes the domain"; "1 door · 2 knock"). They are a handwritten plan and a two-item list, not steps. |
+| The recap's List / Import / Point / Listen row reads like step cards. | **Rejected.** §4: "Recap card: List · Import · Point · Listen — Keep", now matched by the voice. No numbers. |
+| The end card's QR is a placeholder; "our earlier videos are right here on screen" needs end-screen elements. | **Kept** as briefed: the slot stays until the real dynamic QR exists, and the right half is clear for the end screen, which is set in YouTube Studio. |
+
+
+## v4 · Glomvo (Gates 1–4, 2026-11-06)
+
+### Gate 1 · World
 
 - **Motif.** Round 1 drew the door as a rounded slab with the padlock on top: at thumbnail size it read as a
   battery. Redrawn as an arched doorway, the padlock as its keystone, light spilling onto a floor line when it
@@ -12,14 +92,14 @@
 - **Glomvo.** Serif wordmark, stone and ink, "names, held with care": a serious small team, no startup gloss.
 - Fixed before any frame: three panels that clipped their notes; kipzoo's F state was drawn twice.
 
-## Gate 2 · Frames
+### Gate 2 · Frames
 
 Scores per frame are in keyframes.md. Reworked before moving on: the empty name line (a timid "?"), tiles and
 sheets crossing the right gutter, a teal ring on the https:// chip (teal means fixed), a notebook too small to
 read its strike, dialogs at 16 px (now docked forward at 1.45×), a sheet footer below y 950, an end-card line in
 the right half, a second amber object (a halo), cramped recap marks.
 
-## Gate 3 · Acts as storyboards
+### Gate 3 · Acts as storyboards
 
 - **A** (Notebook → Glomvo → Title): an empty name, *therefore* a team that holds names, *therefore* the promise.
   The wall flows into the title's sheet.
@@ -35,7 +115,7 @@ the right half, a second amber object (a halo), cramped recap marks.
 - **G** (Recap → YourNames → EndCard): four words; the viewer's own doors, closed; every door, open.
 - No line left without a picture after the fixes below; the beat-10 last clause lives in TwoResults' left label.
 
-## Gate 4 · The whole film
+### Gate 4 · The whole film
 
 - `stills/w46-contact-sheet.png`: all 26 frames in order.
 - `keyframes-check.py` (with `PREFIX=w46-`, the prop font, Glomvo's palette and `NO_TILT=1`): **29 of 29 OK**
@@ -49,7 +129,7 @@ the right half, a second amber object (a halo), cramped recap marks.
   - Signal Red: only in Warning.
   - The fixed chime: once, on Padlocks (the brief's first fix moment). Not on Fix, to keep its meaning.
 
-## Fresh-eyes review
+### Fresh-eyes review
 
 A reviewer sub-agent saw only the contact sheet, the script and §1/§5 of the brief. Its five weakest frames, and
 what I did:
@@ -81,7 +161,7 @@ Their other notes:
 - *Spreadsheet shown in several frames*: **kept on purpose**. It is the film's tool and the same object (Title
   promise, Once empty, List/Columns built, Recap mark); each time it moves the story.
 
-## Production · Animation (2026-11-12)
+### Production · Animation (2026-11-12)
 
 The composition is `src/remotion/reels/bulk-redirects/` (acts in `ActA.tsx` … `ActG.tsx`). Every scene starts from the
 approved frame's own markup (`style-canvas/export_scenes.py` → `frames.gen.tsx`) and only adds motion, through hooks

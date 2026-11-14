@@ -321,7 +321,7 @@ points the domains and lights every padlock. Then Northway hears the knocks: a m
 - **Beats:** 26–29a · **Room:** Charcoal
 - **The one idea:** For the first time, Northway hears the knocks: a misspelling with 63 visits.
 - **Props:** nortwaysoft.com, 0 → 63 visits (Example), “drop at renewal?” crossed out; the open door with arcs
-- **In:** On “could hear the knocks” the knock sounds and the arcs leave; the tile arrives on “one stood out” and rolls to 63 on “Sixty-three visits”; the sticky arrives on “nearly been dropped” and a pen line crosses it; the line lands on “Those were customers…”.
+- **In:** On “could hear the knocks” the knock sounds and the arcs leave; the tile arrives on “one stood out” and rolls to 63 on “Sixty-three visits”; the door is unlabelled until “A misspelling” names it; the sticky arrives on “nearly been dropped” and a pen line crosses it; the line lands on “Those were customers…”.
 - **Out:** Cut on “Now”.
 - **Voice:** warm, lightly · **Sound:** Knock 2 of 2.
 - **The viewer should feel:** “Real people typed that.”
