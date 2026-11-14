@@ -274,7 +274,7 @@ def _two():
 
 @F('w46-Warning', 'The customer leaves')
 def _warning():
-    inner = (browser2(bar_url(f'https://{RETIRED}', broken=True), warning_page(1200, 680), None, None, 1200, 680)
+    inner = (browser2(bar_url(RETIRED, broken=True), warning_page(1200, 680), None, None, 1200, 680)
              .replace('position: relative; width: 1200px', 'position: absolute; left: 360px; top: 190px; width: 1200px'))
     return frame('evening', inner)
 
@@ -312,7 +312,7 @@ def checker_card(url='https://clinvane.com', w=820):
 
 @F('w46-Honest', 'One honest note')
 def _honest():
-    inner = (tip('ONE HONEST NOTE', 'A handful of domains, and the padlock shows? You’re done.', 'Check one in our free Redirect Checker.', 120, 360, w=660)
+    inner = (tip('ONE HONEST NOTE', 'A handful of domains, and the padlock shows? You’re done.', f'Check one in our free Redirect Checker, with <span style="{MONO}">https://</span> in front.', 120, 360, w=660)
              + f'<div style="position: absolute; left: 900px; top: 380px; display: flex; flex-direction: column; gap: 18px">{checker_card(w=880)}{ex_label()}</div>')
     return frame('light', inner)
 

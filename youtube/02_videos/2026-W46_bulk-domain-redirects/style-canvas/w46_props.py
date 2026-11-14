@@ -207,14 +207,16 @@ def notebook(w=1400, h=760):
 
 
 def warning_page(w, h, name=RETIRED):
-    """A generic 'this connection isn't private' page: no browser's wording, colours or icon."""
+    """The warning a browser shows before opening a typed domain whose secure version fails (Chrome 154+ by default:
+    "Always use secure connections"). Fact check 2026-11-14: not a certificate-error page; generic wording, no browser's
+    colours or icon. The visitor can go back or continue."""
     return (f'<div style="width: {w}px; height: {h - 64}px; background: #F9FAFB; display: flex; align-items: center; justify-content: center">'
             f'<div style="width: {w * 0.62:.0f}px; display: flex; flex-direction: column; gap: 22px">'
             f'<svg width="74" height="74" viewBox="0 0 24 24" fill="none" stroke="{RED}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z"></path><path d="M12 8v5M12 16.5h.01"></path></svg>'
-            f'<span style="font-size: {w * 0.036:.0f}px; font-weight: 700; color: #181D27; line-height: 1.15">This connection isn’t secure</span>'
-            f'<span style="font-size: {w * 0.019:.0f}px; color: #475467; line-height: 1.5">The site at <span style="{MONO}">{name}</span> didn’t show a valid certificate. Someone could be pretending to be it.</span>'
+            f'<span style="font-size: {w * 0.036:.0f}px; font-weight: 700; color: #181D27; line-height: 1.15"><span style="{MONO}">{name}</span> doesn’t support a secure connection</span>'
+            f'<span style="font-size: {w * 0.019:.0f}px; color: #475467; line-height: 1.5">The browser asked for the secure version first, and it didn’t answer. Anything sent to this site can be seen and changed on the way.</span>'
             f'<div style="display: flex; gap: 14px; margin-top: 8px"><span style="display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 10px; background: #344054; color: #FFFFFF; font-size: 18px; font-weight: 600">Go back</span>'
-            f'<span style="display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 10px; box-shadow: inset 0 0 0 1px #D0D5DD; color: #344054; font-size: 18px; font-weight: 600">Details</span></div></div></div>')
+            f'<span style="display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 10px; box-shadow: inset 0 0 0 1px #D0D5DD; color: #344054; font-size: 18px; font-weight: 600">Continue to site</span></div></div></div>')
 
 
 def bar_url(text, lock=True, broken=False):

@@ -72,7 +72,7 @@ Labels come from the live dashboard source (`redirhub/lviv`) where I could find 
 |---|---|---|---|
 | 10 | Browsers ask for the secure version first | ✅ | HTTPS-first behaviour in current browsers |
 | 10 | Some registrars' forwarding includes a padlock, others don't | ✅ fair wording | registrar docs (no HTTPS forwarding at some; GoDaddy now handles it) |
-| 14 | The free Redirect Checker shows whether a domain has the padlock | ⚠️ | Q-3 |
+| 14 | The free Redirect Checker shows whether a domain has the padlock | ✅ with https:// typed | F-3 |
 | 16–18 | CSV columns: domain, destination, type (301), tags | ✅ | /support/import-links-csv |
 | 17 | 301 = permanent, right for a consolidation | ✅ | |
 | 20 | Links → Create → Import CSV | ✅ | lviv; Q-1 |
@@ -101,7 +101,7 @@ carry an Example label in their frame.
 
 ## Other
 
-- **O-1 · The warning page** is generic ("This connection isn't secure"), not any browser's wording or icon.
+- **O-1 · The warning page** is generic ("rotawick.com doesn't support a secure connection", F-1), not any browser's wording or icon.
 - **O-2 · Door broken state.** Defined on the World board, unused in frames.
 
 ## R · Raised by the fresh-eyes review, left for Leo
@@ -120,3 +120,52 @@ The reviewer (Gate 5, review.md) raised these. Each needs a script or frame deci
   0.4 s more pause so both of its lines can be read).
 - **S-1 · The knock** (v6.1): a real knock, Mixkit #197. The v6 file was Mixkit #1523, "Heavy sliding door", picked
   under the wrong title; Leo heard that it wasn't a knock. docs/audio-licenses.md has the record.
+
+## F · Fact check of every claim (2026-11-14)
+
+Every spoken line and every on-screen string, checked against the dashboard source (`redirhub/lviv`, 2026-11-07),
+redirhub.com's support pages and product facts (updated 2026-11-08), and the browsers' and registrars' own docs.
+
+- **F-1 · Fixed: the warning page (beat 11).** A customer who types a bare domain doesn't get a certificate-error page.
+  Since Chrome 154 (stable September 2026), "Always use secure connections" is on by default for public sites: when
+  the https:// attempt fails, Chrome stops with a "this site doesn't support a secure connection" warning and a
+  "Continue to site" button. The frame said "didn't show a valid certificate" (the wrong page); it now says
+  "rotawick.com doesn't support a secure connection", why, and offers Go back / Continue to site, and the address bar
+  shows the plain address. Generic wording, no browser's colours or icon.
+  - The voice ("So the customer sees a warning page") is fair for Chrome 154+, the largest browser. Firefox's
+    HTTPS-First falls back to http silently; Safari's warning is a separate setting. Kept as scripted (the twist).
+- **F-2 · Registrar forwarding and the padlock (beat 10): true.** HTTPS on forwarded domains: GoDaddy (applied when a
+  forward is set up or edited, so an old untouched forward may still lack it), Porkbun, Squarespace (SSL toggle),
+  Cloudflare Redirect Rules (proxied). No HTTPS on free forwarding: Namecheap, Hover, Name.com; IONOS only with paid
+  Redirect Shield.
+- **F-3 · Fixed: the Redirect Checker (beat 14).** redirhub.com/redirect-checker opens FindRedirect. A bare domain is
+  checked over http:// only (it would show the forward working: the false comfort of the twist); typed with
+  https://, each hop's Details shows "SSL: Verified" or "Unverified". The honest note now says "Check one in our free
+  Redirect Checker, with https:// in front", and the checker on screen already shows https://clinvane.com.
+- **F-4 · Fixed: Connect DNS (beat 24).** The panel had an invented "Connect" button and helper line; it now shows the
+  dashboard's copy: "Approve once at Cloudflare and it adds this record for you. About a minute, nothing to copy." /
+  "Continue with Cloudflare". Automatic setup (Domain Connect) works with Cloudflare only today: true. "In batches,
+  if you like" means "at your own pace": there is no batch-connect button; the docs say any order, and a waiting
+  domain doesn't hold up the others.
+- **F-5 · Fixed: "46 selected" (beat 31).** The bulk bar says "{n} selected", not "{n} links selected".
+- **F-6 · Verified word for word:** navigation, the Create chooser and "Already have a spreadsheet of links? Import
+  CSV", every string of the import's fix and review steps, "Waiting for DNS" / "Connected", "Automatic" / "Manual",
+  the Change destination dialog ("Replace URL", "Find and replace", "New destination URL", "Domain redirects keep
+  their path and query forwarding. Only the target changes.", "Update 46 links"), the analytics tabs ("Domains",
+  "Tags", "Clicks") and "Channel: Direct". "Destination must start with https:// or http://." is the import's
+  documented error (support: CSV import problems).
+- **F-7 · CSV (beats 16–20): true.** Required headers `source_url` and `destination` (the film shows exactly these);
+  `type` optional (empty = 301); `tags` optional. Links → Create → Import CSV; Excel and Google Sheets files work.
+  No documented row limit; imports over the plan are blocked (no plan is named in the film).
+- **F-8 · Review, one-click https fix, www (beats 21–22): true.** Nothing is saved before the review is confirmed; a
+  bare domain covers its www (when www also points to RedirHub).
+- **F-9 · Padlock set up and renewed per domain (beat 25): true** (/support/automatic-https).
+- **F-10 · Visits per domain, quiet domains (beats 26–30): true.** Analytics counts "clicks" (the voice says visits;
+  both are used on the site), by domain, tag and channel ("Direct"). Links-list counts include bots; Analytics has
+  "Humans only".
+- **F-11 · Filter by tag, change once (beat 31): true** (product facts: "changed in groups by tag or status").
+- **F-12 · Renewals (beat 6): true as a generalization** (ICANN: terms of 1–10 years, usually renewed yearly).
+- **F-13 · Numbers agree across scenes:** 226 rows = 9 to fix + 217 fine = 214 domains + 12 www rows left out =
+  6 shown + "220 more". 63 visits, 46 links, 214 domains and the zeros carry an Example label.
+- **F-14 · Outside the film:** redirhub.com/support/analytics-find-top-channel still says "the Free plan does not
+  include it"; there is no free plan. For the support content owners.
