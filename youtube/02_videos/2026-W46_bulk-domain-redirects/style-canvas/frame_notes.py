@@ -63,7 +63,7 @@ META = {
                  'Shared-element morph: the tile grows into a closed door; on “a door that opens properly” the light fills it from the top; the two lines land with their words; on “someone knocks” the knock sounds and the arcs leave, one per rap.',
                  'Register change into the honest note.', 'thoughtful', 'Knock 1 of 2.', '“That’s the whole problem, in one picture.”', 'Charcoal', 'The motif’s first full appearance.'),
     'w46-Honest': ('One honest note', '14', 'A handful of domains with a working padlock: you’re done.', 'an aside card; the Redirect Checker on https://clinvane.com: 301, then 200 on Northway’s page',
-                   'The card slides in on “One honest note”; the checker comes in on “shows the padlock” and runs on “Check one”: the two hops appear in order.', 'Cut back on “But”.', 'plain, generous', 'None.',
+                   'The card slides in on “One honest note”; the checker comes in on “a handful of domains” and runs on “Check one”: the two hops appear in order.', 'Cut back on “But”.', 'plain, generous', 'None.',
                    'Trust: they’re not selling me something I don’t need.', 'Light', 'Checker drawn as an example (labelled); its layout unconfirmed (open-questions.md Q-3).'),
     'w46-Once': ('Two hundred domains, one file', '15', 'The bridge: write down once where every domain should go.', 'three registrar forms with Northway’s domains; three lines; one empty file',
                  'The forms stack on “in three accounts, one form at a time”; the empty file arrives on “So instead”; on “you write down once” three lines draw into it; the line lands on “once”.',

@@ -212,7 +212,7 @@ the viewer's own list.
 - **Beats:** 14 · **Room:** Light
 - **The one idea:** A handful of domains with a working padlock: you’re done.
 - **Props:** an aside card; the Redirect Checker on https://clinvane.com: 301, then 200 on Northway’s page
-- **In:** The card slides in on “One honest note”; the checker comes in on “shows the padlock” and runs on “Check one”: the two hops appear in order.
+- **In:** The card slides in on “One honest note”; the checker comes in on “a handful of domains” and runs on “Check one”: the two hops appear in order.
 - **Out:** Cut back on “But”.
 - **Voice:** plain, generous · **Sound:** None.
 - **The viewer should feel:** Trust: they’re not selling me something I don’t need.
