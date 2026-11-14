@@ -1,0 +1,403 @@
+1
+00:00:00,400 --> 00:00:01,870
+Imagine you have a company.
+
+2
+00:00:02,170 --> 00:00:05,440
+Let's call it Northway,
+a small software company.
+
+3
+00:00:05,806 --> 00:00:10,246
+Every product it launched started the same
+way: buy the domain first.
+
+4
+00:00:10,546 --> 00:00:12,316
+Then one for each country.
+
+5
+00:00:12,616 --> 00:00:15,826
+A few misspellings,
+so nobody else grabs your visitors.
+
+6
+00:00:16,096 --> 00:00:18,496
+And the old name, from before the rebrand.
+
+7
+00:00:19,367 --> 00:00:22,727
+Today, Northway owns over two hundred
+domains.
+
+8
+00:00:23,027 --> 00:00:26,597
+Whatever your business is,
+your list probably grew the same way.
+
+9
+00:00:27,008 --> 00:00:30,188
+Now you're bringing all your products
+together on one website,
+
+10
+00:00:30,248 --> 00:00:32,948
+so customers find everything in one place.
+
+11
+00:00:33,188 --> 00:00:37,418
+That means every one of those two hundred
+domains needs a new destination.
+
+12
+00:00:38,143 --> 00:00:41,693
+But the real question is,
+how do you move hundreds of domains at
+
+13
+00:00:41,743 --> 00:00:45,613
+once, with one spreadsheet,
+without losing the people who use them?
+
+14
+00:00:46,620 --> 00:00:50,640
+Each domain renews every year,
+whether anyone uses it or not.
+
+15
+00:00:51,027 --> 00:00:52,705
+Most of them forward somewhere.
+
+16
+00:00:53,035 --> 00:00:56,015
+Set up years ago,
+in whichever registrar account they were
+
+17
+00:00:56,065 --> 00:00:59,185
+bought in. For Northway,
+that's three accounts.
+
+18
+00:00:59,614 --> 00:01:01,144
+Nobody has the full list.
+
+19
+00:01:01,414 --> 00:01:05,564
+And nobody knows which ones people still
+type, like the name of a product you
+
+20
+00:01:05,614 --> 00:01:06,994
+retired years ago.
+
+21
+00:01:07,652 --> 00:01:11,132
+One evening, a customer types that old
+product domain.
+
+22
+00:01:11,462 --> 00:01:13,182
+It forwards to Northway's site.
+
+23
+00:01:13,232 --> 00:01:16,922
+Someone checked that once,
+years ago. It worked.
+
+24
+00:01:17,256 --> 00:01:20,796
+But the customer's browser asks for the
+secure version first,
+
+25
+00:01:20,976 --> 00:01:22,206
+the one with the padlock.
+
+26
+00:01:22,446 --> 00:01:25,956
+Some registrars' forwarding includes one.
+Others don't.
+
+27
+00:01:26,646 --> 00:01:28,716
+So the customer sees a warning page.
+
+28
+00:01:28,956 --> 00:01:32,406
+To them, it looks like Northway is broken.
+They leave.
+
+29
+00:01:33,263 --> 00:01:34,752
+Northway never finds out.
+
+30
+00:01:34,992 --> 00:01:38,412
+Their own check worked only because they
+typed the plain address.
+
+31
+00:01:39,567 --> 00:01:41,697
+The fix wasn't fewer domains.
+
+32
+00:01:41,997 --> 00:01:45,837
+Every domain needed two things:
+a door that opens properly,
+
+33
+00:01:45,897 --> 00:01:49,407
+padlock included, and a way to hear when
+someone knocks.
+
+34
+00:01:50,508 --> 00:01:51,768
+One honest note.
+
+35
+00:01:52,098 --> 00:01:55,618
+If you have a handful of domains,
+and your registrar's forwarding shows the
+
+36
+00:01:55,668 --> 00:01:57,198
+padlock, you're done.
+
+37
+00:01:57,498 --> 00:01:59,748
+Check one in our free Redirect Checker.
+
+38
+00:02:00,202 --> 00:02:04,642
+But two hundred domains,
+in three accounts, one form at a time?
+
+39
+00:02:04,912 --> 00:02:06,562
+That's how domains get missed.
+
+40
+00:02:06,802 --> 00:02:11,782
+So instead, you write down once where
+every domain should go. In a spreadsheet.
+
+41
+00:02:12,680 --> 00:02:14,420
+Each row is one domain.
+
+42
+00:02:14,720 --> 00:02:16,400
+Next to it, where it should go.
+
+43
+00:02:16,670 --> 00:02:18,980
+The old product name to its new page.
+
+44
+00:02:19,220 --> 00:02:21,290
+Each country to its own pages.
+
+45
+00:02:21,530 --> 00:02:23,450
+The misspellings to the homepage.
+
+46
+00:02:23,878 --> 00:02:25,587
+Then the kind of redirect.
+
+47
+00:02:25,917 --> 00:02:28,227
+A 301,
+the permanent kind,
+
+48
+00:02:28,407 --> 00:02:30,417
+because these moves are for good.
+
+49
+00:02:30,873 --> 00:02:36,123
+And a tag, a short label for the group.
+Product. Country. Typo.
+
+50
+00:02:36,483 --> 00:02:37,533
+It pays off later.
+
+51
+00:02:37,967 --> 00:02:42,376
+That one file is the whole plan,
+and anyone on the team can check it.
+
+52
+00:02:43,103 --> 00:02:46,343
+In RedirHub,
+it goes in through Links, Create,
+
+53
+00:02:46,553 --> 00:02:47,903
+Import CSV.
+
+54
+00:02:48,173 --> 00:02:51,893
+That's the plain spreadsheet file Excel or
+Google Sheets can save.
+
+55
+00:02:52,301 --> 00:02:55,451
+Before anything is saved,
+it shows what will happen.
+
+56
+00:02:55,871 --> 00:02:59,351
+Every domain it adds,
+and any row that needs a second look.
+
+57
+00:02:59,707 --> 00:03:02,537
+A destination missing its https?
+
+58
+00:03:02,587 --> 00:03:04,357
+One click fixes all of them.
+
+59
+00:03:04,597 --> 00:03:08,197
+And each domain's www version comes along too.
+
+60
+00:03:08,819 --> 00:03:13,379
+One thing a spreadsheet can't do is tell
+the internet where each domain lives.
+
+61
+00:03:13,649 --> 00:03:17,459
+That's DNS, the setting that points a
+domain somewhere.
+
+62
+00:03:17,770 --> 00:03:20,350
+On Cloudflare,
+it can connect automatically.
+
+63
+00:03:20,710 --> 00:03:23,080
+Elsewhere, you add the records it shows
+you.
+
+64
+00:03:23,350 --> 00:03:24,790
+In batches, if you like.
+
+65
+00:03:25,128 --> 00:03:29,838
+And as each domain connects,
+its padlock is set up, and renewed for it.
+
+66
+00:03:30,923 --> 00:03:34,761
+Then, for the first time,
+Northway could hear the knocks.
+
+67
+00:03:35,061 --> 00:03:37,401
+Visits, domain by domain.
+
+68
+00:03:37,868 --> 00:03:41,528
+A few weeks in,
+one stood out. A misspelling.
+
+69
+00:03:41,888 --> 00:03:43,778
+Northway without the H.
+
+70
+00:03:44,018 --> 00:03:45,848
+Sixty-three visits already.
+
+71
+00:03:46,229 --> 00:03:48,839
+It had nearly been dropped at the last
+renewal.
+
+72
+00:03:49,688 --> 00:03:52,658
+Those were customers,
+typing the name a little wrong.
+
+73
+00:03:52,988 --> 00:03:55,808
+Now they land on the homepage,
+padlock and all.
+
+74
+00:03:56,606 --> 00:03:58,796
+The domains that stayed quiet all season?
+
+75
+00:03:59,126 --> 00:04:02,306
+At renewal time,
+Northway knows where to look first.
+
+76
+00:04:02,623 --> 00:04:04,003
+And the tags pay off.
+
+77
+00:04:04,273 --> 00:04:05,443
+Retiring a product?
+
+78
+00:04:05,623 --> 00:04:11,896
+Filter by its tag. Change it once. So. One
+list. One import.
+
+79
+00:04:12,166 --> 00:04:13,216
+Point the domains.
+
+80
+00:04:13,486 --> 00:04:16,216
+That's how to move hundreds of domains at
+once.
+
+81
+00:04:17,027 --> 00:04:19,277
+Northway isn't a real company, by the way.
+
+82
+00:04:19,637 --> 00:04:22,937
+But this story started with "imagine" for
+a reason.
+
+83
+00:04:23,388 --> 00:04:24,678
+Picture your own list.
+
+84
+00:04:24,978 --> 00:04:27,198
+Which domain would a customer type
+tonight?
+
+85
+00:04:27,468 --> 00:04:29,388
+And would the door open for them?
+
+86
+00:04:30,569 --> 00:04:32,249
+If this helped, subscribe.
+
+87
+00:04:32,429 --> 00:04:33,839
+Links are in the description.
+
+88
+00:04:34,109 --> 00:04:37,389
+And if you're new to redirects,
+our earlier videos are right here on
+
+89
+00:04:37,439 --> 00:04:38,519
+screen.
+

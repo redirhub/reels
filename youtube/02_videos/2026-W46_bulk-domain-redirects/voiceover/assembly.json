@@ -1,0 +1,41 @@
+{
+  "_doc": "How the VO takes are cut into beats and laid on the timeline. Seconds. Read by scripts/yt/vo-build.py.",
+  "leadIn": 0.4,
+  "join": 0.2,
+  "tempo": 1.0,
+  "match": true,
+  "studio": "clean",
+  "master": {
+    "lufs": -13.6,
+    "ceiling": -2.0,
+    "comp": "acompressor=threshold=-20dB:ratio=2:attack=25:release=250:knee=6"
+  },
+  "extraAfter": {
+    "2": 0.4,
+    "4": 0.3,
+    "5": 0.6,
+    "8": 0.3,
+    "10": 0.3,
+    "11": 0.3,
+    "12": 0.75,
+    "13": 0.8,
+    "15": 0.5,
+    "19": 0.4,
+    "22": 0.3,
+    "25": 0.7,
+    "28": 0.4,
+    "29": 0.4,
+    "31": 0.4,
+    "32": 0.4,
+    "34": 0.85,
+    "35": 4.0
+  },
+  "silentBeats": {},
+  "_notes": {
+    "narrator": "Sarah (ElevenLabs GkP5h0UAcZQ2i4aDPipF, studio quality, full band), eleven_v4, stability 0.5, similarity 0.75, seed 42, mp3_44100_128, the paid account (Leo picked her 2026-11-11 over Megan, Katie and Mandi; Emily was rejected as robotic). No delivery tags: '[softly]' was performed as a whisper. v6 (2026-11-13): one take per beat; beat 20 uses the respelled take 'Redirect Hub' (c20b), the plain one is kept (open-questions.md P-1).",
+    "tempo": "1.0: her natural pace. No stretch (W44's stretch was the first robotic source).",
+    "tighten": "Off: her longest pause between words is 0.51 s, so nothing needs cutting and no room tone switches on and off.",
+    "master": "-13.6 LUFS voice (v6, Leo: the mix is -14 LUFS integrated, -1 dBTP, the voice on top; the first render measured -14.8, so +0.8 dB), the same gentle 2:1 compressor with a 25 ms attack. Ceiling -2.0 dBTP so the mix (voice + bed + effects) stays under -1 dBTP.",
+    "extraAfter": "Air only where the picture needs it (v6 beats). 2: the notebook's circled line holds. 4: the lines into one website land. 5: the title holds through the question. 8, 10, 11: the turns into and through the twist. 12: the silence after 'Northway never finds out' (silence = done). 13: the knock lands before the aside. 15: the bridge into the spreadsheet. 19: into the product (whoosh 2). 22: the review settles. 25: the padlocks and the fixed chime. 28: the dropped-at-renewal beat lands. 31, 32: the recap. 34: the closing question hangs. 35: the end card holds for YouTube's end screen. Every pause between beats stays under 1.2 s (v6 gate): 12 and 34 are 0.75 and 0.85."
+  }
+}

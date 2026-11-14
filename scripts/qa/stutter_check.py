@@ -15,6 +15,7 @@ Findings within 0.3 s of each other merge. Cuts (most of the frame changing at o
 Each finding prints its time, the kind, how many tiles and where, so it can be looked at frame by frame.
 """
 import argparse, subprocess
+from fractions import Fraction
 import numpy as np
 
 ap = argparse.ArgumentParser()
@@ -22,7 +23,8 @@ ap.add_argument('mp4'); ap.add_argument('--from', dest='t0', type=float, default
 ap.add_argument('--top', type=int, default=60)
 ap.add_argument('--min-peak', type=float, default=1.5, help='drop findings whose motion peaks under this many grey levels a frame')
 a = ap.parse_args()
-fps = eval(subprocess.check_output(['ffprobe', '-v', 'error', '-select_streams', 'v', '-show_entries', 'stream=r_frame_rate', '-of', 'csv=p=0', a.mp4]).decode().strip())
+# ffprobe may end the value with a comma ("60/1,"), so take the first field and read it as a fraction.
+fps = float(Fraction(subprocess.check_output(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=r_frame_rate', '-of', 'csv=p=0', a.mp4]).decode().strip().split(',')[0]))
 W, H, GX, GY = 320, 180, 8, 6
 cmd = ['ffmpeg', '-v', 'error']
 if a.t0: cmd += ['-ss', str(a.t0)]

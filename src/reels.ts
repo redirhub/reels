@@ -18,6 +18,8 @@ import { ForwardDomains, FORWARD_DOMAINS_SECONDS } from './remotion/reels/forwar
 import { forwardDomainsDefaults } from './remotion/reels/forward-domains/props';
 import { ChangeDomain, CHANGE_DOMAIN_SECONDS } from './remotion/reels/change-domain/ChangeDomain';
 import { changeDomainDefaults } from './remotion/reels/change-domain/props';
+import { BulkRedirects, BULK_REDIRECTS_SECONDS } from './remotion/reels/bulk-redirects/BulkRedirects';
+import { bulkRedirectsDefaults } from './remotion/reels/bulk-redirects/props';
 
 export type Reel = {
     /** Composition id and output filename (`out/<id>.mp4`). Letters, numbers, dashes. */
@@ -96,6 +98,16 @@ export const reels: Reel[] = [
         component: ChangeDomain,
         defaultProps: changeDomainDefaults,
         durationInSeconds: CHANGE_DOMAIN_SECONDS,
+        ...LANDSCAPE,
+        fps: 60,
+    },
+    {
+        id: 'bulk-redirects',
+        title: 'How to redirect hundreds of domains at once (YouTube, W46)',
+        description: 'A 16:9 story-led tutorial with voiceover: Northway, a small software company, has two hundred domains to move to one website. A customer types a retired product\'s domain, meets a warning page and leaves. One spreadsheet gives every domain a door that opens properly, padlock included, and a way to hear the knock: the file, the import in RedirHub, pointing the domains, then visits.',
+        component: BulkRedirects,
+        defaultProps: bulkRedirectsDefaults,
+        durationInSeconds: BULK_REDIRECTS_SECONDS,
         ...LANDSCAPE,
         fps: 60,
     },
