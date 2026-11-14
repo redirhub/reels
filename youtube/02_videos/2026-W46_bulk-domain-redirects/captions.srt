@@ -230,174 +230,174 @@ That one file is the whole plan,
 and anyone on the team can check it.
 
 52
-00:02:43,103 --> 00:02:46,523
+00:02:43,103 --> 00:02:46,343
 In RedirHub,
 it goes in through Links, Create,
 
 53
-00:02:46,733 --> 00:02:48,023
+00:02:46,553 --> 00:02:47,903
 Import CSV.
 
 54
-00:02:48,323 --> 00:02:52,043
+00:02:48,173 --> 00:02:51,893
 That's the plain spreadsheet file Excel or
 Google Sheets can save.
 
 55
-00:02:52,484 --> 00:02:55,634
+00:02:52,301 --> 00:02:55,451
 Before anything is saved,
 it shows what will happen.
 
 56
-00:02:56,054 --> 00:02:59,534
+00:02:55,871 --> 00:02:59,351
 Every domain it adds,
 and any row that needs a second look.
 
 57
-00:02:59,890 --> 00:03:02,720
+00:02:59,707 --> 00:03:02,537
 A destination missing its https?
 
 58
-00:03:02,770 --> 00:03:04,540
+00:03:02,587 --> 00:03:04,357
 One click fixes all of them.
 
 59
-00:03:04,780 --> 00:03:08,380
+00:03:04,597 --> 00:03:08,197
 And each domain's www version comes along too.
 
 60
-00:03:09,002 --> 00:03:13,562
+00:03:08,819 --> 00:03:13,379
 One thing a spreadsheet can't do is tell
 the internet where each domain lives.
 
 61
-00:03:13,832 --> 00:03:17,642
+00:03:13,649 --> 00:03:17,459
 That's DNS, the setting that points a
 domain somewhere.
 
 62
-00:03:17,953 --> 00:03:20,533
+00:03:17,770 --> 00:03:20,350
 On Cloudflare,
 it can connect automatically.
 
 63
-00:03:20,893 --> 00:03:23,263
+00:03:20,710 --> 00:03:23,080
 Elsewhere, you add the records it shows
 you.
 
 64
-00:03:23,533 --> 00:03:24,973
+00:03:23,350 --> 00:03:24,790
 In batches, if you like.
 
 65
-00:03:25,311 --> 00:03:30,021
+00:03:25,128 --> 00:03:29,838
 And as each domain connects,
 its padlock is set up, and renewed for it.
 
 66
-00:03:31,105 --> 00:03:34,943
+00:03:30,923 --> 00:03:34,761
 Then, for the first time,
 Northway could hear the knocks.
 
 67
-00:03:35,243 --> 00:03:37,583
+00:03:35,061 --> 00:03:37,401
 Visits, domain by domain.
 
 68
-00:03:38,051 --> 00:03:41,711
+00:03:37,868 --> 00:03:41,528
 A few weeks in,
 one stood out. A misspelling.
 
 69
-00:03:42,071 --> 00:03:43,961
+00:03:41,888 --> 00:03:43,778
 Northway without the H.
 
 70
-00:03:44,201 --> 00:03:46,031
+00:03:44,018 --> 00:03:45,848
 Sixty-three visits already.
 
 71
-00:03:46,412 --> 00:03:49,022
+00:03:46,229 --> 00:03:48,839
 It had nearly been dropped at the last
 renewal.
 
 72
-00:03:49,871 --> 00:03:52,841
+00:03:49,688 --> 00:03:52,658
 Those were customers,
 typing the name a little wrong.
 
 73
-00:03:53,171 --> 00:03:55,991
+00:03:52,988 --> 00:03:55,808
 Now they land on the homepage,
 padlock and all.
 
 74
-00:03:56,788 --> 00:03:58,978
+00:03:56,606 --> 00:03:58,796
 The domains that stayed quiet all season?
 
 75
-00:03:59,308 --> 00:04:02,488
+00:03:59,126 --> 00:04:02,306
 At renewal time,
 Northway knows where to look first.
 
 76
-00:04:02,806 --> 00:04:04,186
+00:04:02,623 --> 00:04:04,003
 And the tags pay off.
 
 77
-00:04:04,456 --> 00:04:05,626
+00:04:04,273 --> 00:04:05,443
 Retiring a product?
 
 78
-00:04:05,806 --> 00:04:12,078
+00:04:05,623 --> 00:04:11,896
 Filter by its tag. Change it once. So. One
 list. One import.
 
 79
-00:04:12,348 --> 00:04:13,398
+00:04:12,166 --> 00:04:13,216
 Point the domains.
 
 80
-00:04:13,668 --> 00:04:16,398
+00:04:13,486 --> 00:04:16,216
 That's how to move hundreds of domains at
 once.
 
 81
-00:04:17,209 --> 00:04:19,459
+00:04:17,027 --> 00:04:19,277
 Northway isn't a real company, by the way.
 
 82
-00:04:19,819 --> 00:04:23,119
+00:04:19,637 --> 00:04:22,937
 But this story started with "imagine" for
 a reason.
 
 83
-00:04:23,570 --> 00:04:24,860
+00:04:23,388 --> 00:04:24,678
 Picture your own list.
 
 84
-00:04:25,160 --> 00:04:27,380
+00:04:24,978 --> 00:04:27,198
 Which domain would a customer type
 tonight?
 
 85
-00:04:27,650 --> 00:04:29,570
+00:04:27,468 --> 00:04:29,388
 And would the door open for them?
 
 86
-00:04:30,751 --> 00:04:32,431
+00:04:30,569 --> 00:04:32,249
 If this helped, subscribe.
 
 87
-00:04:32,611 --> 00:04:34,021
+00:04:32,429 --> 00:04:33,839
 Links are in the description.
 
 88
-00:04:34,291 --> 00:04:37,571
+00:04:34,109 --> 00:04:37,389
 And if you're new to redirects,
 our earlier videos are right here on
 
 89
-00:04:37,621 --> 00:04:38,701
+00:04:37,439 --> 00:04:38,519
 screen.
 

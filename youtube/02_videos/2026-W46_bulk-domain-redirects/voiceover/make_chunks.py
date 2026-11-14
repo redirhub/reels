@@ -22,7 +22,7 @@ SAY = [('A 301,', 'A three-oh-one,'), ('its https?', 'its H T T P S?'), ("domain
        ('without the h.', 'without the H.')]
 # "RedirHub" has no confirmed pronunciation (open-questions.md P-1). Beat 20 is also generated with this respelling,
 # which stresses "redirect"; the take that Whisper hears as "RedirHub" or "redirect hub" is used, and Leo decides.
-ALIAS = {20: ('RedirHub', 'Redirect Hub')}
+ALIAS = {20: ('RedirHub', 'Redir Hub')}  # 2026-11-14: "Redirect Hub" said redirect-hub (Leo); "Redir Hub" stresses re-DIR, like redirect
 USE_ALIAS = True
 def say(s):
     for a, b in SAY:
@@ -56,7 +56,8 @@ for k, (a, b) in enumerate(TAKES, 1):
         old, new = ALIAS[a]
         alt = {**c, 'id': f'c{k:02d}b', 'text': text.replace(old, new), 'alias': f'{old} -> {new}',
                'spoken': {str(a): text.replace(old, new)}}
-        # 2026-11-13: Whisper hears the plain take as "Reader Hub" and the respelled one as "Redirect Hub" (P-1)
+        # 2026-11-14 (P-1): "Redir Hub" is said re-DIR-hub, the stress of "redirect"; the plain take stresses REA-der.
+        # Whisper writes both as "Reader Hub" (it has no word "redir"), so the choice was made on syllable stress.
         (c if USE_ALIAS else alt)['unused'] = True
         out.append(alt)
 json.dump(out, open(os.path.join(HERE, 'chunks.json'), 'w'), indent=2, ensure_ascii=False)

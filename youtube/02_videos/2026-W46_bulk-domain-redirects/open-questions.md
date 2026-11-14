@@ -33,13 +33,13 @@ set in the website's UI type (Inter), not the serif (the prop font stays in the 
 
 ## P · Pronunciation
 
-- **P-1 · "RedirHub" (please confirm).** No confirmed pronunciation is on file (W41 and W44 notes, rule v0.3:
-  "TESTING until Leo confirms"). Beat 20 was generated twice:
-  - **plain** "In RedirHub, …" (`voiceover/chunks/c20.mp3`, kept, not used): Whisper hears **"Reader Hub"**, the
-    same fault Leo heard at 2:16.
-  - **respelled** "In Redirect Hub, …" (`c20b.mp3`, used): Whisper hears **"Redirect Hub"**, which passes.
-  If the brand should sound different, the fix is one beat: change `ALIAS` in `voiceover/make_chunks.py`,
-  regenerate `c20b`, rebuild.
+- **P-1 · "RedirHub" (2026-11-14).** Leo heard v6's respelled take, "Redirect Hub", as redirect-hub. Beat 20 was
+  generated three more ways (same voice and settings) and compared by syllable stress, because Whisper writes every
+  version as "Reader Hub" (it has no word "redir"):
+  - plain "RedirHub" (`c20.mp3`, kept): stress on the first syllable, REA-der-hub;
+  - **"Redir Hub" (`c20b.mp3`, used)**: a short, soft "re", then a longer, higher "DIR": re-DIR-hub, the stress of "redirect";
+  - "Re-dir Hub" and "Ree-deer Hub" (not kept): REA-der again, or run together.
+  If the brand should sound different, the fix is one beat: `ALIAS` in `voiceover/make_chunks.py`, regenerate `c20b`, rebuild.
 - **P-2 · "Northway"** is heard as "Northway" in every beat (Whisper); "without the H" as written.
 
 ## Q · Unconfirmed UI and labels (drawn as close to the real UI as I could)

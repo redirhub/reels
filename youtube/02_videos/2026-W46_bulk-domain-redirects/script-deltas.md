@@ -24,7 +24,7 @@ the knocks: the aside shows Northway's wordmark and the question plays over the 
 | Beat | Script | Sent to the voice | Why |
 |---|---|---|---|
 | 17 | "A 301," | "A three-oh-one," | Said as a person says it. |
-| 20 | "In RedirHub," | "In Redirect Hub," | Whisper hears the plain take as "Reader Hub" (Leo's 2:16 note). No confirmed pronunciation exists (open-questions.md P-1), so the respelled take is used and the plain take is kept. |
+| 20 | "In RedirHub," | "In Redir Hub," | v6.1 (2026-11-14): "Redirect Hub" was heard as redirect-hub (Leo). "Redir Hub" puts the stress on DIR (re-DIR-hub, as in "redirect"); the plain spelling is read REA-der-hub. open-questions.md P-1. |
 | 22 | "its https?" | "its H T T P S?" | Letter by letter, as before. |
 | 22 | "each domain's www version" | "each domain's double-u double-u double-u version" | As before. |
 | 27 | "without the h." | "without the H." | So the letter is said, not swallowed. |
