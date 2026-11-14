@@ -33,7 +33,8 @@ set in the website's UI type (Inter), not the serif (the prop font stays in the 
 
 ## P · Pronunciation
 
-- **P-1 · "RedirHub" (2026-11-14).** Leo heard v6's respelled take, "Redirect Hub", as redirect-hub. Beat 20 was
+- **P-1 · "RedirHub" (2026-11-14) · ✅ confirmed:** re-DIR-hub, the "Redir Hub" respelling below (confirmed in review
+  after hearing the beat 20 clip). Use it for every video until the brand says otherwise. Leo heard v6's respelled take, "Redirect Hub", as redirect-hub. Beat 20 was
   generated three more ways (same voice and settings) and compared by syllable stress, because Whisper writes every
   version as "Reader Hub" (it has no word "redir"):
   - plain "RedirHub" (`c20.mp3`, kept): stress on the first syllable, REA-der-hub;
