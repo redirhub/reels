@@ -41,7 +41,7 @@ export function YoursScene() {
         // the aside leaves with Northway's wordmark: from "Picture your own list" the frame is the viewer's
         0: (() => { const m = slideIn(t, aside, 0.6, 0, 10); return { ...m, opacity: (m.opacity as number) * leave }; })(),
         1: { ...card, opacity: (card.opacity as number) * leave, transformOrigin: '960px 450px' },
-        2: slideIn(t, picture, 0.6, 0, 24),
+        2: slideIn(t, picture - 0.3, 0.6, 0, 24), // arrives as the wordmark leaves (a crossfade, no dip)
     };
     return <FrameScene k="YourNames" moves={moves} vars={{
         ...hookIn(t, 'hot', L.word(34, 'which') - 0.1, 0.45, 0),

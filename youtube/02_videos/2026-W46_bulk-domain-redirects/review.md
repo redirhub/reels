@@ -1,5 +1,35 @@
 # W46 review notes
 
+## v6.1 · Leo's review of the Northway cut (2026-11-14)
+
+Leo's notes, by the timeline, and what changed:
+
+| Leo | Done |
+|---|---|
+| The first line should be "Imagine you have a company". | Beat 1 regenerated alone (same voice, model, seed, settings); Whisper hears it word for word. |
+| 1:49: the URL isn't centred under the door. | Fixed in `door()`: the knock arcs made the drawing wider than the door, and centring that wider drawing pushed the door left of its label. The label now moves with the door (Door and Knocks). |
+| The knock isn't a knocking sound; fix it everywhere. | The v6 file was Mixkit #1523, **"Heavy sliding door"**, picked under the wrong title. Replaced with Mixkit #197, "Knocking on a thick wooden door": three real knocks 0.18 s apart (attacks measured at 0.018, 0.194, 0.386 s); the knock arcs follow the new rhythm in both scenes. |
+| After 4:09 the summary feels poorly made; another way, no "listen". | Beat 32 regenerated without "And listen for the knock". The summary is now the film's own three objects: the list (northway-domains.csv), the import's review ("Adds 214 domains…") and Hostnames, its rows turning Connected; joined by the film's draw move (as beat 4), with the spoken summary building above, phrase by phrase. |
+| On "Northway isn't a real company", show Northway's logo, not the door; no doors in the summary. | The aside shows Northway's wordmark; on "Picture your own list" it leaves and the viewer's own list arrives (your-domains.csv, rows unnamed); on "Which domain would a customer type tonight?" one row lights amber. No door is drawn after the knocks. The voice's last words ("would the door open for them?") and the end line stay. |
+| Remove the pending dynamic QR. | Removed; the end card is the line, "Links are in the description" and the RedirHub logo, the right half clear. |
+
+My own pass, from the fresh-eyes review's open items:
+
+- **Northway on screen from the start.** "Northway" is now written at the top of the notebook as she names it (0:02); before, the
+  name was only heard until the wordmark at 0:19 (open-questions.md R-1, closed).
+- **No empty half in the honest note.** The checker arrived on "Check one", leaving the right half empty for 6 s; it now comes in
+  on "a handful of domains" and runs on "Check one".
+- **No dip at "Picture your own list".** The wordmark left a beat before the list arrived (flash_check, 263.4 s); they now
+  crossfade.
+
+Checks on the v6.1 render (`out/bulk-redirects.mp4`): 4:43 (283.05 s), 1920×1080, 60 fps; **−14.1 LUFS**, **−3.1 dBTP**.
+Contact sheet every 0.5 s (`w46-contact-sheet.png`), every frame looked at. Re-transcribed against script v6.1: **0.996**
+(685/688; spelling only, plus one "and" under the music); beat 1 heard word for word, beat 20 "Redirect Hub". keyframes-check
+30/30. flash_check: cuts only, after the crossfade fix; stutter_check: 8-bit fade rounding (≤ 4.5 grey levels). The last
+two timing fixes (checker, crossfade) came after this render and were checked as stills; the CI render of the pushed commit is
+the preview.
+
+
 ## v6 · the Northway cut (2026-11-13)
 
 Leo's corrective pass: the story rebuilt around Northway, a small software company, re-voiced from script v6,

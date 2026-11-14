@@ -58,8 +58,8 @@ export function HonestScene() {
     return (
         <FrameScene k="Honest" moves={{
             0: slideIn(t, L.word(14, 'one') - 0.25, 0.6, -40, 0),
-            // the checker waits on the right from "shows the padlock" (the right half sat empty for 6 s) and runs on "Check one"
-            1: slideIn(t, L.word(14, 'padlock') - 0.3, 0.55, 30, 0),
+            // the checker waits on the right from "a handful of domains" (the right half sat empty for 6 s) and runs on "Check one"
+            1: slideIn(t, L.word(14, 'handful') - 0.2, 0.55, 30, 0),
         }} vars={{ ...hop(1, check + 0.35), ...hop(2, check + 0.8) }} />
     );
 }
