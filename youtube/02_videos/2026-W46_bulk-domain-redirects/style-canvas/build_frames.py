@@ -148,7 +148,7 @@ def _world():
 
     rules = ('<ul style="margin: 0; padding-left: 28px; display: flex; flex-direction: column; gap: 14px; font-size: 24px; line-height: 1.45; color: #344054">'
              '<li>No face or realistic person: a notebook and a browser stand in.</li>'
-             '<li>No real company’s domain, logo, colour or copy for any registrar, browser or Cloudflare. “Cloudflare” appears once, as a plain word, in Connect DNS.</li>'
+             '<li>No real company’s domain, logo, colour or copy for any registrar, browser or Cloudflare. “Cloudflare” appears only as a plain word, in Connect DNS (the dashboard’s own copy).</li>'
              '<li>No dollar figure, price, plan name or free-plan wording. No step labels or numbered steps: the how-to grows out of the story.</li>'
              '<li>Northway’s palette and Instrument Serif stay on Northway’s own things. Teal means fixed; Signal Red lives only on the warning page; amber at most once a frame; product blue only in product UI.</li>'
              '<li>Nothing tilts, spins or bounces.</li></ul>')
@@ -494,10 +494,10 @@ def hostnames_body():
     panel = (f'<div data-o="panel" style="width: 420px; flex: none; border-left: 1px solid #EAECF0; background: #FFFFFF; padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">'
              f'<span style="font-size: 16px; font-weight: 600; color: #181D27">Connect DNS · <span style="{MONO}">{RETIRED}</span></span>'
              f'<div style="display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: #F2F4F7">{tab("Automatic", True)}{tab("Manual", False)}</div>'
-             f'<div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-cf, 1))">'
-             f'<span style="width: 34px; height: 34px; border-radius: 8px; background: #F2F4F7"></span><span style="font-size: 15px; font-weight: 600; color: #181D27">Cloudflare</span>'
-             f'<span style="flex: 1"></span><span style="{BTN_P}; height: 34px">Connect</span></div>'
-             f'<span style="font-size: 13px; color: #535862; line-height: 1.5">Elsewhere: Manual shows the record to add at your DNS host.</span></div>')
+             # the dashboard's own copy for an automatic connection (lviv: auto-sub-body, continue-with); fact check 2026-11-14
+             f'<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px; border-radius: 12px; box-shadow: 0 0 0 3px rgba(32,167,149,var(--ring-cf, 1))">'
+             f'<span style="font-size: 14px; color: #535862; line-height: 1.5">Approve once at Cloudflare and it adds this record for you. About a minute, nothing to copy.</span>'
+             f'<span style="{BTN_P}; height: 36px">Continue with Cloudflare</span></div></div>')
     return f'<div style="flex: 1; display: flex"><div style="flex: 1; padding: 18px 24px"><div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #EAECF0">{rows}</div></div>{panel}</div>'
 
 
@@ -563,7 +563,7 @@ def bulk_modal():
 @F('w46-ByTag', 'Filter by the tag, change it once')
 def _bytag():
     top = (f'<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"><span style="{BTN_S}; height: 34px; font-size: 13px">Tags: {tag_chip("Product", 12)}</span>'
-           f'<span style="font-size: 14px; font-weight: 600; color: #181D27">46 links selected</span><span style="{BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
+           f'<span style="font-size: 14px; font-weight: 600; color: #181D27">46 selected</span><span style="{BTN_S}; height: 34px; font-size: 13px">Change destination</span></div>')
     body = f'<div style="flex: 1; display: flex; flex-direction: column; padding: 18px 24px">{top}<div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #EAECF0">{links_rows(8, sel=True, tagf="Product")}</div></div>'
     inner = (headline('Filter by its tag. Change it once.', y=100, size=52, w=1500)
              + dash_with_modal('Links', ['Links'], body, modal(bulk_modal(), 560, 90), s=1.12, y=200)
