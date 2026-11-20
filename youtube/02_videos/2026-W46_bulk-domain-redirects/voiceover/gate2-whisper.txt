@@ -1,0 +1,40 @@
+b01   1.000  
+b02   1.000  
+b03   1.000  
+b04   1.000  
+b05   1.000  
+b06   1.000  
+b07   1.000  
+b08   1.000  
+b09   1.000  
+b10   0.955  replace: registrars' -> registrars
+b11   1.000  
+b12   1.000  
+b13   1.000  
+b14   1.000  
+b15   1.000  
+b16   0.968  replace: homepage -> home page
+b17   1.000  
+b18   1.000  
+b19   1.000  
+b20   1.000  
+b21   1.000  
+b22   1.000  
+b23   1.000  
+b24   1.000  
+b25   1.000  
+b26   1.000  
+b27   1.000  
+b28   1.000  
+b29   0.944  replace: homepage -> home page
+b30   1.000  
+b31   1.000  
+b32   1.000  
+b33   1.000  
+b34   1.000  
+b35   1.000  
+overall word match 0.996 (688/691)
+brand b14 | ['redirect']
+brand b17 | ['redirect,']
+brand b20 | ['Redirect Hub']
+brand b35 | ['redirects,']
