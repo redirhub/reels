@@ -187,3 +187,19 @@ cleared for commercial use yet**, and the meme voice's origin is unconfirmed: se
 small music dip under the typing (`<Beat volume={fn}>`).
 
 **Caption:** "Free coffee? ☕ The link broke. We fixed it without changing it. #marketing #links"
+
+### `self-hosted-edge` · Who handles HTTPS?
+
+36-second landscape demo for internal review. English on-screen copy, generated beat, no narration. The shop, domain, IP and terminal are illustrative. The command assumes the workspace token has been exported in the shell.
+
+| Time | On screen |
+|---|---|
+| 0–5s | The sample shop listens on port 80. |
+| 5–12s | A proxied Cloudflare record routes traffic through Cloudflare. A standalone Certbot setup with direct DNS can renew certificates on the host. |
+| 12–20s | Two animated paths distinguish certificate issuance and sync from visitor traffic. |
+| 20–29s | Run the Edge container on each host and point the domain at the servers. |
+| 29–36s | Open the HTTPS shop. Edge on port 443 forwards to the existing app on port 80. |
+
+Sources for technical review: [Edge setup](https://github.com/redirhub/om-script/blob/254eb1ec56cb9916c62bb1a29cc91cc771db18bd/self-hosted-tls/README.md), [Cloudflare proxy status](https://developers.cloudflare.com/dns/proxy-status/), [Certbot renewal and deployment hooks](https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates). Comparisons cover the named configurations. The messaging library lists managed HTTPS for redirect operations as internal only. External review of the self-hosted and comparative copy is pending.
+
+Caption for review: See where a visitor’s HTTPS connection ends and how RedirHub delivers renewed certificates to the servers running your app.
