@@ -190,7 +190,7 @@ small music dip under the typing (`<Beat volume={fn}>`).
 
 ### `self-hosted-edge` · One shop. Three servers.
 
-39-second landscape demo with English narration, original rendered product imagery and a generated percussion track. The review MP4 includes selectable English and Simplified Chinese captions from the two SRT files in the reel folder. A fictional lighting shop runs the same hostname on three servers. The chassis represents an ordinary customer host running the Edge container. All addresses and deployment states are illustrative.
+39-second landscape demo with English narration, original rendered product imagery and a generated percussion track. The review MP4 includes selectable English and Simplified Chinese captions from the two SRT files in the reel folder. A fictional lighting shop runs the same hostname on three servers. The chassis represents an ordinary customer host running the Edge container. All addresses and deployment states are illustrative. The visual treatment follows the [public brand guide](https://www.redirhub.com/brand), and the final frame points to the [Self-Hosted Edge product page](https://www.redirhub.com/managed-ssl-certificates).
 
 | Time | Action |
 |---|---|

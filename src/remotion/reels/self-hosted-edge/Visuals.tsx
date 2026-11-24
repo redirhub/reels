@@ -1,18 +1,17 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { AbsoluteFill, Img } from 'remotion';
 import { RedirHubLogo } from '../../brand/Logo';
-import { font } from '../../brand/tokens';
-import { easeOut, prog, useTime } from '../../lib/anim';
+import { color, font } from '../../brand/tokens';
+import { easeOut, prog } from '../../lib/anim';
 import serverFile from './server.webp';
 import lampFile from './lamp.webp';
 
-export const ink = '#101b1c';
-export const paper = '#f0f0e9';
-export const mint = '#94f6d8';
-export const orange = '#ffaf65';
+export const ink = color.dark;
+export const paper = color.g50;
+export const label: CSSProperties = { fontFamily: font.sans, fontSize: 24, fontWeight: 550 };
 export const mono: CSSProperties = { fontFamily: font.mono, fontSize: 24, letterSpacing: 1 };
 export const at = (left: number, top: number): CSSProperties => ({ position: 'absolute', left, top });
-export const headline: CSSProperties = { fontSize: 106, lineHeight: 1.02, fontWeight: 750, letterSpacing: -6 };
+export const headline: CSSProperties = { fontSize: 106, lineHeight: 1.02, fontWeight: 700, letterSpacing: -4 };
 export const reveal = (t: number, delay = 0) => {
     const k = easeOut(prog(t, delay, delay + 0.42));
     return { opacity: k, transform: 'translateY(' + (1 - k) * 28 + 'px)' };
@@ -21,30 +20,21 @@ export function Stage({ children, light = false, name }: { children: ReactNode; 
     return (
         <AbsoluteFill
             style={{
-                fontFamily: font.display,
+                fontFamily: font.sans,
                 color: light ? ink : paper,
                 overflow: 'hidden',
                 background: light
-                    ? 'radial-gradient(ellipse at 70% 45%, #fafaf3, #e7e8df)'
-                    : 'radial-gradient(ellipse at 72% 75%, #1c3637, #0d1c1d 52%, #0a1416 90%)',
+                    ? paper
+                    : ink,
             }}
         >
-            <div
-                style={{
-                    position: 'absolute',
-                    inset: 0,
-                    opacity: light ? 0.12 : 0.095,
-                    backgroundImage: 'radial-gradient(currentColor 1.5px, transparent 1.7px)',
-                    backgroundSize: '28px 28px',
-                }}
-            />
             {children}
-            <div style={{ ...at(80, 58), display: 'flex', alignItems: 'center', gap: 24 }}>
-                <RedirHubLogo variant={light ? 'color' : 'white'} style={{ width: 192 }} />
+            <div style={{ ...at(96, 64), display: 'flex', alignItems: 'center', gap: 42 }}>
+                <RedirHubLogo variant={light ? 'color' : 'white'} style={{ width: 224 }} />
                 <div style={{ width: 1, height: 28, background: 'currentColor', opacity: 0.35 }} />
                 <span style={{ fontSize: 26, fontWeight: 550 }}>Self-Hosted Edge</span>
             </div>
-            <div style={{ position: 'absolute', right: 80, top: 63, ...mono, fontSize: 20 }}>{name}</div>
+            <div style={{ position: 'absolute', right: 96, top: 71, ...label, fontSize: 23 }}>{name}</div>
         </AbsoluteFill>
     );
 }
@@ -65,7 +55,6 @@ export function Server({ x, y, w, tilt = 0 }: { x: number; y: number; w: number;
     );
 }
 export function Shop({ x, y, w, host }: { x: number; y: number; w: number; host: string }) {
-    const t = useTime();
     return (
         <div
             style={{
@@ -76,24 +65,24 @@ export function Shop({ x, y, w, host }: { x: number; y: number; w: number; host:
                 overflow: 'hidden',
                 borderRadius: 22,
                 boxShadow: '0 28px 70px #00171735',
-                background: '#f5ede3',
-                color: '#252522',
+                background: paper,
+                color: ink,
             }}
         >
             <div
                 style={{
-                    background: '#fafaf6',
+                    background: 'white',
                     height: 65,
                     display: 'flex',
                     alignItems: 'center',
                     padding: '0 28px',
                     gap: 22,
-                    borderBottom: '1px solid #d5d3c8',
+                    borderBottom: `1px solid ${color.g300}`,
                 }}
             >
-                <div style={{ fontSize: 22, letterSpacing: 4, color: '#a6aaa5' }}>•••</div>
+                <div style={{ fontSize: 22, letterSpacing: 4, color: color.g500 }}>•••</div>
                 <div
-                    style={{ ...mono, background: '#eaece7', padding: '6px 20px', borderRadius: 9, fontSize: 19 }}
+                    style={{ ...label, background: color.g100, padding: '6px 20px', borderRadius: 9, fontSize: 19 }}
                 >
                     https://{host}
                 </div>
@@ -103,16 +92,16 @@ export function Shop({ x, y, w, host }: { x: number; y: number; w: number; host:
                     position: 'relative',
                     height: 450,
                     overflow: 'hidden',
-                    background: 'linear-gradient(135deg,#eee8d9,#dfcfba)',
+                    background: color.g100,
                 }}
             >
-                <div style={{ ...at(40, 32), fontSize: 35, fontFamily: 'Georgia, serif' }}>Forma Studio</div>
+                <div style={{ ...at(40, 32), fontSize: 35, fontFamily: font.sans }}>Forma Studio</div>
                 <div
                     style={{
                         ...at(42, 175),
                         fontSize: 68,
                         lineHeight: 1,
-                        fontFamily: 'Georgia, serif',
+                        fontFamily: font.sans,
                         letterSpacing: -3,
                     }}
                 >
@@ -128,7 +117,6 @@ export function Shop({ x, y, w, host }: { x: number; y: number; w: number; host:
                     style={{
                         ...at(353, -15),
                         width: 510,
-                        transform: 'rotate(' + Math.sin(t * 0.55) * 1.8 + 'deg)',
                         filter: 'drop-shadow(8px 20px 14px #4c352833)',
                     }}
                 />
@@ -140,7 +128,7 @@ export function Path({
     d,
     t,
     delay = 0,
-    accent = mint,
+    accent = color.teal,
     dashed = false,
 }: {
     d: string;
@@ -205,11 +193,12 @@ export function Tag({
         <div
             style={{
                 ...at(x, y),
-                ...mono,
+                ...label,
                 borderRadius: 30,
                 padding: '8px 20px',
-                background: bright ? mint : ink,
+                background: bright ? paper : ink,
                 color: bright ? ink : paper,
+                border: bright ? `2px solid ${color.teal}` : undefined,
                 whiteSpace: 'nowrap',
             }}
         >
