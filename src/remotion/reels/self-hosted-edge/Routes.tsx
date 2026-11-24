@@ -1,171 +1,131 @@
+import { Img } from 'remotion';
 import { color } from '../../brand/tokens';
-import { useTime, prog, easeOut } from '../../lib/anim';
-import { at, headline, ink, label, paper, Path, Plot, reveal, Server, Stage, Tag } from './Visuals';
+import { prog, useTime } from '../../lib/anim';
+import { at, Packet, Stage, Status, surface } from './Visuals';
+import serverImage from './server.webp';
 
-export function Hook() {
-    const t = useTime();
-    const spread = easeOut(prog(t, 0.6, 2));
-    return (
-        <Stage light name="Certificate renewal">
-            <div style={{ ...at(88, 240), fontSize: 139, lineHeight: 1.01, letterSpacing: -6, fontWeight: 700 }}>
-                One shop.
-                <br />
-                <span style={{ color: color.blue }}>Three servers.</span>
-            </div>
-            <div style={{ ...at(98, 728), fontSize: 45, lineHeight: 1.25, ...reveal(t, 1.8) }}>
-                When the certificate renews,
-                <br />
-                who gets the new copy?
-            </div>
-            {[2, 1, 0].map((i) => (
-                <Server
-                    key={i}
-                    x={978 + i * 33}
-                    y={130 + i * (45 + 87 * spread) + Math.sin(t * 0.75 + i) * 6}
-                    w={805}
-                />
-            ))}
-            <div style={{ ...at(1520, 908), ...label, color: color.g700, ...reveal(t, 1.4) }}>3 servers online</div>
-        </Stage>
-    );
+function Server({ left, top, width }: { left: number; top: number; width: number }) {
+    const file: string | { src: string } = serverImage;
+    return <Img src={typeof file === 'string' ? file : file.src} style={{ ...at(left, top), width }} />;
 }
-export function Certbot() {
+export function Traffic({ host }: { host: string }) {
     const t = useTime();
     return (
-        <Stage light name="Certbot on an origin">
-            <div style={{ ...at(90, 180), ...headline }}>Renew on one host.</div>
-            <div style={{ ...at(96, 330), fontSize: 43, color: color.g700 }}>
-                Certbot can automate renewal locally.
-            </div>
-            <Plot>
-                <Path
-                    d="M 545 700 C 655 700 680 620 795 620 L 1200 620"
-                    t={t}
-                    delay={1.9}
-                    accent={color.g500}
-                    dashed
-                />
-                <Path
-                    d="M 795 620 L 873 620 Q 925 620 950 680 L 1000 752 L 1460 752"
-                    t={t}
-                    delay={2.1}
-                    accent={color.g500}
-                    dashed
-                />
-            </Plot>
-            <Server x={91} y={460} w={595} />
-            <Server x={1065} y={418} w={420} />
-            <Server x={1415} y={557} w={410} />
-            <Tag x={195} y={842} bright>
-                ✓ Renewed locally
-            </Tag>
-            <div
-                style={{
-                    ...at(674, 785),
-                    width: 525,
-                    ...reveal(t, 2.1),
-                    fontSize: 40,
-                    fontWeight: 650,
-                    lineHeight: 1.2,
-                }}
-            >
-                Your team handles
-                <br />
-                the fleet rollout.
-            </div>
-        </Stage>
-    );
-}
-export function Proxy() {
-    const t = useTime();
-    return (
-        <Stage name="Cloudflare · proxied DNS">
-            <div style={{ ...at(90, 200), ...headline }}>Where does the visit go?</div>
-            <Plot>
-                <Path d="M 397 637 H 657 Q 697 637 725 604 L 814 502 Q 836 477 900 477" t={t} accent={color.g300} />
-                <Path
-                    d="M 1020 477 Q 1087 477 1120 515 L 1202 613 Q 1221 637 1262 637 H 1440"
-                    t={t}
-                    delay={0.55}
-                    accent={color.g300}
-                />
-                <g transform="translate(843,366)" fill={ink} stroke={color.amber} strokeWidth="5">
-                    <path d="M59 150 C4 150 -8 78 46 63 C57 3 133 -6 161 47 C213 36 241 89 210 124 Q194 150 168 150 Z" />
-                </g>
-                <g transform="translate(143,540)" stroke={paper} fill={ink} strokeWidth="5">
-                    <rect width="255" height="179" rx="16" />
-                    <path d="M0 39 H255" />
-                    <circle cx="22" cy="20" r="3" />
-                    <circle cx="38" cy="20" r="3" />
-                    <path d="M97 82 l51 31 -22 5 -10 24 z" fill={paper} stroke="none" />
-                </g>
-            </Plot>
-            <Server x={1370} y={459} w={437} />
-            <div style={{ ...at(151, 788), fontSize: 41 }}>Browser</div>
-            <div style={{ ...at(808, 610), fontSize: 42, color: paper }}>Cloudflare proxy</div>
-            <div style={{ ...at(1455, 788), fontSize: 41 }}>Your origin</div>
-            <div style={{ ...at(90, 937), ...label, color: color.g300 }}>
-                With proxying enabled, Cloudflare receives the request first.
-            </div>
-        </Stage>
-    );
-}
-export function Sync({ host }: { host: string }) {
-    const t = useTime();
-    return (
-        <Stage name="RedirHub Edge · certificate sync">
-            <div style={{ ...at(90, 161), ...headline, fontSize: 97 }}>Renew once. Sync to each server.</div>
-            <Plot>
-                {[420, 604, 787].map((y, i) => (
-                    <Path
-                        key={y}
-                        d={'M 601 620 H 810 C 966 620 999 ' + y + ' 1150 ' + y + ' H 1380'}
-                        t={t}
-                        delay={0.45 + i * 0.28}
-                    />
-                ))}
-            </Plot>
-            <div
-                style={{
-                    ...at(108, 416),
-                    height: 375,
-                    width: 489,
-                    borderRadius: 24,
-                    padding: '38px 40px',
-                    boxSizing: 'border-box',
-                    background: paper,
-                    color: ink,
-                    boxShadow: '0 22px 80px #0005',
-                    borderTop: `10px solid ${color.teal}`,
-                }}
-            >
-                <div style={label}>TLS certificate</div>
-                <div style={{ fontSize: 61, letterSpacing: -3, fontWeight: 740, marginTop: 47 }}>Renewed</div>
-                <div style={{ ...label, marginTop: 20 }}>{host}</div>
+        <Stage title="Visitors connect" focus="directly to your server.">
+            <svg width="1920" height="1080" style={at(0, 0)}>
+                <Packet d="M 687 621 H 1260" progress={prog(t, 0.4, 2.1)} />
+            </svg>
+            <div style={{ ...surface, ...at(180, 475), width: 535, overflow: 'hidden' }}>
                 <div
                     style={{
-                        ...label,
-                        marginTop: 36,
-                        borderTop: `1px solid ${color.g300}`,
-                        paddingTop: 19,
-                        fontSize: 18,
+                        background: color.g50,
+                        borderBottom: `2px solid ${color.g200}`,
+                        padding: '18px 34px',
+                        fontSize: 28,
+                        color: color.g600,
                     }}
                 >
-                    RedirHub certificate management
+                    Browser
+                </div>
+                <div style={{ padding: '48px 34px', fontSize: 35, fontWeight: 600 }}>https://{host}</div>
+            </div>
+            <div style={{ ...at(885, 537), fontSize: 40, color: color.blue, fontWeight: 650 }}>HTTPS →</div>
+            <Server left={1190} top={404} width={500} />
+            <div style={{ ...at(1140, 766), width: 600, textAlign: 'center', fontSize: 44, fontWeight: 650 }}>
+                Your server
+            </div>
+        </Stage>
+    );
+}
+export function Certificates({ host }: { host: string }) {
+    const t = useTime();
+    return (
+        <Stage title="RedirHub renews." focus="Each server syncs.">
+            <svg width="1920" height="1080" style={at(0, 0)}>
+                {[450, 632, 814].map((y, i) => (
+                    <Packet
+                        key={y}
+                        d={`M 782 632 H 954 C 1060 632 1010 ${y} 1132 ${y} H 1280`}
+                        progress={prog(t, 0.55 + i * 0.38, 2.15 + i * 0.38)}
+                    />
+                ))}
+            </svg>
+            <div
+                style={{
+                    ...surface,
+                    ...at(189, 492),
+                    width: 612,
+                    padding: '40px 48px',
+                    borderTop: `8px solid ${color.blue}`,
+                }}
+            >
+                <div style={{ fontSize: 31, color: color.g600 }}>TLS certificate</div>
+                <div style={{ fontSize: 47, fontWeight: 700, margin: '17px 0 26px' }}>{host}</div>
+                <div style={{ fontSize: 30 }}>
+                    <Status>Renewed by RedirHub</Status>
                 </div>
             </div>
             {[0, 1, 2].map((i) => (
                 <div key={i}>
-                    <Server x={1280} y={295 + i * 183} w={344} />
+                    <Server left={1228} top={360 + i * 182} width={248} />
+                    <div style={{ ...at(1490, 422 + i * 182), fontSize: 34, fontWeight: 600 }}>Server {i + 1}</div>
                     <div
-                        style={{ ...at(1630, 390 + i * 183), ...label, color: color.teal, ...reveal(t, 1.4 + i * 0.35) }}
+                        style={{
+                            ...at(1490, 469 + i * 182),
+                            fontSize: 26,
+                            opacity: prog(t, 2.1 + i * 0.38, 2.32 + i * 0.38),
+                        }}
                     >
-                        ✓ Synced
+                        <Status>Synced</Status>
                     </div>
                 </div>
             ))}
-            <div style={{ ...at(99, 940), fontSize: 35, color: paper }}>
-                Each server running Edge receives the renewed certificate.
+        </Stage>
+    );
+}
+export function Compare() {
+    const t = useTime();
+    const rows = [
+        ['Cloudflare proxy', 'Via Cloudflare', 'At the Cloudflare edge'],
+        ['Certbot + direct DNS', 'Direct to origin', 'Your team deploys certificates'],
+        ['RedirHub Edge', 'Direct to origin', 'RedirHub syncs certificates'],
+    ];
+    return (
+        <Stage title="Three ways to" focus="serve HTTPS.">
+            <div style={{ ...at(141, 374), width: 1638, fontSize: 34 }}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '420px 410px 1fr',
+                        padding: '0 32px 22px',
+                        color: color.g600,
+                        fontSize: 28,
+                    }}
+                >
+                    <span>Setup</span>
+                    <span>Visitor traffic</span>
+                    <span>Certificate deployment</span>
+                </div>
+                {rows.map((row, i) => (
+                    <div
+                        key={row[0]}
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: '420px 410px 1fr',
+                            alignItems: 'center',
+                            height: 125,
+                            padding: '0 32px',
+                            borderTop: `2px solid ${color.g200}`,
+                            background: i === 2 ? color.blueBg : 'white',
+                            color: i === 2 ? color.blue : color.charcoal,
+                            opacity: 0.65 + 0.35 * prog(t, i * 0.75, i * 0.75 + 0.3),
+                        }}
+                    >
+                        <strong>{row[0]}</strong>
+                        <span>{row[1]}</span>
+                        <span>{row[2]}</span>
+                    </div>
+                ))}
             </div>
         </Stage>
     );

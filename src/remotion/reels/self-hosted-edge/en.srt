@@ -1,55 +1,32 @@
 1
-00:00:00,180 --> 00:00:01,920
-One shop. Three servers.
+00:00:00,200 --> 00:00:03,470
+Visitors connect straight to your server over HTTPS.
 
 2
-00:00:02,250 --> 00:00:05,150
-When its certificate renews,
-which servers get the new copy?
-
-3
-00:00:05,800 --> 00:00:08,180
-With Certbot, renewal can be automatic.
-
-4
-00:00:08,420 --> 00:00:10,970
-Your team still owns deployment across the fleet.
-
-5
-00:00:11,750 --> 00:00:15,360
-Turn on Cloudflare’s proxy,
-and visitors reach Cloudflare first.
-
-6
-00:00:15,900 --> 00:00:18,130
-RedirHub Edge takes a different route.
-
-7
-00:00:18,400 --> 00:00:20,460
+00:00:04,400 --> 00:00:06,450
 RedirHub renews the certificate.
 
+3
+00:00:06,460 --> 00:00:09,170
+Every connected server gets a copy.
+
+4
+00:00:10,440 --> 00:00:13,630
+With Cloudflare proxying, traffic goes through Cloudflare.
+
+5
+00:00:13,700 --> 00:00:16,780
+With standalone Certbot, you handle deployment.
+
+6
+00:00:18,340 --> 00:00:19,880
+Run Edge on each server.
+
+7
+00:00:19,890 --> 00:00:21,080
+Point your domain there.
+
 8
-00:00:20,790 --> 00:00:22,890
-Each connected server syncs a copy.
-
-9
-00:00:23,650 --> 00:00:27,200
-Run the Edge container on each server,
-then point your domain at them.
-
-10
-00:00:30,860 --> 00:00:31,860
-Open the shop.
-
-11
-00:00:31,930 --> 00:00:33,900
-The browser connects straight to your server.
-
-12
-00:00:34,120 --> 00:00:35,680
-Edge handles the encryption.
-
-13
-00:00:35,830 --> 00:00:37,090
-Your app keeps serving.
+00:00:21,090 --> 00:00:22,020
+Then open your site.
 

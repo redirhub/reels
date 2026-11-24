@@ -115,7 +115,7 @@ export const reels: Reel[] = [
     },
     {
         id: 'self-hosted-edge',
-        title: 'One shop. Three servers.',
+        title: 'HTTPS on your own servers.',
         description: 'Compare traffic paths and certificate deployment, then run RedirHub Edge in front of an existing shop.',
         component: SelfHostedEdge,
         defaultProps: edgeDefaults,
