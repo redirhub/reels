@@ -187,3 +187,9 @@ cleared for commercial use yet**, and the meme voice's origin is unconfirmed: se
 small music dip under the typing (`<Beat volume={fn}>`).
 
 **Caption:** "Free coffee? ☕ The link broke. We fixed it without changing it. #marketing #links"
+
+### `self-hosted-edge` · HTTPS on your own servers
+
+25-second landscape demo with English narration and selectable English and Simplified Chinese captions. Its four shots follow the HTTPS request, show certificate renewal and sync, compare three deployment configurations, then show the Docker command and DNS records. The example assumes the workspace token is exported. Addresses and status are illustrative.
+
+Colors and type follow the [Self-Hosted Edge product page](https://www.redirhub.com/managed-ssl-certificates) and [public brand guide](https://www.redirhub.com/brand). Comparative references are [Cloudflare proxy status](https://developers.cloudflare.com/dns/proxy-status/) and [Certbot renewal and deploy hooks](https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates). Internal review copy.

@@ -152,6 +152,7 @@ Update this table as items close.
 | `qr-no-reprint` | 2026-09-29 | Trackable QR codes | "A QR code is a printed URL, not just a graphic." | Monitoring alert shown: that claim is plan-qualified |
 | `homepage-explainer` | 2026-09-29 | All four (homepage explainer, 60s landscape) | "The public URL should be stable. The destination can change." | Uses all four approved platform numbers; monitoring plan-qualified; no end-card QR (plays on redirhub.com) |
 | `free-coffee` | 2026-10-01 | Branded links (16s sound-designed short) | "The public URL should be stable. The destination can change." | One browser shot, real app flow (Links → Edit link → Save changes); Pixabay track ("Soft") and one-shots (click, "What!?" meme); 11 SFX incl. a repeated click motif (explicit `<Sfx budget>`); keystrokes still free-plan ElevenLabs (replace before posting); no claims, no end-card QR |
+| `self-hosted-edge` | Internal preview | Self-hosted HTTPS | Traffic path and certificate delivery | External messaging review pending |
 
 **Unused Signature POVs** (approved external, as of 2026-09-29; re-check Notion):
 - Domain redirects: "A redirect-only domain still needs real infrastructure." / "DNS does not redirect a URL. HTTP does."

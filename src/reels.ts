@@ -1,6 +1,8 @@
 /* Registry of every reel. Remotion Studio, the renderer (scripts/render.mjs)
    and the gallery app all read this list, so adding a reel here publishes it
    everywhere. */
+import { SelfHostedEdge } from './remotion/reels/self-hosted-edge/SelfHostedEdge';
+import { edgeDefaults, seconds as edgeSeconds } from './remotion/reels/self-hosted-edge/props';
 import type { ComponentType } from 'react';
 import { LANDSCAPE, VERTICAL } from './remotion/brand/tokens';
 import { HomepageExplainer } from './remotion/reels/homepage-explainer/HomepageExplainer';
@@ -110,5 +112,14 @@ export const reels: Reel[] = [
         durationInSeconds: BULK_REDIRECTS_SECONDS,
         ...LANDSCAPE,
         fps: 60,
+    },
+    {
+        id: 'self-hosted-edge',
+        title: 'HTTPS on your own servers.',
+        description: 'Compare traffic paths and certificate deployment, then run RedirHub Edge in front of an existing shop.',
+        component: SelfHostedEdge,
+        defaultProps: edgeDefaults,
+        durationInSeconds: edgeSeconds,
+        ...LANDSCAPE,
     },
 ];
